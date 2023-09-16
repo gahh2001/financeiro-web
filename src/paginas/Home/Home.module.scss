@@ -1,0 +1,10 @@
+.home {
+	display: flex !important;
+	flex-direction: column-reverse;
+	flex-wrap: nowrap;
+	width: 100vw;
+	height: 100vh;
+	padding: 20px;
+	border-radius: 10px;
+	overflow: auto;
+}

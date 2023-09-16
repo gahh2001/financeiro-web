@@ -1,0 +1,162 @@
+.informacoes-do-dia {
+	display: block;
+	background-color: #242420;
+	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+	padding: 2%;
+	border-radius: 10px;
+	width: 100%;
+	height: 100%;
+	margin-left: 1px;
+
+	
+
+	.titulo {
+		height: auto;
+		background-color: transparent;
+		font-weight: bold;
+		font-size: 150%;
+		text-align: center;
+		margin-bottom: 1.7%;
+	}
+
+	.card-resumo-dia {
+		width: 100%;
+		height: 45%;
+		background-color: #28919C;
+		border: 4px solid #726e6e;
+		border-radius: 5px;
+		padding: 1.7%;
+		margin-bottom: 1.5%;
+		overflow: visible;
+
+		svg {
+			background-color: transparent;
+			font-size: 120%;
+		}
+		.info-dia {
+			height: 10%;
+			background-color: #68797A;
+			font-size: 120%;
+			text-align: left;
+			margin-bottom: 2%;
+			display: flex;
+			border-radius: 10px;
+			box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+			border: 2px double #726e6e;
+
+			svg {
+				background-color: transparent;
+			}
+		}
+
+		.buttons {
+			text-align: center;
+			height: auto;
+			height: 25%;
+			margin-bottom: 4%;
+			margin-top: 5%;
+			button {
+				svg {
+					background-color: transparent;
+					font-size: 350%;
+				}
+
+				font-size: 100%;
+				text-align: center;
+				background-color: #68797A;
+				width: 35%;
+				border: 4px solid #393939;
+				border-radius: 7px;
+				box-shadow: 2px 2px 4px #555555;
+				
+				cursor: pointer;
+				&:hover {
+					background-color: #92b9bd;
+				}
+			}
+		}
+
+		.dica {
+			background-color: transparent;
+			width: 100%;
+			height: 10%;
+			font-size: 110%;
+			display: flex;
+		}
+
+		.conteudo {
+			font-size: 16px;
+			text-align: center;
+		}
+	}
+
+	.card-movimentacoes {
+		width: 100%;
+		height: 54%;
+		background-color: #28919C;
+		border: 4px solid #726e6e;
+		border-radius: 5px;
+		padding: 1.7%;
+		align-items: center;
+		overflow: auto;
+
+		svg {
+			background-color: transparent;
+			font-size: 150%;
+		}
+
+		.header {
+			display: flex;
+			font-size: 115%;
+			margin-bottom: 0.5%;
+			text-align: center;
+			background-color: transparent;
+			height: auto;
+
+			.header-vazio {
+				background-color: transparent;
+				width: 33%;
+			}
+			.header-categoria {
+				background-color: transparent;
+				width: 33%;
+			}
+			.header-valor {
+				background-color: transparent;
+				width: 33%;
+			}
+		}
+
+		.movimentacao-dia {
+			width: 100%;
+			height: auto;
+			background-color: #68797A;
+			font-size: 150%;
+			text-align: left;
+			margin-bottom: 1%;
+			display: flex;
+			border-radius: 10px;
+			box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+			border: 2px double #726e6e;
+			align-items: center;
+
+			.icon-movimentacao {
+				background-color: transparent;
+				width: 33%;
+				text-align: left;
+			}
+
+			.descricao-movimentacao {
+				background-color: transparent;
+				width: 33%;
+				text-align: center;
+			}
+
+			.valor-movimentacao {
+				background-color: transparent;
+				width: 33%;
+				text-align: right;
+			}
+		}
+	}
+}
