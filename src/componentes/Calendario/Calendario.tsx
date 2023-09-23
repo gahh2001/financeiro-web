@@ -4,9 +4,11 @@ import classNames from 'classnames';
 
 import "./CalendarioStyle.scss";
 
-interface CalendarCardProps { }
+interface CalendarioProps {
+	onDayClick: (selectedDate: Date) => void;
+}
 
-const Calendario: React.FC<CalendarCardProps> = () => {
+const Calendario: React.FC<CalendarioProps> = ({ onDayClick }) => {
 	const [currentMonth, setCurrentMonth] = useState(moment());
 	const [selectedDay, setSelectedDay] = useState(moment().date());
 
@@ -27,17 +29,22 @@ const Calendario: React.FC<CalendarCardProps> = () => {
 		});
 		days.push(
 			<div
-				key={day + currentMonth.month()}
+				key={day + currentMonth.month().toString()}
 				className={dayClass}
-				onClick={() => handleDayClick(day)}
+				onClick={() => handleDayClick(day, currentMonth.month(), currentMonth.year())}
 			>
 				{day}
 			</div>
 		);
 	}
 
-	const handleDayClick = (day: number) => {
-		setSelectedDay(day);
+	const handleDayClick = (daySelected: number, monthSelected: number, yearSelected: number) => {
+		setSelectedDay(daySelected);
+		const selectedDate = new Date();
+		selectedDate.setDate(daySelected);
+		selectedDate.setMonth(monthSelected);
+		selectedDate.setFullYear(yearSelected);
+		onDayClick(selectedDate);
 	};
 
 

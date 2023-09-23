@@ -21,7 +21,6 @@ const InformacoesDoMes: React.FC = () => {
 				const ultimoDiaMes = new Date();
 				ultimoDiaMes.setMonth(ultimoDiaMes.getMonth() + 1);
 				ultimoDiaMes.setDate(0);
-				console.log(primeiroDiaMes, ultimoDiaMes)
 				const response = await movimentacaoService.getMovimentacao(1,
 							primeiroDiaMes.getTime(), ultimoDiaMes.getTime());
 				if (response?.data) {
