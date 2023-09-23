@@ -3,7 +3,7 @@
 	padding: 20px;
 	background-color: #242420;
 	width: 100%;
-	height:75%;
+	height: 75%;
 	border-radius: 10px;
 
 	.header {
@@ -20,68 +20,83 @@
 			text-align: center;
 		}
 
-	  button {
-		width: auto;
-		height: auto;
-		background-color: #E8741E;
-		color: rgb(0, 0, 0);
-		border-radius: 8%;
-		border: 1px solid #4a4154;
-		padding: 10px 15px;
-		font-size: 20px;
-		cursor: pointer;
-   
-		&:hover {
-		 background-color: #FFF570;
+		button {
+			width: auto;
+			height: auto;
+			background-color: #E8741E;
+			color: rgb(0, 0, 0);
+			border-radius: 8%;
+			border: 1px solid #4a4154;
+			padding: 10px 15px;
+			font-size: 20px;
+			cursor: pointer;
+
+			&:hover {
+				background-color: #FFF570;
+			}
 		}
-	  }
 	}
-   
+
 	.weekdays {
 		height: auto;
 		background-color: transparent;
-	  display: flex;
-	  justify-content: space-around;
-	  font-weight: bold;
-	  margin-bottom: 10px;
-   
-	  .weekday {
-		background-color: transparent;
-		width: 14%;
-		text-align: center;
-		color: #fafafa;
-	  }
+		display: flex;
+		justify-content: space-around;
+		font-weight: bold;
+		margin-bottom: 10px;
+
+		.weekday {
+			background-color: transparent;
+			width: 14%;
+			text-align: center;
+			color: #fafafa;
+		}
 	}
 
 	.empty-day {
 		height: auto;
 	}
-   
+
 	.days {
 		background-color: transparent;
-	  display: grid;
-	  grid-template-columns: repeat(7, 1fr);
-	  align-items: center;
-	  height: 83%;
+		display: grid;
+		grid-template-columns: repeat(7, 1fr);
+		align-items: center;
+		height: 83%;
 		margin-bottom: 20%;
 
-	  .day {
-		width: 90%;
-		height: 90%;
-		text-align: center;
-		border: 1px solid #a38ebd;
-		border-radius: 5%;
-		box-shadow: 1px 1px 1px #466469;
-		font-size: 300%;
-		font-family: sans-serif;
-		cursor: pointer;
-		justify-content: center;
-		display: flex;
-		align-items: center;
+		.day {
+			width: 90%;
+			height: 90%;
+			text-align: center;
+			border: 1px solid #a38ebd;
+			border-radius: 5%;
+			box-shadow: 1px 1px 1px #466469;
+			font-size: 300%;
+			font-family: sans-serif;
+			cursor: pointer;
+			justify-content: center;
+			display: flex;
+			align-items: center;
 
-		&:hover {
-		 background-color: #a0c9cd;
+			&:hover {
+				background-color: #a0c9cd;
+			}
 		}
-	  }
+		.selected-day {
+			background-color: #b2d3d6;
+			width: 90%;
+			height: 90%;
+			text-align: center;
+			border: 1px solid #a38ebd;
+			border-radius: 5%;
+			box-shadow: 1px 1px 1px #466469;
+			font-size: 300%;
+			font-family: sans-serif;
+			cursor: pointer;
+			justify-content: center;
+			display: flex;
+			align-items: center;
+		}
 	}
-   }
+}

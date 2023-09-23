@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const http = axios.create({
+const back = axios.create({
 	baseURL: 'http://localhost:8080'
-})
+});
 
-export default http
+export default back
