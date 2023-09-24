@@ -35,12 +35,27 @@
 		.info-dia {
 			height: 2.1rem;
 			background-color: #68797A;
-			font-size: 1.3rem;
 			margin-bottom: 2%;
 			display: flex;
 			border-radius: 10px;
 			box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 			border: 2px double #726e6e;
+
+			@media (max-width: 1850px) {
+				font-size: 25px;
+			}
+			@media (max-width: 1800px) {
+				font-size: 23px;
+			}
+			@media (max-width: 1550px) {
+				font-size: 21px;
+			}
+			@media (max-width: 1350px) {
+				font-size: 19px;
+			}
+			@media (max-width: 1250px) {
+				font-size: 17px;
+			}
 
 			svg {
 				background-color: transparent;
@@ -59,21 +74,20 @@
 					@media (max-width: 1850px) {
 						font-size: 65px;
 					}
-					@media (max-width: 1800px) {
+					@media (max-width: 1700px) {
 						font-size: 60px;
 					}
-					@media (max-width: 1550px) {
+					@media (max-width: 1650px) {
 						font-size: 50px;
 					}
-					@media (max-width: 1350px) {
+					@media (max-width: 1550px) {
 						font-size: 40px;
 					}
-					@media (max-width: 1250px) {
+					@media (max-width: 1350px) {
 						font-size: 30px;
 					}
 				}
 
-				font-size: 100%;
 				text-align: center;
 				background-color: #68797A;
 				width: 35%;
@@ -84,6 +98,21 @@
 				cursor: pointer;
 				&:hover {
 					background-color: #92b9bd;
+				}
+				@media (max-width: 1850px) {
+					font-size: 15px;
+				}
+				@media (max-width: 1800px) {
+					font-size: 13px;
+				}
+				@media (max-width: 1550px) {
+					font-size: 11px;
+				}
+				@media (max-width: 1350px) {
+					font-size: 10px;
+				}
+				@media (max-width: 1250px) {
+					font-size: 9px;
 				}
 			}
 		}
@@ -107,7 +136,7 @@
 				font-size: 13px;
 			}
 			@media (max-width: 1350px) {
-				font-size: 12.5px;
+				font-size: 12px;
 			}
 			@media (max-width: 1250px) {
 				font-size: 10.5px;
@@ -179,7 +208,6 @@
 			width: 100%;
 			height: auto;
 			background-color: #68797A;
-			font-size: 150%;
 			text-align: left;
 			margin-bottom: 1%;
 			display: flex;
@@ -187,6 +215,22 @@
 			box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 			border: 2px double #726e6e;
 			align-items: center;
+
+			@media (max-width: 1850px) {
+				font-size: 25px;
+			}
+			@media (max-width: 1800px) {
+				font-size: 23px;
+			}
+			@media (max-width: 1550px) {
+				font-size: 21px;
+			}
+			@media (max-width: 1350px) {
+				font-size: 19px;
+			}
+			@media (max-width: 1250px) {
+				font-size: 17px;
+			}
 
 			.icon-movimentacao {
 				background-color: transparent;

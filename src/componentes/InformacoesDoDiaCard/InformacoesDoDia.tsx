@@ -62,16 +62,16 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({ selectedDate }) => 
 					<button style={{ marginRight: "40px" }}>
 						<AddCircleOutlineRounded
 							sx={{ color: "#44A81D" }}
-							fontSize="inherit"
 						>
-						</AddCircleOutlineRounded>
+						</AddCircleOutlineRounded><br/>
+						Adicionar ganho
 					</button>
 					<button>
 						<RemoveCircleOutlineRounded
 							sx={{ color: "#B82121" }}
-							fontSize="inherit"
 						>
-						</RemoveCircleOutlineRounded>
+						</RemoveCircleOutlineRounded><br/>
+						Adicionar gasto
 					</button>
 				</div>
 				<div className="dica">
