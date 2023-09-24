@@ -10,7 +10,7 @@ interface CalendarioProps {
 
 const Calendario: React.FC<CalendarioProps> = ({ onDayClick }) => {
 	const [currentMonth, setCurrentMonth] = useState(moment());
-	const [selectedDay, setSelectedDay] = useState(moment().date());
+	const [selectedDay, setSelectedDay] = useState(moment().date() + currentMonth.toString());
 
 	const weekdays = moment.weekdaysShort();
 	const firstDayOfMonth = currentMonth.clone().startOf("month");
@@ -23,7 +23,7 @@ const Calendario: React.FC<CalendarioProps> = ({ onDayClick }) => {
 	}
 
 	for (let day = 1; day <= daysInMonth; day++) {
-		const isCurrentDay = day === selectedDay;
+		const isCurrentDay = (day + currentMonth.toString()) === selectedDay;
 		const dayClass = classNames("day", {
 			"selected-day": isCurrentDay,
 		});
@@ -39,7 +39,7 @@ const Calendario: React.FC<CalendarioProps> = ({ onDayClick }) => {
 	}
 
 	const handleDayClick = (daySelected: number, monthSelected: number, yearSelected: number) => {
-		setSelectedDay(daySelected);
+		setSelectedDay(daySelected + monthSelected.toString());
 		const selectedDate = new Date();
 		selectedDate.setDate(daySelected);
 		selectedDate.setMonth(monthSelected);
