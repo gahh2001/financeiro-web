@@ -62,17 +62,23 @@
 		display: grid;
 		grid-template-columns: repeat(7, 1fr);
 		align-items: center;
-		height: 83%;
-		margin-bottom: 20%;
+		height: 87%;
+		margin-bottom: 2%;
+		grid-gap: 1.1%;
+		@media (max-width: 1570px) {
+			height: 82%;
+		}
+		@media (max-width: 1250px) {
+			height: 80%;
+		}
 
 		.day {
-			width: 90%;
+			width: 100%;
 			height: 90%;
 			text-align: center;
 			border: 1px solid #a38ebd;
 			border-radius: 5%;
 			box-shadow: 1px 1px 1px #466469;
-			font-size: 300%;
 			font-family: sans-serif;
 			cursor: pointer;
 			justify-content: center;
@@ -82,10 +88,25 @@
 			&:hover {
 				background-color: #a0c9cd;
 			}
+			@media (max-width: 1850px) {
+				font-size: 45px;
+			}
+			@media (max-width: 1800px) {
+				font-size: 40px;
+			}
+			@media (max-width: 1550px) {
+				font-size: 38px;
+			}
+			@media (max-width: 1350px) {
+				font-size: 35px;
+			}
+			@media (max-width: 1250px) {
+				font-size: 33px;
+			}
 		}
 		.selected-day {
 			background-color: #b2d3d6;
-			width: 90%;
+			width: 100%;
 			height: 90%;
 			text-align: center;
 			border: 1px solid #a38ebd;
@@ -97,6 +118,22 @@
 			justify-content: center;
 			display: flex;
 			align-items: center;
+
+			@media (max-width: 1850px) {
+				font-size: 45px;
+			}
+			@media (max-width: 1800px) {
+				font-size: 40px;
+			}
+			@media (max-width: 1550px) {
+				font-size: 38px;
+			}
+			@media (max-width: 1350px) {
+				font-size: 35px;
+			}
+			@media (max-width: 1250px) {
+				font-size: 33px;
+			}
 		}
 	}
 }

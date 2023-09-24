@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './InformacoesDoDia.scss';
 import {
 	AddCircleOutlineRounded,
@@ -6,45 +6,63 @@ import {
 	AssessmentOutlined,
 	RemoveCircleOutlineRounded
 } from '@mui/icons-material';
+import { MovimentacaoService } from '../../services/MovimentacaoService';
+import back from '../../http';
+import { IMovimentacao } from '../../interfaces/IMovimentacao';
 
 interface InformacoesDoDiaProps {
 	selectedDate: Date;
 }
 
 const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({ selectedDate }) => {
+
+	const [movimentacoesDoDia, setMovimentacoesDoDia] = useState<IMovimentacao[]>([]);
+
+	useEffect(() => {
+		const buscaMovimentacoesDoDia = async () => {
+			try {
+				const movimentacaoService = new MovimentacaoService(back);
+				const dia = selectedDate;
+				const response = await movimentacaoService.getMovimentacao(1,
+							dia.getTime(), dia.getTime());
+				if (response?.data) {
+					setMovimentacoesDoDia(response.data);
+				}
+			} catch (error) {
+				console.error('Erro ao buscar movimentações:', error);
+			}
+		};
+
+		buscaMovimentacoesDoDia();
+	}, [selectedDate]);
+
 	return (
 		<div className="informacoes-do-dia">
 			<div className="card-resumo-dia">
 				<div className="titulo">
-					Resumo do dia {selectedDate.getDate()}/{selectedDate.getMonth() +1}/{selectedDate.getFullYear()}
+					Resumo do dia {selectedDate.getDate()}/{selectedDate.getMonth() +1}/{selectedDate.getFullYear() }
 				</div>
 				<div className="info-dia">
 					<AddCircleOutlineRounded
 						sx={{ color: "#44A81D" }}
 						fontSize="large"
 					>
-					</AddCircleOutlineRounded>Total de ganhos: $10,00
+					</AddCircleOutlineRounded>
+					Total de ganhos: ${somaDia(movimentacoesDoDia, "POSITIVO").toFixed(2).replace('.', ',')}
 				</div>
 				<div className="info-dia">
 					<RemoveCircleOutlineRounded
 						color="error"
 						fontSize="large"
 					>
-					</RemoveCircleOutlineRounded>Total de gastos: $10,00
-				</div>
-				<div className="info-dia">
-					<AssessmentOutlined
-						sx={{ color: "#3451C7" }}
-						fontSize="large"
-					>
-					</AssessmentOutlined>Saldo total do dia: $0,00
+					</RemoveCircleOutlineRounded>
+					Total de gastos: ${somaDia(movimentacoesDoDia, "NEGATIVO").toFixed(2).replace('.', ',')}
 				</div>
 				<div className="buttons">
 					<button style={{ marginRight: "40px" }}>
 						<AddCircleOutlineRounded
 							sx={{ color: "#44A81D" }}
 							fontSize="inherit"
-
 						>
 						</AddCircleOutlineRounded>
 					</button>
@@ -56,11 +74,18 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({ selectedDate }) => 
 						</RemoveCircleOutlineRounded>
 					</button>
 				</div>
-				<div className="dica" style={{ textAlign: "center" }}>
+				<div className="dica">
 					<InfoOutlined
 						fontSize="small"
 					>
 					</InfoOutlined>Selecione um dia do calendário para ver as movimentações.
+				</div>
+				<div className="saldo">
+					<AssessmentOutlined
+						sx={{ color: "#3451C7" }}
+						fontSize="large"
+					>
+					</AssessmentOutlined>Saldo atual: $0,00
 				</div>
 			</div>
 			<div className="card-movimentacoes">
@@ -194,6 +219,16 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({ selectedDate }) => 
 			</div>
 		</div>
 	);
+
+	function somaDia(movimentacoes: IMovimentacao[], tipoMovimentacao: string) {
+		let soma = 0;
+		for (const movimentacao of movimentacoes) {
+			if (movimentacao.tipoMovimentacao.toUpperCase() === tipoMovimentacao) {
+				soma += movimentacao.valor;
+			}
+		}
+		return soma;
+	}
 };
 
 export default InformacoesDoDia;
