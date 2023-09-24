@@ -40,7 +40,6 @@ const InformacoesDoMes: React.FC = () => {
 				<div className="info-mes">
 					<AddCircleOutlineRounded
 						sx={{ color: "#44A81D" }}
-						fontSize="large"
 					>
 					</AddCircleOutlineRounded>
 					Total recebido no mês: R${somaTotalMes(movimentacoesDoMes, 'POSITIVO').toFixed(2).replace('.', ',')}
@@ -48,7 +47,6 @@ const InformacoesDoMes: React.FC = () => {
 				<div className="info-mes">
 					<RemoveCircleOutlineRounded
 						sx={{ color: "#B82121" }}
-						fontSize="large"
 					>
 					</RemoveCircleOutlineRounded>
 					Total de gastos do mês: R${somaTotalMes(movimentacoesDoMes, 'NEGATIVO').toFixed(2).replace('.', ',')}
@@ -56,9 +54,9 @@ const InformacoesDoMes: React.FC = () => {
 				<div className="info-mes">
 					<AssessmentOutlined
 						sx={{ color: "#3451C7" }}
-						fontSize="large"
 					>
-					</AssessmentOutlined>Você gastou: {calculaPorcentagemTotal(movimentacoesDoMes)}% dos ganhos.
+					</AssessmentOutlined>
+					Você gastou: {calculaPorcentagemTotal(movimentacoesDoMes)}% dos ganhos.
 				</div>
 			</div>
 			<div className="card-resumo-mes" style={{ marginRight: "0.5%" }}>

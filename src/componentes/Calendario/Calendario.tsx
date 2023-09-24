@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import moment from "moment";
 import classNames from 'classnames';
-
+import "moment/locale/pt-br";
 import "./CalendarioStyle.scss";
 
 interface CalendarioProps {
@@ -9,6 +9,7 @@ interface CalendarioProps {
 }
 
 const Calendario: React.FC<CalendarioProps> = ({ onDayClick }) => {
+	moment.locale("pt-br");
 	const [currentMonth, setCurrentMonth] = useState(moment());
 	const [selectedDay, setSelectedDay] = useState(moment().date() + currentMonth.format('YYYYMM'));
 

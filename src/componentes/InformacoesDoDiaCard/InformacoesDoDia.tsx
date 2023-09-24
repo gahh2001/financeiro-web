@@ -100,7 +100,6 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({ selectedDate }) => 
 					<div className="icon-movimentacao">
 						<AddCircleOutlineRounded
 							sx={{ color: "#44A81D" }}
-							fontSize="large"
 						>
 						</AddCircleOutlineRounded>
 
@@ -112,7 +111,6 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({ selectedDate }) => 
 					<div className="icon-movimentacao">
 						<RemoveCircleOutlineRounded
 							sx={{ color: "#B82121" }}
-							fontSize="large"
 						>
 						</RemoveCircleOutlineRounded>
 
@@ -124,7 +122,6 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({ selectedDate }) => 
 					<div className="icon-movimentacao">
 						<AddCircleOutlineRounded
 							sx={{ color: "#44A81D" }}
-							fontSize="large"
 						>
 						</AddCircleOutlineRounded>
 
@@ -136,7 +133,6 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({ selectedDate }) => 
 					<div className="icon-movimentacao">
 						<RemoveCircleOutlineRounded
 							sx={{ color: "#B82121" }}
-							fontSize="large"
 						>
 						</RemoveCircleOutlineRounded>
 
@@ -148,7 +144,6 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({ selectedDate }) => 
 					<div className="icon-movimentacao">
 						<AddCircleOutlineRounded
 							sx={{ color: "#44A81D" }}
-							fontSize="large"
 						>
 						</AddCircleOutlineRounded>
 
@@ -160,7 +155,6 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({ selectedDate }) => 
 					<div className="icon-movimentacao">
 						<RemoveCircleOutlineRounded
 							sx={{ color: "#B82121" }}
-							fontSize="large"
 						>
 						</RemoveCircleOutlineRounded>
 
@@ -172,7 +166,6 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({ selectedDate }) => 
 					<div className="icon-movimentacao">
 						<AddCircleOutlineRounded
 							sx={{ color: "#44A81D" }}
-							fontSize="large"
 						>
 						</AddCircleOutlineRounded>
 
@@ -184,7 +177,6 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({ selectedDate }) => 
 					<div className="icon-movimentacao">
 						<RemoveCircleOutlineRounded
 							sx={{ color: "#B82121" }}
-							fontSize="large"
 						>
 						</RemoveCircleOutlineRounded>
 
@@ -196,7 +188,6 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({ selectedDate }) => 
 					<div className="icon-movimentacao">
 						<AddCircleOutlineRounded
 							sx={{ color: "#44A81D" }}
-							fontSize="large"
 						>
 						</AddCircleOutlineRounded>
 
@@ -208,7 +199,6 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({ selectedDate }) => 
 					<div className="icon-movimentacao">
 						<RemoveCircleOutlineRounded
 							sx={{ color: "#B82121" }}
-							fontSize="large"
 						>
 						</RemoveCircleOutlineRounded>
 
