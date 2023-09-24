@@ -10,7 +10,7 @@ interface CalendarioProps {
 
 const Calendario: React.FC<CalendarioProps> = ({ onDayClick }) => {
 	const [currentMonth, setCurrentMonth] = useState(moment());
-	const [selectedDay, setSelectedDay] = useState(moment().date() + currentMonth.toString());
+	const [selectedDay, setSelectedDay] = useState(moment().date() + currentMonth.format('YYYYMM'));
 
 	const weekdays = moment.weekdaysShort();
 	const firstDayOfMonth = currentMonth.clone().startOf("month");
@@ -23,13 +23,13 @@ const Calendario: React.FC<CalendarioProps> = ({ onDayClick }) => {
 	}
 
 	for (let day = 1; day <= daysInMonth; day++) {
-		const isCurrentDay = (day + currentMonth.toString()) === selectedDay;
+		const isCurrentDay = (day + currentMonth.format('YYYYMM')) === selectedDay;
 		const dayClass = classNames("day", {
 			"selected-day": isCurrentDay,
 		});
 		days.push(
 			<div
-				key={day + currentMonth.month().toString()}
+				key={day + currentMonth.format('YYYYMM')}
 				className={dayClass}
 				onClick={() => handleDayClick(day, currentMonth.month(), currentMonth.year())}
 			>
@@ -39,7 +39,7 @@ const Calendario: React.FC<CalendarioProps> = ({ onDayClick }) => {
 	}
 
 	const handleDayClick = (daySelected: number, monthSelected: number, yearSelected: number) => {
-		setSelectedDay(daySelected + monthSelected.toString());
+		setSelectedDay(daySelected + currentMonth.format('YYYYMM'));
 		const selectedDate = new Date();
 		selectedDate.setDate(daySelected);
 		selectedDate.setMonth(monthSelected);
