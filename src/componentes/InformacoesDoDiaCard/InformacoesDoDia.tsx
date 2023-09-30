@@ -9,6 +9,7 @@ import {
 import { MovimentacaoService } from '../../services/MovimentacaoService';
 import back from '../../http';
 import { IMovimentacao } from '../../interfaces/IMovimentacao';
+import { ContaService } from '../../services/ContaService';
 
 interface InformacoesDoDiaProps {
 	selectedDate: Date;
@@ -17,6 +18,7 @@ interface InformacoesDoDiaProps {
 const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({ selectedDate }) => {
 
 	const [movimentacoesDoDia, setMovimentacoesDoDia] = useState<IMovimentacao[]>([]);
+	const [saldo, setSaldo] = useState<number>();
 
 	useEffect(() => {
 		const buscaMovimentacoesDoDia = async () => {
@@ -24,7 +26,7 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({ selectedDate }) => 
 				const movimentacaoService = new MovimentacaoService(back);
 				const dia = selectedDate;
 				const response = await movimentacaoService.getMovimentacao(1,
-							dia.getTime(), dia.getTime());
+					dia.getTime(), dia.getTime());
 				if (response?.data) {
 					setMovimentacoesDoDia(response.data);
 				}
@@ -36,11 +38,27 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({ selectedDate }) => 
 		buscaMovimentacoesDoDia();
 	}, [selectedDate]);
 
+	useEffect(() => {
+		const atualizaSaldoConta = async () => {
+			try {
+				const contaService = new ContaService(back);
+				const response = await contaService.listaContaPorId(1);
+				if (response?.data) {
+					setSaldo(response.data.saldoConta);
+				}
+			} catch (error) {
+				console.error('Erro ao buscar movimentações:', error);
+			}
+		};
+
+		atualizaSaldoConta();
+	}, [saldo]);
+
 	return (
 		<div className="informacoes-do-dia">
 			<div className="card-resumo-dia">
 				<div className="titulo">
-					Resumo do dia {selectedDate.getDate()}/{selectedDate.getMonth() +1}/{selectedDate.getFullYear() }
+					Resumo do dia {selectedDate.getDate()}/{selectedDate.getMonth() + 1}/{selectedDate.getFullYear()}
 				</div>
 				<div className="info-dia">
 					<AddCircleOutlineRounded
@@ -63,14 +81,14 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({ selectedDate }) => 
 						<AddCircleOutlineRounded
 							sx={{ color: "#44A81D" }}
 						>
-						</AddCircleOutlineRounded><br/>
+						</AddCircleOutlineRounded><br />
 						Adicionar ganho
 					</button>
 					<button>
 						<RemoveCircleOutlineRounded
 							sx={{ color: "#B82121" }}
 						>
-						</RemoveCircleOutlineRounded><br/>
+						</RemoveCircleOutlineRounded><br />
 						Adicionar gasto
 					</button>
 				</div>
@@ -85,7 +103,7 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({ selectedDate }) => 
 						sx={{ color: "#3451C7" }}
 						fontSize="large"
 					>
-					</AssessmentOutlined>Saldo atual: $0,00
+					</AssessmentOutlined>Saldo atual: ${saldo?.toFixed(2).replace('.', ',')}
 				</div>
 			</div>
 			<div className="card-movimentacoes">
@@ -95,117 +113,7 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({ selectedDate }) => 
 					<div className="header-categoria">Categoria:</div>
 					<div className="header-valor">Valor:</div>
 				</div>
-
-				<div className="movimentacao-dia">
-					<div className="icon-movimentacao">
-						<AddCircleOutlineRounded
-							sx={{ color: "#44A81D" }}
-						>
-						</AddCircleOutlineRounded>
-
-					</div>
-					<div className="descricao-movimentacao">Aluguel</div>
-					<div className="valor-movimentacao">$500,00</div>
-				</div>
-				<div className="movimentacao-dia">
-					<div className="icon-movimentacao">
-						<RemoveCircleOutlineRounded
-							sx={{ color: "#B82121" }}
-						>
-						</RemoveCircleOutlineRounded>
-
-					</div>
-					<div className="descricao-movimentacao">Aluguel</div>
-					<div className="valor-movimentacao">$500,00</div>
-				</div>
-				<div className="movimentacao-dia">
-					<div className="icon-movimentacao">
-						<AddCircleOutlineRounded
-							sx={{ color: "#44A81D" }}
-						>
-						</AddCircleOutlineRounded>
-
-					</div>
-					<div className="descricao-movimentacao">Aluguel</div>
-					<div className="valor-movimentacao">$500,00</div>
-				</div>
-				<div className="movimentacao-dia">
-					<div className="icon-movimentacao">
-						<RemoveCircleOutlineRounded
-							sx={{ color: "#B82121" }}
-						>
-						</RemoveCircleOutlineRounded>
-
-					</div>
-					<div className="descricao-movimentacao">Aluguel</div>
-					<div className="valor-movimentacao">$500,00</div>
-				</div>
-				<div className="movimentacao-dia">
-					<div className="icon-movimentacao">
-						<AddCircleOutlineRounded
-							sx={{ color: "#44A81D" }}
-						>
-						</AddCircleOutlineRounded>
-
-					</div>
-					<div className="descricao-movimentacao">Aluguel</div>
-					<div className="valor-movimentacao">$500,00</div>
-				</div>
-				<div className="movimentacao-dia">
-					<div className="icon-movimentacao">
-						<RemoveCircleOutlineRounded
-							sx={{ color: "#B82121" }}
-						>
-						</RemoveCircleOutlineRounded>
-
-					</div>
-					<div className="descricao-movimentacao">Aluguel</div>
-					<div className="valor-movimentacao">$500,00</div>
-				</div>
-				<div className="movimentacao-dia">
-					<div className="icon-movimentacao">
-						<AddCircleOutlineRounded
-							sx={{ color: "#44A81D" }}
-						>
-						</AddCircleOutlineRounded>
-
-					</div>
-					<div className="descricao-movimentacao">Aluguel</div>
-					<div className="valor-movimentacao">$500,00</div>
-				</div>
-				<div className="movimentacao-dia">
-					<div className="icon-movimentacao">
-						<RemoveCircleOutlineRounded
-							sx={{ color: "#B82121" }}
-						>
-						</RemoveCircleOutlineRounded>
-
-					</div>
-					<div className="descricao-movimentacao">Aluguel</div>
-					<div className="valor-movimentacao">$500,00</div>
-				</div>
-				<div className="movimentacao-dia">
-					<div className="icon-movimentacao">
-						<AddCircleOutlineRounded
-							sx={{ color: "#44A81D" }}
-						>
-						</AddCircleOutlineRounded>
-
-					</div>
-					<div className="descricao-movimentacao">Aluguel</div>
-					<div className="valor-movimentacao">$500,00</div>
-				</div>
-				<div className="movimentacao-dia">
-					<div className="icon-movimentacao">
-						<RemoveCircleOutlineRounded
-							sx={{ color: "#B82121" }}
-						>
-						</RemoveCircleOutlineRounded>
-
-					</div>
-					<div className="descricao-movimentacao">Aluguel</div>
-					<div className="valor-movimentacao">$500,00</div>
-				</div>
+				{listaMovimentacoesDoDia(movimentacoesDoDia)}
 			</div>
 		</div>
 	);
@@ -218,6 +126,26 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({ selectedDate }) => 
 			}
 		}
 		return soma;
+	}
+
+	function listaMovimentacoesDoDia(movimentacoes: IMovimentacao[]) {
+		return (
+			<div>
+				{movimentacoes.map((movimentacao, index) => (
+					<div key={index} className="movimentacao-dia">
+						<div className="icon-movimentacao">
+							{movimentacao.tipoMovimentacao === "positivo" ? (
+								<AddCircleOutlineRounded sx={{ color: "#44A81D" }} />
+							) : (
+								<RemoveCircleOutlineRounded sx={{ color: "#B82121" }} />
+							)}
+						</div>
+						<div className="descricao-movimentacao">{movimentacao.idCategoriaMovimentacao}</div>
+						<div className="valor-movimentacao">{movimentacao.valor.toFixed(2).replace('.', ',')}</div>
+					</div>
+				))}
+			</div>
+		)
 	}
 };
 
