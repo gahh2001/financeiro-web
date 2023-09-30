@@ -109,7 +109,6 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({ selectedDate }) => 
 			<div className="card-movimentacoes">
 				<div className="titulo">Movimentações:</div>
 				<div className="header">
-					<div className="header-vazio"></div>
 					<div className="header-categoria">Categoria:</div>
 					<div className="header-valor">Valor:</div>
 				</div>
@@ -130,7 +129,7 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({ selectedDate }) => 
 
 	function listaMovimentacoesDoDia(movimentacoes: IMovimentacao[]) {
 		return (
-			<div>
+			<div className='movimentacoes-diarias'>
 				{movimentacoes.map((movimentacao, index) => (
 					<div key={index} className="movimentacao-dia">
 						<div className="icon-movimentacao">

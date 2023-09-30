@@ -36,6 +36,7 @@
 			background-color: transparent;
 			font-size: 120%;
 		}
+
 		.info-dia {
 			background-color: #68797A;
 			margin-bottom: 2%;
@@ -48,18 +49,22 @@
 				font-size: 25px;
 				height: 40px;
 			}
+
 			@media (max-width: 1800px) {
 				font-size: 23px;
 				height: 37px;
 			}
+
 			@media (max-width: 1550px) {
 				font-size: 21px;
 				height: 34px;
 			}
+
 			@media (max-width: 1350px) {
 				font-size: 19px;
 				height: 31px;
 			}
+
 			@media (max-width: 1250px) {
 				font-size: 17px;
 				height: 28px;
@@ -80,14 +85,17 @@
 				margin-top: 19px;
 				font-size: 60px;
 			}
+
 			@media (max-width: 1550px) {
 				margin-top: 15px;
 				font-size: 50px;
 			}
+
 			@media (max-width: 1350px) {
 				margin-top: 10px;
 				font-size: 40px;
 			}
+
 			@media (max-width: 1250px) {
 				margin-top: 5px;
 				font-size: 30px;
@@ -101,12 +109,15 @@
 					@media (max-width: 1700px) {
 						font-size: 60px;
 					}
+
 					@media (max-width: 1650px) {
 						font-size: 50px;
 					}
+
 					@media (max-width: 1550px) {
 						font-size: 40px;
 					}
+
 					@media (max-width: 1350px) {
 						font-size: 30px;
 					}
@@ -119,8 +130,9 @@
 				border: 4px solid #393939;
 				border-radius: 7px;
 				box-shadow: 2px 2px 4px #555555;
-				
+
 				cursor: pointer;
+
 				&:hover {
 					background-color: #92b9bd;
 				}
@@ -128,12 +140,15 @@
 				@media (max-width: 1800px) {
 					font-size: 13px;
 				}
+
 				@media (max-width: 1550px) {
 					font-size: 12px;
 				}
+
 				@media (max-width: 1350px) {
 					font-size: 11px;
 				}
+
 				@media (max-width: 1250px) {
 					font-size: 10px;
 				}
@@ -152,21 +167,25 @@
 			@media (max-width: 1850px) {
 				font-size: 17px;
 			}
+
 			@media (max-width: 1800px) {
 				font-size: 15px;
 			}
+
 			@media (max-width: 1550px) {
 				font-size: 13px;
 			}
+
 			@media (max-width: 1350px) {
 				font-size: 12px;
 			}
+
 			@media (max-width: 1250px) {
 				font-size: 9.5px;
 			}
 		}
 
-		.saldo{
+		.saldo {
 			justify-content: center;
 			width: 100%;
 			background-color: #68797A;
@@ -185,18 +204,22 @@
 				font-size: 37px;
 				height: 60px;
 			}
+
 			@media (max-width: 1800px) {
 				font-size: 33px;
 				height: 50px;
 			}
+
 			@media (max-width: 1550px) {
 				font-size: 29px;
 				height: 40px;
 			}
+
 			@media (max-width: 1350px) {
 				font-size: 25px;
 				height: 30px;
 			}
+
 			@media (max-width: 1250px) {
 				font-size: 20px;
 				height: 20px;
@@ -217,7 +240,6 @@
 		border-radius: 5px;
 		padding: 1.7%;
 		align-items: center;
-		overflow: auto;
 
 		svg {
 			background-color: transparent;
@@ -226,28 +248,53 @@
 
 		.header {
 			display: flex;
-			font-size: 115%;
+			font-size: 17px;
 			margin-bottom: 0.5%;
 			text-align: center;
 			background-color: transparent;
 			height: auto;
 
-			.header-vazio {
-				background-color: transparent;
-				width: 33%;
+			@media (max-width: 1850px) {
+				font-size: 17px;
 			}
+
+			@media (max-width: 1800px) {
+				font-size: 15px;
+			}
+
+			@media (max-width: 1550px) {
+				font-size: 13px;
+			}
+
+			@media (max-width: 1350px) {
+				font-size: 11px;
+			}
+
+			@media (max-width: 1250px) {
+				font-size: 9px;
+			}
+
 			.header-categoria {
 				background-color: transparent;
-				width: 33%;
+				width: 60%;
+				text-align: right;
+
 			}
+
 			.header-valor {
 				background-color: transparent;
-				width: 33%;
+				width: 30%;
+				text-align: right;
 			}
 		}
 
+		.movimentacoes-diarias {
+			height: 85%;
+			overflow-y: auto;
+		}
+
 		.movimentacao-dia {
-			width: 100%;
+			width: 99%;
 			height: auto;
 			background-color: #68797A;
 			text-align: left;
@@ -261,15 +308,19 @@
 			@media (max-width: 1850px) {
 				font-size: 25px;
 			}
+
 			@media (max-width: 1800px) {
 				font-size: 23px;
 			}
+
 			@media (max-width: 1550px) {
 				font-size: 21px;
 			}
+
 			@media (max-width: 1350px) {
 				font-size: 19px;
 			}
+
 			@media (max-width: 1250px) {
 				font-size: 17px;
 			}
@@ -290,7 +341,21 @@
 				background-color: transparent;
 				width: 33%;
 				text-align: right;
+
 			}
 		}
+	}
+
+	.movimentacoes-diarias::-webkit-scrollbar {
+		width: 9px;
+	}
+
+	.movimentacoes-diarias::-webkit-scrollbar-thumb {
+		background: #b36931;
+		border-radius: 6px;
+	}
+
+	.movimentacoes-diarias::-webkit-scrollbar-thumb:hover {
+		background: #555;
 	}
 }
