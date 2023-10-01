@@ -13,7 +13,7 @@ export class MovimentacaoService {
 		try {
 			const response = await this.axiosInstance
 				.get<IMovimentacao[]>('/movimentacao', {params});
-			return { ...response };
+			return {...response };
 		} catch (error) {
 			console.log(`Não foi possível obter as movimentações`, error);
 			return undefined;

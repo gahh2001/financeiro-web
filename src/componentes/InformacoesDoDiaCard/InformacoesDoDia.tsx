@@ -10,6 +10,8 @@ import { MovimentacaoService } from '../../services/MovimentacaoService';
 import back from '../../http';
 import { IMovimentacao } from '../../interfaces/IMovimentacao';
 import { ContaService } from '../../services/ContaService';
+import { ICategoriaMovimentacao } from '../../interfaces/ICategoriaMovimentacao';
+import { CategoriaMovimentacaoService } from '../../services/CategoriaMovimentacaoService';
 
 interface InformacoesDoDiaProps {
 	selectedDate: Date;
@@ -19,6 +21,23 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({ selectedDate }) => 
 
 	const [movimentacoesDoDia, setMovimentacoesDoDia] = useState<IMovimentacao[]>([]);
 	const [saldo, setSaldo] = useState<number>();
+	const [categoriasMovimentacao, setCategoriasMovimentacao] = useState<ICategoriaMovimentacao[]>([]);
+
+	useEffect(() => {
+		const buscaCategoriasMovimentacao = async () => {
+			try {
+				const categoriaMovimentacaoService = new CategoriaMovimentacaoService(back);
+				const response = await categoriaMovimentacaoService.obtemCategoriasMovimentacaoPorIdConta(1);
+				if (response?.data) {
+					setCategoriasMovimentacao(response.data);
+				}
+			} catch (error) {
+				console.error('Erro ao buscar categorias de movimentação:', error);
+			}
+			
+		}
+		buscaCategoriasMovimentacao();
+	}, []);
 
 	useEffect(() => {
 		const buscaMovimentacoesDoDia = async () => {
@@ -34,7 +53,6 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({ selectedDate }) => 
 				console.error('Erro ao buscar movimentações:', error);
 			}
 		};
-
 		buscaMovimentacoesDoDia();
 	}, [selectedDate]);
 
@@ -47,7 +65,7 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({ selectedDate }) => 
 					setSaldo(response.data.saldoConta);
 				}
 			} catch (error) {
-				console.error('Erro ao buscar movimentações:', error);
+				console.error('Erro ao buscar saldo:', error);
 			}
 		};
 
