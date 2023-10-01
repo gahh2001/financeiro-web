@@ -151,13 +151,17 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({ selectedDate }) => 
 						{movimentacoes.map((movimentacao, index) => (
 							<div key={index} className="movimentacao-dia">
 								<div className="icon-movimentacao">
-									{movimentacao.tipoMovimentacao === "positivo" ? (
+									{movimentacao.tipoMovimentacao === "positivo" 
+									? (
 										<AddCircleOutlineRounded sx={{ color: "#44A81D" }} />
-									) : (
+									)
+									: (
 										<RemoveCircleOutlineRounded sx={{ color: "#B82121" }} />
 									)}
 								</div>
-								<div className="descricao-movimentacao">{movimentacao.idCategoriaMovimentacao}</div>
+								<div className="descricao-movimentacao">
+									{getDescricaoCategoriaPorId(movimentacao.idCategoriaMovimentacao)}
+								</div>
 								<div className="valor-movimentacao">{movimentacao.valor.toFixed(2).replace('.', ',')}</div>
 							</div>
 						))}
@@ -174,6 +178,11 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({ selectedDate }) => 
 					Selecione um dia para visualizar as movimentações.
 				</div>
 			</div>
+	}
+
+	function getDescricaoCategoriaPorId(idCategoriaMovimentacao: number) {
+		return categoriasMovimentacao.find(categoria =>
+				categoria.idCategoriaMovimentacao === idCategoriaMovimentacao)?.nomeCategoria;
 	}
 };
 
