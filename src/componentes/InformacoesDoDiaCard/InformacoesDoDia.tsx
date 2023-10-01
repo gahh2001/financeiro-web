@@ -4,7 +4,8 @@ import {
 	AddCircleOutlineRounded,
 	InfoOutlined,
 	AssessmentOutlined,
-	RemoveCircleOutlineRounded
+	RemoveCircleOutlineRounded,
+	ErrorOutline
 } from '@mui/icons-material';
 import { MovimentacaoService } from '../../services/MovimentacaoService';
 import back from '../../http';
@@ -34,7 +35,6 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({ selectedDate }) => 
 			} catch (error) {
 				console.error('Erro ao buscar categorias de movimentação:', error);
 			}
-			
 		}
 		buscaCategoriasMovimentacao();
 	}, []);
@@ -124,14 +124,7 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({ selectedDate }) => 
 					</AssessmentOutlined>Saldo atual: ${saldo?.toFixed(2).replace('.', ',')}
 				</div>
 			</div>
-			<div className="card-movimentacoes">
-				<div className="titulo">Movimentações:</div>
-				<div className="header">
-					<div className="header-categoria">Categoria:</div>
-					<div className="header-valor">Valor:</div>
-				</div>
-				{listaMovimentacoesDoDia(movimentacoesDoDia)}
-			</div>
+			{listaMovimentacoesDoDia(movimentacoesDoDia)}
 		</div>
 	);
 
@@ -146,23 +139,41 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({ selectedDate }) => 
 	}
 
 	function listaMovimentacoesDoDia(movimentacoes: IMovimentacao[]) {
-		return (
-			<div className='movimentacoes-diarias'>
-				{movimentacoes.map((movimentacao, index) => (
-					<div key={index} className="movimentacao-dia">
-						<div className="icon-movimentacao">
-							{movimentacao.tipoMovimentacao === "positivo" ? (
-								<AddCircleOutlineRounded sx={{ color: "#44A81D" }} />
-							) : (
-								<RemoveCircleOutlineRounded sx={{ color: "#B82121" }} />
-							)}
-						</div>
-						<div className="descricao-movimentacao">{movimentacao.idCategoriaMovimentacao}</div>
-						<div className="valor-movimentacao">{movimentacao.valor.toFixed(2).replace('.', ',')}</div>
+		return movimentacoes && movimentacoes.length > 0
+			? (
+				<div className='card-movimentacoes'>
+					<div className="titulo">Movimentações:</div>
+					<div className="header">
+						<div className="header-categoria">Categoria:</div>
+						<div className="header-valor">Valor:</div>
 					</div>
-				))}
+					<div className='movimentacoes-diarias'>
+						{movimentacoes.map((movimentacao, index) => (
+							<div key={index} className="movimentacao-dia">
+								<div className="icon-movimentacao">
+									{movimentacao.tipoMovimentacao === "positivo" ? (
+										<AddCircleOutlineRounded sx={{ color: "#44A81D" }} />
+									) : (
+										<RemoveCircleOutlineRounded sx={{ color: "#B82121" }} />
+									)}
+								</div>
+								<div className="descricao-movimentacao">{movimentacao.idCategoriaMovimentacao}</div>
+								<div className="valor-movimentacao">{movimentacao.valor.toFixed(2).replace('.', ',')}</div>
+							</div>
+						))}
+					</div>
+				</div>
+			)
+			: <div className='card-movimentacoes' style={{ display: "flex" }}>
+				<div className='titulo'>
+					<ErrorOutline
+						sx={{ color: "#B82121" }}
+						fontSize='large'
+					/> <br />
+					Não há movimentações para este dia. <br />
+					Selecione um dia para visualizar as movimentações.
+				</div>
 			</div>
-		)
 	}
 };
 

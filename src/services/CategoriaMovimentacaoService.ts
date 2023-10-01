@@ -11,8 +11,7 @@ export class CategoriaMovimentacaoService {
 		try {
 			const response = await this.axiosInstance
 				.get<ICategoriaMovimentacao[]>("/categoria-movimentacao", { params });
-			console.log(response)
-				return { ...response };
+			return { ...response };
 		} catch (error) {
 			console.log(`Não foi possível obter as movimentações`, error);
 			return undefined;
