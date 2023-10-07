@@ -40,7 +40,9 @@ const InformacoesDoMes: React.FC<InformacoesDoMesProps> = ({ selectedDate }) => 
 	return (
 		<div className="informacoes-do-mes">
 			<div className="card-resumo-mes" style={{ marginRight: "0.5%" }}>
-				<div className="titulo">Resumos do mês</div>
+				<div className="titulo">
+					Resumo de {obtemNomeMes(selectedDate.getMonth())}
+				</div>
 				<div className="info-mes">
 					<AddCircleOutlineRounded
 						sx={{ color: "#44A81D" }}
@@ -87,6 +89,36 @@ const InformacoesDoMes: React.FC<InformacoesDoMesProps> = ({ selectedDate }) => 
 		const gastos = somaTotalMes(movimentacoes, 'NEGATIVO');
 		const porcentagemGasto = (gastos * 100) / ganhos
 		return Math.round(porcentagemGasto? porcentagemGasto : 0);
+	}
+
+	function obtemNomeMes(mes: number) {
+		switch(mes) {
+			case 0: 
+				return "Janeiro";
+			case 1: 
+				return "Fevereiro";
+			case 2: 
+				return "Março";
+			case 3: 
+				return "Abril";
+			case 4: 
+				return "Maio";
+			case 5: 
+				return "Junho";
+			case 6: 
+				return "Julho";
+			case 7: 
+				return "Agosto";
+			case 8: 
+				return "Setembro";
+			case 9: 
+				return "Outubro";
+			case 10: 
+				return "Novembro";
+			case 11: 
+				return "Dezembro";
+			
+		}
 	}
 };
 

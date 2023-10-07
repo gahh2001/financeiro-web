@@ -52,9 +52,22 @@ const Calendario: React.FC<CalendarioProps> = ({ onDayClick }) => {
 	return (
 		<div className="calendar-card">
 			<div className="header">
-				<button onClick={() => setCurrentMonth(currentMonth.clone().subtract(1, "month"))}>Anterior</button>
+				<button onClick={() =>
+					<div>
+						{setCurrentMonth(currentMonth.clone().subtract(1, "month"))}
+						{handleDayClick(1, currentMonth.month() -1, currentMonth.year())}
+					</div>
+				}
+				>Anterior</button>
 				<h1>{currentMonth.format("MMMM YYYY")}</h1>
-				<button onClick={() => setCurrentMonth(currentMonth.clone().add(1, "month"))}>Próximo</button>
+				<button onClick={() =>
+				<div>
+					{setCurrentMonth(currentMonth.clone().add(1, "month"))}
+					{handleDayClick(1, currentMonth.month() + 1, currentMonth.year())}
+				</div>
+					
+				}
+				>Próximo</button>
 			</div>
 			<div className="weekdays">
 				{weekdays.map((weekday) => (
@@ -68,7 +81,10 @@ const Calendario: React.FC<CalendarioProps> = ({ onDayClick }) => {
 	);
 
 	function verificaDiaComMovimentação(day: number, month: number, year: number) {
-		
+		const date = new Date();
+		date.setDate(day);
+		date.setMonth(month);
+		date.setFullYear(year);
 	}
 };
 

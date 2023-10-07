@@ -18,7 +18,7 @@
 		justify-content: space-between;
 		align-items: center;
 		margin-bottom: 10px;
-		color: #ffffff;
+		color: #e4e4e4;
 
 		h1 {
 			background-color: $fundo-components;
@@ -54,7 +54,7 @@
 			background-color: $fundo-components;
 			width: 14%;
 			text-align: center;
-			color: #fafafa;
+			color: #e4e4e4;
 		}
 	}
 
@@ -83,7 +83,7 @@
 			height: 90%;
 			text-align: center;
 			border: 1px solid $sombras;
-			border-radius: 5%;
+			border-radius: 10px;
 			box-shadow: 5px 4px 7px 1px $sombras;
 			font-family: sans-serif;
 			cursor: pointer;
@@ -92,7 +92,7 @@
 			align-items: center;
 
 			&:hover {
-				background-color: #a0c9cd;
+				background-color: #70aae4e8;
 			}
 			@media (max-width: 1850px) {
 				font-size: 45px;
@@ -111,12 +111,12 @@
 			}
 		}
 		.selected-day {
-			background-color: #b2d3d6;
+			background-color: #70aae4e8;
 			width: 100%;
 			height: 90%;
 			text-align: center;
-			border: 1px solid #a38ebd;
-			border-radius: 5%;
+			border: 1px solid $sombras;
+			border-radius: 10px;
 			box-shadow: 5px 4px 7px 1px $sombras;
 			font-size: 300%;
 			font-family: sans-serif;
