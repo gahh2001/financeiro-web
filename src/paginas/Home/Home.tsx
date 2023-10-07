@@ -20,7 +20,7 @@ export const Home = () => {
 					height: "100%"
 				}}>
 					<Calendario onDayClick={handleDayClick} />
-					<InformacoesDoMes />
+					<InformacoesDoMes selectedDate={selectedDate}/>
 				</div>
 				<div style={{ width: "29.9%", height: "100%" }}>
 					<InformacoesDoDia selectedDate={selectedDate} />

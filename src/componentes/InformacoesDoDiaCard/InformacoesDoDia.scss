@@ -1,13 +1,16 @@
+@import '../../VariaveisSCSS.scss';
+
+
 .informacoes-do-dia {
 	display: block;
-	background-color: #242420;
+	background-color: $fundo-components;
 	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 	padding: 2%;
-	border-radius: 10px;
-	width: 100%;
-	height: 100%;
-	margin-left: 1px;
-
+	border-radius: 20px;
+	width: 98%;
+	height: 97.5%;
+	margin-right: 1%;
+	margin-top: 2.5%;
 
 	.titulo {
 		height: auto;
@@ -23,11 +26,12 @@
 	}
 
 	.card-resumo-dia {
-		width: 100%;
+		width: 99%;
 		height: 45%;
-		background-color: #28919C;
-		border: 4px solid #726e6e;
-		border-radius: 5px;
+		background-color: $fundo-cards;
+		border: 2px solid $sombras;
+		box-shadow: 4px 4px 5px 1px $sombras;
+		border-radius: 20px;
 		padding: 1.7%;
 		margin-bottom: 1.5%;
 		overflow: hidden;
@@ -38,12 +42,13 @@
 		}
 
 		.info-dia {
-			background-color: #68797A;
+			background-color: $fundo-linhas;
 			margin-bottom: 2%;
 			display: flex;
 			border-radius: 10px;
-			box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-			border: 2px double #726e6e;
+			border: 2px solid $fundo-linhas;
+			box-shadow: 2px 2px 7px 1px $sombras;
+			color: $color-in-linhas;
 
 			@media (max-width: 1850px) {
 				font-size: 25px;
@@ -80,6 +85,7 @@
 			height: 25%;
 			margin-bottom: 4%;
 			font-size: 65px;
+			background-color: transparent;
 
 			@media (max-width: 1800px) {
 				margin-top: 19px;
@@ -125,16 +131,16 @@
 
 				text-align: center;
 				font-size: 15px;
-				background-color: #68797A;
+				background-color: $fundo-linhas;
 				width: 35%;
-				border: 4px solid #393939;
+				border: 2px solid $fundo-linhas;
+				box-shadow: 2px 2px 7px 1px $sombras;
 				border-radius: 7px;
-				box-shadow: 2px 2px 4px #555555;
-
 				cursor: pointer;
+				color: $color-in-linhas;
 
 				&:hover {
-					background-color: #92b9bd;
+					background-color: #8ea2a4;
 				}
 
 				@media (max-width: 1800px) {
@@ -188,13 +194,14 @@
 		.saldo {
 			justify-content: center;
 			width: 100%;
-			background-color: #68797A;
+			background-color: $fundo-linhas;
 			align-items: center;
 			text-align: center;
 			display: flex;
 			border-radius: 10px;
-			box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-			border: 2px double #726e6e;
+			border: 2px solid $fundo-linhas;
+			box-shadow: 2px 2px 7px 1px $sombras;
+			color: $color-in-linhas;
 
 			svg {
 				background-color: transparent;
@@ -235,9 +242,10 @@
 	.card-movimentacoes {
 		width: 100%;
 		height: 54%;
-		background-color: #28919C;
-		border: 4px solid #726e6e;
-		border-radius: 5px;
+		background-color: $fundo-cards;
+		border: 2px solid $sombras;
+		box-shadow: 4px 4px 5px 1px $sombras;
+		border-radius: 20px;
 		padding: 1.7%;
 		align-items: center;
 
@@ -291,19 +299,21 @@
 		.movimentacoes-diarias {
 			height: 85%;
 			overflow-y: auto;
+			background-color: transparent;
 		}
 
 		.movimentacao-dia {
 			width: 99%;
 			height: auto;
-			background-color: #68797A;
+			background-color: $fundo-linhas;
 			text-align: left;
-			margin-bottom: 1%;
+			margin-bottom: 1.5%;
 			display: flex;
 			border-radius: 10px;
-			box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-			border: 2px double #726e6e;
+			border: 2px solid $fundo-linhas;
+			box-shadow: 2px 2px 7px 1px $sombras;
 			align-items: center;
+			color: $color-in-linhas;
 
 			@media (max-width: 1850px) {
 				font-size: 25px;
@@ -357,5 +367,29 @@
 
 	.movimentacoes-diarias::-webkit-scrollbar-thumb:hover {
 		background: #555;
+	}
+
+	.modal-container-movimentacoes {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0, 0, 0, 0.5);
+		/* Fundo semi-transparente */
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		z-index: 1000;
+		/* Para colocar o modal sobre outros elementos */
+	}
+
+	.modal-content-movimentacoes {
+		background-color: #fff;
+		width: 70%;
+		/* Largura do modal */
+		padding: 20px;
+		border-radius: 5px;
+		box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
 	}
 }

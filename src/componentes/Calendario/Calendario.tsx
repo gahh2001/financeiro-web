@@ -66,6 +66,10 @@ const Calendario: React.FC<CalendarioProps> = ({ onDayClick }) => {
 			<div className="days">{days}</div>
 		</div>
 	);
+
+	function verificaDiaComMovimentação(day: number, month: number, year: number) {
+		
+	}
 };
 
 export default Calendario;

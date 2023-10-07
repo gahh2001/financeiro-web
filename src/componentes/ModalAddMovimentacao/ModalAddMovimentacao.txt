@@ -1,0 +1,23 @@
+
+// interface ModalProps {
+// 	modalVisible: boolean;
+// }
+
+// const ModalAddMovimentacao: React.FC<ModalProps> = (modalVisible) => {
+// 	const [modalVisible, setModalVisible] = useState(false);
+
+// 	return (
+// 		<div>
+// 			{modalVisible && (
+// 				<div className="modal-container">
+// 					<div className="modal-content">
+// 						{/* Conteúdo do seu modal aqui */}
+// 						<button onClick={closeModal}>Fechar Modal</button>
+// 					</div>
+// 				</div>
+// 			)}
+// 		</div>
+// 	)
+// }
+
+//export default ModalAddMovimentacao;

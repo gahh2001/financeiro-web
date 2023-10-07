@@ -9,16 +9,20 @@ import { IMovimentacao } from '../../interfaces/IMovimentacao';
 import { MovimentacaoService } from '../../services/MovimentacaoService';
 import back from '../../http';
 
-const InformacoesDoMes: React.FC = () => {
+interface InformacoesDoMesProps {
+	selectedDate: Date;
+}
+
+const InformacoesDoMes: React.FC<InformacoesDoMesProps> = ({ selectedDate }) => {
 	const [movimentacoesDoMes, setMovimentacoesDoMes] = useState<IMovimentacao[]>([]);
 
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
 				const movimentacaoService = new MovimentacaoService(back);
-				const primeiroDiaMes = new Date();
+				const primeiroDiaMes = new Date(selectedDate);
 				primeiroDiaMes.setDate(1);
-				const ultimoDiaMes = new Date();
+				const ultimoDiaMes = new Date(selectedDate);
 				ultimoDiaMes.setMonth(ultimoDiaMes.getMonth() + 1);
 				ultimoDiaMes.setDate(0);
 				const response = await movimentacaoService.getMovimentacao(1,
@@ -30,9 +34,9 @@ const InformacoesDoMes: React.FC = () => {
 				console.error('Erro ao buscar movimentações:', error);
 			}
 		};
-
 		fetchData();
-	}, []);
+	}, [selectedDate]);
+
 	return (
 		<div className="informacoes-do-mes">
 			<div className="card-resumo-mes" style={{ marginRight: "0.5%" }}>

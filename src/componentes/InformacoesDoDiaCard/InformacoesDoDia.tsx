@@ -23,6 +23,9 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({ selectedDate }) => 
 	const [movimentacoesDoDia, setMovimentacoesDoDia] = useState<IMovimentacao[]>([]);
 	const [saldo, setSaldo] = useState<number>();
 	const [categoriasMovimentacao, setCategoriasMovimentacao] = useState<ICategoriaMovimentacao[]>([]);
+	const [modalVisible, setModalVisible] = useState(false);
+	const openModal = () => {setModalVisible(true)};
+	const closeModal = () => {setModalVisible(false)};
 
 	useEffect(() => {
 		const buscaCategoriasMovimentacao = async () => {
@@ -95,7 +98,10 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({ selectedDate }) => 
 					Total de gastos: ${somaDia(movimentacoesDoDia, "NEGATIVO").toFixed(2).replace('.', ',')}
 				</div>
 				<div className="buttons">
-					<button style={{ marginRight: "40px" }}>
+					<button 
+						style={{ marginRight: "40px" }}
+						onClick={openModal}
+					>
 						<AddCircleOutlineRounded
 							sx={{ color: "#44A81D" }}
 						>
@@ -151,13 +157,13 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({ selectedDate }) => 
 						{movimentacoes.map((movimentacao, index) => (
 							<div key={index} className="movimentacao-dia">
 								<div className="icon-movimentacao">
-									{movimentacao.tipoMovimentacao === "positivo" 
-									? (
-										<AddCircleOutlineRounded sx={{ color: "#44A81D" }} />
-									)
-									: (
-										<RemoveCircleOutlineRounded sx={{ color: "#B82121" }} />
-									)}
+									{movimentacao.tipoMovimentacao === "positivo"
+										? (
+											<AddCircleOutlineRounded sx={{ color: "#44A81D" }} />
+										)
+										: (
+											<RemoveCircleOutlineRounded sx={{ color: "#B82121" }} />
+										)}
 								</div>
 								<div className="descricao-movimentacao">
 									{getDescricaoCategoriaPorId(movimentacao.idCategoriaMovimentacao)}
@@ -182,8 +188,9 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({ selectedDate }) => 
 
 	function getDescricaoCategoriaPorId(idCategoriaMovimentacao: number) {
 		return categoriasMovimentacao.find(categoria =>
-				categoria.idCategoriaMovimentacao === idCategoriaMovimentacao)?.nomeCategoria;
+			categoria.idCategoriaMovimentacao === idCategoriaMovimentacao)?.nomeCategoria;
 	}
+
 };
 
 export default InformacoesDoDia;
