@@ -16,10 +16,11 @@ import { CategoriaMovimentacaoService } from '../../services/CategoriaMovimentac
 
 interface InformacoesDoDiaProps {
 	selectedDate: Date;
-	modal: () => void
+	modal: () => void;
+	tipo: string;
 }
 
-const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({ selectedDate, modal }) => {
+const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({ selectedDate, modal, tipo }) => {
 
 	const [movimentacoesDoDia, setMovimentacoesDoDia] = useState<IMovimentacao[]>([]);
 	const [saldo, setSaldo] = useState<number>();

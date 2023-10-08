@@ -4,6 +4,7 @@ import "./ModalAddMovimentacao.scss";
 interface ModalType {
 	children?: ReactNode;
 	isOpen: boolean;
+	tipo: string;
 	toggle: () => void;
 }
 

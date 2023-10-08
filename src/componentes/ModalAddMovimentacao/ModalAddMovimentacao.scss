@@ -22,4 +22,17 @@
 	padding: 1rem;
 	border-radius: 1rem;
 	color: white;
+
+	.titulo {
+		height: auto;
+		background-color: transparent;
+		font-weight: bold;
+		font-size: 25px;
+		text-align: center;
+		margin-bottom: 1.7%;
+
+		@media (max-width: 1250px) {
+			font-size: 22px;
+		}
+	}
 }
