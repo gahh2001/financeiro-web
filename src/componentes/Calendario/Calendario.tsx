@@ -6,7 +6,7 @@ import "./CalendarioStyle.scss";
 import { MovimentacaoService } from "../../services/MovimentacaoService";
 import back from "../../http";
 import { IMovimentacao } from "../../interfaces/IMovimentacao";
-import { AddCircleOutlineRounded, Circle, RemoveCircleOutlineRounded } from "@mui/icons-material";
+import { Circle } from "@mui/icons-material";
 import { CircularProgress } from "@mui/material";
 
 interface CalendarioProps {

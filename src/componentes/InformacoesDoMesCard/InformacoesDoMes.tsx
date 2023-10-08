@@ -62,11 +62,11 @@ const InformacoesDoMes: React.FC<InformacoesDoMesProps> = ({ selectedDate }) => 
 						sx={{ color: "#3451C7" }}
 					>
 					</AssessmentOutlined>
-					Você gastou: {calculaPorcentagemTotal(movimentacoesDoMes)}% dos ganhos.
+					Você gastou: {calculaPorcentagemTotal(movimentacoesDoMes)}% dos rendimentos.
 				</div>
 			</div>
 			<div className="card-resumo-mes" style={{ marginRight: "0.5%" }}>
-				<div className="titulo">Gráfico de ganhos</div>
+				<div className="titulo">Gráfico de rendimentos</div>
 			</div>
 			<div className="card-resumo-mes">
 				<div className="titulo">Gráfico de gastos</div>

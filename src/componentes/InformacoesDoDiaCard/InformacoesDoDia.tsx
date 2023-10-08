@@ -16,16 +16,14 @@ import { CategoriaMovimentacaoService } from '../../services/CategoriaMovimentac
 
 interface InformacoesDoDiaProps {
 	selectedDate: Date;
+	modal: () => void
 }
 
-const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({ selectedDate }) => {
+const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({ selectedDate, modal }) => {
 
 	const [movimentacoesDoDia, setMovimentacoesDoDia] = useState<IMovimentacao[]>([]);
 	const [saldo, setSaldo] = useState<number>();
 	const [categoriasMovimentacao, setCategoriasMovimentacao] = useState<ICategoriaMovimentacao[]>([]);
-	const [modalVisible, setModalVisible] = useState(false);
-	const openModal = () => {setModalVisible(true)};
-	const closeModal = () => {setModalVisible(false)};
 
 	useEffect(() => {
 		const buscaCategoriasMovimentacao = async () => {
@@ -87,7 +85,7 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({ selectedDate }) => 
 						fontSize="large"
 					>
 					</AddCircleOutlineRounded>
-					Total de ganhos: ${somaDia(movimentacoesDoDia, "POSITIVO").toFixed(2).replace('.', ',')}
+					Total de rendimentos: ${somaDia(movimentacoesDoDia, "POSITIVO").toFixed(2).replace('.', ',')}
 				</div>
 				<div className="info-dia">
 					<RemoveCircleOutlineRounded
@@ -100,13 +98,13 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({ selectedDate }) => 
 				<div className="buttons">
 					<button 
 						style={{ marginRight: "40px" }}
-						onClick={openModal}
+						onClick={modal}
 					>
 						<AddCircleOutlineRounded
 							sx={{ color: "#44A81D" }}
 						>
 						</AddCircleOutlineRounded><br />
-						Adicionar ganho
+						Adicionar rendimento
 					</button>
 					<button>
 						<RemoveCircleOutlineRounded

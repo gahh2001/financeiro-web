@@ -1,12 +1,15 @@
 import Calendario from '../../componentes/Calendario/Calendario';
 import InformacoesDoDia from '../../componentes/InformacoesDoDiaCard/InformacoesDoDia';
 import InformacoesDoMes from '../../componentes/InformacoesDoMesCard/InformacoesDoMes';
+import ModalAddMovimentacao from '../../componentes/ModalAddMovimentacao/ModalAddMovimentacao';
+import useModal from '../../componentes/ModalAddMovimentacao/UseModal';
 import './Home.module.scss'
 import { useState } from "react";
 
 export const Home = () => {
 	const [selectedDate, setSelectedDate] = useState(new Date());
-
+	const [modalVisible, setModalVisible] = useState(false);
+	const { isOpen, toggle } = useModal();
 	const handleDayClick = (date: Date) => {
 		setSelectedDate(date);
 	};
@@ -21,9 +24,10 @@ export const Home = () => {
 				}}>
 					<Calendario onDayClick={handleDayClick} />
 					<InformacoesDoMes selectedDate={selectedDate}/>
+					<ModalAddMovimentacao isOpen={isOpen} toggle={toggle}></ModalAddMovimentacao>
 				</div>
 				<div style={{ width: "29.9%", height: "100%" }}>
-					<InformacoesDoDia selectedDate={selectedDate} />
+					<InformacoesDoDia selectedDate={selectedDate} modal={toggle} />
 				</div>
 			</div>
 		</div>

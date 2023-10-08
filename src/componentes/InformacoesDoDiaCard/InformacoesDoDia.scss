@@ -1,6 +1,5 @@
 @import '../../VariaveisSCSS.scss';
 
-
 .informacoes-do-dia {
 	display: block;
 	background-color: $fundo-components;
@@ -367,29 +366,5 @@
 
 	.movimentacoes-diarias::-webkit-scrollbar-thumb:hover {
 		background: #555;
-	}
-
-	.modal-container-movimentacoes {
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		background-color: rgba(0, 0, 0, 0.5);
-		/* Fundo semi-transparente */
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		z-index: 1000;
-		/* Para colocar o modal sobre outros elementos */
-	}
-
-	.modal-content-movimentacoes {
-		background-color: #fff;
-		width: 70%;
-		/* Largura do modal */
-		padding: 20px;
-		border-radius: 5px;
-		box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
 	}
 }
