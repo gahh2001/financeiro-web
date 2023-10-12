@@ -126,7 +126,6 @@ const Calendario: React.FC<CalendarioProps> = ({ onDayClick }) => {
 		if (movimentacoesDoMes.length > 0) {
 			let possuiMovimentacao = 0;
 			movimentacoesDoMes.forEach((movimentacao) => {
-				console.log("dias", new Date(movimentacao.dataMovimentacao).getDate(), day);
 				let date = new Date(movimentacao.dataMovimentacao)
 				const dia = date.getDate();
 				const mes = date.getMonth();
@@ -138,7 +137,6 @@ const Calendario: React.FC<CalendarioProps> = ({ onDayClick }) => {
 			switch (operador) {
 				case "NEGATIVO":
 					if (possuiMovimentacao > 0) {
-						console.log("POSSUI");
 						return (
 							<Circle
 								sx={{ color: "#9a1d1d", backgroundColor: 'transparent' }}
