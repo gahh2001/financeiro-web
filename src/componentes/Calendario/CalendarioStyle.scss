@@ -70,9 +70,11 @@
 		height: 87%;
 		margin-bottom: 2%;
 		grid-gap: 1.1%;
+
 		@media (max-width: 1570px) {
 			height: 82%;
 		}
+
 		@media (max-width: 1250px) {
 			height: 80%;
 		}
@@ -94,22 +96,28 @@
 			&:hover {
 				background-color: #70aae4e8;
 			}
+
 			@media (max-width: 1850px) {
 				font-size: 45px;
 			}
+
 			@media (max-width: 1800px) {
 				font-size: 40px;
 			}
+
 			@media (max-width: 1550px) {
 				font-size: 38px;
 			}
+
 			@media (max-width: 1350px) {
 				font-size: 35px;
 			}
+
 			@media (max-width: 1250px) {
 				font-size: 33px;
 			}
 		}
+
 		.selected-day {
 			background-color: #70aae4e8;
 			width: 100%;
@@ -128,18 +136,42 @@
 			@media (max-width: 1850px) {
 				font-size: 45px;
 			}
+
 			@media (max-width: 1800px) {
 				font-size: 40px;
 			}
+
 			@media (max-width: 1550px) {
 				font-size: 38px;
 			}
+
 			@media (max-width: 1350px) {
 				font-size: 35px;
 			}
+
 			@media (max-width: 1250px) {
 				font-size: 33px;
 			}
 		}
+	}
+}
+
+.load-calendar {
+	height: 71%;
+	justify-content: center;
+	overflow: hidden;
+
+	.load {
+		height: auto;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin-top: 20%;
+	}
+
+	.msg {
+		color: white;
+		text-align: center;
+		height: auto;
 	}
 }

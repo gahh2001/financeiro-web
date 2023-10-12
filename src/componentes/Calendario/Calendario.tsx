@@ -111,8 +111,14 @@ const Calendario: React.FC<CalendarioProps> = ({ onDayClick }) => {
 				</div>
 				<div className="days">{days}</div>
 			</div>
-			: <div>
-				<CircularProgress color="inherit" />
+			: <div className="load-calendar">
+				<div className="load">
+					<CircularProgress color="primary" size={'100px'}/>
+				</div>
+				 <br/>
+				 <div className="msg">
+					Carregando Calendário de movimentações...
+				</div>
 			</div>
 	);
 
