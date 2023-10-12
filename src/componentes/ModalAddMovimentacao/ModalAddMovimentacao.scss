@@ -14,14 +14,14 @@
 }
 
 .modal-box {
-	display: block;
-	background: white;
 	background-color: $fundo-linhas;
 	width: 40%;
 	height: 40%;
 	padding: 1rem;
-	border-radius: 1rem;
+	border-radius: 25px;
 	color: white;
+	border: 1px solid $sombras;
+	box-shadow: 5px 4px 7px 1px $sombras;
 
 	.titulo {
 		height: auto;
@@ -33,6 +33,67 @@
 
 		@media (max-width: 1250px) {
 			font-size: 22px;
+		}
+	}
+
+	.buttons {
+		text-align: center;
+		height: 25%;
+		font-size: 95px;
+		background-color: transparent;
+
+		@media (max-width: 1800px) {
+			margin-top: 19px;
+			font-size: 60px;
+		}
+
+		@media (max-width: 1550px) {
+			margin-top: 15px;
+			font-size: 50px;
+		}
+
+		@media (max-width: 1350px) {
+			margin-top: 10px;
+			font-size: 40px;
+		}
+
+		@media (max-width: 1250px) {
+			margin-top: 5px;
+			font-size: 30px;
+		}
+
+		button {
+			text-align: center;
+			font-size: 35px;
+			background-color: $fundo-linhas;
+			width: 35%;
+			border: 2px solid $fundo-linhas;
+			box-shadow: 2px 2px 7px 1px $sombras;
+			border-radius: 7px;
+			cursor: pointer;
+			color: $color-in-linhas;
+			margin-left: 2%;
+			margin-right: 2%;
+
+			&:hover {
+				background-color: #4b4b4b;
+			}
+
+			@media (max-width: 1800px) {
+				font-size: 33px;
+			}
+
+			@media (max-width: 1550px) {
+				font-size: 30px;
+			}
+
+			@media (max-width: 1350px) {
+				font-size: 27px;
+			}
+
+			@media (max-width: 1250px) {
+				font-size: 24px;
+			}
 		}
 	}
 }
