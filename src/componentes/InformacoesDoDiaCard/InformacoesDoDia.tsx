@@ -1,29 +1,29 @@
-import React, { useEffect, useState } from 'react';
-import './InformacoesDoDia.scss';
 import {
 	AddCircleOutlineRounded,
-	InfoOutlined,
 	AssessmentOutlined,
-	RemoveCircleOutlineRounded,
-	ErrorOutline,
 	DeleteForever,
-	ModeEdit
+	ErrorOutline,
+	InfoOutlined,
+	ModeEdit,
+	RemoveCircleOutlineRounded
 } from '@mui/icons-material';
-import { MovimentacaoService } from '../../services/MovimentacaoService';
-import back from '../../http';
-import { IMovimentacao } from '../../interfaces/IMovimentacao';
-import { ContaService } from '../../services/ContaService';
-import { ICategoriaMovimentacao } from '../../interfaces/ICategoriaMovimentacao';
-import { CategoriaMovimentacaoService } from '../../services/CategoriaMovimentacaoService';
 import { IconButton } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import back from '../../http';
+import { ICategoriaMovimentacao } from '../../interfaces/ICategoriaMovimentacao';
+import { IMovimentacao } from '../../interfaces/IMovimentacao';
+import { CategoriaMovimentacaoService } from '../../services/CategoriaMovimentacaoService';
+import { ContaService } from '../../services/ContaService';
+import { MovimentacaoService } from '../../services/MovimentacaoService';
+import './InformacoesDoDia.scss';
 
 interface InformacoesDoDiaProps {
 	selectedDate: Date;
-	modal: () => void;
-	tipo: string;
+	modalAddRendimento: () => void;
+	modalAddDespesa: () => void;
 }
 
-const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({ selectedDate, modal, tipo }) => {
+const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({ selectedDate, modalAddRendimento, modalAddDespesa }) => {
 
 	const [movimentacoesDoDia, setMovimentacoesDoDia] = useState<IMovimentacao[]>([]);
 	const [saldo, setSaldo] = useState<number>();
@@ -102,20 +102,20 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({ selectedDate, modal
 				<div className="buttons">
 					<button
 						style={{ marginRight: "40px" }}
-						onClick={modal}
+						onClick={modalAddRendimento}
 					>
 						<AddCircleOutlineRounded
 							sx={{ color: "#44A81D" }}
 						>
-						</AddCircleOutlineRounded><br />
+						</AddCircleOutlineRounded><br/>
 						Adicionar rendimento
 					</button>
-					<button>
+					<button onClick={modalAddDespesa}>
 						<RemoveCircleOutlineRounded
 							sx={{ color: "#B82121" }}
 						>
 						</RemoveCircleOutlineRounded><br />
-						Adicionar gasto
+						Adicionar despesa
 					</button>
 				</div>
 				<div className="dica">

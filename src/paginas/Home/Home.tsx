@@ -3,16 +3,27 @@ import InformacoesDoDia from '../../componentes/InformacoesDoDiaCard/Informacoes
 import InformacoesDoMes from '../../componentes/InformacoesDoMesCard/InformacoesDoMes';
 import ModalAddMovimentacao from '../../componentes/ModalAddMovimentacao/ModalAddMovimentacao';
 import useModal from '../../componentes/ModalAddMovimentacao/UseModal';
+import { TipoMovimentacaoEnum } from '../../enums/TipoMovimentacaoEnum';
 import './Home.module.scss'
 import { useState } from "react";
 
 export const Home = () => {
 	const [selectedDate, setSelectedDate] = useState(new Date());
-	const [modalVisible, setModalVisible] = useState(false);
-	const { isOpen, toggle } = useModal();
+	//const [modalVisible, setModalVisible] = useState(false);
+	const { isOpen, closeModal } = useModal();
+	const [tipo, setTipo] = useState(TipoMovimentacaoEnum.POSITIVO);
 	const handleDayClick = (date: Date) => {
 		setSelectedDate(date);
 	};
+	const modalAddRendimento = () => {
+		setTipo(TipoMovimentacaoEnum.POSITIVO);
+		closeModal();
+	}
+	const modalAddDespesa = () => {
+		setTipo(TipoMovimentacaoEnum.NEGATIVO);
+		closeModal();
+	}
+
 	return (
 		<div className="home">
 			<div style={{ display: 'flex' }}>
@@ -26,13 +37,17 @@ export const Home = () => {
 					<InformacoesDoMes selectedDate={selectedDate} />
 					<ModalAddMovimentacao
 						isOpen={isOpen}
-						toggle={toggle}
-						tipo=''
+						closeModal={closeModal}
+						tipo= {tipo}
 						date={new Date()}>
 					</ModalAddMovimentacao>
 				</div>
 				<div style={{ width: "29.9%" }}>
-					<InformacoesDoDia selectedDate={selectedDate} modal={toggle} tipo='' />
+					<InformacoesDoDia
+						selectedDate={selectedDate}
+						modalAddRendimento={modalAddRendimento}
+						modalAddDespesa={modalAddDespesa}
+					/>
 				</div>
 			</div>
 		</div>
