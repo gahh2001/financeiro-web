@@ -315,6 +315,27 @@
 			align-items: center;
 			color: $color-in-linhas;
 
+			svg {
+				background-color: transparent;
+				font-size: 32px;
+
+				@media (max-width: 1700px) {
+					font-size: 32px;
+				}
+
+				@media (max-width: 1650px) {
+					font-size: 29px;
+				}
+
+				@media (max-width: 1550px) {
+					font-size: 26px;
+				}
+
+				@media (max-width: 1350px) {
+					font-size: 23px;
+				}
+			}
+
 			@media (max-width: 1850px) {
 				font-size: 25px;
 			}
