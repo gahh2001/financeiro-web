@@ -22,18 +22,21 @@ interface InformacoesDoDiaProps {
 	selectedDate: Date;
 	modalAddRendimento: () => void;
 	modalAddDespesa: () => void;
+	modalApagaMovimentacao: (movimentacaoApagar: IMovimentacao) => void;
 }
 
-const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({ selectedDate, modalAddRendimento, modalAddDespesa }) => {
+const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({
+	selectedDate, modalAddRendimento, modalAddDespesa, modalApagaMovimentacao }) => {
 
 	const [movimentacoesDoDia, setMovimentacoesDoDia] = useState<IMovimentacao[]>([]);
 	const [saldo, setSaldo] = useState<number>();
 	const [categoriasMovimentacao, setCategoriasMovimentacao] = useState<ICategoriaMovimentacao[]>([]);
+	const categoriaMovimentacaoService = new CategoriaMovimentacaoService(back);
+	const movimentacaoService = new MovimentacaoService(back);
 
 	useEffect(() => {
 		const buscaCategoriasMovimentacao = async () => {
 			try {
-				const categoriaMovimentacaoService = new CategoriaMovimentacaoService(back);
 				const response = await categoriaMovimentacaoService.obtemCategoriasMovimentacaoPorIdConta(1);
 				if (response?.data) {
 					setCategoriasMovimentacao(response.data);
@@ -176,9 +179,12 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({ selectedDate, modal
 									<IconButton color="inherit">
 										<ModeEdit />
 									</IconButton>
-									<IconButton sx={{ color: "#B82121" }}>
-										<DeleteForever />
-									</IconButton>
+									<button
+										onClick={() => modalApagaMovimentacao(movimentacao)}
+									>
+										<DeleteForever sx={{ color: "#B82121" }} />
+									</button>
+									
 								</div>
 							</div>
 						))}
@@ -202,6 +208,9 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({ selectedDate, modal
 			categoria.idCategoriaMovimentacao === idCategoriaMovimentacao)?.nomeCategoria;
 	}
 
+	function apagaMovimentacao(idMovimentacao: number) {
+		movimentacaoService.apagaMovimentacao(idMovimentacao);
+	}
 };
 
 export default InformacoesDoDia;

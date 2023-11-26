@@ -19,4 +19,15 @@ export class MovimentacaoService {
 			return undefined;
 		}
 	}
+
+	async apagaMovimentacao(idMovimentacao: number) {
+		const url = `/movimentacao/${idMovimentacao}`;
+		try {
+			await this.axiosInstance
+				.delete(url);
+		} catch (error) {
+			console.log(`Não foi possível obter as movimentações`, error);
+			return undefined;
+		}
+	}
 }

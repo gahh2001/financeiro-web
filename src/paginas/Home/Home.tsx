@@ -1,27 +1,39 @@
+import { useState } from "react";
 import Calendario from '../../componentes/Calendario/Calendario';
 import InformacoesDoDia from '../../componentes/InformacoesDoDiaCard/InformacoesDoDia';
 import InformacoesDoMes from '../../componentes/InformacoesDoMesCard/InformacoesDoMes';
-import ModalAddMovimentacao from '../../componentes/ModalAddMovimentacao/ModalAddMovimentacao';
-import useModal from '../../componentes/ModalAddMovimentacao/UseModal';
+import ModalAddMovimentacao from '../../componentes/ModaisMovimentacao/ModalAddMovimentacao';
+import ModalApagaMovimentacao from "../../componentes/ModaisMovimentacao/ModalApagaMovimentacao";
+import useModalAddMovimentacao from "../../componentes/ModaisMovimentacao/UseModalAddMovimentacao";
+import useModalRemoveMovimentacao from "../../componentes/ModaisMovimentacao/UseModalRemoveMovimentacao";
 import { TipoMovimentacaoEnum } from '../../enums/TipoMovimentacaoEnum';
-import './Home.module.scss'
-import { useState } from "react";
+import { IMovimentacao } from "../../interfaces/IMovimentacao";
+import './Home.module.scss';
 
 export const Home = () => {
 	const [selectedDate, setSelectedDate] = useState(new Date());
-	//const [modalVisible, setModalVisible] = useState(false);
-	const { isOpen, closeModal } = useModal();
+	const {isOpenModalAdd, closeModalAdd} = useModalAddMovimentacao();
+	const {isOpenModalRemove, closeModalRemove} = useModalRemoveMovimentacao();
 	const [tipo, setTipo] = useState(TipoMovimentacaoEnum.POSITIVO);
+	const [movimentacaoApagar, setMovimentacaoApagar] = useState<IMovimentacao | null>(null);
+
 	const handleDayClick = (date: Date) => {
 		setSelectedDate(date);
 	};
 	const modalAddRendimento = () => {
 		setTipo(TipoMovimentacaoEnum.POSITIVO);
-		closeModal();
+		closeModalAdd();
 	}
 	const modalAddDespesa = () => {
 		setTipo(TipoMovimentacaoEnum.NEGATIVO);
-		closeModal();
+		closeModalAdd();
+	}
+	const modalApagaRendimento = (movimentacaoApagar: IMovimentacao) => {
+		movimentacaoApagar.tipoMovimentacao.toUpperCase() === TipoMovimentacaoEnum.POSITIVO
+			? setTipo(TipoMovimentacaoEnum.POSITIVO)
+			: setTipo(TipoMovimentacaoEnum.NEGATIVO);
+		closeModalRemove();
+		setMovimentacaoApagar(movimentacaoApagar);
 	}
 
 	return (
@@ -35,21 +47,29 @@ export const Home = () => {
 				}}>
 					<Calendario onDayClick={handleDayClick} />
 					<InformacoesDoMes selectedDate={selectedDate} />
-					<ModalAddMovimentacao
-						isOpen={isOpen}
-						closeModal={closeModal}
-						tipo= {tipo}
-						date={new Date()}>
-					</ModalAddMovimentacao>
+					
 				</div>
 				<div style={{ width: "29.9%" }}>
 					<InformacoesDoDia
 						selectedDate={selectedDate}
 						modalAddRendimento={modalAddRendimento}
 						modalAddDespesa={modalAddDespesa}
+						modalApagaMovimentacao={modalApagaRendimento}
 					/>
 				</div>
 			</div>
+			<ModalAddMovimentacao
+				isOpen={isOpenModalAdd}
+				closeModal={closeModalAdd}
+				tipo= {tipo}
+				date={new Date()}
+			/>
+			<ModalApagaMovimentacao
+				isOpen={isOpenModalRemove}
+				tipo={tipo}
+				closeModalRemove={closeModalRemove}
+				movimentacao={movimentacaoApagar}
+			/>
 		</div>
 	);
 }

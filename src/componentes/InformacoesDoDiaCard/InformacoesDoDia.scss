@@ -374,6 +374,12 @@
 			.buttons {
 				display: flex;
 				width: 10%;
+				background-color: transparent;
+			}
+
+			button {
+				background-color: transparent;
+				//border: 0ch;
 			}
 		}
 	}
