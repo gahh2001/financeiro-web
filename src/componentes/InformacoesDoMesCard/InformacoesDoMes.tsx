@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import './InformacoesDoMes.scss';
 import {
 	AddCircleOutlineRounded,
 	AssessmentOutlined,
 	RemoveCircleOutlineRounded
 } from '@mui/icons-material';
+import React, { useEffect, useState } from 'react';
+import { TipoMovimentacaoEnum } from '../../enums/TipoMovimentacaoEnum';
+import back from '../../http';
 import { IMovimentacao } from '../../interfaces/IMovimentacao';
 import { MovimentacaoService } from '../../services/MovimentacaoService';
-import back from '../../http';
+import './InformacoesDoMes.scss';
 
 interface InformacoesDoMesProps {
 	selectedDate: Date;
@@ -48,14 +49,16 @@ const InformacoesDoMes: React.FC<InformacoesDoMesProps> = ({ selectedDate }) => 
 						sx={{ color: "#44A81D" }}
 					>
 					</AddCircleOutlineRounded>
-					Total recebido no mês: R${somaTotalMes(movimentacoesDoMes, 'POSITIVO').toFixed(2).replace('.', ',')}
+					Total recebido no mês: R$
+					{somaTotalMes(movimentacoesDoMes, TipoMovimentacaoEnum.POSITIVO).toFixed(2).replace('.', ',')}
 				</div>
 				<div className="info-mes">
 					<RemoveCircleOutlineRounded
 						sx={{ color: "#B82121" }}
 					>
 					</RemoveCircleOutlineRounded>
-					Total de gastos do mês: R${somaTotalMes(movimentacoesDoMes, 'NEGATIVO').toFixed(2).replace('.', ',')}
+					Total de gastos do mês: R$
+					{somaTotalMes(movimentacoesDoMes, TipoMovimentacaoEnum.NEGATIVO).toFixed(2).replace('.', ',')}
 				</div>
 				<div className="info-mes">
 					<AssessmentOutlined
@@ -74,10 +77,10 @@ const InformacoesDoMes: React.FC<InformacoesDoMesProps> = ({ selectedDate }) => 
 		</div>
 	);
 
-	function somaTotalMes(movimentacoes: IMovimentacao[], tipo: string) {
+	function somaTotalMes(movimentacoes: IMovimentacao[], tipo: TipoMovimentacaoEnum) {
 		let soma = 0;
 		for (const movimentacao of movimentacoes) {
-			if (movimentacao.tipoMovimentacao.toUpperCase() === tipo) {
+			if (movimentacao.tipoMovimentacao.toUpperCase() === tipo.toString()) {
 				soma += movimentacao.valor;
 			}
 		}
@@ -85,8 +88,8 @@ const InformacoesDoMes: React.FC<InformacoesDoMesProps> = ({ selectedDate }) => 
 	}
 
 	function calculaPorcentagemTotal(movimentacoes: IMovimentacao[]) {
-		const ganhos = somaTotalMes(movimentacoes, 'POSITIVO');
-		const gastos = somaTotalMes(movimentacoes, 'NEGATIVO');
+		const ganhos = somaTotalMes(movimentacoes, TipoMovimentacaoEnum.POSITIVO);
+		const gastos = somaTotalMes(movimentacoes, TipoMovimentacaoEnum.NEGATIVO);
 		const porcentagemGasto = (gastos * 100) / ganhos
 		return Math.round(porcentagemGasto? porcentagemGasto : 0);
 	}

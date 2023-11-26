@@ -9,6 +9,7 @@ import {
 } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
 import React, { useEffect, useState } from 'react';
+import { TipoMovimentacaoEnum } from '../../enums/TipoMovimentacaoEnum';
 import back from '../../http';
 import { ICategoriaMovimentacao } from '../../interfaces/ICategoriaMovimentacao';
 import { IMovimentacao } from '../../interfaces/IMovimentacao';
@@ -89,7 +90,8 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({ selectedDate, modal
 						fontSize="large"
 					>
 					</AddCircleOutlineRounded>
-					Total de rendimentos: ${somaDia(movimentacoesDoDia, "POSITIVO").toFixed(2).replace('.', ',')}
+					Total de rendimentos: $
+					{somaDia(movimentacoesDoDia, TipoMovimentacaoEnum.POSITIVO).toFixed(2).replace('.', ',')}
 				</div>
 				<div className="info-dia">
 					<RemoveCircleOutlineRounded
@@ -97,7 +99,8 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({ selectedDate, modal
 						fontSize="large"
 					>
 					</RemoveCircleOutlineRounded>
-					Total de gastos: ${somaDia(movimentacoesDoDia, "NEGATIVO").toFixed(2).replace('.', ',')}
+					Total de gastos: $
+					{somaDia(movimentacoesDoDia, TipoMovimentacaoEnum.NEGATIVO).toFixed(2).replace('.', ',')}
 				</div>
 				<div className="buttons">
 					<button
@@ -136,10 +139,10 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({ selectedDate, modal
 		</div>
 	);
 
-	function somaDia(movimentacoes: IMovimentacao[], tipoMovimentacao: string) {
+	function somaDia(movimentacoes: IMovimentacao[], tipoMovimentacao: TipoMovimentacaoEnum) {
 		let soma = 0;
 		for (const movimentacao of movimentacoes) {
-			if (movimentacao.tipoMovimentacao.toUpperCase() === tipoMovimentacao) {
+			if (movimentacao.tipoMovimentacao.toUpperCase() === tipoMovimentacao.toString()) {
 				soma += movimentacao.valor;
 			}
 		}
@@ -159,13 +162,9 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({ selectedDate, modal
 						{movimentacoes.map((movimentacao, index) => (
 							<div key={index} className="movimentacao-dia">
 								<div className="icon-movimentacao">
-									{movimentacao.tipoMovimentacao === "positivo"
-										? (
-											<AddCircleOutlineRounded sx={{ color: "#44A81D" }} />
-										)
-										: (
-											<RemoveCircleOutlineRounded sx={{ color: "#B82121" }} />
-										)}
+									{movimentacao.tipoMovimentacao.toUpperCase() == TipoMovimentacaoEnum.POSITIVO.toString()
+										? (<AddCircleOutlineRounded sx={{ color: "#44A81D" }} />)
+										: (<RemoveCircleOutlineRounded sx={{ color: "#B82121" }} />)}
 								</div>
 								<div className="descricao-movimentacao">
 									{getDescricaoCategoriaPorId(movimentacao.idCategoriaMovimentacao)}

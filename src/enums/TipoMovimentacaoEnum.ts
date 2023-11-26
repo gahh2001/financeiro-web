@@ -1,6 +1,6 @@
 enum TipoMovimentacaoEnum{
-	POSITIVO,
-	NEGATIVO
+	POSITIVO = "POSITIVO",
+	NEGATIVO = "NEGATIVO"
 }
 
-export {TipoMovimentacaoEnum}
+export { TipoMovimentacaoEnum };

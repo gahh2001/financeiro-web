@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from "react";
-import moment from "moment";
-import classNames from 'classnames';
-import "moment/locale/pt-br";
-import "./CalendarioStyle.scss";
-import { MovimentacaoService } from "../../services/MovimentacaoService";
-import back from "../../http";
-import { IMovimentacao } from "../../interfaces/IMovimentacao";
 import { Circle } from "@mui/icons-material";
 import { CircularProgress } from "@mui/material";
+import classNames from 'classnames';
+import moment from "moment";
+import "moment/locale/pt-br";
+import React, { useEffect, useState } from "react";
+import { TipoMovimentacaoEnum } from "../../enums/TipoMovimentacaoEnum";
+import back from "../../http";
+import { IMovimentacao } from "../../interfaces/IMovimentacao";
+import { MovimentacaoService } from "../../services/MovimentacaoService";
+import "./CalendarioStyle.scss";
 
 interface CalendarioProps {
 	onDayClick: (selectedDate: Date) => void;
@@ -64,9 +65,9 @@ const Calendario: React.FC<CalendarioProps> = ({ onDayClick }) => {
 				className={dayClass}
 				onClick={() => handleDayClick(day, currentMonth.month(), currentMonth.year())}
 			>
-				{verificaDiaComMovimentação(day, currentMonth.month(), "NEGATIVO")}
+				{verificaDiaComMovimentação(day, currentMonth.month(), TipoMovimentacaoEnum.NEGATIVO)}
 				{day}
-				{verificaDiaComMovimentação(day, currentMonth.month(), "POSITIVO")}
+				{verificaDiaComMovimentação(day, currentMonth.month(), TipoMovimentacaoEnum.POSITIVO)}
 			</div>
 		);
 	}
@@ -121,7 +122,7 @@ const Calendario: React.FC<CalendarioProps> = ({ onDayClick }) => {
 			</div>
 	);
 
-	function verificaDiaComMovimentação(day: number, month: number, operador: string) {
+	function verificaDiaComMovimentação(day: number, month: number, operador: TipoMovimentacaoEnum) {
 		if (movimentacoesDoMes.length > 0) {
 			let possuiMovimentacao = 0;
 			movimentacoesDoMes.forEach((movimentacao) => {
@@ -129,12 +130,12 @@ const Calendario: React.FC<CalendarioProps> = ({ onDayClick }) => {
 				const dia = date.getDate();
 				const mes = date.getMonth();
 				if (dia === day && month === mes
-					&& movimentacao.tipoMovimentacao.toUpperCase() === operador) {
+					&& movimentacao.tipoMovimentacao.toUpperCase() == operador.toString()) {
 					possuiMovimentacao++;
 				}
 			});
 			switch (operador) {
-				case "NEGATIVO":
+				case TipoMovimentacaoEnum.NEGATIVO:
 					if (possuiMovimentacao > 0) {
 						return (
 							<Circle
@@ -148,7 +149,7 @@ const Calendario: React.FC<CalendarioProps> = ({ onDayClick }) => {
 							sx={{ color: "transparent", backgroundColor: 'transparent' }}
 						/>
 					);
-				case "POSITIVO":
+				case TipoMovimentacaoEnum.POSITIVO:
 					if (possuiMovimentacao > 0) {
 						return (
 							<Circle
