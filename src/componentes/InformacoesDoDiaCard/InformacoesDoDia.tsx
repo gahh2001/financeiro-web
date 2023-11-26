@@ -5,7 +5,9 @@ import {
 	InfoOutlined,
 	AssessmentOutlined,
 	RemoveCircleOutlineRounded,
-	ErrorOutline
+	ErrorOutline,
+	DeleteForever,
+	ModeEdit
 } from '@mui/icons-material';
 import { MovimentacaoService } from '../../services/MovimentacaoService';
 import back from '../../http';
@@ -13,6 +15,7 @@ import { IMovimentacao } from '../../interfaces/IMovimentacao';
 import { ContaService } from '../../services/ContaService';
 import { ICategoriaMovimentacao } from '../../interfaces/ICategoriaMovimentacao';
 import { CategoriaMovimentacaoService } from '../../services/CategoriaMovimentacaoService';
+import { IconButton } from '@mui/material';
 
 interface InformacoesDoDiaProps {
 	selectedDate: Date;
@@ -97,7 +100,7 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({ selectedDate, modal
 					Total de gastos: ${somaDia(movimentacoesDoDia, "NEGATIVO").toFixed(2).replace('.', ',')}
 				</div>
 				<div className="buttons">
-					<button 
+					<button
 						style={{ marginRight: "40px" }}
 						onClick={modal}
 					>
@@ -167,7 +170,17 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({ selectedDate, modal
 								<div className="descricao-movimentacao">
 									{getDescricaoCategoriaPorId(movimentacao.idCategoriaMovimentacao)}
 								</div>
-								<div className="valor-movimentacao">{movimentacao.valor.toFixed(2).replace('.', ',')}</div>
+								<div className="valor-movimentacao">
+									${movimentacao.valor.toFixed(2).replace('.', ',')}
+								</div>
+								<div className='buttons'>
+									<IconButton color="inherit">
+										<ModeEdit />
+									</IconButton>
+									<IconButton sx={{ color: "#B82121" }}>
+										<DeleteForever />
+									</IconButton>
+								</div>
 							</div>
 						))}
 					</div>

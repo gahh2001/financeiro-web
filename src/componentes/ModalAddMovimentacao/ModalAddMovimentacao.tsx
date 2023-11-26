@@ -1,5 +1,6 @@
 import { ReactNode, useState } from "react";
 import "./ModalAddMovimentacao.scss";
+import BasicDatePicker from "../DatePicker/BasicDatePicker";
 
 interface ModalType {
 	children?: ReactNode;
@@ -17,6 +18,9 @@ export default function ModalAddMovimentacao(props: ModalType) {
 				<div className="modal-overlay">
 					<div className="modal-box">
 						<div className="titulo">Adicionar Rendimento</div>
+						<div className="date-picker">
+							<BasicDatePicker/>
+						</div>
 						<div className="buttons">
 							<button onClick={props.toggle}>
 								Cancelar

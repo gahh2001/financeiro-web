@@ -32,7 +32,6 @@ const Calendario: React.FC<CalendarioProps> = ({ onDayClick }) => {
 	useEffect(() => {
 		const buscaMovimentacoesDoMes = async () => {
 			try {
-				console.log("atualizou movimentações");
 				const movimentacaoService = new MovimentacaoService(back);
 				const primeiroDiaMes = new Date();
 				primeiroDiaMes.setMonth(currentMonth.month());

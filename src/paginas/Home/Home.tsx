@@ -23,11 +23,16 @@ export const Home = () => {
 					height: "100%"
 				}}>
 					<Calendario onDayClick={handleDayClick} />
-					<InformacoesDoMes selectedDate={selectedDate}/>
-					<ModalAddMovimentacao isOpen={isOpen} toggle={toggle} tipo='' date={new Date()}></ModalAddMovimentacao>
+					<InformacoesDoMes selectedDate={selectedDate} />
+					<ModalAddMovimentacao
+						isOpen={isOpen}
+						toggle={toggle}
+						tipo=''
+						date={new Date()}>
+					</ModalAddMovimentacao>
 				</div>
-				<div style={{ width: "29.9%", height: "100%" }}>
-					<InformacoesDoDia selectedDate={selectedDate} modal={toggle} tipo=''/>
+				<div style={{ width: "29.9%" }}>
+					<InformacoesDoDia selectedDate={selectedDate} modal={toggle} tipo='' />
 				</div>
 			</div>
 		</div>

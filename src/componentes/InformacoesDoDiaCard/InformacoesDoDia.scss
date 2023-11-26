@@ -132,6 +132,7 @@
 				font-size: 15px;
 				background-color: $fundo-linhas;
 				width: 35%;
+				height: auto;
 				border: 2px solid $fundo-linhas;
 				box-shadow: 2px 2px 7px 1px $sombras;
 				border-radius: 7px;
@@ -302,10 +303,10 @@
 		}
 
 		.movimentacao-dia {
-			width: 99%;
+			width: 98%;
 			height: auto;
 			background-color: $fundo-linhas;
-			text-align: left;
+			text-align: center;
 			margin-bottom: 1.5%;
 			display: flex;
 			border-radius: 10px;
@@ -336,21 +337,22 @@
 
 			.icon-movimentacao {
 				background-color: transparent;
-				width: 33%;
-				text-align: left;
+				width: 10%;
 			}
 
 			.descricao-movimentacao {
 				background-color: transparent;
-				width: 33%;
-				text-align: center;
+				width: 37%;
 			}
 
 			.valor-movimentacao {
 				background-color: transparent;
 				width: 33%;
-				text-align: right;
+			}
 
+			.buttons {
+				display: flex;
+				width: 10%;
 			}
 		}
 	}
