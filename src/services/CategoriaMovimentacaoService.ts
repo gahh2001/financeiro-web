@@ -17,4 +17,16 @@ export class CategoriaMovimentacaoService {
 			return undefined;
 		}
 	}
+
+	async obtemCategoriaMovimentacaoPorId(id: number) {
+		const url = `/categoria-movimentacao/${id}`;
+		try {
+			const response = await this.axiosInstance
+				.get<ICategoriaMovimentacao>(url)
+			return {...response.data}
+		} catch (error) {
+			console.log(`Não foi possível obter a categoria de movimentação`, error);
+			return undefined
+		}
+	}
 }
