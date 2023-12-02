@@ -85,7 +85,9 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({
 		<div className="informacoes-do-dia">
 			<div className="card-resumo-dia">
 				<div className="titulo">
-					Resumo do dia {selectedDate.getDate()}/{selectedDate.getMonth() + 1}/{selectedDate.getFullYear()}
+					Resumo do dia {selectedDate.getDate().toString().padStart(2,"0")}
+					/{selectedDate.getMonth() + 1}
+					/{selectedDate.getFullYear()}
 				</div>
 				<div className="info-dia">
 					<AddCircleOutlineRounded
@@ -206,10 +208,6 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({
 	function getDescricaoCategoriaPorId(idCategoriaMovimentacao: number) {
 		return categoriasMovimentacao.find(categoria =>
 			categoria.idCategoriaMovimentacao === idCategoriaMovimentacao)?.nomeCategoria;
-	}
-
-	function apagaMovimentacao(idMovimentacao: number) {
-		movimentacaoService.apagaMovimentacao(idMovimentacao);
 	}
 };
 
