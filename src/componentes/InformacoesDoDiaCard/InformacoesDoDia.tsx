@@ -63,7 +63,7 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({
 			}
 		};
 		buscaMovimentacoesDoDia();
-	}, [selectedDate]);
+	}, [selectedDate, modalAddDespesa, modalAddRendimento, modalApagaMovimentacao]);
 
 	useEffect(() => {
 		const atualizaSaldoConta = async () => {

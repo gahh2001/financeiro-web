@@ -93,7 +93,6 @@ export default function ModalApagaMovimentacao(props: ModalType) {
 		try {
 			const categoria = await categoriaMovimentacaoService
 				.obtemCategoriaMovimentacaoPorId(idCategoriaMovimentacao);
-			console.log(categoria);
 			if (categoria) {
 				return categoria.nomeCategoria
 			}
