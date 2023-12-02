@@ -25,6 +25,7 @@ export class MovimentacaoService {
 		try {
 			await this.axiosInstance
 				.delete(url);
+			return "ok";
 		} catch (error) {
 			console.log(`Não foi possível obter as movimentações`, error);
 			return undefined;
