@@ -46,7 +46,12 @@ export const Home = () => {
 					height: "100%"
 				}}>
 					<Calendario onDayClick={handleDayClick} />
-					<InformacoesDoMes selectedDate={selectedDate} />
+					<InformacoesDoMes
+						selectedDate={selectedDate}
+						modalAddRendimento={modalAddRendimento}
+						modalAddDespesa={modalAddDespesa}
+						modalApagaMovimentacao={modalApagaRendimento}
+					/>
 					
 				</div>
 				<div style={{ width: "29.9%" }}>

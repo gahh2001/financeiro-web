@@ -12,9 +12,13 @@ import './InformacoesDoMes.scss';
 
 interface InformacoesDoMesProps {
 	selectedDate: Date;
+	modalAddRendimento: () => void;
+	modalAddDespesa: () => void;
+	modalApagaMovimentacao: (movimentacaoApagar: IMovimentacao) => void;
 }
 
-const InformacoesDoMes: React.FC<InformacoesDoMesProps> = ({ selectedDate }) => {
+const InformacoesDoMes: React.FC<InformacoesDoMesProps> = ({
+		selectedDate, modalAddRendimento, modalAddDespesa, modalApagaMovimentacao}) => {
 	const [movimentacoesDoMes, setMovimentacoesDoMes] = useState<IMovimentacao[]>([]);
 
 	useEffect(() => {
@@ -36,7 +40,7 @@ const InformacoesDoMes: React.FC<InformacoesDoMesProps> = ({ selectedDate }) => 
 			}
 		};
 		fetchData();
-	}, [selectedDate]);
+	}, [selectedDate, modalAddDespesa, modalAddRendimento, modalApagaMovimentacao]);
 
 	return (
 		<div className="informacoes-do-mes">

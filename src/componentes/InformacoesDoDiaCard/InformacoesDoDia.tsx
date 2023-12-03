@@ -79,7 +79,7 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({
 		};
 
 		atualizaSaldoConta();
-	}, [saldo]);
+	}, [saldo, modalAddDespesa, modalAddRendimento, modalApagaMovimentacao]);
 
 	return (
 		<div className="informacoes-do-dia">

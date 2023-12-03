@@ -23,9 +23,9 @@ export class MovimentacaoService {
 	async apagaMovimentacao(idMovimentacao: number) {
 		const url = `/movimentacao/${idMovimentacao}`;
 		try {
-			await this.axiosInstance
+			const response = await this.axiosInstance
 				.delete(url);
-			return "ok";
+			return response;
 		} catch (error) {
 			console.log(`Não foi possível obter as movimentações`, error);
 			return undefined;

@@ -3,7 +3,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import { LinearProgress } from '@mui/material';
 import Box from '@mui/material/Box';
 import { green } from "@mui/material/colors";
-import { ReactNode, useEffect, useRef, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { TipoMovimentacaoEnum } from "../../enums/TipoMovimentacaoEnum";
 import back from '../../http';
 import { IMovimentacao } from "../../interfaces/IMovimentacao";
@@ -26,7 +26,6 @@ export default function ModalApagaMovimentacao(props: ModalType) {
 	const [success, setSuccess] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const tipoMovimentacao = props.tipo === TipoMovimentacaoEnum.POSITIVO ? 'rendimento' : 'despesa';
-	const timer = useRef<number>();
 	const possuiMovimentacaoEData = props?.movimentacao != undefined
 		&& props.movimentacao?.dataMovimentacao != undefined;
 
@@ -37,17 +36,6 @@ export default function ModalApagaMovimentacao(props: ModalType) {
 				bgcolor: green[700],
 			},
 		}),
-	};
-
-	const handleButtonClick = () => {
-		if (!loading) {
-			setSuccess(false);
-			setLoading(true);
-			timer.current = window.setTimeout(() => {
-				setSuccess(true);
-				setLoading(false);
-			}, 2000);
-		}
 	};
 
 	let date = undefined;
@@ -61,12 +49,6 @@ export default function ModalApagaMovimentacao(props: ModalType) {
 		idCategoria = props.movimentacao ? props.movimentacao.idCategoriaMovimentacao : 0;
 		valor = props.movimentacao ? props.movimentacao.valor : 0
 	}
-
-	useEffect(() => {
-		return () => {
-		  clearTimeout(timer.current);
-		};
-	}, []);
 
 	useEffect(() => {
 		return () => {
@@ -139,9 +121,13 @@ export default function ModalApagaMovimentacao(props: ModalType) {
 	);
 
 	async function apagaMovimentacao(id: number) {
+		setLoading(true);
+		setSuccess(false);
 		const response = await movimentacaoService.apagaMovimentacao(id);
-		if (response) {
-			handleButtonClick();
+		console.log(response);
+		if (response?.status && response.status === 200) {
+			setLoading(false);
+			setSuccess(true);
 		}
 	}
 
