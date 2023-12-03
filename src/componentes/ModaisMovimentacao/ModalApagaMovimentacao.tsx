@@ -49,7 +49,6 @@ export default function ModalApagaMovimentacao(props: ModalType) {
 			}, 2000);
 		}
 	};
-	
 
 	let date = undefined;
 	let id = 0;
@@ -112,11 +111,12 @@ export default function ModalApagaMovimentacao(props: ModalType) {
 						</div>
 						<div className="buttons">
 							<button onClick={props.closeModalRemove}>
-								Cancelar
+								{success ? "Fechar" : "Cancelar"}
 							</button>
 							<div className='apagar'>
 								<button
 									onClick={() => apagaMovimentacao(id)}
+									disabled={success}
 								>
 									{success 
 										? <CheckIcon sx={{fontSize: "50px", color: "green"}}/>
@@ -143,7 +143,6 @@ export default function ModalApagaMovimentacao(props: ModalType) {
 		if (response) {
 			handleButtonClick();
 		}
-		//props.closeModalRemove();
 	}
 
 	async function getDescricaoCategoriaPorId(idCategoriaMovimentacao: number) {
