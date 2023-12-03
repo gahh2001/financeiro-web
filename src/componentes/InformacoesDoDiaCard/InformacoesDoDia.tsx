@@ -11,9 +11,7 @@ import { IconButton } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { TipoMovimentacaoEnum } from '../../enums/TipoMovimentacaoEnum';
 import back from '../../http';
-import { ICategoriaMovimentacao } from '../../interfaces/ICategoriaMovimentacao';
 import { IMovimentacao } from '../../interfaces/IMovimentacao';
-import { CategoriaMovimentacaoService } from '../../services/CategoriaMovimentacaoService';
 import { ContaService } from '../../services/ContaService';
 import { MovimentacaoService } from '../../services/MovimentacaoService';
 import './InformacoesDoDia.scss';
@@ -30,28 +28,11 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({
 
 	const [movimentacoesDoDia, setMovimentacoesDoDia] = useState<IMovimentacao[]>([]);
 	const [saldo, setSaldo] = useState<number>();
-	const [categoriasMovimentacao, setCategoriasMovimentacao] = useState<ICategoriaMovimentacao[]>([]);
-	const categoriaMovimentacaoService = new CategoriaMovimentacaoService(back);
 	const movimentacaoService = new MovimentacaoService(back);
-
-	useEffect(() => {
-		const buscaCategoriasMovimentacao = async () => {
-			try {
-				const response = await categoriaMovimentacaoService.obtemCategoriasMovimentacaoPorIdConta(1);
-				if (response?.data) {
-					setCategoriasMovimentacao(response.data);
-				}
-			} catch (error) {
-				console.error('Erro ao buscar categorias de movimentação:', error);
-			}
-		}
-		buscaCategoriasMovimentacao();
-	}, []);
 
 	useEffect(() => {
 		const buscaMovimentacoesDoDia = async () => {
 			try {
-				const movimentacaoService = new MovimentacaoService(back);
 				const dia = selectedDate;
 				const response = await movimentacaoService.getMovimentacao(1,
 					dia.getTime(), dia.getTime());
@@ -172,7 +153,7 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({
 										: (<RemoveCircleOutlineRounded sx={{ color: "#B82121" }} />)}
 								</div>
 								<div className="descricao-movimentacao">
-									{getDescricaoCategoriaPorId(movimentacao.idCategoriaMovimentacao)}
+									{movimentacao.nomeCategoriaMovimentacao}
 								</div>
 								<div className="valor-movimentacao">
 									${movimentacao.valor.toFixed(2).replace('.', ',')}
@@ -203,11 +184,6 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({
 					Selecione um dia para visualizar as movimentações.
 				</div>
 			</div>
-	}
-
-	function getDescricaoCategoriaPorId(idCategoriaMovimentacao: number) {
-		return categoriasMovimentacao.find(categoria =>
-			categoria.idCategoriaMovimentacao === idCategoriaMovimentacao)?.nomeCategoria;
 	}
 };
 
