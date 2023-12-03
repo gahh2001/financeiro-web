@@ -2,7 +2,6 @@ import { DeleteForever } from '@mui/icons-material';
 import CheckIcon from '@mui/icons-material/Check';
 import { LinearProgress } from '@mui/material';
 import Box from '@mui/material/Box';
-import { green } from "@mui/material/colors";
 import { ReactNode, useEffect, useState } from "react";
 import { TipoMovimentacaoEnum } from "../../enums/TipoMovimentacaoEnum";
 import back from '../../http';
@@ -26,17 +25,8 @@ export default function ModalApagaMovimentacao(props: ModalType) {
 	const [success, setSuccess] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const tipoMovimentacao = props.tipo === TipoMovimentacaoEnum.POSITIVO ? 'rendimento' : 'despesa';
-	const possuiMovimentacaoEData = props?.movimentacao != undefined
-		&& props.movimentacao?.dataMovimentacao != undefined;
-
-	const buttonSx = {
-		...(success && {
-			bgcolor: green[500],
-			'&:hover': {
-				bgcolor: green[700],
-			},
-		}),
-	};
+	const possuiMovimentacaoEData = props?.movimentacao !== undefined
+		&& props.movimentacao?.dataMovimentacao !== undefined;
 
 	let date = undefined;
 	let id = 0;

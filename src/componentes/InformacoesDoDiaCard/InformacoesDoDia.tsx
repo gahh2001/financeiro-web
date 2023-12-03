@@ -167,7 +167,7 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({
 						{movimentacoes.map((movimentacao, index) => (
 							<div key={index} className="movimentacao-dia">
 								<div className="icon-movimentacao">
-									{movimentacao.tipoMovimentacao.toUpperCase() == TipoMovimentacaoEnum.POSITIVO.toString()
+									{movimentacao.tipoMovimentacao.toUpperCase() === TipoMovimentacaoEnum.POSITIVO.toString()
 										? (<AddCircleOutlineRounded sx={{ color: "#44A81D" }} />)
 										: (<RemoveCircleOutlineRounded sx={{ color: "#B82121" }} />)}
 								</div>
