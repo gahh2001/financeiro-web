@@ -38,12 +38,11 @@ export const Home = () => {
 
 	return (
 		<div className="home">
-			<div style={{ display: 'flex' }}>
+			<div style={{ display: 'flex', height: "100vh" }}>
 				<div style={{
-					display: 'block',
 					flexDirection: 'column',
-					width: "70%",
-					height: "100%"
+					display: 'flex',
+					flex: "0.7"
 				}}>
 					<Calendario onDayClick={handleDayClick} />
 					<InformacoesDoMes
@@ -52,9 +51,8 @@ export const Home = () => {
 						modalAddDespesa={modalAddDespesa}
 						modalApagaMovimentacao={modalApagaRendimento}
 					/>
-					
 				</div>
-				<div style={{ width: "29.9%" }}>
+				<div style={{flex: "0.3", display: "flex"}}>
 					<InformacoesDoDia
 						selectedDate={selectedDate}
 						modalAddRendimento={modalAddRendimento}

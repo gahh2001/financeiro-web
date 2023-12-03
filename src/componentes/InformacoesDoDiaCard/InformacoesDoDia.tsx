@@ -162,19 +162,17 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({
 									<IconButton color="inherit">
 										<ModeEdit />
 									</IconButton>
-									<button
-										onClick={() => modalApagaMovimentacao(movimentacao)}
-									>
-										<DeleteForever sx={{ color: "#B82121" }} />
-									</button>
-									
+									<IconButton>
+										<DeleteForever sx={{ color: "#B82121" }}
+										onClick={() => modalApagaMovimentacao(movimentacao)}/>
+									</IconButton>
 								</div>
 							</div>
 						))}
 					</div>
 				</div>
 			)
-			: <div className='card-movimentacoes' style={{ display: "flex" }}>
+			: <div className='card-movimentacoes'>
 				<div className='titulo'>
 					<ErrorOutline
 						sx={{ color: "#B82121" }}
