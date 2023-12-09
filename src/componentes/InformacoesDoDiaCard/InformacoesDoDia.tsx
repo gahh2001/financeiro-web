@@ -73,20 +73,22 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({
 					/{selectedDate.getFullYear()}
 				</div>
 				<div className="info-dia">
-					<AddCircleOutlineRounded
-						sx={{ color: "#44A81D" }}
-						fontSize="large"
-					>
-					</AddCircleOutlineRounded>
+					<div className='simbol'>
+						<AddCircleOutlineRounded
+							sx={{ color: "#44A81D" }}
+							fontSize="large"
+						/>
+					</div>
 					Total de rendimentos: $
 					{somaDia(movimentacoesDoDia, TipoMovimentacaoEnum.POSITIVO).toFixed(2).replace('.', ',')}
 				</div>
 				<div className="info-dia">
-					<RemoveCircleOutlineRounded
-						color="error"
-						fontSize="large"
-					>
-					</RemoveCircleOutlineRounded>
+					<div className='simbol'>
+						<RemoveCircleOutlineRounded
+							color="error"
+							fontSize="large"
+						/>
+					</div>
 					Total de gastos: $
 					{somaDia(movimentacoesDoDia, TipoMovimentacaoEnum.NEGATIVO).toFixed(2).replace('.', ',')}
 				</div>
@@ -97,30 +99,28 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({
 					>
 						<AddCircleOutlineRounded
 							sx={{ color: "#44A81D" }}
-						>
-						</AddCircleOutlineRounded><br/>
+						/> <br/>
 						Adicionar rendimento
 					</button>
 					<button onClick={modalAddDespesa}>
 						<RemoveCircleOutlineRounded
 							sx={{ color: "#B82121" }}
-						>
-						</RemoveCircleOutlineRounded><br />
+						/> <br />
 						Adicionar despesa
 					</button>
 				</div>
 				<div className="dica">
 					<InfoOutlined
 						fontSize="small"
-					>
-					</InfoOutlined>Selecione um dia do calendário para ver as movimentações.
+					/>
+					Selecione um dia do calendário para ver as movimentações.
 				</div>
 				<div className="saldo">
 					<AssessmentOutlined
 						sx={{ color: "#3451C7" }}
 						fontSize="large"
-					>
-					</AssessmentOutlined>Saldo atual: ${saldo?.toFixed(2).replace('.', ',')}
+					/>
+					Saldo atual: ${saldo?.toFixed(2).replace('.', ',')}
 				</div>
 			</div>
 			{listaMovimentacoesDoDia(movimentacoesDoDia)}

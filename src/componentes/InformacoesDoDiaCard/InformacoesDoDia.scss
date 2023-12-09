@@ -18,13 +18,9 @@
 		height: auto;
 		background-color: transparent;
 		font-weight: bold;
-		font-size: 25px;
+		font-size: 3.5vh;
 		text-align: center;
 		margin-bottom: 1.7%;
-
-		@media (max-width: 1250px) {
-			font-size: 22px;
-		}
 	}
 
 	.card-resumo-dia {
@@ -45,6 +41,16 @@
 		}
 
 		.info-dia {
+			.simbol {
+				margin-right: 1vh;
+				margin-left: 0.6vh;
+				display: flex;
+			}
+
+			width: 99%;
+			font-size: 3vh;
+			height: 5vh;
+			align-items: center;
 			background-color: $fundo-linhas;
 			margin-bottom: 2%;
 			display: flex;
@@ -53,31 +59,6 @@
 			box-shadow: 2px 2px 7px 1px $sombras;
 			color: $color-in-linhas;
 
-			@media (max-width: 1850px) {
-				font-size: 25px;
-				height: 40px;
-			}
-
-			@media (max-width: 1800px) {
-				font-size: 23px;
-				height: 37px;
-			}
-
-			@media (max-width: 1550px) {
-				font-size: 21px;
-				height: 34px;
-			}
-
-			@media (max-width: 1350px) {
-				font-size: 19px;
-				height: 31px;
-			}
-
-			@media (max-width: 1250px) {
-				font-size: 17px;
-				height: 28px;
-			}
-
 			svg {
 				background-color: transparent;
 			}
@@ -85,55 +66,19 @@
 
 		.buttons {
 			text-align: center;
-			height: 25%;
-			margin-bottom: 4%;
-			font-size: 65px;
+			height: 7vh;
+			margin-top: 2vh;
+			margin-bottom: 3vh;
 			background-color: transparent;
-
-			@media (max-width: 1800px) {
-				margin-top: 19px;
-				font-size: 60px;
-			}
-
-			@media (max-width: 1550px) {
-				margin-top: 15px;
-				font-size: 50px;
-			}
-
-			@media (max-width: 1350px) {
-				margin-top: 10px;
-				font-size: 40px;
-			}
-
-			@media (max-width: 1250px) {
-				margin-top: 5px;
-				font-size: 30px;
-			}
 
 			button {
 				svg {
 					background-color: transparent;
-					font-size: 50px;
-
-					@media (max-width: 1700px) {
-						font-size: 60px;
-					}
-
-					@media (max-width: 1650px) {
-						font-size: 50px;
-					}
-
-					@media (max-width: 1550px) {
-						font-size: 40px;
-					}
-
-					@media (max-width: 1350px) {
-						font-size: 30px;
-					}
+					font-size: 5vh;
 				}
 
 				text-align: center;
-				font-size: 15px;
+				font-size: 1.8vh;
 				background-color: $fundo-linhas;
 				width: 35%;
 				height: auto;
@@ -146,22 +91,6 @@
 				&:hover {
 					background-color: #3e3e3e;
 				}
-
-				@media (max-width: 1800px) {
-					font-size: 13px;
-				}
-
-				@media (max-width: 1550px) {
-					font-size: 12px;
-				}
-
-				@media (max-width: 1350px) {
-					font-size: 11px;
-				}
-
-				@media (max-width: 1250px) {
-					font-size: 10px;
-				}
 			}
 		}
 
@@ -171,33 +100,15 @@
 			background-color: transparent;
 			width: 100%;
 			height: 10%;
-			font-size: 18px;
+			font-size: 1.8vh;
 			display: flex;
-
-			@media (max-width: 1850px) {
-				font-size: 17px;
-			}
-
-			@media (max-width: 1800px) {
-				font-size: 15px;
-			}
-
-			@media (max-width: 1550px) {
-				font-size: 13px;
-			}
-
-			@media (max-width: 1350px) {
-				font-size: 12px;
-			}
-
-			@media (max-width: 1250px) {
-				font-size: 9.5px;
-			}
 		}
 
 		.saldo {
 			justify-content: center;
-			width: 100%;
+			width: 99%;
+			height: 5vh;
+			font-size: 3vh;
 			background-color: $fundo-linhas;
 			align-items: center;
 			text-align: center;
@@ -210,36 +121,6 @@
 			svg {
 				background-color: transparent;
 			}
-
-			@media (max-width: 1850px) {
-				font-size: 34px;
-				height: 60px;
-			}
-
-			@media (max-width: 1800px) {
-				font-size: 30px;
-				height: 50px;
-			}
-
-			@media (max-width: 1550px) {
-				font-size: 26px;
-				height: 40px;
-			}
-
-			@media (max-width: 1350px) {
-				font-size: 22px;
-				height: 30px;
-			}
-
-			@media (max-width: 1250px) {
-				font-size: 20px;
-				height: 20px;
-			}
-		}
-
-		.conteudo {
-			font-size: 16px;
-			text-align: center;
 		}
 	}
 
@@ -261,31 +142,11 @@
 
 		.header {
 			display: flex;
-			font-size: 17px;
+			font-size: 2vh;
 			margin-bottom: 0.5%;
 			text-align: center;
 			background-color: transparent;
 			height: auto;
-
-			@media (max-width: 1850px) {
-				font-size: 17px;
-			}
-
-			@media (max-width: 1800px) {
-				font-size: 15px;
-			}
-
-			@media (max-width: 1550px) {
-				font-size: 13px;
-			}
-
-			@media (max-width: 1350px) {
-				font-size: 11px;
-			}
-
-			@media (max-width: 1250px) {
-				font-size: 9px;
-			}
 
 			.header-categoria {
 				background-color: transparent;
@@ -314,6 +175,7 @@
 		}
 
 		.movimentacao-dia {
+			font-size: 2.5vh;
 			width: 98%;
 			height: auto;
 			background-color: $fundo-linhas;
@@ -328,43 +190,7 @@
 
 			svg {
 				background-color: transparent;
-				font-size: 32px;
-
-				@media (max-width: 1700px) {
-					font-size: 32px;
-				}
-
-				@media (max-width: 1650px) {
-					font-size: 28px;
-				}
-
-				@media (max-width: 1550px) {
-					font-size: 25px;
-				}
-
-				@media (max-width: 1350px) {
-					font-size: 21px;
-				}
-			}
-
-			@media (max-width: 1850px) {
-				font-size: 23px;
-			}
-
-			@media (max-width: 1800px) {
-				font-size: 21px;
-			}
-
-			@media (max-width: 1550px) {
-				font-size: 19px;
-			}
-
-			@media (max-width: 1350px) {
-				font-size: 17px;
-			}
-
-			@media (max-width: 1250px) {
-				font-size: 15px;
+				font-size: 3.4vh;
 			}
 
 			.icon-movimentacao {
