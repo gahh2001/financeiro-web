@@ -15,21 +15,7 @@
 
 	svg {
 		background-color: transparent;
-		@media (max-width: 1850px) {
-			font-size: 35px;
-		}
-		@media (max-width: 1700px) {
-			font-size: 33px;
-		}
-		@media (max-width: 1650px) {
-			font-size: 31px;
-		}
-		@media (max-width: 1550px) {
-			font-size: 29px;
-		}
-		@media (max-width: 1350px) {
-			font-size: 27px;
-		}
+		font-size: 3.5vh;
 	}
 
 	.titulo {
@@ -37,12 +23,8 @@
 		width: 100%;
 		height: auto;
 		font-weight: bold;
-		font-size: 150%;
+		font-size: 3vh;
 		text-align: center;
-
-		@media (max-width: 1250px) {
-			font-size: 21px;
-		}
 	}
 	
 	.card-resumo-mes {
@@ -58,32 +40,25 @@
 		margin-left: 0.5%;
 
 		.info-mes {
+
+			.simbol {
+				margin-right: 1vh;
+				margin-left: 0.6vh;
+				display: flex;
+			}
+
 			width: 99%;
 			height: 21%;
+			font-size: 2.2vh;
 			background-color: $fundo-linhas;
 			text-align: left;
+			align-items: center;
 			margin-top: 2.5%;
 			display: flex;
 			border-radius: 10px;
 			border: 2px solid $fundo-linhas;
 			box-shadow: 2px 2px 7px 1px $sombras;
 			color: $color-in-linhas;
-
-			@media (max-width: 1850px) {
-				font-size: 22px;
-			}
-			@media (max-width: 1700px) {
-				font-size: 20px;
-			}
-			@media (max-width: 1650px) {
-				font-size: 19px;
-			}
-			@media (max-width: 1550px) {
-				font-size: 16px;
-			}
-			@media (max-width: 1350px) {
-				font-size: 13px;
-			}
 		}
 
 		.grafico {

@@ -49,26 +49,29 @@ const InformacoesDoMes: React.FC<InformacoesDoMesProps> = ({
 					Resumo de {obtemNomeMes(selectedDate.getMonth())}
 				</div>
 				<div className="info-mes">
-					<AddCircleOutlineRounded
+					<div className='simbol'>
+						<AddCircleOutlineRounded
 						sx={{ color: "#44A81D" }}
-					>
-					</AddCircleOutlineRounded>
+					/>
+					</div>
 					Total recebido no mês: R$
 					{somaTotalMes(movimentacoesDoMes, TipoMovimentacaoEnum.POSITIVO).toFixed(2).replace('.', ',')}
 				</div>
 				<div className="info-mes">
-					<RemoveCircleOutlineRounded
-						sx={{ color: "#B82121" }}
-					>
-					</RemoveCircleOutlineRounded>
+					<div className='simbol'>
+						<RemoveCircleOutlineRounded
+							sx={{ color: "#B82121" }}
+						/>
+					</div>
 					Total de gastos do mês: R$
 					{somaTotalMes(movimentacoesDoMes, TipoMovimentacaoEnum.NEGATIVO).toFixed(2).replace('.', ',')}
 				</div>
 				<div className="info-mes">
-					<AssessmentOutlined
+					<div className='simbol'>
+						<AssessmentOutlined
 						sx={{ color: "#3451C7" }}
-					>
-					</AssessmentOutlined>
+					/>
+					</div>
 					Você gastou: {calculaPorcentagemTotal(movimentacoesDoMes)}% dos rendimentos.
 				</div>
 			</div>
