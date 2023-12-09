@@ -5,5 +5,6 @@ export type IMovimentacao = {
 	dataMovimentacao: Date;
 	tipoMovimentacao: string;
 	idCategoriaMovimentacao: number;
-	nomeCategoriaMovimentacao: string
+	nomeCategoriaMovimentacao: string;
+	descricaoMovimentacao: string;
 }

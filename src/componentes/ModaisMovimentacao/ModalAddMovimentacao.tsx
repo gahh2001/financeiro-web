@@ -28,7 +28,8 @@ const darkTheme = createTheme({
 
 export default function ModalAddMovimentacao(props: ModalType) {
 	const [selectedDate, setSelectedDate] = useState<any>();
-	const tipoMovimentacao = props.tipo == TipoMovimentacaoEnum.POSITIVO ? 'rendimento' : 'despesa'
+	const tipoMovimentacao = props.tipo === TipoMovimentacaoEnum.POSITIVO
+		? 'rendimento' : 'despesa'
 	const [age, setAge] = useState('');
 
 	const handleChange = (event: SelectChangeEvent) => {

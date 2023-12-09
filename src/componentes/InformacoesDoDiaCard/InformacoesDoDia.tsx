@@ -8,6 +8,7 @@ import {
 	RemoveCircleOutlineRounded
 } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
+import Tooltip from '@mui/material/Tooltip';
 import React, { useEffect, useState } from 'react';
 import { TipoMovimentacaoEnum } from '../../enums/TipoMovimentacaoEnum';
 import back from '../../http';
@@ -15,6 +16,7 @@ import { IMovimentacao } from '../../interfaces/IMovimentacao';
 import { ContaService } from '../../services/ContaService';
 import { MovimentacaoService } from '../../services/MovimentacaoService';
 import './InformacoesDoDia.scss';
+
 
 interface InformacoesDoDiaProps {
 	selectedDate: Date;
@@ -143,14 +145,27 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({
 					<div className="header">
 						<div className="header-categoria">Categoria:</div>
 						<div className="header-valor">Valor:</div>
+						<div className='header-acoes'>Ações</div>	
 					</div>
 					<div className='movimentacoes-diarias'>
 						{movimentacoes.map((movimentacao, index) => (
 							<div key={index} className="movimentacao-dia">
 								<div className="icon-movimentacao">
 									{movimentacao.tipoMovimentacao.toUpperCase() === TipoMovimentacaoEnum.POSITIVO.toString()
-										? (<AddCircleOutlineRounded sx={{ color: "#44A81D" }} />)
-										: (<RemoveCircleOutlineRounded sx={{ color: "#B82121" }} />)}
+										? (
+											<Tooltip
+												title="Movimentação positiva"
+												placement="left"
+											>
+												<AddCircleOutlineRounded sx={{ color: "#44A81D" }} />
+											</Tooltip>)
+										: (
+											<Tooltip
+												title="Movimentação negativa"
+												placement="left"
+											>
+												<RemoveCircleOutlineRounded sx={{ color: "#B82121" }} />
+											</Tooltip>)}
 								</div>
 								<div className="descricao-movimentacao">
 									{movimentacao.nomeCategoriaMovimentacao}
@@ -159,13 +174,36 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({
 									${movimentacao.valor.toFixed(2).replace('.', ',')}
 								</div>
 								<div className='buttons'>
-									<IconButton color="inherit">
+									<Tooltip
+										title="Ver descrição da movimentação"
+										placement="top"
+									>
+										<IconButton>
+											<InfoOutlined
+												sx={{ color: "#3451C7" }}
+											/>
+										</IconButton>
+									</Tooltip>
+									<Tooltip
+										title="Editar movimentação"
+										placement="top"
+									>
+										<IconButton color="inherit">
 										<ModeEdit />
-									</IconButton>
-									<IconButton>
-										<DeleteForever sx={{ color: "#B82121" }}
-										onClick={() => modalApagaMovimentacao(movimentacao)}/>
-									</IconButton>
+										</IconButton>
+									</Tooltip>
+									<Tooltip
+										title="Apagar movimentação"
+										placement="top"
+									>
+										<IconButton>
+											<DeleteForever sx={{ color: "#B82121" }}
+												onClick={() =>
+													modalApagaMovimentacao(movimentacao)}
+											/>
+										</IconButton>
+									</Tooltip>
+									
 								</div>
 							</div>
 						))}

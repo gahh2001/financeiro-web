@@ -289,14 +289,20 @@
 
 			.header-categoria {
 				background-color: transparent;
-				width: 35%;
+				width: 30%;
 				text-align: right;
 
 			}
 
 			.header-valor {
 				background-color: transparent;
-				width: 28%;
+				width: 26%;
+				text-align: right;
+			}
+
+			.header-acoes {
+				background-color: transparent;
+				width: 30%;
 				text-align: right;
 			}
 		}
@@ -329,61 +335,62 @@
 				}
 
 				@media (max-width: 1650px) {
-					font-size: 29px;
+					font-size: 28px;
 				}
 
 				@media (max-width: 1550px) {
-					font-size: 26px;
+					font-size: 25px;
 				}
 
 				@media (max-width: 1350px) {
-					font-size: 22px;
+					font-size: 21px;
 				}
 			}
 
 			@media (max-width: 1850px) {
-				font-size: 25px;
-			}
-
-			@media (max-width: 1800px) {
 				font-size: 23px;
 			}
 
-			@media (max-width: 1550px) {
+			@media (max-width: 1800px) {
 				font-size: 21px;
 			}
 
-			@media (max-width: 1350px) {
+			@media (max-width: 1550px) {
 				font-size: 19px;
 			}
 
-			@media (max-width: 1250px) {
+			@media (max-width: 1350px) {
 				font-size: 17px;
+			}
+
+			@media (max-width: 1250px) {
+				font-size: 15px;
 			}
 
 			.icon-movimentacao {
 				background-color: transparent;
-				width: 10%;
+				width: 8%;
 			}
 
 			.descricao-movimentacao {
 				background-color: transparent;
-				width: 35%;
+				width: 30%;
 			}
 
 			.valor-movimentacao {
 				background-color: transparent;
-				width: 33%;
+				width: 30%;
 			}
 
 			.buttons {
 				display: flex;
-				width: 10%;
+				width: 8%;
 				background-color: transparent;
 			}
 
 			button {
 				background-color: transparent;
+
 				&:hover {
 					background-color: #ffffff1b;
 				}
