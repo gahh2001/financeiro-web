@@ -32,12 +32,14 @@ export default function ModalApagaMovimentacao(props: ModalType) {
 	let id = 0;
 	let idCategoria = 0;
 	let valor = 0;
+	let descricao = "";
 	if (possuiMovimentacaoEData) {
 		const dateString = props.movimentacao?.dataMovimentacao as string | undefined;
 		date = dateString ? new Date(dateString) : undefined;
 		id = props.movimentacao ? props.movimentacao.id : 0
 		idCategoria = props.movimentacao ? props.movimentacao.idCategoriaMovimentacao : 0;
-		valor = props.movimentacao ? props.movimentacao.valor : 0
+		valor = props.movimentacao ? props.movimentacao.valor : 0;
+		descricao = props.movimentacao ? props.movimentacao.descricaoMovimentacao : "";
 	}
 
 	useEffect(() => {
@@ -81,6 +83,14 @@ export default function ModalApagaMovimentacao(props: ModalType) {
 								{valor.toFixed(2).replace('.', ',')}
 							</div>
 						</div>
+						<div className="headers">
+							Descrição
+						</div>
+						<div className='movimentacao'>
+							<div className='descricao'>
+								{descricao}
+							</div>
+						</div>
 						<div className="buttons">
 							<button onClick={props.closeModalRemove}>
 								{success ? "Fechar" : "Cancelar"}
@@ -91,8 +101,8 @@ export default function ModalApagaMovimentacao(props: ModalType) {
 									disabled={success}
 								>
 									{success 
-										? <CheckIcon sx={{fontSize: "50px", color: "green"}}/>
-										: <DeleteForever sx={{ fontSize: "50px", color: "#B82121" }} />}
+										? <CheckIcon sx={{color: "green"}}/>
+										: <DeleteForever sx={{color: "#B82121"}} />}
 								</button>
 							</div>
 							
