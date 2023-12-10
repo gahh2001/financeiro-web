@@ -15,7 +15,7 @@
 
 .modal-adiciona {
 	background-color: $fundo-linhas;
-	height: 40%;
+	height: 45%;
 	padding: 1rem;
 	border-radius: 25px;
 	color: white;
@@ -44,7 +44,10 @@
 		}
 	}
 
-	
+	.input-descricao {
+		margin-top: 2vh;
+		justify-content: center;
+	}
 
 	.buttons {
 		text-align: center;

@@ -1,4 +1,4 @@
-import { TextField } from '@mui/material';
+import { Box, TextField } from '@mui/material';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -12,6 +12,7 @@ import 'dayjs/locale/en-gb';
 import { ReactNode, useState } from "react";
 import { TipoMovimentacaoEnum } from "../../enums/TipoMovimentacaoEnum";
 import "./ModalAddMovimentacao.scss";
+
 
 interface ModalType {
 	children?: ReactNode;
@@ -58,48 +59,55 @@ export default function ModalAddMovimentacao(props: ModalType) {
 				<div className="modal-overlay-adiciona">
 					<div className="modal-adiciona">
 						<div className="titulo">Adicionar {tipoMovimentacao}</div>
-						<div className='inputs'>
 							<ThemeProvider theme={darkTheme}>
-								<LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="en-gb">
-									<DemoContainer components={['DatePicker']}>
-										<DatePicker
-											sx={{ m: 1, width: "25vh" }}
-											label="Data"
-											onChange={(value) => setSelectedDate(value)}
-										/>
-									</DemoContainer>
-								</LocalizationProvider>
-								<div className='space'></div>
-								<FormControl sx={{ m: 1, width: "20vh" }}>
-									<InputLabel
-										id="demo-simple-select-helper-label"
+								<div className='inputs'>
+									<LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="en-gb">
+										<DemoContainer components={['DatePicker']}>
+											<DatePicker
+												sx={{ m: 1, width: "25vh" }}
+												label="Data"
+												onChange={(value) => setSelectedDate(value)}
+											/>
+										</DemoContainer>
+									</LocalizationProvider>
+									<div className='space'></div>
+									<FormControl sx={{ m: 1, width: "20vh" }}>
+										<InputLabel
+											id="demo-simple-select-helper-label"
+										>
+											Categoria
+										</InputLabel>
+										<Select
+											labelId="demo-simple-select-helper-label"
+											id="demo-simple-select-helper"
+											value={age}
+											label="Age"
+											onChange={handleChange}
+										>
+											<MenuItem value="">
+												<em>None</em>
+											</MenuItem>
+											<MenuItem value={10}>Ten</MenuItem>
+											<MenuItem value={20}>Twenty</MenuItem>
+											<MenuItem value={30}>Thirty</MenuItem>
+										</Select>
+									</FormControl>
+									<TextField
+										value={inputValue}
+										onChange={handleInputChange}
+										inputProps={{ type: 'number', step: "0.5"}}
+										sx={{ m: 1, width: "18vh" }}
+										label= "Valor"
+									/>
+								</div>
+								<div className='input-descricao'>
+									<Box
+										sx={{width: "98.5%"}}
 									>
-										Categoria
-									</InputLabel>
-									<Select
-										labelId="demo-simple-select-helper-label"
-										id="demo-simple-select-helper"
-										value={age}
-										label="Age"
-										onChange={handleChange}
-									>
-										<MenuItem value="">
-											<em>None</em>
-										</MenuItem>
-										<MenuItem value={10}>Ten</MenuItem>
-										<MenuItem value={20}>Twenty</MenuItem>
-										<MenuItem value={30}>Thirty</MenuItem>
-									</Select>
-								</FormControl>
-								<TextField
-									value={inputValue}
-									onChange={handleInputChange}
-									inputProps={{ type: 'number', step: "0.5"}}
-									sx={{ m: 1, width: "18vh" }}
-									label= "Valor"
-								/>
+										<TextField fullWidth label="Descrição" id="fullWidth" />
+									</Box>
+								</div>
 							</ThemeProvider>
-						</div>
 						<div className="buttons">
 							<button onClick={props.closeModal}>
 								Cancelar
