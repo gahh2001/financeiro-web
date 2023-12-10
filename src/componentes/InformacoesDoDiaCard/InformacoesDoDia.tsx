@@ -203,7 +203,6 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({
 											/>
 										</IconButton>
 									</Tooltip>
-									
 								</div>
 							</div>
 						))}
