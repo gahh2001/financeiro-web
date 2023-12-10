@@ -43,8 +43,8 @@ export default function ModalAddMovimentacao(props: ModalType) {
 		? 'rendimento' : 'despesa'
 	const [categoriasCarregadas, setCategoriasCarregadas] = useState<ICategoriaMovimentacao[]>([]);
 	const [data, setData] = useState<Dayjs | null>(dayjs());
-	const [categoria, setCategoria] = useState('');
-	const [valor, setValor] = useState('');
+	const [categoria, setCategoria] = useState("");
+	const [valor, setValor] = useState("");
 	const [descricao, setDescricao] = useState("");
 	const [emptyCategoria, setEmptyCategoria] = useState(false);
 	const [emptyValor, setEmptyValor] = useState(false);
@@ -54,7 +54,7 @@ export default function ModalAddMovimentacao(props: ModalType) {
 
 	const handleChangeCategoria = (event: SelectChangeEvent) => {
 		const newValue = event.target.value;
-		setCategoria(typeof newValue === 'string' ? newValue : '');
+		setCategoria(typeof newValue === 'string' ? newValue : "");
 	};
 
 	const handleChangeDescricao = (event: ChangeEvent<HTMLInputElement>) => {
@@ -63,7 +63,7 @@ export default function ModalAddMovimentacao(props: ModalType) {
 
 	const convertInputValor = (event: any) => {
 		let value = event.target.value;
-		value = value.replace(/[^0-9]/g, '');
+		value = value.replace(/[^0-9]/g, "");
 		let numberValue = parseFloat(value) / 100;
 		setValor(numberValue.toFixed(2));
 	};
@@ -169,7 +169,7 @@ export default function ModalAddMovimentacao(props: ModalType) {
 							</button>
 							<div className='adicionar'>
 								<button
-									onClick={() => teste()}
+									onClick={() => adicionaMovimentacao()}
 								>
 								{success
 									? <CheckIcon sx={{color: "green"}}/>
@@ -191,7 +191,7 @@ export default function ModalAddMovimentacao(props: ModalType) {
 		</>
 	);
 
-	async function teste() {
+	async function adicionaMovimentacao() {
 		setPrimeiroClique(true);
 		const inputsValidados = validaInputsMovimentacao();
 		if (inputsValidados) {
@@ -214,11 +214,11 @@ export default function ModalAddMovimentacao(props: ModalType) {
 	}
 
 	function validaInputsMovimentacao() {
-		const emptyFieldCategoria = categoria === undefined || categoria === "";
-		const emptyFieldValor = valor === undefined || valor === "";
+		const emptyFieldCategoria = categoria.trim() === "";
+		const emptyFieldValor = valor.trim() === "";
 		setEmptyCategoria(emptyFieldCategoria ? true : false);
 		setEmptyValor(emptyFieldValor ? true : false);
-		return !emptyCategoria && !emptyValor;
+		return !emptyFieldCategoria && !emptyFieldValor;
 	}
 
 	function obtemSelectCategorias(categoriasReceived: ICategoriaMovimentacao[]) {
