@@ -9,10 +9,12 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import 'dayjs/locale/en-gb';
-import { ReactNode, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { TipoMovimentacaoEnum } from "../../enums/TipoMovimentacaoEnum";
+import back from '../../http';
+import { ICategoriaMovimentacao } from '../../interfaces/ICategoriaMovimentacao';
+import { CategoriaMovimentacaoService } from '../../services/CategoriaMovimentacaoService';
 import "./ModalAddMovimentacao.scss";
-
 
 interface ModalType {
 	children?: ReactNode;
@@ -29,29 +31,43 @@ const darkTheme = createTheme({
 });
 
 export default function ModalAddMovimentacao(props: ModalType) {
+	const categoriaMovimentacaoService = new CategoriaMovimentacaoService(back);
 	const [selectedDate, setSelectedDate] = useState<any>();
 	const tipoMovimentacao = props.tipo === TipoMovimentacaoEnum.POSITIVO
 		? 'rendimento' : 'despesa'
-	const [age, setAge] = useState('');
-	const [inputValue, setInputValue] = useState('');
+	const [categoriasCarregadas, setCategoriasCarregadas] = useState<ICategoriaMovimentacao[]>([]);
+	const [categoria, setCategoria] = useState('');
+	const [valor, setValor] = useState('');
+	const [data, setData] = useState<Date>();
 
-	const handleChange = (event: SelectChangeEvent) => {
-		setAge(event.target.value);
+	const handleChangeCategoria = (event: SelectChangeEvent) => {
+		const newValue = event.target.value;
+		setCategoria(typeof newValue === 'string' ? newValue : '');
 	};
 
-	const handleInputChange = (event: any) => {
-		// Obtém o valor do input
+	const convertInputValor = (event: any) => {
 		let value = event.target.value;
-	
-		// Remove caracteres não numéricos
 		value = value.replace(/[^0-9]/g, '');
-	
-		// Converte para número
-		let numberValue = parseFloat(value) / 100; // Divide por 100 para obter duas casas decimais
-	
-		// Atualiza o estado com o valor formatado
-		setInputValue(numberValue.toFixed(2));
-	  };
+		let numberValue = parseFloat(value) / 100;
+		setValor(numberValue.toFixed(2));
+	};
+
+	useEffect( () => {
+		setValor("");
+		setCategoria("");
+		const buscaCategorias = async () => {
+			try {
+				const categorias = await categoriaMovimentacaoService
+					.obtemCategoriasPorTipoMovimentacaoEConta(1, props.tipo);
+				if (categorias?.data) {
+					setCategoriasCarregadas(categorias.data);
+				}
+			} catch (error) {
+				console.log("erro ao carregar categorias do tipo ", props.tipo);
+			}
+		}
+		buscaCategorias();
+	}, [props.closeModal, props.isOpen])
 
 	return (
 		<>
@@ -78,23 +94,17 @@ export default function ModalAddMovimentacao(props: ModalType) {
 											Categoria
 										</InputLabel>
 										<Select
-											labelId="demo-simple-select-helper-label"
-											id="demo-simple-select-helper"
-											value={age}
+											id="select-categoria"
+											value={categoria}
 											label="Age"
-											onChange={handleChange}
+											onChange={handleChangeCategoria}
 										>
-											<MenuItem value="">
-												<em>None</em>
-											</MenuItem>
-											<MenuItem value={10}>Ten</MenuItem>
-											<MenuItem value={20}>Twenty</MenuItem>
-											<MenuItem value={30}>Thirty</MenuItem>
+										{obtemSelectCategorias(categoriasCarregadas)}
 										</Select>
 									</FormControl>
 									<TextField
-										value={inputValue}
-										onChange={handleInputChange}
+										value={valor}
+										onChange={convertInputValor}
 										inputProps={{ type: 'number', step: "0.5"}}
 										sx={{ m: 1, width: "18vh" }}
 										label= "Valor"
@@ -124,5 +134,16 @@ export default function ModalAddMovimentacao(props: ModalType) {
 
 	function teste() {
 		console.log(selectedDate);
+	}
+
+	function obtemSelectCategorias(categoriasReceived: ICategoriaMovimentacao[]) {
+		return categoriasReceived.map((categ, index) => (
+			<MenuItem
+				key={index}
+				value={categ.idCategoriaMovimentacao}
+			>
+				{categ.nomeCategoria}
+			</MenuItem>
+		))
 	}
 }
