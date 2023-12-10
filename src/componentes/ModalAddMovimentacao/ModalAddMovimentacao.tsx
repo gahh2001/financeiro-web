@@ -41,7 +41,9 @@ export default function ModalAddMovimentacao(props: ModalType) {
 	const [categoria, setCategoria] = useState('');
 	const [valor, setValor] = useState('');
 	const [descricao, setDescricao] = useState("");
-	const [emptyForm, setEmptyForm] = useState(false);
+	const [emptyCategoria, setEmptyCategoria] = useState(false);
+	const [emptyValor, setEmptyValor] = useState(false);
+	const [primeiroClique, setPrimeiroClique] = useState(false);
 
 	const handleChangeCategoria = (event: SelectChangeEvent) => {
 		const newValue = event.target.value;
@@ -59,10 +61,18 @@ export default function ModalAddMovimentacao(props: ModalType) {
 		setValor(numberValue.toFixed(2));
 	};
 
+	useEffect(() => {
+		if (primeiroClique) {
+			validaInputsMovimentacao();
+		}
+	},[categoria, valor])
+
 	useEffect( () => {
 		setValor("");
 		setCategoria("");
-		setEmptyForm(false);
+		setEmptyCategoria(false);
+		setEmptyValor(false);
+		setPrimeiroClique(false);
 		const buscaCategorias = async () => {
 			try {
 				const categorias = await categoriaMovimentacaoService
@@ -82,7 +92,6 @@ export default function ModalAddMovimentacao(props: ModalType) {
 			{props.isOpen && (
 				<div className="modal-overlay-adiciona">
 					<div className="modal-adiciona">
-						<form>
 							<div className="titulo">Adicionar {tipoMovimentacao}</div>
 								<ThemeProvider theme={darkTheme}>
 									<div className='inputs'>
@@ -100,7 +109,7 @@ export default function ModalAddMovimentacao(props: ModalType) {
 										<FormControl
 											required
 											sx={{ m: 1, width: "20vh" }}
-											error={emptyForm}
+											error={emptyCategoria}
 										>
 											<InputLabel
 												id="demo-simple-select-helper-label"
@@ -119,7 +128,7 @@ export default function ModalAddMovimentacao(props: ModalType) {
 										</FormControl>
 										<TextField
 											required
-											error={emptyForm}
+											error={emptyValor}
 											value={valor}
 											onChange={convertInputValor}
 											inputProps={{ type: 'number', step: "0.5"}}
@@ -146,12 +155,10 @@ export default function ModalAddMovimentacao(props: ModalType) {
 								</button>
 								<button
 									onClick={() => teste()}
-									type="submit"
 								>
 									Salvar
 								</button>
 							</div>
-						</form>
 					</div>
 				</div>
 			)}
@@ -159,17 +166,19 @@ export default function ModalAddMovimentacao(props: ModalType) {
 	);
 
 	function teste() {
-		const emptyFields = data === undefined
-			|| categoria === undefined || categoria === ""
-			|| valor === undefined || valor === ""
-			|| descricao === undefined || descricao === ""
-		if (emptyFields) {
-			setEmptyForm(true)
-		}
+		setPrimeiroClique(true);
+		validaInputsMovimentacao();
 		console.log(data);
 		console.log(categoria);
 		console.log(valor);
 		console.log(descricao);
+	}
+
+	function validaInputsMovimentacao() {
+		const emptyFieldCategoria = categoria === undefined || categoria === "";
+		const emptyFieldValor = valor === undefined || valor === "";
+		setEmptyCategoria(emptyFieldCategoria ? true : false);
+		setEmptyValor(emptyFieldValor ? true : false);
 	}
 
 	function obtemSelectCategorias(categoriasReceived: ICategoriaMovimentacao[]) {
