@@ -1,4 +1,6 @@
-import { Box, TextField } from '@mui/material';
+import { AddCircleOutlineRounded } from '@mui/icons-material';
+import CheckIcon from '@mui/icons-material/Check';
+import { Box, LinearProgress, TextField } from '@mui/material';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -14,7 +16,9 @@ import { ChangeEvent, ReactNode, useEffect, useState } from "react";
 import { TipoMovimentacaoEnum } from "../../enums/TipoMovimentacaoEnum";
 import back from '../../http';
 import { ICategoriaMovimentacao } from '../../interfaces/ICategoriaMovimentacao';
+import { IMovimentacao } from '../../interfaces/IMovimentacao';
 import { CategoriaMovimentacaoService } from '../../services/CategoriaMovimentacaoService';
+import { MovimentacaoService } from '../../services/MovimentacaoService';
 import "./ModalAddMovimentacao.scss";
 
 interface ModalType {
@@ -33,6 +37,7 @@ const darkTheme = createTheme({
 
 export default function ModalAddMovimentacao(props: ModalType) {
 	const categoriaMovimentacaoService = new CategoriaMovimentacaoService(back);
+	const movimentacaoService = new MovimentacaoService(back);
 	const [selectedDate, setSelectedDate] = useState<any>();
 	const tipoMovimentacao = props.tipo === TipoMovimentacaoEnum.POSITIVO
 		? 'rendimento' : 'despesa'
@@ -44,6 +49,8 @@ export default function ModalAddMovimentacao(props: ModalType) {
 	const [emptyCategoria, setEmptyCategoria] = useState(false);
 	const [emptyValor, setEmptyValor] = useState(false);
 	const [primeiroClique, setPrimeiroClique] = useState(false);
+	const [success, setSuccess] = useState(false);
+	const [loading, setLoading] = useState(false);
 
 	const handleChangeCategoria = (event: SelectChangeEvent) => {
 		const newValue = event.target.value;
@@ -65,11 +72,18 @@ export default function ModalAddMovimentacao(props: ModalType) {
 		if (primeiroClique) {
 			validaInputsMovimentacao();
 		}
-	},[categoria, valor])
+	},[categoria, valor]);
+
+	useEffect(() => {
+		return () => {
+			setSuccess(false);
+		}
+	}, [props.closeModal]);
 
 	useEffect( () => {
 		setValor("");
 		setCategoria("");
+		setData(dayjs());
 		setEmptyCategoria(false);
 		setEmptyValor(false);
 		setPrimeiroClique(false);
@@ -92,86 +106,111 @@ export default function ModalAddMovimentacao(props: ModalType) {
 			{props.isOpen && (
 				<div className="modal-overlay-adiciona">
 					<div className="modal-adiciona">
-							<div className="titulo">Adicionar {tipoMovimentacao}</div>
-								<ThemeProvider theme={darkTheme}>
-									<div className='inputs'>
-										<LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="en-gb">
-											<DemoContainer components={['DatePicker']}>
-												<DatePicker
-													sx={{ m: 1, width: "25vh" }}
-													label="Data"
-													value={data}
-													onChange={(newValue) => setData(newValue)}
-												/>
-											</DemoContainer>
-										</LocalizationProvider>
-										<div className='space'></div>
-										<FormControl
-											required
-											sx={{ m: 1, width: "20vh" }}
-											error={emptyCategoria}
-										>
-											<InputLabel
-												id="demo-simple-select-helper-label"
-											>
-												Categoria
-											</InputLabel>
-											<Select
-												id="select-categoria"
-												value={categoria}
-												label="Age"
-												onChange={handleChangeCategoria}
-												required={true}
-											>
-											{obtemSelectCategorias(categoriasCarregadas)}
-											</Select>
-										</FormControl>
-										<TextField
-											required
-											error={emptyValor}
-											value={valor}
-											onChange={convertInputValor}
-											inputProps={{ type: 'number', step: "0.5"}}
-											sx={{ m: 1, width: "18vh" }}
-											label= "Valor"
-										/>
-									</div>
-									<div className='input-descricao'>
-										<Box
-											sx={{width: "98.5%"}}
-										>
-											<TextField
-												fullWidth
-												label="Escreva alguma observação sobre a movimentação"
-												id="fullWidth"
-												onChange={handleChangeDescricao}
+						<div className="titulo">Adicionar {tipoMovimentacao}</div>
+							<ThemeProvider theme={darkTheme}>
+								<div className='inputs'>
+									<LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="en-gb">
+										<DemoContainer components={['DatePicker']}>
+											<DatePicker
+												sx={{ m: 1, width: "25vh" }}
+												label="Data"
+												value={data}
+												onChange={(newValue) => setData(newValue)}
 											/>
-										</Box>
-									</div>
-								</ThemeProvider>
-							<div className="buttons">
-								<button onClick={props.closeModal}>
-									Cancelar
-								</button>
+										</DemoContainer>
+									</LocalizationProvider>
+									<div className='space'></div>
+									<FormControl
+										required
+										sx={{ m: 1, width: "20vh" }}
+										error={emptyCategoria}
+									>
+										<InputLabel
+											id="demo-simple-select-helper-label"
+										>
+											Categoria
+										</InputLabel>
+										<Select
+											id="select-categoria"
+											value={categoria}
+											label="Age"
+											onChange={handleChangeCategoria}
+											required={true}
+										>
+										{obtemSelectCategorias(categoriasCarregadas)}
+										</Select>
+									</FormControl>
+									<TextField
+										required
+										error={emptyValor}
+										value={valor}
+										onChange={convertInputValor}
+										inputProps={{ type: 'number', step: "0.5"}}
+										sx={{ m: 1, width: "18vh" }}
+										label= "Valor"
+									/>
+								</div>
+								<div className='input-descricao'>
+									<Box
+										sx={{width: "98.5%"}}
+									>
+										<TextField
+											fullWidth
+											label="Escreva alguma observação sobre a movimentação"
+											id="fullWidth"
+											onChange={handleChangeDescricao}
+										/>
+									</Box>
+								</div>
+							</ThemeProvider>
+						<div className="buttons">
+							<button onClick={props.closeModal}>
+								Cancelar
+							</button>
+							<div className='adicionar'>
 								<button
 									onClick={() => teste()}
 								>
-									Salvar
-								</button>
+								{success
+									? <CheckIcon sx={{color: "green"}}/>
+									: <AddCircleOutlineRounded sx={{ color: "#44A81D" }} />
+								}
+							</button>
 							</div>
+						</div>
+						<div className='progress'>
+							{loading && (
+								<Box sx={{ width: '100%' }}>
+									<LinearProgress />
+								</Box>
+							)}
+						</div>
 					</div>
 				</div>
 			)}
 		</>
 	);
 
-	function teste() {
+	async function teste() {
 		setPrimeiroClique(true);
-		validaInputsMovimentacao();
-		console.log(data);
-		console.log(categoria);
-		console.log(valor);
-		console.log(descricao);
+		const inputsValidados = validaInputsMovimentacao();
+		if (inputsValidados) {
+			setLoading(true);
+			setSuccess(false);
+			const novaMovimentacao: IMovimentacao = {
+				idConta: 1,
+				valor: parseFloat(valor),
+				dataMovimentacao: data?.toDate() ? data?.toDate() : new Date(),
+				tipoMovimentacao: props.tipo.toString(),
+				idCategoriaMovimentacao: parseInt(categoria),
+				descricaoMovimentacao: descricao
+			}
+			const response = await movimentacaoService.adicionaMovimentacao(novaMovimentacao);
+			if (response?.status && response.status === 200) {
+				setLoading(false);
+				setSuccess(true);
+			}
+		}
 	}
 
 	function validaInputsMovimentacao() {
@@ -179,6 +218,7 @@ export default function ModalAddMovimentacao(props: ModalType) {
 		const emptyFieldValor = valor === undefined || valor === "";
 		setEmptyCategoria(emptyFieldCategoria ? true : false);
 		setEmptyValor(emptyFieldValor ? true : false);
+		return !emptyCategoria && !emptyValor;
 	}
 
 	function obtemSelectCategorias(categoriasReceived: ICategoriaMovimentacao[]) {

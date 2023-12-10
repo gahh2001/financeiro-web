@@ -66,28 +66,53 @@
 	}
 
 	.buttons {
-		text-align: center;
-		height: 40%;
-		font-size: 4vh;
+		width: 100%;
+		align-items: right;
+		height: 15%;
+		margin-top: 19px;
 		background-color: transparent;
-		margin-top: 4vh;
+		display: flex;
+		justify-content: center;
 
 		button {
 			text-align: center;
-			font-size: 4vh;
+			font-size: 3vh;
 			background-color: $fundo-linhas;
-			width: 35%;
+			width: 25%;
+			height: 100%;
 			border: 2px solid $fundo-linhas;
 			box-shadow: 2px 2px 7px 1px $sombras;
 			border-radius: 7px;
 			cursor: pointer;
 			color: $color-in-linhas;
 			margin-left: 2%;
-			margin-right: 2%;
+			margin-right: 4%;
 
 			&:hover {
 				background-color: #4b4b4b;
 			}
 		}
+
+		.adicionar {
+			margin-right: 5%;
+			font-size: 4vh;
+			width: 15%;
+			height: 100%;
+			cursor: pointer;
+
+			button {
+				width: 100%;
+			}
+
+			svg {
+				font-size: 5vh;
+			}
+		}
+	}
+
+	.progress {
+		margin-top: 2%;
+		width: auto;
+		height: auto;
 	}
 }

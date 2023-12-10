@@ -31,4 +31,15 @@ export class MovimentacaoService {
 			return undefined;
 		}
 	}
+
+	async adicionaMovimentacao(movimentacao: IMovimentacao) {
+		try {
+			const response = await this.axiosInstance
+				.post('/movimentacao', movimentacao)
+			return {...response}
+		} catch (error) {
+			console.log("Erro ao salvar movimentação")
+			return undefined;
+		}
+	}
 }

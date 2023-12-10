@@ -36,7 +36,7 @@ export default function ModalApagaMovimentacao(props: ModalType) {
 	if (possuiMovimentacaoEData) {
 		const dateString = props.movimentacao?.dataMovimentacao as string | undefined;
 		date = dateString ? new Date(dateString) : undefined;
-		id = props.movimentacao ? props.movimentacao.id : 0
+		id = props.movimentacao?.id ? props.movimentacao.id : 0
 		idCategoria = props.movimentacao ? props.movimentacao.idCategoriaMovimentacao : 0;
 		valor = props.movimentacao ? props.movimentacao.valor : 0;
 		descricao = props.movimentacao ? props.movimentacao.descricaoMovimentacao : "";
