@@ -140,7 +140,7 @@ export default function ModalAddMovimentacao(props: ModalType) {
 		return categoriasReceived.map((categ, index) => (
 			<MenuItem
 				key={index}
-				value={categ.idCategoriaMovimentacao}
+				value={categ.id.toString()}
 			>
 				{categ.nomeCategoria}
 			</MenuItem>

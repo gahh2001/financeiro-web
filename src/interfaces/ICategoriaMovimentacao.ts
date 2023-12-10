@@ -1,5 +1,5 @@
 export type ICategoriaMovimentacao = {
-	idCategoriaMovimentacao: number;
+	id: number;
 	tipoMovimentacao: number; //POSITIVO ou NEGATIVO
 	nomeCategoria: string;
 	idConta: number;
