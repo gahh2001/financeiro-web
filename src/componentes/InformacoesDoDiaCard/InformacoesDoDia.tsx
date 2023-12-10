@@ -194,7 +194,7 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({
 									</Tooltip>
 									<Tooltip
 										title="Apagar movimentação"
-										placement="top"
+										placement="left"
 									>
 										<IconButton>
 											<DeleteForever sx={{ color: "#B82121" }}

@@ -19,7 +19,7 @@
 	height: 53%;
 	padding: 1rem;
 	border-radius: 25px;
-	color: white;
+	color: $color-in-linhas;
 	border: 1px solid $sombras;
 	box-shadow: 5px 4px 7px 1px $sombras;
 
@@ -27,13 +27,9 @@
 		height: auto;
 		background-color: transparent;
 		font-weight: bold;
-		font-size: 25px;
+		font-size: 3vh;
 		text-align: center;
 		margin-bottom: 1.7%;
-
-		@media (max-width: 1250px) {
-			font-size: 22px;
-		}
 	}
 
 	.aviso {
@@ -73,10 +69,10 @@
 			width: 33%;
 			height: 5vh;
 			font-size: 3vh;
-			color: #ffffff;
 		}
 
 		.descricao {
+			font-size: 2.5vh;
 			width: 100vh;
 			height: 8vh;
 			text-align: center;
