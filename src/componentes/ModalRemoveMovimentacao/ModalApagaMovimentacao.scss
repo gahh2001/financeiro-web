@@ -1,9 +1,10 @@
 @import '../../VariaveisSCSS.scss';
 
-.modal-overlay {
+.modal-overlay-apaga {
 	z-index: 1;
 	width: 100%;
 	height: 100%;
+	position: fixed;
 	top: 0;
 	left: 0;
 	display: flex;
@@ -12,7 +13,7 @@
 	background: rgba(0, 0, 0, 0.388);
 }
 
-.modal-box {
+.modal-apaga {
 	background-color: $fundo-linhas;
 	width: 40%;
 	height: 53%;

@@ -59,8 +59,8 @@ export default function ModalApagaMovimentacao(props: ModalType) {
 	return (
 		<>
 			{props.isOpen && possuiMovimentacaoEData && !!date &&(
-				<div className="modal-overlay">
-					<div className="modal-box">
+				<div className="modal-overlay-apaga">
+					<div className="modal-apaga">
 						<div className="titulo">Apagar {tipoMovimentacao}</div>
 						<div className="aviso">
 							Deseja mesmo apagar a seguinte movimentação:
