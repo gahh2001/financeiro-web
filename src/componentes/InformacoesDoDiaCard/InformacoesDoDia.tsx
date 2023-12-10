@@ -196,11 +196,12 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({
 										title="Apagar movimentação"
 										placement="left"
 									>
-										<IconButton>
-											<DeleteForever sx={{ color: "#B82121" }}
-												onClick={() =>
+										<IconButton
+											onClick={() =>
 													modalApagaMovimentacao(movimentacao)}
-											/>
+										>
+											<DeleteForever sx={{ color: "#B82121" }}
+										/>
 										</IconButton>
 									</Tooltip>
 								</div>
