@@ -23,11 +23,11 @@
 	box-shadow: 5px 4px 7px 1px $sombras;
 
 	@media (max-width: 1850px) {
-		height: 330px;
+		height: 340px;
 	}
 
 	@media (max-width: 1800px) {
-		height: 310px;
+		height: 320px;
 	}
 
 	@media (max-width: 1550px) {
@@ -46,13 +46,9 @@
 		height: auto;
 		background-color: transparent;
 		font-weight: bold;
-		font-size: 25px;
+		font-size: 3.5vh;
 		text-align: center;
 		margin-bottom: 1.7%;
-
-		@media (max-width: 1250px) {
-			font-size: 22px;
-		}
 	}
 
 	.inputs {
