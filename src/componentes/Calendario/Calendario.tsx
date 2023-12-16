@@ -1,4 +1,4 @@
-import { Circle } from "@mui/icons-material";
+import { CircleTwoTone } from "@mui/icons-material";
 import { CircularProgress } from "@mui/material";
 import classNames from 'classnames';
 import moment from "moment";
@@ -140,28 +140,28 @@ const Calendario: React.FC<CalendarioProps> = ({ onDayClick, closeModalAdd, clos
 				case TipoMovimentacaoEnum.NEGATIVO:
 					if (possuiMovimentacao > 0) {
 						return (
-							<Circle
+							<CircleTwoTone
 								sx={{ color: "#9a1d1d", backgroundColor: 'transparent' }}
 								fontSize='medium'
 							/>
 						);
 					}
 					return (
-						<Circle
+						<CircleTwoTone
 							sx={{ color: "transparent", backgroundColor: 'transparent' }}
 						/>
 					);
 				case TipoMovimentacaoEnum.POSITIVO:
 					if (possuiMovimentacao > 0) {
 						return (
-							<Circle
+							<CircleTwoTone
 								sx={{ color: "#35b13b", backgroundColor: 'transparent' }}
 								fontSize='medium'
 							/>
 						);
 					}
 					return (
-						<Circle
+						<CircleTwoTone
 							sx={{ color: "transparent", backgroundColor: 'transparent' }}
 						/>
 					);
