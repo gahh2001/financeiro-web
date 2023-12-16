@@ -155,7 +155,7 @@ const Calendario: React.FC<CalendarioProps> = ({ onDayClick, closeModalAdd, clos
 					if (possuiMovimentacao > 0) {
 						return (
 							<CircleTwoTone
-								sx={{ color: "#35b13b", backgroundColor: 'transparent' }}
+								sx={{ color: "#2D9632", backgroundColor: 'transparent' }}
 								fontSize='medium'
 							/>
 						);
