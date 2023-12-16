@@ -17,18 +17,18 @@ export const Home = () => {
 	const [tipo, setTipo] = useState(TipoMovimentacaoEnum.POSITIVO);
 	const [movimentacaoApagar, setMovimentacaoApagar] = useState<IMovimentacao | null>(null);
 
-	const handleDayClick = (date: Date) => {
+	const propsCalendario = (date: Date) => {
 		setSelectedDate(date);
 	};
-	const modalAddRendimento = () => {
+	const propsModalAddRendimento = () => {
 		setTipo(TipoMovimentacaoEnum.POSITIVO);
 		closeModalAdd();
 	}
-	const modalAddDespesa = () => {
+	const propsModalAddDespesa = () => {
 		setTipo(TipoMovimentacaoEnum.NEGATIVO);
 		closeModalAdd();
 	}
-	const modalApagaRendimento = (movimentacaoApagar: IMovimentacao) => {
+	const propsModalApagaRendimento = (movimentacaoApagar: IMovimentacao) => {
 		movimentacaoApagar.tipoMovimentacao.toUpperCase() === TipoMovimentacaoEnum.POSITIVO
 			? setTipo(TipoMovimentacaoEnum.POSITIVO)
 			: setTipo(TipoMovimentacaoEnum.NEGATIVO);
@@ -44,20 +44,24 @@ export const Home = () => {
 					display: 'flex',
 					flex: "0.7"
 				}}>
-					<Calendario onDayClick={handleDayClick} />
+					<Calendario
+						onDayClick={propsCalendario}
+						closeModalAdd={closeModalAdd}
+						closeModalRemove={closeModalRemove}
+					/>
 					<InformacoesDoMes
 						selectedDate={selectedDate}
-						modalAddRendimento={modalAddRendimento}
-						modalAddDespesa={modalAddDespesa}
-						modalApagaMovimentacao={modalApagaRendimento}
+						modalAddRendimento={propsModalAddRendimento}
+						modalAddDespesa={propsModalAddDespesa}
+						modalApagaMovimentacao={propsModalApagaRendimento}
 					/>
 				</div>
 				<div style={{flex: "0.3", display: "flex"}}>
 					<InformacoesDoDia
 						selectedDate={selectedDate}
-						modalAddRendimento={modalAddRendimento}
-						modalAddDespesa={modalAddDespesa}
-						modalApagaMovimentacao={modalApagaRendimento}
+						modalAddRendimento={propsModalAddRendimento}
+						modalAddDespesa={propsModalAddDespesa}
+						modalApagaMovimentacao={propsModalApagaRendimento}
 					/>
 				</div>
 			</div>

@@ -12,9 +12,11 @@ import "./CalendarioStyle.scss";
 
 interface CalendarioProps {
 	onDayClick: (selectedDate: Date) => void;
+	closeModalAdd: () => void;
+	closeModalRemove: () => void;
 }
 
-const Calendario: React.FC<CalendarioProps> = ({ onDayClick }) => {
+const Calendario: React.FC<CalendarioProps> = ({ onDayClick, closeModalAdd, closeModalRemove }) => {
 	moment.locale("pt-br");
 	const [currentMonth, setCurrentMonth] = useState(moment());
 	const [selectedDay, setSelectedDay] = useState(moment().date() + currentMonth.format('YYYYMM'));
@@ -52,7 +54,7 @@ const Calendario: React.FC<CalendarioProps> = ({ onDayClick }) => {
 			}
 		};
 		buscaMovimentacoesDoMes();
-	}, [selectedDay])
+	}, [selectedDay,closeModalAdd, closeModalRemove])
 
 	for (let day = 1; day <= daysInMonth; day++) {
 		const isCurrentDay = (day + currentMonth.format('YYYYMM')) === selectedDay;
