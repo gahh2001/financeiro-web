@@ -51,6 +51,8 @@ export default function ModalAddMovimentacao(props: ModalType) {
 	const [primeiroClique, setPrimeiroClique] = useState(false);
 	const [success, setSuccess] = useState(false);
 	const [loading, setLoading] = useState(false);
+	const corBotaoAdd = props.tipo === TipoMovimentacaoEnum.POSITIVO
+		? "#44A81D" : "#B82121";
 
 	const handleChangeCategoria = (event: SelectChangeEvent) => {
 		const newValue = event.target.value;
@@ -75,9 +77,7 @@ export default function ModalAddMovimentacao(props: ModalType) {
 	},[categoria, valor]);
 
 	useEffect(() => {
-		return () => {
-			setSuccess(false);
-		}
+		setSuccess(false);
 	}, [props.closeModal]);
 
 	useEffect( () => {
@@ -165,15 +165,16 @@ export default function ModalAddMovimentacao(props: ModalType) {
 							</ThemeProvider>
 						<div className="buttons">
 							<button onClick={props.closeModal}>
-								Cancelar
+								{success ? "Fechar" : "Cancelar"}
 							</button>
 							<div className='adicionar'>
 								<button
 									onClick={() => adicionaMovimentacao()}
+									disabled={success}
 								>
 								{success
 									? <CheckIcon sx={{color: "green"}}/>
-									: <AddCircleOutlineRounded sx={{ color: "#44A81D" }} />
+									: <AddCircleOutlineRounded sx={{ color: corBotaoAdd }} />
 								}
 							</button>
 							</div>
@@ -215,7 +216,7 @@ export default function ModalAddMovimentacao(props: ModalType) {
 
 	function validaInputsMovimentacao() {
 		const emptyFieldCategoria = categoria.trim() === "";
-		const emptyFieldValor = valor.trim() === "";
+		const emptyFieldValor = valor.trim() === "" || parseInt(valor) <= 0;
 		setEmptyCategoria(emptyFieldCategoria ? true : false);
 		setEmptyValor(emptyFieldValor ? true : false);
 		return !emptyFieldCategoria && !emptyFieldValor;
