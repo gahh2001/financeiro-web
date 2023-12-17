@@ -5,7 +5,6 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { createTheme } from "@mui/material/styles";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -26,19 +25,18 @@ interface ModalType {
 	isOpen: boolean;
 	tipo: TipoMovimentacaoEnum;
 	closeModal: () => void;
+	edit: boolean;
 	date: Date;
+	categoria: string;
+	valor: string;
+	descricao: string;
 }
-
-const darkTheme = createTheme({
-	palette: {
-		mode: 'dark',
-	},
-});
 
 export default function ModalAddMovimentacao(props: ModalType) {
 	const categoriaMovimentacaoService = new CategoriaMovimentacaoService(back);
 	const movimentacaoService = new MovimentacaoService(back);
-	const [selectedDate, setSelectedDate] = useState<any>();
+	const verboTitulo = props.edit
+		? "Editar " : "Adicionar "
 	const tipoMovimentacao = props.tipo === TipoMovimentacaoEnum.POSITIVO
 		? 'rendimento' : 'despesa'
 	const [categoriasCarregadas, setCategoriasCarregadas] = useState<ICategoriaMovimentacao[]>([]);
@@ -53,6 +51,15 @@ export default function ModalAddMovimentacao(props: ModalType) {
 	const [loading, setLoading] = useState(false);
 	const corBotaoAdd = props.tipo === TipoMovimentacaoEnum.POSITIVO
 		? "#44A81D" : "#B82121";
+
+	useEffect(() => {
+		if (props.edit) {
+			setData(dayjs(props.date));
+			setCategoria(props.categoria);
+			setValor(props.valor);
+			setDescricao(props.descricao);
+		}
+	}, [props.isOpen, props.edit])
 
 	const handleChangeCategoria = (event: SelectChangeEvent) => {
 		const newValue = event.target.value;
@@ -81,12 +88,15 @@ export default function ModalAddMovimentacao(props: ModalType) {
 	}, [props.closeModal]);
 
 	useEffect( () => {
-		setValor("");
-		setCategoria("");
-		setData(dayjs());
-		setEmptyCategoria(false);
-		setEmptyValor(false);
-		setPrimeiroClique(false);
+		if (!props.edit) {
+			setValor("");
+			setCategoria("");
+			setData(dayjs());
+			setDescricao("");
+			setEmptyCategoria(false);
+			setEmptyValor(false);
+			setPrimeiroClique(false);
+		}
 		const buscaCategorias = async () => {
 			try {
 				const categorias = await categoriaMovimentacaoService
@@ -99,14 +109,14 @@ export default function ModalAddMovimentacao(props: ModalType) {
 			}
 		}
 		buscaCategorias();
-	}, [props.closeModal, props.isOpen])
+	}, [props.closeModal, props.isOpen, props.edit])
 
 	return (
 		<>
 			{props.isOpen && (
 				<div className="modal-overlay-adiciona">
 					<div className="modal-adiciona">
-						<div className="titulo">Adicionar {tipoMovimentacao}</div>
+						<div className="titulo">{verboTitulo} {tipoMovimentacao}</div>
 							<div className='inputs'>
 								<LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="en-gb">
 									<DemoContainer components={['DatePicker']}>
@@ -157,6 +167,7 @@ export default function ModalAddMovimentacao(props: ModalType) {
 										fullWidth
 										label="Escreva alguma observação sobre a movimentação"
 										id="fullWidth"
+										defaultValue={props.descricao}
 										onChange={handleChangeDescricao}
 									/>
 								</Box>

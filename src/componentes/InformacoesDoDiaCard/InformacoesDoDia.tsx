@@ -24,11 +24,13 @@ interface InformacoesDoDiaProps {
 	modalAddDespesa: () => void;
 	modalApagaMovimentacao: (movimentacaoApagar: IMovimentacao) => void;
 	dialogDescricao: (description: string) => void;
+	handleEditMovimentacao: (data: Date, valor: string, categoria: string,
+		descricao: string, tipoEdit: TipoMovimentacaoEnum) => void;
 }
 
 const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({
 	selectedDate, modalAddRendimento, modalAddDespesa,
-	modalApagaMovimentacao, dialogDescricao }) => {
+	modalApagaMovimentacao, dialogDescricao, handleEditMovimentacao }) => {
 
 	const [movimentacoesDoDia, setMovimentacoesDoDia] = useState<IMovimentacao[]>([]);
 	const [saldo, setSaldo] = useState<number>();
@@ -192,8 +194,16 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({
 										title="Editar movimentação"
 										placement="top"
 									>
-										<IconButton color="inherit">
-										<ModeEdit />
+										<IconButton
+											color="inherit"
+											onClick={() => handleEditMovimentacao(movimentacao.dataMovimentacao,
+												movimentacao.valor.toString(), movimentacao.idCategoriaMovimentacao
+												? movimentacao.idCategoriaMovimentacao.toString() : "",
+												movimentacao.descricaoMovimentacao,
+												movimentacao.tipoMovimentacao === TipoMovimentacaoEnum.POSITIVO.toString()
+												? TipoMovimentacaoEnum.POSITIVO : TipoMovimentacaoEnum.NEGATIVO)}
+										>
+											<ModeEdit />
 										</IconButton>
 									</Tooltip>
 									<Tooltip

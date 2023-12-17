@@ -14,10 +14,14 @@ import './Home.module.scss';
 
 export const Home = () => {
 	const [selectedDate, setSelectedDate] = useState(new Date());
+	const [data, setData] = useState(new Date());
+	const [categoria, setCategoria] = useState("");
+	const [valor, setValor] = useState("");
+	const [descricao, setDescricao] = useState("");
+	const [edit, setEdit] = useState(false);
 	const {isOpenModalAdd, closeModalAdd} = useModalAddMovimentacao();
 	const {isOpenModalRemove, closeModalRemove} = useModalRemoveMovimentacao();
 	const [isOpenDialogDescricao, setIsOpenDialogDescricao] = useState(false);
-	const [descricao, setDescricao] = useState("");
 	const [tipo, setTipo] = useState(TipoMovimentacaoEnum.POSITIVO);
 	const [movimentacaoApagar, setMovimentacaoApagar] = useState<IMovimentacao | null>(null);
 
@@ -32,10 +36,12 @@ export const Home = () => {
 	};
 	const propsModalAddRendimento = () => {
 		setTipo(TipoMovimentacaoEnum.POSITIVO);
+		setEdit(false);
 		closeModalAdd();
 	}
 	const propsModalAddDespesa = () => {
 		setTipo(TipoMovimentacaoEnum.NEGATIVO);
+		setEdit(false);
 		closeModalAdd();
 	}
 	const propsModalApagaRendimento = (movimentacaoApagar: IMovimentacao) => {
@@ -53,6 +59,17 @@ export const Home = () => {
 
 	const closeDialogDescricao = () => {
 		setIsOpenDialogDescricao(false);
+	}
+
+	const handleEditMovimentacao = (data: Date, valor: string, categoria: string,
+			descricao: string, tipo: TipoMovimentacaoEnum) => {
+		setEdit(true)
+		setTipo(tipo)
+		setData(data);
+		setCategoria(categoria);
+		setValor(valor);
+		setDescricao(descricao);
+		closeModalAdd();
 	}
 
 	return (
@@ -83,6 +100,7 @@ export const Home = () => {
 							modalAddDespesa={propsModalAddDespesa}
 							modalApagaMovimentacao={propsModalApagaRendimento}
 							dialogDescricao={(description) => propsDialogDescricao(description)}
+							handleEditMovimentacao={handleEditMovimentacao}
 						/>
 					</div>
 				</div>
@@ -90,7 +108,11 @@ export const Home = () => {
 					isOpen={isOpenModalAdd}
 					closeModal={closeModalAdd}
 					tipo= {tipo}
-					date={new Date()}
+					edit={edit}
+					date={data}
+					categoria={categoria}
+					valor={valor}
+					descricao={descricao}
 				/>
 				<ModalApagaMovimentacao
 					isOpen={isOpenModalRemove}
