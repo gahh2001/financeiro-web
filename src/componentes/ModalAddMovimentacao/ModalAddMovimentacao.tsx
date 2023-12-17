@@ -5,7 +5,7 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { createTheme } from "@mui/material/styles";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -107,62 +107,60 @@ export default function ModalAddMovimentacao(props: ModalType) {
 				<div className="modal-overlay-adiciona">
 					<div className="modal-adiciona">
 						<div className="titulo">Adicionar {tipoMovimentacao}</div>
-							<ThemeProvider theme={darkTheme}>
-								<div className='inputs'>
-									<LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="en-gb">
-										<DemoContainer components={['DatePicker']}>
-											<DatePicker
-												sx={{ m: 1, width: "25vh" }}
-												label="Data"
-												value={data}
-												onChange={(newValue) => setData(newValue)}
-											/>
-										</DemoContainer>
-									</LocalizationProvider>
-									<div className='space'></div>
-									<FormControl
-										required
-										sx={{ m: 1, width: "20vh" }}
-										error={emptyCategoria}
-									>
-										<InputLabel
-											id="demo-simple-select-helper-label"
-										>
-											Categoria
-										</InputLabel>
-										<Select
-											id="select-categoria"
-											value={categoria}
-											label="Age"
-											onChange={handleChangeCategoria}
-											required={true}
-										>
-										{obtemSelectCategorias(categoriasCarregadas)}
-										</Select>
-									</FormControl>
-									<TextField
-										required
-										error={emptyValor}
-										value={valor}
-										onChange={convertInputValor}
-										inputProps={{ type: 'number', step: "0.5"}}
-										sx={{ m: 1, width: "18vh" }}
-										label= "Valor"
-									/>
-								</div>
-								<div className='input-descricao'>
-									<Box
-										sx={{width: "98.5%"}}
-									>
-										<TextField
-											fullWidth
-											label="Escreva alguma observação sobre a movimentação"
-											id="fullWidth"
-											onChange={handleChangeDescricao}
+							<div className='inputs'>
+								<LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="en-gb">
+									<DemoContainer components={['DatePicker']}>
+										<DatePicker
+											sx={{ m: 1, width: "25vh" }}
+											label="Data"
+											value={data}
+											onChange={(newValue) => setData(newValue)}
 										/>
-									</Box>
-								</div>
-							</ThemeProvider>
+									</DemoContainer>
+								</LocalizationProvider>
+								<div className='space'></div>
+								<FormControl
+									required
+									sx={{ m: 1, width: "20vh" }}
+									error={emptyCategoria}
+								>
+									<InputLabel
+										id="demo-simple-select-helper-label"
+									>
+										Categoria
+									</InputLabel>
+									<Select
+										id="select-categoria"
+										value={categoria}
+										label="Age"
+										onChange={handleChangeCategoria}
+										required={true}
+									>
+									{obtemSelectCategorias(categoriasCarregadas)}
+									</Select>
+								</FormControl>
+								<TextField
+									required
+									error={emptyValor}
+									value={valor}
+									onChange={convertInputValor}
+									inputProps={{ type: 'number', step: "0.5"}}
+									sx={{ m: 1, width: "18vh" }}
+									label= "Valor"
+								/>
+							</div>
+							<div className='input-descricao'>
+								<Box
+									sx={{width: "98.5%"}}
+								>
+									<TextField
+										fullWidth
+										label="Escreva alguma observação sobre a movimentação"
+										id="fullWidth"
+										onChange={handleChangeDescricao}
+									/>
+								</Box>
+							</div>
 						<div className="buttons">
 							<button onClick={props.closeModal}>
 								{success ? "Fechar" : "Cancelar"}

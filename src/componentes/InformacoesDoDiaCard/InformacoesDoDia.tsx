@@ -23,10 +23,12 @@ interface InformacoesDoDiaProps {
 	modalAddRendimento: () => void;
 	modalAddDespesa: () => void;
 	modalApagaMovimentacao: (movimentacaoApagar: IMovimentacao) => void;
+	dialogDescricao: (description: string) => void;
 }
 
 const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({
-	selectedDate, modalAddRendimento, modalAddDespesa, modalApagaMovimentacao }) => {
+	selectedDate, modalAddRendimento, modalAddDespesa,
+	modalApagaMovimentacao, dialogDescricao }) => {
 
 	const [movimentacoesDoDia, setMovimentacoesDoDia] = useState<IMovimentacao[]>([]);
 	const [saldo, setSaldo] = useState<number>();
@@ -178,7 +180,9 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({
 										title="Ver descrição da movimentação"
 										placement="top"
 									>
-										<IconButton>
+										<IconButton
+											onClick={() => dialogDescricao(movimentacao.descricaoMovimentacao)}
+										>
 											<InfoOutlined
 												sx={{ color: "#3451C7" }}
 											/>
