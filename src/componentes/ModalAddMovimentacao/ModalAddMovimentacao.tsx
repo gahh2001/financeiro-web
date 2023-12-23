@@ -53,13 +53,33 @@ export default function ModalAddMovimentacao(props: ModalType) {
 		? "#44A81D" : "#B82121";
 
 	useEffect(() => {
+		const buscaCategorias = async () => {
+			try {
+				const categorias = await categoriaMovimentacaoService
+					.obtemCategoriasPorTipoMovimentacaoEConta(1, props.tipo);
+				if (categorias?.data) {
+					setCategoriasCarregadas(categorias.data);
+				}
+			} catch (error) {
+				console.log("erro ao carregar categorias do tipo ", props.tipo);
+			}
+		}
+		buscaCategorias();
 		if (props.edit) {
 			setData(dayjs(props.date));
 			setCategoria(props.categoria);
 			setValor(props.valor);
 			setDescricao(props.descricao);
+		} else {
+			setValor("");
+			setCategoria("");
+			setData(dayjs());
+			setDescricao("");
+			setEmptyCategoria(false);
+			setEmptyValor(false);
+			setPrimeiroClique(false);
 		}
-	}, [props.isOpen, props.edit])
+	}, [props.closeModal])
 
 	const handleChangeCategoria = (event: SelectChangeEvent) => {
 		const newValue = event.target.value;
@@ -86,30 +106,6 @@ export default function ModalAddMovimentacao(props: ModalType) {
 	useEffect(() => {
 		setSuccess(false);
 	}, [props.closeModal]);
-
-	useEffect( () => {
-		if (!props.edit) {
-			setValor("");
-			setCategoria("");
-			setData(dayjs());
-			setDescricao("");
-			setEmptyCategoria(false);
-			setEmptyValor(false);
-			setPrimeiroClique(false);
-		}
-		const buscaCategorias = async () => {
-			try {
-				const categorias = await categoriaMovimentacaoService
-					.obtemCategoriasPorTipoMovimentacaoEConta(1, props.tipo);
-				if (categorias?.data) {
-					setCategoriasCarregadas(categorias.data);
-				}
-			} catch (error) {
-				console.log("erro ao carregar categorias do tipo ", props.tipo);
-			}
-		}
-		buscaCategorias();
-	}, [props.closeModal, props.isOpen, props.edit])
 
 	return (
 		<>
@@ -167,7 +163,7 @@ export default function ModalAddMovimentacao(props: ModalType) {
 										fullWidth
 										label="Escreva alguma observação sobre a movimentação"
 										id="fullWidth"
-										defaultValue={props.descricao}
+										value={descricao}
 										onChange={handleChangeDescricao}
 									/>
 								</Box>
