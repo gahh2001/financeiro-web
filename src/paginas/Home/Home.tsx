@@ -14,6 +14,7 @@ import './Home.module.scss';
 
 export const Home = () => {
 	const [selectedDate, setSelectedDate] = useState(new Date());
+	const [idMovimentacao, setIdMovimentacao] = useState<number | undefined>(undefined);
 	const [data, setData] = useState(new Date());
 	const [categoria, setCategoria] = useState("");
 	const [valor, setValor] = useState("");
@@ -61,8 +62,9 @@ export const Home = () => {
 		setIsOpenDialogDescricao(false);
 	}
 
-	const handleEditMovimentacao = (data: Date, valor: string, categoria: string,
-			descricao: string, tipo: TipoMovimentacaoEnum) => {
+	const handleEditMovimentacao = (idMovimentacao: number | undefined, data: Date, valor: string,
+			categoria: string, descricao: string, tipo: TipoMovimentacaoEnum) => {
+		setIdMovimentacao(idMovimentacao)
 		setEdit(true)
 		setTipo(tipo)
 		setData(data);
@@ -109,6 +111,7 @@ export const Home = () => {
 					closeModal={closeModalAdd}
 					tipo= {tipo}
 					edit={edit}
+					idMovimentacao={idMovimentacao}
 					date={data}
 					categoria={categoria}
 					valor={valor}

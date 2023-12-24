@@ -24,7 +24,7 @@ interface InformacoesDoDiaProps {
 	modalAddDespesa: () => void;
 	modalApagaMovimentacao: (movimentacaoApagar: IMovimentacao) => void;
 	dialogDescricao: (description: string) => void;
-	handleEditMovimentacao: (data: Date, valor: string, categoria: string,
+	handleEditMovimentacao: (idMovimentacao: number | undefined, data: Date, valor: string, categoria: string,
 		descricao: string, tipoEdit: TipoMovimentacaoEnum) => void;
 }
 
@@ -196,7 +196,7 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({
 									>
 										<IconButton
 											color="inherit"
-											onClick={() => handleEditMovimentacao(movimentacao.dataMovimentacao,
+											onClick={() => handleEditMovimentacao(movimentacao.id, movimentacao.dataMovimentacao,
 												movimentacao.valor.toString(), movimentacao.idCategoriaMovimentacao
 												? movimentacao.idCategoriaMovimentacao.toString() : "",
 												movimentacao.descricaoMovimentacao,

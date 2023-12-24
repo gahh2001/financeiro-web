@@ -26,6 +26,7 @@ interface ModalType {
 	tipo: TipoMovimentacaoEnum;
 	closeModal: () => void;
 	edit: boolean;
+	idMovimentacao: number | undefined;
 	date: Date;
 	categoria: string;
 	valor: string;
@@ -174,7 +175,7 @@ export default function ModalAddMovimentacao(props: ModalType) {
 							</button>
 							<div className='adicionar'>
 								<button
-									onClick={() => adicionaMovimentacao()}
+									onClick={() => salvarMovimentacao()}
 									disabled={success}
 								>
 								{success
@@ -197,9 +198,10 @@ export default function ModalAddMovimentacao(props: ModalType) {
 		</>
 	);
 
-	async function adicionaMovimentacao() {
+	async function salvarMovimentacao() {
 		setPrimeiroClique(true);
 		const inputsValidados = validaInputsMovimentacao();
+		let response = undefined;
 		if (inputsValidados) {
 			setLoading(true);
 			setSuccess(false);
@@ -211,7 +213,12 @@ export default function ModalAddMovimentacao(props: ModalType) {
 				idCategoriaMovimentacao: parseInt(categoria),
 				descricaoMovimentacao: descricao
 			}
-			const response = await movimentacaoService.adicionaMovimentacao(novaMovimentacao);
+			if (props.edit) {
+				novaMovimentacao.id = props.idMovimentacao;
+				response = await movimentacaoService.atualizaMovimentacao(novaMovimentacao);
+			} else {
+				response = await movimentacaoService.adicionaMovimentacao(novaMovimentacao);
+			}
 			if (response?.status && response.status === 200) {
 				setLoading(false);
 				setSuccess(true);

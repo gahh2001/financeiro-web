@@ -42,4 +42,15 @@ export class MovimentacaoService {
 			return undefined;
 		}
 	}
+
+	async atualizaMovimentacao(movimentacao: IMovimentacao) {
+		try {
+			const response = await this.axiosInstance
+				.patch('/movimentacao', movimentacao)
+			return {...response}
+		} catch (error) {
+			console.log("Erro ao atualizar movimentação")
+			return undefined;
+		}
+	}
 }
