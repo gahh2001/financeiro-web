@@ -11,13 +11,12 @@ interface GraficosMensaisProps {
 }
 
 const GraficosMensais: React.FC<GraficosMensaisProps> = (props: GraficosMensaisProps) => {
-	const [nomeCategoriasPositivas] = useState<string[]>([]);
-	const [somaCategoriasPositivas] = useState<number[]>([]);
-	const [nomeCategoriasNegativas] = useState<string[]>([]);
-	const [somaCategoriasNegativas] = useState<number[]>([]);
+	const [nomeCategoriasPositivas, setNomeCategoriasPositivas] = useState<string[]>([]);
+	const [somaCategoriasPositivas, setSomaCategoriasPositivas] = useState<number[]>([]);
+	const [nomeCategoriasNegativas, setNomeCategoriasNegativas] = useState<string[]>([]);
+	const [somaCategoriasNegativas, setSomaCategoriasNegativas] = useState<number[]>([]);
 
 	useEffect(() => {
-		let isMounted = true;
 		const buscaSomaCategorias = async () => {
 			try {
 				const categoriaMovimentacaoService = new CategoriaMovimentacaoService(back);
@@ -31,15 +30,12 @@ const GraficosMensais: React.FC<GraficosMensaisProps> = (props: GraficosMensaisP
 			}
 		};
 		buscaSomaCategorias();
-		return () => {
-			isMounted = false;
-		};
 	}, [props.dataMes]);
 
-	return nomeCategoriasPositivas.length > 1
-			&& somaCategoriasPositivas.length > 1
-			&& nomeCategoriasNegativas.length > 1
-			&& somaCategoriasNegativas.length > 1
+	return nomeCategoriasPositivas.length > 0
+			&& somaCategoriasPositivas.length > 0
+			&& nomeCategoriasNegativas.length > 0
+			&& somaCategoriasNegativas.length > 0
 	? (
 		<>
 			<div className="card-graficos" style={{ marginRight: "0.5%" }}>
@@ -98,15 +94,30 @@ const GraficosMensais: React.FC<GraficosMensaisProps> = (props: GraficosMensaisP
 	) : <></>;
 
 	function extractSomaCategorias(somaCategorias: SomaCategoriasPorMes[]) {
+		
+		const nomesPositivos: string[] = [];
+		const somasPositivas: number[] = [];
+		const nomesNegativos: string[] = [];
+		const somasNegativas: number[] = [];
+
 		somaCategorias.forEach((result) => {
-			if (result.tipoMovimentacao === TipoMovimentacaoEnum.POSITIVO.toString()) {
-				nomeCategoriasPositivas.push(result.nomeCategoria);
-				somaCategoriasPositivas.push(result.somaMovimentacao);
-			} else {
-				nomeCategoriasNegativas.push(result.nomeCategoria);
-				somaCategoriasNegativas.push(result.somaMovimentacao);
-			}
+		if (result.tipoMovimentacao === TipoMovimentacaoEnum.POSITIVO.toString()) {
+			nomesPositivos.push(result.nomeCategoria);
+			somasPositivas.push(result.somaMovimentacao);
+		} else {
+			nomesNegativos.push(result.nomeCategoria);
+			somasNegativas.push(result.somaMovimentacao);
+		}
 		});
+
+		setNomeCategoriasPositivas(nomesPositivos);
+		setSomaCategoriasPositivas(somasPositivas);
+		setNomeCategoriasNegativas(nomesNegativos);
+		setSomaCategoriasNegativas(somasNegativas);
+		console.log(nomeCategoriasPositivas);
+		console.log(somaCategoriasPositivas);
+		console.log(nomeCategoriasNegativas);
+		console.log(somaCategoriasNegativas);
 	}
 };
 

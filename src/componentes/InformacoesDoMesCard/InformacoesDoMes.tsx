@@ -23,7 +23,6 @@ const InformacoesDoMes: React.FC<InformacoesDoMesProps> = ({
 	const [movimentacoesDoMes, setMovimentacoesDoMes] = useState<IMovimentacao[]>([]);
 
 	useEffect(() => {
-		let isMounted = true;
 		const fetchData = async () => {
 			try {
 				const movimentacaoService = new MovimentacaoService(back);
@@ -42,9 +41,6 @@ const InformacoesDoMes: React.FC<InformacoesDoMesProps> = ({
 			}
 		};
 		fetchData();
-		return () => {
-			isMounted = false;
-		};
 	}, [selectedDate, modalAddDespesa, modalAddRendimento, modalApagaMovimentacao]);
 
 	return (
