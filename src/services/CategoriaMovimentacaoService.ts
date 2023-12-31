@@ -1,9 +1,11 @@
 import { AxiosInstance } from "axios";
 import { TipoMovimentacaoEnum } from "../enums/TipoMovimentacaoEnum";
 import { ICategoriaMovimentacao } from "../interfaces/ICategoriaMovimentacao";
+import { SomaCategoriasPorMes } from "../interfaces/SomaCategoriasPorMes";
 
 export class CategoriaMovimentacaoService {
 	constructor(private readonly axiosInstance: AxiosInstance) {}
+	urlDefault = "/categoria-movimentacao"
 
 	async obtemCategoriasMovimentacaoPorIdConta(idConta: number) {
 		const params = {
@@ -11,7 +13,7 @@ export class CategoriaMovimentacaoService {
 		};
 		try {
 			const response = await this.axiosInstance
-				.get<ICategoriaMovimentacao[]>("/categoria-movimentacao", { params });
+				.get<ICategoriaMovimentacao[]>(this.urlDefault, { params });
 			return { ...response };
 		} catch (error) {
 			console.log(`Não foi possível obter as movimentações`, error);
@@ -20,7 +22,7 @@ export class CategoriaMovimentacaoService {
 	}
 
 	async obtemCategoriaMovimentacaoPorId(id: number) {
-		const url = `/categoria-movimentacao/${id}`;
+		const url = `${this.urlDefault}/${id}`;
 		try {
 			const response = await this.axiosInstance
 				.get<ICategoriaMovimentacao>(url)
@@ -38,10 +40,25 @@ export class CategoriaMovimentacaoService {
 		};
 		try {
 			const response = await this.axiosInstance
-				.get<ICategoriaMovimentacao[]>("/categoria-movimentacao/tipo", { params });
-			return { ...response };
+				.get<ICategoriaMovimentacao[]>(`${this.urlDefault}/tipo`, {params});
+			return {...response};
 		} catch (error) {
 			console.log(`Não foi possível obter as movimentações`, error);
+			return undefined;
+		}
+	}
+
+	async obtemSomaCategoriasEValores(idConta: number, data: number) {
+		const params = {
+			idConta: idConta,
+			dataMes: data
+		};
+		try {
+			const response = await this.axiosInstance
+				.get<SomaCategoriasPorMes[]>(`${this.urlDefault}/mes`, {params});
+			return {...response};
+		} catch (error) {
+			console.log(`Não foi possível obter a soma de movimentações por categoria`, error);
 			return undefined;
 		}
 	}

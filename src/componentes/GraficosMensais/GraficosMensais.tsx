@@ -1,13 +1,46 @@
 import { BarChart } from '@mui/x-charts/BarChart';
+import { useEffect, useState } from 'react';
+import { TipoMovimentacaoEnum } from '../../enums/TipoMovimentacaoEnum';
+import back from '../../http';
+import { SomaCategoriasPorMes } from '../../interfaces/SomaCategoriasPorMes';
+import { CategoriaMovimentacaoService } from '../../services/CategoriaMovimentacaoService';
 import './GraficosMensais.scss';
 
 interface GraficosMensaisProps {
-	
+	dataMes: Date
 }
 
-const GraficosMensais: React.FC<GraficosMensaisProps> = ({}) => {
+const GraficosMensais: React.FC<GraficosMensaisProps> = (props: GraficosMensaisProps) => {
+	const [nomeCategoriasPositivas] = useState<string[]>([""]);
+	const [somaCategoriasPositivas] = useState<number[]>([0]);
+	const [nomeCategoriasNegativas] = useState<string[]>([""]);
+	const [somaCategoriasNegativas] = useState<number[]>([0]);
 
-	return (
+	useEffect(() => {
+		let isMounted = true;
+		const buscaSomaCategorias = async () => {
+			try {
+				const categoriaMovimentacaoService = new CategoriaMovimentacaoService(back);
+				const response = await categoriaMovimentacaoService
+					.obtemSomaCategoriasEValores(1, props.dataMes.getTime());
+				if (response?.data) {
+					extractSomaCategorias(response.data)
+				}
+			} catch (error) {
+				console.log("Erro ao atualizar soma das categorias")
+			}
+		};
+		buscaSomaCategorias();
+		return () => {
+			isMounted = false;
+		};
+	}, [props.dataMes]);
+
+	return nomeCategoriasPositivas.length > 1
+			&& somaCategoriasPositivas.length > 1
+			&& nomeCategoriasNegativas.length > 1
+			&& somaCategoriasNegativas.length > 1
+	? (
 		<>
 			<div className="card-graficos" style={{ marginRight: "0.5%" }}>
 				<div className="titulo">Gráfico de rendimentos</div>
@@ -16,14 +49,14 @@ const GraficosMensais: React.FC<GraficosMensaisProps> = ({}) => {
 						xAxis={[
 							{
 							id: 'barCategories',
-							data: ['bar A', 'bar B', 'bar C', 'bar D'],
+							data: nomeCategoriasPositivas,
 							scaleType: 'band',
 							},
 						]}
 						series={[
 							{
-							data: [2, 5, 3, 15.5],
-							color: "#49CC51"
+							data: somaCategoriasPositivas,
+							color: "#42B84A"
 							},
 						]}
 						margin={{
@@ -42,13 +75,13 @@ const GraficosMensais: React.FC<GraficosMensaisProps> = ({}) => {
 						xAxis={[
 							{
 							id: 'barCategories',
-							data: ['bar A', 'bar B', 'bar C', 'bar D'],
+							data: nomeCategoriasNegativas,
 							scaleType: 'band',
 							},
 						]}
 						series={[
 							{
-							data: [2, 5, 3, 15.5],
+							data: somaCategoriasNegativas,
 							color: "#AD4331"
 							},
 						]}
@@ -62,7 +95,19 @@ const GraficosMensais: React.FC<GraficosMensaisProps> = ({}) => {
 				</div>
 			</div>
 		</>
-	);
+	) : <></>;
+
+	function extractSomaCategorias(somaCategorias: SomaCategoriasPorMes[]) {
+		somaCategorias.forEach((result) => {
+			if (result.tipoMovimentacao === TipoMovimentacaoEnum.POSITIVO.toString()) {
+				nomeCategoriasPositivas.push(result.nomeCategoria);
+				somaCategoriasPositivas.push(result.somaMovimentacao);
+			} else {
+				nomeCategoriasNegativas.push(result.nomeCategoria);
+				somaCategoriasNegativas.push(result.somaMovimentacao);
+			}
+		});
+	}
 };
 
 export default GraficosMensais;

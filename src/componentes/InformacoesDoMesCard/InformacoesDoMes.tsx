@@ -8,8 +8,8 @@ import { TipoMovimentacaoEnum } from '../../enums/TipoMovimentacaoEnum';
 import back from '../../http';
 import { IMovimentacao } from '../../interfaces/IMovimentacao';
 import { MovimentacaoService } from '../../services/MovimentacaoService';
-import './InformacoesDoMes.scss';
 import GraficosMensais from '../GraficosMensais/GraficosMensais';
+import './InformacoesDoMes.scss';
 
 interface InformacoesDoMesProps {
 	selectedDate: Date;
@@ -23,6 +23,7 @@ const InformacoesDoMes: React.FC<InformacoesDoMesProps> = ({
 	const [movimentacoesDoMes, setMovimentacoesDoMes] = useState<IMovimentacao[]>([]);
 
 	useEffect(() => {
+		let isMounted = true;
 		const fetchData = async () => {
 			try {
 				const movimentacaoService = new MovimentacaoService(back);
@@ -41,6 +42,9 @@ const InformacoesDoMes: React.FC<InformacoesDoMesProps> = ({
 			}
 		};
 		fetchData();
+		return () => {
+			isMounted = false;
+		};
 	}, [selectedDate, modalAddDespesa, modalAddRendimento, modalApagaMovimentacao]);
 
 	return (
@@ -76,7 +80,9 @@ const InformacoesDoMes: React.FC<InformacoesDoMesProps> = ({
 					Você gastou: {calculaPorcentagemTotal(movimentacoesDoMes)}% dos rendimentos.
 				</div>
 			</div>
-			<GraficosMensais/>
+			<GraficosMensais
+				dataMes={selectedDate}
+			/>
 		</div>
 	);
 

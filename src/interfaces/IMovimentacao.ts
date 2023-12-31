@@ -1,5 +1,5 @@
 export type IMovimentacao = {
-	id?: number
+	id?: number;
 	idConta: number;
 	valor: number;
 	dataMovimentacao: Date;
