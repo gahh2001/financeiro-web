@@ -32,13 +32,38 @@ const GraficosMensais: React.FC<GraficosMensaisProps> = (props: GraficosMensaisP
 		buscaSomaCategorias();
 	}, [props.dataMes]);
 
-	return nomeCategoriasPositivas.length > 0
-			&& somaCategoriasPositivas.length > 0
-			&& nomeCategoriasNegativas.length > 0
-			&& somaCategoriasNegativas.length > 0
-	? (
+	return (
 		<>
-			<div className="card-graficos" style={{ marginRight: "0.5%" }}>
+		{obtemGraficoRendimentos()}
+		{obtemGraficoDespesas()}
+		</>
+	);
+
+	function extractSomaCategorias(somaCategorias: SomaCategoriasPorMes[]) {
+		const nomesPositivos: string[] = [];
+		const somasPositivas: number[] = [];
+		const nomesNegativos: string[] = [];
+		const somasNegativas: number[] = [];
+
+		somaCategorias.forEach((result) => {
+		if (result.tipoMovimentacao === TipoMovimentacaoEnum.POSITIVO.toString()) {
+			nomesPositivos.push(result.nomeCategoria);
+			somasPositivas.push(result.somaMovimentacao);
+		} else {
+			nomesNegativos.push(result.nomeCategoria);
+			somasNegativas.push(result.somaMovimentacao);
+		}
+		});
+		setNomeCategoriasPositivas(nomesPositivos);
+		setSomaCategoriasPositivas(somasPositivas);
+		setNomeCategoriasNegativas(nomesNegativos);
+		setSomaCategoriasNegativas(somasNegativas);
+	}
+
+	function obtemGraficoRendimentos() {
+		return nomeCategoriasPositivas.length > 0
+			&& somaCategoriasPositivas.length > 0
+		? <div className="card-graficos" style={{ marginRight: "0.5%" }}>
 				<div className="titulo">Gráfico de rendimentos</div>
 				<div className='grafic'>
 					<BarChart
@@ -64,6 +89,21 @@ const GraficosMensais: React.FC<GraficosMensaisProps> = (props: GraficosMensaisP
 					/>
 				</div>
 			</div>
+			: 
+			<div className="card-graficos" style={{ marginRight: "0.5%" }}>
+				<div className="titulo">Gráfico de rendimentos</div>
+				<div className='mensagem'>
+					Nenhum registro de rendimento para este mês!
+				</div>
+			</div>
+	}
+
+	function obtemGraficoDespesas() {
+		return nomeCategoriasNegativas.length > 0
+			&& somaCategoriasNegativas.length > 0
+	? (
+		<>
+			
 			<div className="card-graficos">
 				<div className="titulo">Gráfico de gastos</div>
 				<div className='grafic'>
@@ -91,33 +131,17 @@ const GraficosMensais: React.FC<GraficosMensaisProps> = (props: GraficosMensaisP
 				</div>
 			</div>
 		</>
-	) : <></>;
-
-	function extractSomaCategorias(somaCategorias: SomaCategoriasPorMes[]) {
+	)
+	:<>
 		
-		const nomesPositivos: string[] = [];
-		const somasPositivas: number[] = [];
-		const nomesNegativos: string[] = [];
-		const somasNegativas: number[] = [];
-
-		somaCategorias.forEach((result) => {
-		if (result.tipoMovimentacao === TipoMovimentacaoEnum.POSITIVO.toString()) {
-			nomesPositivos.push(result.nomeCategoria);
-			somasPositivas.push(result.somaMovimentacao);
-		} else {
-			nomesNegativos.push(result.nomeCategoria);
-			somasNegativas.push(result.somaMovimentacao);
-		}
-		});
-
-		setNomeCategoriasPositivas(nomesPositivos);
-		setSomaCategoriasPositivas(somasPositivas);
-		setNomeCategoriasNegativas(nomesNegativos);
-		setSomaCategoriasNegativas(somasNegativas);
-		console.log(nomeCategoriasPositivas);
-		console.log(somaCategoriasPositivas);
-		console.log(nomeCategoriasNegativas);
-		console.log(somaCategoriasNegativas);
+		<div className="card-graficos">
+			<div className="titulo">Gráfico de gastos</div>
+			<div className='mensagem'>
+				Nenhum registro de despesa para este mês!
+			</div>
+			
+		</div>
+	</>;
 	}
 };
 

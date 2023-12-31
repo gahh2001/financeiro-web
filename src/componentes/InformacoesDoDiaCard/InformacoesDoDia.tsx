@@ -224,16 +224,16 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({
 					</div>
 				</div>
 			)
-			: <div className='card-movimentacoes'>
-				<div className='titulo'>
-					<ErrorOutline
-						sx={{ color: "#B82121" }}
-						fontSize='large'
-					/> <br />
-					Não há movimentações para este dia. <br />
-					Selecione um dia para visualizar as movimentações.
-				</div>
+		: <div className='card-movimentacoes'>
+			<div className='titulo'>
+				<ErrorOutline
+					sx={{ color: "#B82121" }}
+					fontSize='large'
+				/> <br />
+				Não há movimentações para este dia. <br />
+				Selecione um dia para visualizar as movimentações.
 			</div>
+		</div>
 	}
 };
 
