@@ -11,10 +11,10 @@ interface GraficosMensaisProps {
 }
 
 const GraficosMensais: React.FC<GraficosMensaisProps> = (props: GraficosMensaisProps) => {
-	const [nomeCategoriasPositivas] = useState<string[]>([""]);
-	const [somaCategoriasPositivas] = useState<number[]>([0]);
-	const [nomeCategoriasNegativas] = useState<string[]>([""]);
-	const [somaCategoriasNegativas] = useState<number[]>([0]);
+	const [nomeCategoriasPositivas] = useState<string[]>([]);
+	const [somaCategoriasPositivas] = useState<number[]>([]);
+	const [nomeCategoriasNegativas] = useState<string[]>([]);
+	const [somaCategoriasNegativas] = useState<number[]>([]);
 
 	useEffect(() => {
 		let isMounted = true;
