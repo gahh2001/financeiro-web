@@ -10,7 +10,7 @@
 	padding: 2%;
 	border-radius: 20px;
 	width: 98%;
-	height: 97.5vh;
+	height: 91.7vh;
 	margin-right: 1%;
 	margin-top: 2.5%;
 
@@ -127,7 +127,7 @@
 
 	.card-movimentacoes {
 		width: 100%;
-		min-height: 54vh;
+		min-height: 48vh;
 		background-color: $fundo-cards;
 		border: 2px solid $sombras;
 		box-shadow: 4px 4px 5px 1px $sombras;
@@ -170,7 +170,7 @@
 		}
 
 		.movimentacoes-diarias {
-			height: 85%;
+			height: 82%;
 			overflow-y: auto;
 			background-color: transparent;
 		}

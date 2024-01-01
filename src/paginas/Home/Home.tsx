@@ -8,6 +8,7 @@ import ModalAddMovimentacao from '../../componentes/ModalAddMovimentacao/ModalAd
 import useModalAddMovimentacao from "../../componentes/ModalAddMovimentacao/UseModalAddMovimentacao";
 import ModalApagaMovimentacao from "../../componentes/ModalRemoveMovimentacao/ModalApagaMovimentacao";
 import useModalRemoveMovimentacao from "../../componentes/ModalRemoveMovimentacao/UseModalRemoveMovimentacao";
+import NavBar from "../../componentes/AppBar/AppBar";
 import { TipoMovimentacaoEnum } from '../../enums/TipoMovimentacaoEnum';
 import { IMovimentacao } from "../../interfaces/IMovimentacao";
 import './Home.module.scss';
@@ -77,7 +78,8 @@ export const Home = () => {
 	return (
 		<div className="home">
 			<ThemeProvider theme={darkTheme}>
-				<div style={{ display: 'flex', height: "100vh" }}>
+				<NavBar/>
+				<div style={{ display: 'flex', height: "93.3vh" }}>
 					<div style={{
 						flexDirection: 'column',
 						display: 'flex',
