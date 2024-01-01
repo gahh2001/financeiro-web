@@ -54,7 +54,7 @@ const Calendario: React.FC<CalendarioProps> = ({ onDayClick, closeModalAdd, clos
 			}
 		};
 		buscaMovimentacoesDoMes();
-	}, [selectedDay,closeModalAdd, closeModalRemove])
+	}, [selectedDay, closeModalAdd, closeModalRemove])
 
 	for (let day = 1; day <= daysInMonth; day++) {
 		const isCurrentDay = (day + currentMonth.format('YYYYMM')) === selectedDay;
@@ -88,20 +88,17 @@ const Calendario: React.FC<CalendarioProps> = ({ onDayClick, closeModalAdd, clos
 			? <div className="calendar-card">
 				<div className="header">
 					<button onClick={() =>
-						<div>
-							{setCurrentMonth(currentMonth.clone().subtract(1, "month"))}
-							{handleDayClick(1, currentMonth.month() - 1, currentMonth.year())}
-						</div>
+						{setCurrentMonth(currentMonth.clone().subtract(1, "month"));
+							const firstDay = currentMonth.clone().subtract(1, "month").startOf("month");
+							handleDayClick(firstDay.date(), firstDay.month(), firstDay.year());}
 					}
 					>Anterior</button>
 					<h1>{currentMonth.format("MMMM YYYY")}</h1>
-					<button onClick={() =>
-						<div>
-							{setCurrentMonth(currentMonth.clone().add(1, "month"))}
-							{handleDayClick(1, currentMonth.month() + 1, currentMonth.year())}
-						</div>
-
-					}
+					<button onClick={() => {
+						setCurrentMonth(currentMonth.clone().add(1, "month"));
+						const firstDay = currentMonth.clone().add(1, "month").startOf("month");
+						handleDayClick(firstDay.date(), firstDay.month(), firstDay.year());
+					}}
 					>Próximo</button>
 				</div>
 				<div className="weekdays">
