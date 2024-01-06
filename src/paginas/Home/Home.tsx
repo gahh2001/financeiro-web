@@ -118,6 +118,7 @@ export const Home = () => {
 					categoria={categoria}
 					valor={valor}
 					descricao={descricao}
+					selectedDate={selectedDate}
 				/>
 				<ModalApagaMovimentacao
 					isOpen={isOpenModalRemove}

@@ -31,6 +31,7 @@ interface ModalType {
 	categoria: string;
 	valor: string;
 	descricao: string;
+	selectedDate: Date;
 }
 
 export default function ModalAddMovimentacao(props: ModalType) {
@@ -74,7 +75,7 @@ export default function ModalAddMovimentacao(props: ModalType) {
 		} else {
 			setValor("");
 			setCategoria("");
-			setData(dayjs());
+			setData(dayjs(props.selectedDate));
 			setDescricao("");
 			setEmptyCategoria(false);
 			setEmptyValor(false);
@@ -121,6 +122,7 @@ export default function ModalAddMovimentacao(props: ModalType) {
 											sx={{ m: 1, width: "25vh" }}
 											label="Data"
 											value={data}
+											defaultValue={data ? data : dayjs(props.selectedDate)}
 											onChange={(newValue) => setData(newValue)}
 										/>
 									</DemoContainer>
