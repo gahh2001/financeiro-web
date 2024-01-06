@@ -78,6 +78,9 @@ const InformacoesDoMes: React.FC<InformacoesDoMesProps> = ({
 			</div>
 			<GraficosMensais
 				dataMes={selectedDate}
+				modalAddRendimento={modalAddRendimento}
+				modalAddDespesa={modalAddDespesa}
+				modalApagaMovimentacao={modalApagaMovimentacao}
 			/>
 		</div>
 	);

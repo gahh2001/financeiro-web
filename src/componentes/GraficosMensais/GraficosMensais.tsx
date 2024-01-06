@@ -2,12 +2,16 @@ import { BarChart } from '@mui/x-charts/BarChart';
 import { useEffect, useState } from 'react';
 import { TipoMovimentacaoEnum } from '../../enums/TipoMovimentacaoEnum';
 import back from '../../http';
+import { IMovimentacao } from '../../interfaces/IMovimentacao';
 import { SomaCategoriasPorMes } from '../../interfaces/SomaCategoriasPorMes';
 import { CategoriaMovimentacaoService } from '../../services/CategoriaMovimentacaoService';
 import './GraficosMensais.scss';
 
 interface GraficosMensaisProps {
-	dataMes: Date
+	dataMes: Date;
+	modalAddRendimento: () => void;
+	modalAddDespesa: () => void;
+	modalApagaMovimentacao: (movimentacaoApagar: IMovimentacao) => void;
 }
 
 const GraficosMensais: React.FC<GraficosMensaisProps> = (props: GraficosMensaisProps) => {
@@ -30,7 +34,7 @@ const GraficosMensais: React.FC<GraficosMensaisProps> = (props: GraficosMensaisP
 			}
 		};
 		buscaSomaCategorias();
-	}, [props.dataMes]);
+	}, [props.dataMes, props.modalAddDespesa, props.modalAddRendimento, props.modalApagaMovimentacao]);
 
 	return (
 		<>
