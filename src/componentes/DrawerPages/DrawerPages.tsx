@@ -1,5 +1,7 @@
+import { CalendarMonth } from '@mui/icons-material';
+import MenuIcon from '@mui/icons-material/Menu';
+import { IconButton } from '@mui/material';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -27,7 +29,11 @@ export default function TemporaryDrawer() {
 	return (
 		<div>
 			<Fragment key={"drawer"}>
-				<Button onClick={toggleDrawer(true)}>Testeeeeee</Button>
+				<div className='icons'>
+					<IconButton onClick={toggleDrawer(true)}>
+						<MenuIcon sx={{fontSize: "5vh"}}/>
+					</IconButton>
+				</div>
 				<Drawer
 					anchor="left"
 					open={state}
@@ -42,6 +48,7 @@ export default function TemporaryDrawer() {
 							<ListItem key={"inicio"} disablePadding>
 								<ListItemButton>
 									<ListItemIcon>
+										<CalendarMonth/>
 									</ListItemIcon>
 									<ListItemText primary={"Início"}/>
 								</ListItemButton>
