@@ -3,32 +3,25 @@ import {
 	AssessmentOutlined,
 	RemoveCircleOutlineRounded
 } from '@mui/icons-material';
-import React, { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { TipoMovimentacaoEnum } from '../../enums/TipoMovimentacaoEnum';
 import back from '../../http';
+import { InformacoesDoMesProps } from '../../interfaces/IInformacoesDoMesProps';
 import { IMovimentacao } from '../../interfaces/IMovimentacao';
 import { MovimentacaoService } from '../../services/MovimentacaoService';
 import GraficosMensais from '../GraficosMensais/GraficosMensais';
 import './InformacoesDoMes.scss';
 
-interface InformacoesDoMesProps {
-	selectedDate: Date;
-	modalAddRendimento: () => void;
-	modalAddDespesa: () => void;
-	modalApagaMovimentacao: (movimentacaoApagar: IMovimentacao) => void;
-}
-
-const InformacoesDoMes: React.FC<InformacoesDoMesProps> = ({
-		selectedDate, modalAddRendimento, modalAddDespesa, modalApagaMovimentacao}) => {
+const InformacoesDoMes: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProps) => {
 	const [movimentacoesDoMes, setMovimentacoesDoMes] = useState<IMovimentacao[]>([]);
 
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
 				const movimentacaoService = new MovimentacaoService(back);
-				const primeiroDiaMes = new Date(selectedDate);
+				const primeiroDiaMes = new Date(props.selectedDate);
 				primeiroDiaMes.setDate(1);
-				const ultimoDiaMes = new Date(selectedDate);
+				const ultimoDiaMes = new Date(props.selectedDate);
 				ultimoDiaMes.setMonth(ultimoDiaMes.getMonth() + 1);
 				ultimoDiaMes.setDate(0);
 				const response = await movimentacaoService.getMovimentacao(1,
@@ -41,13 +34,13 @@ const InformacoesDoMes: React.FC<InformacoesDoMesProps> = ({
 			}
 		};
 		fetchData();
-	}, [selectedDate, modalAddDespesa, modalAddRendimento, modalApagaMovimentacao]);
+	}, [props.selectedDate, props.modalAddDespesa, props.modalAddRendimento, props.modalApagaMovimentacao]);
 
 	return (
 		<div className="informacoes-do-mes">
 			<div className="card-resumo-mes" style={{ marginRight: "0.5%" }}>
 				<div className="titulo">
-					Resumo de {obtemNomeMes(selectedDate.getMonth())}
+					Resumo de {obtemNomeMes(props.selectedDate.getMonth())}
 				</div>
 				<div className="info-mes">
 					<div className='simbol'>
@@ -70,17 +63,14 @@ const InformacoesDoMes: React.FC<InformacoesDoMesProps> = ({
 				<div className="info-mes">
 					<div className='simbol'>
 						<AssessmentOutlined
-						sx={{ color: "#3451C7" }}
-					/>
+							sx={{ color: "#3451C7" }}
+						/>
 					</div>
 					Você gastou: {calculaPorcentagemTotal(movimentacoesDoMes)}% dos rendimentos.
 				</div>
 			</div>
 			<GraficosMensais
-				dataMes={selectedDate}
-				modalAddRendimento={modalAddRendimento}
-				modalAddDespesa={modalAddDespesa}
-				modalApagaMovimentacao={modalApagaMovimentacao}
+				{...props}
 			/>
 		</div>
 	);

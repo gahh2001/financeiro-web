@@ -1,20 +1,13 @@
 import { BarChart } from '@mui/x-charts/BarChart';
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { TipoMovimentacaoEnum } from '../../enums/TipoMovimentacaoEnum';
 import back from '../../http';
-import { IMovimentacao } from '../../interfaces/IMovimentacao';
-import { SomaCategoriasPorMes } from '../../interfaces/SomaCategoriasPorMes';
+import { InformacoesDoMesProps } from '../../interfaces/IInformacoesDoMesProps';
+import { SomaCategoriasPorMes } from '../../interfaces/ISomaCategoriasPorMes';
 import { CategoriaMovimentacaoService } from '../../services/CategoriaMovimentacaoService';
 import './GraficosMensais.scss';
 
-interface GraficosMensaisProps {
-	dataMes: Date;
-	modalAddRendimento: () => void;
-	modalAddDespesa: () => void;
-	modalApagaMovimentacao: (movimentacaoApagar: IMovimentacao) => void;
-}
-
-const GraficosMensais: React.FC<GraficosMensaisProps> = (props: GraficosMensaisProps) => {
+const GraficosMensais: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProps) => {
 	const [nomeCategoriasPositivas, setNomeCategoriasPositivas] = useState<string[]>([]);
 	const [somaCategoriasPositivas, setSomaCategoriasPositivas] = useState<number[]>([]);
 	const [nomeCategoriasNegativas, setNomeCategoriasNegativas] = useState<string[]>([]);
@@ -25,7 +18,7 @@ const GraficosMensais: React.FC<GraficosMensaisProps> = (props: GraficosMensaisP
 			try {
 				const categoriaMovimentacaoService = new CategoriaMovimentacaoService(back);
 				const response = await categoriaMovimentacaoService
-					.obtemSomaCategoriasEValores(1, props.dataMes.getTime());
+					.obtemSomaCategoriasEValores(1, props.selectedDate.getTime());
 				if (response?.data) {
 					extractSomaCategorias(response.data)
 				}
@@ -34,7 +27,7 @@ const GraficosMensais: React.FC<GraficosMensaisProps> = (props: GraficosMensaisP
 			}
 		};
 		buscaSomaCategorias();
-	}, [props.dataMes, props.modalAddDespesa, props.modalAddRendimento, props.modalApagaMovimentacao]);
+	}, [props.selectedDate, props.modalAddDespesa, props.modalAddRendimento, props.modalApagaMovimentacao]);
 
 	return (
 		<>
@@ -107,7 +100,6 @@ const GraficosMensais: React.FC<GraficosMensaisProps> = (props: GraficosMensaisP
 			&& somaCategoriasNegativas.length > 0
 	? (
 		<>
-			
 			<div className="card-graficos">
 				<div className="titulo">Gráfico de gastos</div>
 				<div className='grafic'>
@@ -137,13 +129,11 @@ const GraficosMensais: React.FC<GraficosMensaisProps> = (props: GraficosMensaisP
 		</>
 	)
 	:<>
-		
 		<div className="card-graficos">
 			<div className="titulo">Gráfico de gastos</div>
 			<div className='mensagem'>
 				Nenhum registro de despesa para este mês!
 			</div>
-			
 		</div>
 	</>;
 	}

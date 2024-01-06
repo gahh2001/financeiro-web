@@ -1,7 +1,7 @@
 import { AxiosInstance } from "axios";
 import { TipoMovimentacaoEnum } from "../enums/TipoMovimentacaoEnum";
 import { ICategoriaMovimentacao } from "../interfaces/ICategoriaMovimentacao";
-import { SomaCategoriasPorMes } from "../interfaces/SomaCategoriasPorMes";
+import { SomaCategoriasPorMes } from "../interfaces/ISomaCategoriasPorMes";
 
 export class CategoriaMovimentacaoService {
 	constructor(private readonly axiosInstance: AxiosInstance) {}

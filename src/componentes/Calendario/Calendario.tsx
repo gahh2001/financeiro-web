@@ -3,7 +3,7 @@ import { CircularProgress } from "@mui/material";
 import classNames from 'classnames';
 import moment from "moment";
 import "moment/locale/pt-br";
-import React, { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { TipoMovimentacaoEnum } from "../../enums/TipoMovimentacaoEnum";
 import back from "../../http";
 import { IMovimentacao } from "../../interfaces/IMovimentacao";
@@ -16,7 +16,7 @@ interface CalendarioProps {
 	closeModalRemove: () => void;
 }
 
-const Calendario: React.FC<CalendarioProps> = ({ onDayClick, closeModalAdd, closeModalRemove }) => {
+const Calendario: FC<CalendarioProps> = (props: CalendarioProps) => {
 	moment.locale("pt-br");
 	const [currentMonth, setCurrentMonth] = useState(moment());
 	const [selectedDay, setSelectedDay] = useState(moment().date() + currentMonth.format('YYYYMM'));
@@ -54,7 +54,7 @@ const Calendario: React.FC<CalendarioProps> = ({ onDayClick, closeModalAdd, clos
 			}
 		};
 		buscaMovimentacoesDoMes();
-	}, [selectedDay, closeModalAdd, closeModalRemove])
+	}, [selectedDay, props.closeModalAdd, props.closeModalRemove])
 
 	for (let day = 1; day <= daysInMonth; day++) {
 		const isCurrentDay = (day + currentMonth.format('YYYYMM')) === selectedDay;
@@ -80,7 +80,7 @@ const Calendario: React.FC<CalendarioProps> = ({ onDayClick, closeModalAdd, clos
 		selectedDate.setDate(daySelected);
 		selectedDate.setMonth(monthSelected);
 		selectedDate.setFullYear(yearSelected);
-		onDayClick(selectedDate);
+		props.onDayClick(selectedDate);
 	};
 
 	return (
@@ -129,7 +129,7 @@ const Calendario: React.FC<CalendarioProps> = ({ onDayClick, closeModalAdd, clos
 				const dia = date.getDate();
 				const mes = date.getMonth();
 				if (dia === day && month === mes
-					&& movimentacao.tipoMovimentacao.toUpperCase() == operador.toString()) {
+					&& movimentacao.tipoMovimentacao.toUpperCase() === operador.toString()) {
 					possuiMovimentacao++;
 				}
 			});

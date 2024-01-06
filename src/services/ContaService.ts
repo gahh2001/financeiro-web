@@ -1,5 +1,5 @@
 import { AxiosInstance } from "axios";
-import { IConta } from "../interfaces/Conta";
+import { IConta } from "../interfaces/IConta";
 
 export class ContaService {
 	constructor(private readonly axiosInstance: AxiosInstance){}

@@ -9,7 +9,7 @@ import {
 } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
-import React, { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { TipoMovimentacaoEnum } from '../../enums/TipoMovimentacaoEnum';
 import back from '../../http';
 import { IMovimentacao } from '../../interfaces/IMovimentacao';
@@ -28,9 +28,7 @@ interface InformacoesDoDiaProps {
 		descricao: string, tipoEdit: TipoMovimentacaoEnum) => void;
 }
 
-const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({
-	selectedDate, modalAddRendimento, modalAddDespesa,
-	modalApagaMovimentacao, dialogDescricao, handleEditMovimentacao }) => {
+const InformacoesDoDia: FC<InformacoesDoDiaProps> = (props: InformacoesDoDiaProps) => {
 
 	const [movimentacoesDoDia, setMovimentacoesDoDia] = useState<IMovimentacao[]>([]);
 	const [saldo, setSaldo] = useState<number>();
@@ -39,7 +37,7 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({
 	useEffect(() => {
 		const buscaMovimentacoesDoDia = async () => {
 			try {
-				const dia = selectedDate;
+				const dia = props.selectedDate;
 				const response = await movimentacaoService.getMovimentacao(1,
 					dia.getTime(), dia.getTime());
 				if (response?.data) {
@@ -50,7 +48,9 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({
 			}
 		};
 		buscaMovimentacoesDoDia();
-	}, [selectedDate, modalAddDespesa, modalAddRendimento, modalApagaMovimentacao]);
+	}, [props.selectedDate, props.modalAddDespesa,
+		props.modalAddRendimento, props.modalApagaMovimentacao
+	]);
 
 	useEffect(() => {
 		const atualizaSaldoConta = async () => {
@@ -66,15 +66,15 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({
 		};
 
 		atualizaSaldoConta();
-	}, [saldo, modalAddDespesa, modalAddRendimento, modalApagaMovimentacao]);
+	}, [saldo, props.modalAddDespesa, props.modalAddRendimento, props.modalApagaMovimentacao]);
 
 	return (
 		<div className="informacoes-do-dia">
 			<div className="card-resumo-dia">
 				<div className="titulo">
-					Resumo do dia {selectedDate.getDate().toString().padStart(2,"0")}
-					/{selectedDate.getMonth() + 1}
-					/{selectedDate.getFullYear()}
+					Resumo do dia {props.selectedDate.getDate().toString().padStart(2,"0")}
+					/{props.selectedDate.getMonth() + 1}
+					/{props.selectedDate.getFullYear()}
 				</div>
 				<div className="info-dia">
 					<div className='simbol'>
@@ -99,14 +99,14 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({
 				<div className="buttons">
 					<button
 						style={{ marginRight: "40px" }}
-						onClick={modalAddRendimento}
+						onClick={props.modalAddRendimento}
 					>
 						<AddCircleOutlineRounded
 							sx={{ color: "#44A81D" }}
 						/> <br/>
 						Adicionar rendimento
 					</button>
-					<button onClick={modalAddDespesa}>
+					<button onClick={props.modalAddDespesa}>
 						<RemoveCircleOutlineRounded
 							sx={{ color: "#B82121" }}
 						/> <br />
@@ -183,7 +183,7 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({
 										placement="top"
 									>
 										<IconButton
-											onClick={() => dialogDescricao(movimentacao.descricaoMovimentacao)}
+											onClick={() => props.dialogDescricao(movimentacao.descricaoMovimentacao)}
 										>
 											<InfoOutlined
 												sx={{ color: "#3451C7" }}
@@ -196,7 +196,7 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({
 									>
 										<IconButton
 											color="inherit"
-											onClick={() => handleEditMovimentacao(movimentacao.id, movimentacao.dataMovimentacao,
+											onClick={() => props.handleEditMovimentacao(movimentacao.id, movimentacao.dataMovimentacao,
 												movimentacao.valor.toString(), movimentacao.idCategoriaMovimentacao
 												? movimentacao.idCategoriaMovimentacao.toString() : "",
 												movimentacao.descricaoMovimentacao,
@@ -212,7 +212,7 @@ const InformacoesDoDia: React.FC<InformacoesDoDiaProps> = ({
 									>
 										<IconButton
 											onClick={() =>
-													modalApagaMovimentacao(movimentacao)}
+												props.modalApagaMovimentacao(movimentacao)}
 										>
 											<DeleteForever sx={{ color: "#B82121" }}
 										/>
