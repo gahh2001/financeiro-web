@@ -1,4 +1,4 @@
-import { CalendarMonth } from '@mui/icons-material';
+import { AssessmentOutlined, CalendarMonth } from '@mui/icons-material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { IconButton } from '@mui/material';
 import Box from '@mui/material/Box';
@@ -10,6 +10,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import * as React from 'react';
 import { Fragment, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function TemporaryDrawer() {
 	const [state, setState] = useState(false);
@@ -25,6 +26,12 @@ export default function TemporaryDrawer() {
 			}
 			setState(state);
 		};
+
+	const navigate = useNavigate();
+
+	const handleNavigate = (address: string) => {
+		navigate(address);
+	};
 
 	return (
 		<div>
@@ -45,12 +52,20 @@ export default function TemporaryDrawer() {
 						onClick={toggleDrawer(false)}
 					>
 						<List>
-							<ListItem key={"inicio"} disablePadding>
-								<ListItemButton>
+							<ListItem key={"inicio"}>
+								<ListItemButton onClick={() => handleNavigate("/home")}>
 									<ListItemIcon>
 										<CalendarMonth/>
 									</ListItemIcon>
 									<ListItemText primary={"Início"}/>
+								</ListItemButton>
+							</ListItem>
+							<ListItem key={"analitico"}>
+								<ListItemButton onClick={() => handleNavigate("/analitico")}>
+									<ListItemIcon>
+										<AssessmentOutlined/>
+									</ListItemIcon>
+									<ListItemText primary={"Analítico"}/>
 								</ListItemButton>
 							</ListItem>
 						</List>

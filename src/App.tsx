@@ -1,12 +1,24 @@
-import { Routes, Route } from 'react-router-dom';
+import { ThemeProvider, createTheme } from '@mui/material';
+import { Route, Routes } from 'react-router-dom';
+import Analitico from './paginas/Analitico/Analitico';
 import Home from './paginas/Home/Home';
 
 function App() {
+	const darkTheme = createTheme({
+		palette: {
+			mode: 'dark',
+		},
+	});
 
 	return (
-		<Routes>
-			<Route path="/" element={<Home />} />
-		</Routes>
+		<ThemeProvider theme={darkTheme}>
+			<Routes>
+				<Route path="/" element={<Home/>} />
+				<Route path="/home" element={<Home/>}/>
+				<Route path="/analitico" element={<Analitico/>}/>
+			</Routes>
+		</ThemeProvider>
+		
 	);
 }
 
