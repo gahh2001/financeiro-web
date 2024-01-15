@@ -1,10 +1,10 @@
 import { BarChart } from '@mui/x-charts/BarChart';
 import { FC, useEffect, useState } from 'react';
-import { TipoMovimentacaoEnum } from '../../enums/TipoMovimentacaoEnum';
-import back from '../../http';
-import { InformacoesDoMesProps } from '../../interfaces/IInformacoesDoMesProps';
-import { SomaCategoriasPorMes } from '../../interfaces/ISomaCategoriasPorMes';
-import { CategoriaMovimentacaoService } from '../../services/CategoriaMovimentacaoService';
+import { TipoMovimentacaoEnum } from '../../../enums/TipoMovimentacaoEnum';
+import back from '../../../http';
+import { InformacoesDoMesProps } from '../../../interfaces/IInformacoesDoMesProps';
+import { SomaCategoriasPorMes } from '../../../interfaces/ISomaCategoriasPorMes';
+import { CategoriaMovimentacaoService } from '../../../services/CategoriaMovimentacaoService';
 import './GraficosMensais.scss';
 
 const GraficosMensais: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProps) => {

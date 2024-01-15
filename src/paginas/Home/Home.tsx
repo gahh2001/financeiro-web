@@ -1,17 +1,17 @@
 import { ThemeProvider, createTheme } from "@mui/material";
 import { useState } from "react";
-import Calendario from '../../componentes/Calendario/Calendario';
-import InformacoesDoDia from '../../componentes/InformacoesDoDiaCard/InformacoesDoDia';
-import DialogDescricaoMovimentacao from "../../componentes/InformacoesDoDiaCard/dialogDescricaoMovimentacao/DialogDescricaoMovimentacao";
-import InformacoesDoMes from '../../componentes/InformacoesDoMesCard/InformacoesDoMes';
-import ModalAddMovimentacao from '../../componentes/ModalAddMovimentacao/ModalAddMovimentacao';
-import useModalAddMovimentacao from "../../componentes/ModalAddMovimentacao/UseModalAddMovimentacao";
-import ModalApagaMovimentacao from "../../componentes/ModalRemoveMovimentacao/ModalApagaMovimentacao";
-import useModalRemoveMovimentacao from "../../componentes/ModalRemoveMovimentacao/UseModalRemoveMovimentacao";
 import NavBar from "../../componentes/AppBar/AppBar";
 import { TipoMovimentacaoEnum } from '../../enums/TipoMovimentacaoEnum';
 import { IMovimentacao } from "../../interfaces/IMovimentacao";
 import './Home.module.scss';
+import Calendario from "../../componentes/home/calendario/Calendario";
+import InformacoesDoDia from "../../componentes/home/informacoesDoDiaCard/InformacoesDoDia";
+import DialogDescricaoMovimentacao from "../../componentes/home/informacoesDoDiaCard/dialogDescricaoMovimentacao/DialogDescricaoMovimentacao";
+import InformacoesDoMes from "../../componentes/home/informacoesDoMesCard/InformacoesDoMes";
+import ModalAddMovimentacao from "../../componentes/home/modalAddMovimentacao/ModalAddMovimentacao";
+import useModalAddMovimentacao from "../../componentes/home/modalAddMovimentacao/UseModalAddMovimentacao";
+import ModalApagaMovimentacao from "../../componentes/home/modalRemoveMovimentacao/ModalApagaMovimentacao";
+import useModalRemoveMovimentacao from "../../componentes/home/modalRemoveMovimentacao/UseModalRemoveMovimentacao";
 
 export const Home = () => {
 	const [selectedDate, setSelectedDate] = useState(new Date());

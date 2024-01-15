@@ -4,10 +4,10 @@ import classNames from 'classnames';
 import moment from "moment";
 import "moment/locale/pt-br";
 import { FC, useEffect, useState } from "react";
-import { TipoMovimentacaoEnum } from "../../enums/TipoMovimentacaoEnum";
-import back from "../../http";
-import { IMovimentacao } from "../../interfaces/IMovimentacao";
-import { MovimentacaoService } from "../../services/MovimentacaoService";
+import { TipoMovimentacaoEnum } from "../../../enums/TipoMovimentacaoEnum";
+import back from "../../../http";
+import { IMovimentacao } from "../../../interfaces/IMovimentacao";
+import { MovimentacaoService } from "../../../services/MovimentacaoService";
 import "./CalendarioStyle.scss";
 
 interface CalendarioProps {

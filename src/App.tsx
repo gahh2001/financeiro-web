@@ -1,7 +1,7 @@
 import { ThemeProvider, createTheme } from '@mui/material';
 import { Route, Routes } from 'react-router-dom';
-import Analitico from './paginas/Analitico/Analitico';
-import Home from './paginas/Home/Home';
+import Analitico from './paginas/analitico/Analitico';
+import Home from './paginas/home/Home';
 
 function App() {
 	const darkTheme = createTheme({

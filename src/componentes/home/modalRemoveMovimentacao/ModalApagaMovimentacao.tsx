@@ -3,11 +3,11 @@ import CheckIcon from '@mui/icons-material/Check';
 import { LinearProgress } from '@mui/material';
 import Box from '@mui/material/Box';
 import { ReactNode, useEffect, useState } from "react";
-import { TipoMovimentacaoEnum } from "../../enums/TipoMovimentacaoEnum";
-import back from '../../http';
-import { IMovimentacao } from "../../interfaces/IMovimentacao";
-import { CategoriaMovimentacaoService } from "../../services/CategoriaMovimentacaoService";
-import { MovimentacaoService } from "../../services/MovimentacaoService";
+import { TipoMovimentacaoEnum } from '../../../enums/TipoMovimentacaoEnum';
+import back from '../../../http';
+import { IMovimentacao } from '../../../interfaces/IMovimentacao';
+import { CategoriaMovimentacaoService } from '../../../services/CategoriaMovimentacaoService';
+import { MovimentacaoService } from '../../../services/MovimentacaoService';
 import "./ModalApagaMovimentacao.scss";
 
 interface ModalType {

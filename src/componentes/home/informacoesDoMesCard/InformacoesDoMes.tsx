@@ -4,12 +4,12 @@ import {
 	RemoveCircleOutlineRounded
 } from '@mui/icons-material';
 import { FC, useEffect, useState } from 'react';
-import { TipoMovimentacaoEnum } from '../../enums/TipoMovimentacaoEnum';
-import back from '../../http';
-import { InformacoesDoMesProps } from '../../interfaces/IInformacoesDoMesProps';
-import { IMovimentacao } from '../../interfaces/IMovimentacao';
-import { MovimentacaoService } from '../../services/MovimentacaoService';
-import GraficosMensais from '../GraficosMensais/GraficosMensais';
+import { TipoMovimentacaoEnum } from '../../../enums/TipoMovimentacaoEnum';
+import back from '../../../http';
+import { InformacoesDoMesProps } from '../../../interfaces/IInformacoesDoMesProps';
+import { IMovimentacao } from '../../../interfaces/IMovimentacao';
+import { MovimentacaoService } from '../../../services/MovimentacaoService';
+import GraficosMensais from '../graficosMensais/GraficosMensais';
 import './InformacoesDoMes.scss';
 
 const InformacoesDoMes: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProps) => {

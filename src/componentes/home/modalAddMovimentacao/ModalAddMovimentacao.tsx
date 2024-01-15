@@ -12,12 +12,12 @@ import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import dayjs, { Dayjs } from 'dayjs';
 import 'dayjs/locale/en-gb';
 import { ChangeEvent, ReactNode, useEffect, useState } from "react";
-import { TipoMovimentacaoEnum } from "../../enums/TipoMovimentacaoEnum";
-import back from '../../http';
-import { ICategoriaMovimentacao } from '../../interfaces/ICategoriaMovimentacao';
-import { IMovimentacao } from '../../interfaces/IMovimentacao';
-import { CategoriaMovimentacaoService } from '../../services/CategoriaMovimentacaoService';
-import { MovimentacaoService } from '../../services/MovimentacaoService';
+import { TipoMovimentacaoEnum } from '../../../enums/TipoMovimentacaoEnum';
+import back from '../../../http';
+import { ICategoriaMovimentacao } from '../../../interfaces/ICategoriaMovimentacao';
+import { IMovimentacao } from '../../../interfaces/IMovimentacao';
+import { CategoriaMovimentacaoService } from '../../../services/CategoriaMovimentacaoService';
+import { MovimentacaoService } from '../../../services/MovimentacaoService';
 import "./ModalAddMovimentacao.scss";
 
 interface ModalType {

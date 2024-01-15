@@ -10,13 +10,12 @@ import {
 import { IconButton } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
 import { FC, useEffect, useState } from 'react';
-import { TipoMovimentacaoEnum } from '../../enums/TipoMovimentacaoEnum';
-import back from '../../http';
-import { IMovimentacao } from '../../interfaces/IMovimentacao';
-import { ContaService } from '../../services/ContaService';
-import { MovimentacaoService } from '../../services/MovimentacaoService';
+import { TipoMovimentacaoEnum } from '../../../enums/TipoMovimentacaoEnum';
+import back from '../../../http';
+import { IMovimentacao } from '../../../interfaces/IMovimentacao';
+import { ContaService } from '../../../services/ContaService';
+import { MovimentacaoService } from '../../../services/MovimentacaoService';
 import './InformacoesDoDia.scss';
-
 
 interface InformacoesDoDiaProps {
 	selectedDate: Date;
