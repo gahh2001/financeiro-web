@@ -1,7 +1,7 @@
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { IconButton, Typography } from '@mui/material';
-import DrawerPages from '../DrawerPages/DrawerPages';
+import DrawerPages from '../menu/Menu';
 import "./AppBarStyle.scss";
 
 const NavBar = () => {
