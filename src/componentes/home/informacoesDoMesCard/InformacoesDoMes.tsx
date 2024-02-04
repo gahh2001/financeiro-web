@@ -9,8 +9,8 @@ import back from '../../../http';
 import { InformacoesDoMesProps } from '../../../interfaces/IInformacoesDoMesProps';
 import { IMovimentacao } from '../../../interfaces/IMovimentacao';
 import { MovimentacaoService } from '../../../services/MovimentacaoService';
-import GraficosMensais from '../graficosMensais/GraficosMensais';
 import './InformacoesDoMes.scss';
+import GraficosMensais from './graficosMensais/GraficosMensais';
 
 const InformacoesDoMes: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProps) => {
 	const [movimentacoesDoMes, setMovimentacoesDoMes] = useState<IMovimentacao[]>([]);
