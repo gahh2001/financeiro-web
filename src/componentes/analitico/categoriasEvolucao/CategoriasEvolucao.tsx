@@ -1,13 +1,10 @@
 import { LineChart } from '@mui/x-charts/LineChart';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import '../../../paginas/analitico/Analitico.scss';
 import './CategoriasEvolucao.scss';
 
 const CategoriasEvolucao: FC = () => {
-	const chartsParams = {
-		margin: { bottom: 20, left: 25, right: 5 },
-		height: 300,
-	};
+	const [nomeCategorias, setNomeCategorias] = useState<string[]>(["teste", "teste1", "teste3", "teste4", "teste2"]);
 
 	return (
 		<div className='card-categorias-evolucao'>
@@ -16,7 +13,13 @@ const CategoriasEvolucao: FC = () => {
 			</div>
 			<div className="grafic">
 				<LineChart
-					{...chartsParams}
+					xAxis={[
+						{
+						id: 'barCategories',
+						data: nomeCategorias,
+						scaleType: 'band',
+						},
+					]}
 					series={[
 						{
 							data: [15, 23, 18, 19, 13],
@@ -37,7 +40,3 @@ const CategoriasEvolucao: FC = () => {
 }
 
 export default CategoriasEvolucao;
-
-function useState(arg0: string): [any, any] {
-	throw new Error('Function not implemented.');
-}

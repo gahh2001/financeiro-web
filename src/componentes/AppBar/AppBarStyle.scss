@@ -5,6 +5,14 @@
 	background-color: $fundo-linhas;
 	display: flex;
 
+	.modulo {
+		width: 90%;
+		align-items: center;
+		display: flex;
+		justify-content: center;
+		color: #e1e0e0;
+	}
+
 	.icons {
 		margin-left: 1vh;
 		margin-right: 1vh;

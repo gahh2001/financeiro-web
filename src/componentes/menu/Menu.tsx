@@ -57,7 +57,7 @@ export default function TemporaryDrawer() {
 									<ListItemIcon>
 										<CalendarMonth/>
 									</ListItemIcon>
-									<ListItemText primary={"Início"}/>
+									<ListItemText primary={"Home"}/>
 								</ListItemButton>
 							</ListItem>
 							<ListItem key={"analitico"}>

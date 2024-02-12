@@ -10,7 +10,7 @@ export const Analitico = () => {
 
 	return (
 		<div className="analitico">
-			<NavBar/>
+			<NavBar modulo="Analítico"/>
 			<div className="top-section">
 				<CategoriasVisaoGeral/>
 				<CategoriasPorcentagem/>

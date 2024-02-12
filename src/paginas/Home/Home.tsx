@@ -1,9 +1,6 @@
 import { ThemeProvider, createTheme } from "@mui/material";
 import { useState } from "react";
 import NavBar from "../../componentes/AppBar/AppBar";
-import { TipoMovimentacaoEnum } from '../../enums/TipoMovimentacaoEnum';
-import { IMovimentacao } from "../../interfaces/IMovimentacao";
-import './Home.module.scss';
 import Calendario from "../../componentes/home/calendario/Calendario";
 import InformacoesDoDia from "../../componentes/home/informacoesDoDiaCard/InformacoesDoDia";
 import DialogDescricaoMovimentacao from "../../componentes/home/informacoesDoDiaCard/dialogDescricaoMovimentacao/DialogDescricaoMovimentacao";
@@ -12,6 +9,9 @@ import ModalAddMovimentacao from "../../componentes/home/modalAddMovimentacao/Mo
 import useModalAddMovimentacao from "../../componentes/home/modalAddMovimentacao/UseModalAddMovimentacao";
 import ModalApagaMovimentacao from "../../componentes/home/modalRemoveMovimentacao/ModalApagaMovimentacao";
 import useModalRemoveMovimentacao from "../../componentes/home/modalRemoveMovimentacao/UseModalRemoveMovimentacao";
+import { TipoMovimentacaoEnum } from '../../enums/TipoMovimentacaoEnum';
+import { IMovimentacao } from "../../interfaces/IMovimentacao";
+import './Home.module.scss';
 
 export const Home = () => {
 	const [selectedDate, setSelectedDate] = useState(new Date());
@@ -78,7 +78,7 @@ export const Home = () => {
 	return (
 		<div className="home">
 			<ThemeProvider theme={darkTheme}>
-				<NavBar/>
+				<NavBar modulo="Home"/>
 				<div style={{ display: 'flex', height: "93.3vh" }}>
 					<div style={{
 						flexDirection: 'column',

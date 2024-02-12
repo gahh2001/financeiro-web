@@ -1,10 +1,10 @@
 import { BarChart } from '@mui/x-charts/BarChart';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import '../../../paginas/analitico/Analitico.scss';
 import './CategoriasComparacao.scss';
 
 const CategoriasComparacao: FC = () => {
-
+	const [nomeCategorias, setNomeCategorias] = useState<string[]>(["teste", "teste1", "teste2"]);
 	const highlightScope = {
 		highlighted: 'series',
 		faded: 'global',
@@ -40,6 +40,13 @@ const CategoriasComparacao: FC = () => {
 			</div>
 			<div className="grafic">
 			<BarChart
+				xAxis={[
+					{
+					id: 'barCategories',
+					data: nomeCategorias,
+					scaleType: 'band',
+					},
+				]}
 				series={series}
 				margin={{
 					left: 55,
