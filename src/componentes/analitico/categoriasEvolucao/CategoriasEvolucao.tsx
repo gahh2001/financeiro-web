@@ -28,8 +28,8 @@ const CategoriasEvolucao: FC = () => {
 						},
 					]}
 					margin={{
-						left: 45,
-						right: 20,
+						left: 30,
+						right: 10,
 						top: 50,
 						bottom: 25,
 					}}

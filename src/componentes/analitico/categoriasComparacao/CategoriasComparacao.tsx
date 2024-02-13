@@ -49,9 +49,9 @@ const CategoriasComparacao: FC = () => {
 				]}
 				series={series}
 				margin={{
-					left: 55,
-					right: 20,
-					top: 50,
+					left: 45,
+					right: 10,
+					top: 70,
 					bottom: 25,
 				}}
 			/>

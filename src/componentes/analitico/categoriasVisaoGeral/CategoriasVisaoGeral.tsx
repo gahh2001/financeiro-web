@@ -1,10 +1,10 @@
-import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
+import { FormControl, FormControlLabel, FormGroup, InputLabel, MenuItem, Select, SelectChangeEvent, Switch } from '@mui/material';
 import { BarChart } from '@mui/x-charts/BarChart';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import dayjs, { Dayjs } from 'dayjs';
-import { FC, useState } from 'react';
+import { ChangeEvent, FC, useState } from 'react';
 import { TipoMovimentacaoEnum } from '../../../enums/TipoMovimentacaoEnum';
 import '../../../paginas/analitico/Analitico.scss';
 import './CategoriasVisaoGeral.scss';
@@ -14,10 +14,15 @@ const CategoriasVisaoGeral: FC = () => {
 	const [somaCategorias, setSomaCategorias] = useState<number[]>([2, 4, 3, 4, 3.5]);
 	const [ano, setAno] = useState<Dayjs | null>(dayjs());
 	const [categoria, setCategoria] = useState("");
+	const [fullYear, setFullYear] = useState(false);
 
 	const handleChangeCategoria = (event: SelectChangeEvent) => {
 		const newValue = event.target.value;
 		setCategoria(typeof newValue === 'string' ? newValue : "");
+	};
+
+	const handleChangeFullYear = (event: ChangeEvent<HTMLInputElement>) => {
+		setFullYear(event.target.checked);
 	};
 
 	return (
@@ -30,7 +35,8 @@ const CategoriasVisaoGeral: FC = () => {
 					<div className="filter">
 						<DatePicker
 							label={"Ano"}
-							sx={{m: 1, width: "20vh"}}
+							views={['year']}
+							sx={{m: 1, width: "17vh"}}
 							slotProps={{ textField: { size: 'small' } }}
 							format='YYYY'
 						/>
@@ -39,10 +45,17 @@ const CategoriasVisaoGeral: FC = () => {
 						<DatePicker
 							label={"Mês"}
 							views={['month']}
-							sx={{m: 1, width: "20vh"}}
+							sx={{m: 1, width: "15vh"}}
 							slotProps={{ textField: { size: 'small' } }}
 							format='MM'
+							disabled={fullYear}
 						/>
+						<FormGroup>
+							<FormControlLabel
+								control={<Switch color='primary' onChange={handleChangeFullYear}/>}
+								label="Ano inteiro"
+							/>
+						</FormGroup>
 					</div>
 					<div className="filter">
 						<FormControl
@@ -65,7 +78,13 @@ const CategoriasVisaoGeral: FC = () => {
 									key={"POSITIVAS"}
 									value={TipoMovimentacaoEnum.POSITIVO}
 								>
-									Positivas
+									Rendimentos
+								</MenuItem>
+								<MenuItem
+									key={"NEGATIVAS"}
+									value={TipoMovimentacaoEnum.NEGATIVO}
+								>
+									Despesas
 								</MenuItem>
 							</Select>
 						</FormControl>
@@ -90,7 +109,7 @@ const CategoriasVisaoGeral: FC = () => {
 					margin={{
 						left: 45,
 						right: 20,
-						top: 20,
+						top: 10,
 						bottom: 35,
 					}}
 				/>
