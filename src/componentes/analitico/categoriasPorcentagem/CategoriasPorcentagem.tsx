@@ -25,9 +25,9 @@ const CategoriasPorcentagem: FC = () => {
 					},
 				]}
 				margin={{
-					left: 35,
-					right: 20,
-					top: 50,
+					left: 1,
+					right: 90,
+					top: 20,
 					bottom: 5,
 				}}
 			/>

@@ -4,6 +4,7 @@ import CategoriasEvolucao from "../../componentes/analitico/categoriasEvolucao/C
 import CategoriasInformacoesGerais from "../../componentes/analitico/categoriasInformacoesGerais/CategoriasInformacoesGerais";
 import CategoriasPorcentagem from "../../componentes/analitico/categoriasPorcentagem/CategoriasPorcentagem";
 import CategoriasVisaoGeral from "../../componentes/analitico/categoriasVisaoGeral/CategoriasVisaoGeral";
+import FiltersAnalitic from "../../componentes/analitico/filtersAnalitc/FiltersAnalitc";
 import './Analitico.scss';
 
 export const Analitico = () => {
@@ -12,6 +13,7 @@ export const Analitico = () => {
 		<div className="analitico">
 			<NavBar modulo="Analítico"/>
 			<div className="top-section">
+				<FiltersAnalitic/>
 				<CategoriasVisaoGeral/>
 				<CategoriasPorcentagem/>
 			</div>

@@ -1,0 +1,28 @@
+@import '../../../VariaveisSCSS.scss';
+
+.card-filters {
+	justify-content: center;
+	width: 11.5%;
+	height: 44vh;
+	box-shadow: -1px 0px 5px 3px $sombras;
+	padding: 0.7vh;
+	border-radius: 4vh;
+	margin-left: 0.5%;
+	margin-right: 0.5%;
+	margin-top: 1%;
+
+	.filter {
+		height: 8.5vh;
+		width: 95%;
+		justify-content: center;
+		align-items: center;
+		display: flex;
+	}
+
+	.filter-year {
+		margin-left: 2vh;
+		color: white;
+		justify-content: center;
+		width: 100%;
+	}
+}
