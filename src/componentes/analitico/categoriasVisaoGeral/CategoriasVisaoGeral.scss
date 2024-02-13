@@ -17,17 +17,18 @@
 		font-size: 3vh;
 		text-align: center;
 		color: $color-in-linhas;
-		margin-bottom: 1vh;
 	}
 
 	.filter {
-		height: 3vh;
+		height: 5.1vh;
 		display: flex;
+		width: 33%;
+		justify-content: center;
 	}
 
 	.grafic {
 		width: 100%;
-		height: 34vh;
+		height: 33vh;
 		display: flex;
 	}
 }
