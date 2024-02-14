@@ -2,17 +2,19 @@ import { FormControl, FormControlLabel, FormGroup, InputLabel, MenuItem, Select,
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
-import dayjs, { Dayjs } from "dayjs";
+import { Dayjs } from "dayjs";
 import { ChangeEvent, FC, useState } from "react";
 import { TipoComparacaoEnum } from "../../../enums/TipoComparacaoEnum";
 import { TipoMovimentacaoEnum } from "../../../enums/TipoMovimentacaoEnum";
+import { IFiltersAnaliticProps } from "../../../interfaces/IFiltersAnaliticProps";
 import './FiltersAnalitic.scss';
 
-const FiltersAnalitic: FC = () => {
-	const [ano, setAno] = useState<Dayjs | null>(dayjs());
-	const [tipoMovimentacao, setTipomovimentacao] = useState(TipoMovimentacaoEnum.POSITIVO.toString());
-	const [tipoComparacao, setTipoComparacao] = useState(TipoComparacaoEnum.TRESMESES.toString())
-	const [fullYear, setFullYear] = useState(false);
+const FiltersAnalitic: FC<IFiltersAnaliticProps> = (props: IFiltersAnaliticProps) => {
+	const [ano, setAno] = useState<Dayjs | null>(props.ano);
+	const [mes, setMes] = useState<Dayjs | null>(props.mes);
+	const [tipoMovimentacao, setTipomovimentacao] = useState(props.tipoMovimentacao);
+	const [tipoComparacao, setTipoComparacao] = useState(props.tipoComparacao)
+	const [fullYear, setFullYear] = useState(props.fullYear);
 
 	const handleChangeMovimentacao = (event: SelectChangeEvent) => {
 		const newValue = event.target.value;
@@ -35,7 +37,9 @@ const FiltersAnalitic: FC = () => {
 					<div className="filter">
 						<DatePicker
 							label={"Ano"}
-							defaultValue={dayjs(new Date().getTime())}
+							value={ano}
+							defaultValue={ano}
+							onChange={(newValue) => setAno(newValue)}
 							views={['year']}
 							slotProps={{ textField: { size: 'small' } }}
 							format='YYYY'
@@ -48,7 +52,9 @@ const FiltersAnalitic: FC = () => {
 					<div className="filter">
 						<DatePicker
 							label={"Mês"}
-							defaultValue={dayjs(new Date().getTime())}
+							value={mes}
+							defaultValue={mes}
+							onChange={(newValue) => setMes(newValue)}
 							views={['month']}
 							slotProps={{ textField: { size: 'small' } }}
 							format='MM'

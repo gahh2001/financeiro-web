@@ -28,7 +28,7 @@ const CategoriasVisaoGeral: FC = () => {
 						},
 					]}
 					margin={{
-						left: 25,
+						left: 35,
 						right: 10,
 						top: 20,
 						bottom: 25,
