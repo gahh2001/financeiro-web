@@ -1,6 +1,5 @@
 import { BarChart } from '@mui/x-charts/BarChart';
 import { FC, useEffect, useState } from 'react';
-import { TipoMovimentacaoEnum } from '../../../../enums/TipoMovimentacaoEnum';
 import back from '../../../../http';
 import { InformacoesDoMesProps } from '../../../../interfaces/IInformacoesDoMesProps';
 import { SomaCategoriasPorMes } from '../../../../interfaces/ISomaCategoriasPorMes';
@@ -17,10 +16,20 @@ const GraficosMensais: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProps
 		const buscaSomaCategorias = async () => {
 			try {
 				const categoriaMovimentacaoService = new CategoriaMovimentacaoService(back);
-				const response = await categoriaMovimentacaoService
-					.obtemSomaCategoriasEValores(1, props.selectedDate.getTime());
-				if (response?.data) {
-					extractSomaCategorias(response.data)
+				const dataInicio = new Date(props.selectedDate);
+				dataInicio.setDate(1);
+				const dataFim = new Date(props.selectedDate);
+				dataFim.setMonth(dataFim.getMonth() + 1);
+				dataFim.setDate(0);
+				const somaPositivas = await categoriaMovimentacaoService
+					.obtemSomaCategoriasEValores(1, dataInicio.getTime(), dataFim.getTime(), "POSITIVO");
+				const somaNegativas = await categoriaMovimentacaoService
+					.obtemSomaCategoriasEValores(1, dataInicio.getTime(), dataFim.getTime(), "NEGATIVO");
+				if (somaPositivas?.data) {
+					extractSomaCategoriasPositivas(somaPositivas.data)
+				}
+				if (somaNegativas?.data) {
+					extractSomaCategoriasNegativas(somaNegativas.data)
 				}
 			} catch (error) {
 				console.log("Erro ao atualizar soma das categorias")
@@ -31,28 +40,29 @@ const GraficosMensais: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProps
 
 	return (
 		<>
-		{obtemGraficoRendimentos()}
-		{obtemGraficoDespesas()}
+			{obtemGraficoRendimentos()}
+			{obtemGraficoDespesas()}
 		</>
 	);
 
-	function extractSomaCategorias(somaCategorias: SomaCategoriasPorMes[]) {
+	function extractSomaCategoriasPositivas(somaCategorias: SomaCategoriasPorMes[]) {
 		const nomesPositivos: string[] = [];
 		const somasPositivas: number[] = [];
-		const nomesNegativos: string[] = [];
-		const somasNegativas: number[] = [];
-
 		somaCategorias.forEach((result) => {
-		if (result.tipoMovimentacao === TipoMovimentacaoEnum.POSITIVO.toString()) {
 			nomesPositivos.push(result.nomeCategoria);
 			somasPositivas.push(result.somaMovimentacao);
-		} else {
-			nomesNegativos.push(result.nomeCategoria);
-			somasNegativas.push(result.somaMovimentacao);
-		}
 		});
 		setNomeCategoriasPositivas(nomesPositivos);
 		setSomaCategoriasPositivas(somasPositivas);
+	}
+
+	function extractSomaCategoriasNegativas(somaCategorias: SomaCategoriasPorMes[]) {
+		const nomesNegativos: string[] = [];
+		const somasNegativas: number[] = [];
+		somaCategorias.forEach((result) => {
+			nomesNegativos.push(result.nomeCategoria);
+			somasNegativas.push(result.somaMovimentacao);
+		});
 		setNomeCategoriasNegativas(nomesNegativos);
 		setSomaCategoriasNegativas(somasNegativas);
 	}

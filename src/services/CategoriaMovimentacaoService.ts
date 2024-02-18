@@ -48,17 +48,20 @@ export class CategoriaMovimentacaoService {
 		}
 	}
 
-	async obtemSomaCategoriasEValores(idConta: number, data: number) {
+	async obtemSomaCategoriasEValores(idConta: number, dataInicio: number,
+			dataFim: number, tipoMovimentacao: string) {
 		const params = {
 			idConta: idConta,
-			dataMes: data
+			dataInicio: dataInicio,
+			dataFim: dataFim,
+			tipoMovimentacao: tipoMovimentacao
 		};
 		try {
 			const response = await this.axiosInstance
-				.get<SomaCategoriasPorMes[]>(`${this.urlDefault}/mes`, {params});
+				.get<SomaCategoriasPorMes[]>(`${this.urlDefault}/soma-categorias`, {params});
 			return {...response};
 		} catch (error) {
-			console.log(`Não foi possível obter a soma de movimentações por categoria`, error);
+			console.log(`Não foi possível obter a soma de movimentações de categorias`, error);
 			return undefined;
 		}
 	}
