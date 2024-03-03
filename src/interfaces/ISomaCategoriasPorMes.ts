@@ -1,4 +1,4 @@
-export type SomaCategoriasPorMes = {
+export type ISomaCategoriasPorMes = {
 	nomeCategoria: string;
 	somaMovimentacao: number;
 }

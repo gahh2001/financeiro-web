@@ -1,29 +1,35 @@
 import { BarChart } from '@mui/x-charts/BarChart';
-import { FC, useState } from 'react';
+import { FC } from 'react';
+import { ICategoriasVisaoGeralProps } from '../../../interfaces/ICategoriasVisaoGeralProps';
 import '../../../paginas/analitico/Analitico.scss';
 import './CategoriasVisaoGeral.scss';
 
-const CategoriasVisaoGeral: FC = () => {
-	const [nomeCategorias, setNomeCategorias] = useState<string[]>(["teste", "teste1", "teste3", "teste4", "teste2"]);
-	const [somaCategorias, setSomaCategorias] = useState<number[]>([2, 4, 3, 4, 3.5]);
+const CategoriasVisaoGeral: FC<ICategoriasVisaoGeralProps> = (props: ICategoriasVisaoGeralProps) => {
 
 	return (
 		<div className='card-visao-geral'>
 			<div className="titulo">
 				Visão geral
 			</div>
-			<div className='grafic'>
+			{montaGrafico()}
+		</div>
+	)
+
+	function montaGrafico() {
+		return props.nomeCategorias.length > 0
+			&& props.somaCategorias.length > 0
+		? <div className='grafic'>
 				<BarChart
 					xAxis={[
 						{
 						id: 'barCategories',
-						data: nomeCategorias,
+						data: props.nomeCategorias,
 						scaleType: 'band',
 						},
 					]}
 					series={[
 						{
-						data: somaCategorias,
+						data: props.somaCategorias,
 						color: "#00B165"
 						},
 					]}
@@ -35,8 +41,8 @@ const CategoriasVisaoGeral: FC = () => {
 					}}
 				/>
 			</div>
-		</div>
-	)
+		: <>kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk</>
+	}
 }
 
 export default CategoriasVisaoGeral;

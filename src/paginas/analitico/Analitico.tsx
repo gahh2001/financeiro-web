@@ -1,5 +1,5 @@
 import dayjs, { Dayjs } from "dayjs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import NavBar from "../../componentes/AppBar/AppBar";
 import CategoriasComparacao from "../../componentes/analitico/categoriasComparacao/CategoriasComparacao";
 import CategoriasEvolucao from "../../componentes/analitico/categoriasEvolucao/CategoriasEvolucao";
@@ -9,14 +9,36 @@ import CategoriasVisaoGeral from "../../componentes/analitico/categoriasVisaoGer
 import FiltersAnalitic from "../../componentes/analitico/filtersAnalitc/FiltersAnalitc";
 import { TipoComparacaoEnum } from "../../enums/TipoComparacaoEnum";
 import { TipoMovimentacaoEnum } from "../../enums/TipoMovimentacaoEnum";
+import back from "../../http";
+import { ISomaCategoriasPorMes } from "../../interfaces/ISomaCategoriasPorMes";
+import { CategoriaMovimentacaoService } from "../../services/CategoriaMovimentacaoService";
 import './Analitico.scss';
 
 export const Analitico = () => {
-	const [ano, setAno] = useState<Dayjs | null>(dayjs(new Date().getTime()));
-	const [mes, setMes] = useState<Dayjs | null>(dayjs(new Date().getTime()));
+	const [ano, setAno] = useState<Dayjs>(dayjs(new Date().getTime()));
+	const [mes, setMes] = useState<Dayjs>(ano);
 	const [tipoMovimentacao, setTipomovimentacao] = useState(TipoMovimentacaoEnum.POSITIVO.toString());
 	const [tipoComparacao, setTipoComparacao] = useState(TipoComparacaoEnum.TRESMESES.toString())
 	const [fullYear, setFullYear] = useState(false);
+	const [nomeCategorias, setNomeCategorias] = useState<string[]>([]);
+	const [somaCategorias, setSomaCategorias] = useState<number[]>([]);
+
+	useEffect(() => {
+		const buscaSomaCategorias = async () => {
+			try {
+				const categoriaMovimentacaoService = new CategoriaMovimentacaoService(back);
+				const soma = await categoriaMovimentacaoService
+					.obtemSomaCategoriasEValores(1, obtemDataInicial(), obtemDataFinal(), tipoMovimentacao);
+				console.log("1 ", obtemDataInicial(), "2 ", obtemDataFinal())
+				if (soma?.data) {
+					extraiSomas(soma.data);
+				}
+			} catch (error) {
+				console.log("erro ao obter a soma por categorias ", error);
+			}
+		};
+		buscaSomaCategorias();
+	}, [ano, mes, tipoMovimentacao, tipoComparacao, fullYear]);
 
 	return (
 		<div className="analitico">
@@ -29,7 +51,10 @@ export const Analitico = () => {
 					tipoComparacao={tipoComparacao}
 					fullYear={fullYear}
 				/>
-				<CategoriasVisaoGeral/>
+				<CategoriasVisaoGeral
+					nomeCategorias={nomeCategorias}
+					somaCategorias={somaCategorias}
+				/>
 				<CategoriasPorcentagem/>
 			</div>
 			<div className="down-section">
@@ -39,6 +64,42 @@ export const Analitico = () => {
 			</div>
 		</div>
 	);
+
+	function obtemDataInicial() {
+		if (fullYear) {
+			const primeiroDiaAno = ano.toDate();
+			primeiroDiaAno.setDate(1);
+			primeiroDiaAno.setMonth(0);
+			return primeiroDiaAno.getTime();
+		}
+		const inicioMes = mes.toDate();
+		inicioMes.setDate(1);
+		return inicioMes.getTime();
+	}
+
+	function obtemDataFinal() {
+		if (fullYear) {
+			const ultimoDiaAno = ano.toDate();
+			ultimoDiaAno.setMonth(12);
+			ultimoDiaAno.setDate(0);
+			return ultimoDiaAno.getTime();
+		}
+		const fimMes = mes.toDate();
+		fimMes.setMonth(fimMes.getMonth() + 1);
+		fimMes.setDate(0);
+		return fimMes.getTime();
+	}
+
+	function extraiSomas(lista: ISomaCategoriasPorMes[]) {
+		const categorias: string[] = [];
+		const somas: number[] = [];
+		lista.forEach((soma) => {
+			categorias.push(soma.nomeCategoria);
+			somas.push(soma.somaMovimentacao);
+		});
+		setNomeCategorias(categorias);
+		setSomaCategorias(somas);
+	}
 }
 
 export default Analitico;

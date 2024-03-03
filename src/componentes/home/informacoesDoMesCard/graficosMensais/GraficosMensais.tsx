@@ -2,7 +2,7 @@ import { BarChart } from '@mui/x-charts/BarChart';
 import { FC, useEffect, useState } from 'react';
 import back from '../../../../http';
 import { InformacoesDoMesProps } from '../../../../interfaces/IInformacoesDoMesProps';
-import { SomaCategoriasPorMes } from '../../../../interfaces/ISomaCategoriasPorMes';
+import { ISomaCategoriasPorMes } from '../../../../interfaces/ISomaCategoriasPorMes';
 import { CategoriaMovimentacaoService } from '../../../../services/CategoriaMovimentacaoService';
 import './GraficosMensais.scss';
 
@@ -45,7 +45,7 @@ const GraficosMensais: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProps
 		</>
 	);
 
-	function extractSomaCategoriasPositivas(somaCategorias: SomaCategoriasPorMes[]) {
+	function extractSomaCategoriasPositivas(somaCategorias: ISomaCategoriasPorMes[]) {
 		const nomesPositivos: string[] = [];
 		const somasPositivas: number[] = [];
 		somaCategorias.forEach((result) => {
@@ -56,7 +56,7 @@ const GraficosMensais: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProps
 		setSomaCategoriasPositivas(somasPositivas);
 	}
 
-	function extractSomaCategoriasNegativas(somaCategorias: SomaCategoriasPorMes[]) {
+	function extractSomaCategoriasNegativas(somaCategorias: ISomaCategoriasPorMes[]) {
 		const nomesNegativos: string[] = [];
 		const somasNegativas: number[] = [];
 		somaCategorias.forEach((result) => {
@@ -96,7 +96,7 @@ const GraficosMensais: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProps
 					/>
 				</div>
 			</div>
-			: 
+		: 
 			<div className="card-graficos" style={{ marginRight: "0.5%" }}>
 				<div className="titulo">Gráfico de rendimentos</div>
 				<div className='mensagem'>
