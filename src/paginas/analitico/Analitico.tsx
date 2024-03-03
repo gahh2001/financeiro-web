@@ -15,13 +15,28 @@ import { CategoriaMovimentacaoService } from "../../services/CategoriaMovimentac
 import './Analitico.scss';
 
 export const Analitico = () => {
-	const [ano, setAno] = useState<Dayjs>(dayjs(new Date().getTime()));
-	const [mes, setMes] = useState<Dayjs>(ano);
-	const [tipoMovimentacao, setTipomovimentacao] = useState(TipoMovimentacaoEnum.POSITIVO.toString());
+	const [ano, setAno] = useState<Dayjs | null>(dayjs(new Date().getTime()));
+	const [mes, setMes] = useState<Dayjs | null>(ano);
+	const [tipoMovimentacao, setTipoMovimentacao] = useState(TipoMovimentacaoEnum.POSITIVO.toString());
 	const [tipoComparacao, setTipoComparacao] = useState(TipoComparacaoEnum.TRESMESES.toString())
 	const [fullYear, setFullYear] = useState(false);
 	const [nomeCategorias, setNomeCategorias] = useState<string[]>([]);
 	const [somaCategorias, setSomaCategorias] = useState<number[]>([]);
+	const propsSetMes = (date: Dayjs | null) => {
+		setMes(date);
+	};
+	const propsSetAno = (date: Dayjs | null) => {
+		setAno(date);
+	};
+	const propsSetFullYear = (full: boolean) => {
+		setFullYear(full);
+	};
+	const propsSetTipoMovimentacao = (tipo: string) => {
+		setTipoMovimentacao(tipo);
+	};
+	const propsSetTipoComparacao = (tipo: string) => {
+		setTipoComparacao(tipo);
+	};
 
 	useEffect(() => {
 		const buscaSomaCategorias = async () => {
@@ -29,7 +44,6 @@ export const Analitico = () => {
 				const categoriaMovimentacaoService = new CategoriaMovimentacaoService(back);
 				const soma = await categoriaMovimentacaoService
 					.obtemSomaCategoriasEValores(1, obtemDataInicial(), obtemDataFinal(), tipoMovimentacao);
-				console.log("1 ", obtemDataInicial(), "2 ", obtemDataFinal())
 				if (soma?.data) {
 					extraiSomas(soma.data);
 				}
@@ -50,6 +64,11 @@ export const Analitico = () => {
 					tipoMovimentacao={tipoMovimentacao}
 					tipoComparacao={tipoComparacao}
 					fullYear={fullYear}
+					setAno={propsSetAno}
+					setMes={propsSetMes}
+					setFullYear={propsSetFullYear}
+					setTipoMovimentacao={propsSetTipoMovimentacao}
+					setTipoComparacao={propsSetTipoComparacao}
 				/>
 				<CategoriasVisaoGeral
 					nomeCategorias={nomeCategorias}
@@ -66,28 +85,34 @@ export const Analitico = () => {
 	);
 
 	function obtemDataInicial() {
-		if (fullYear) {
+		if (fullYear &&  ano) {
 			const primeiroDiaAno = ano.toDate();
 			primeiroDiaAno.setDate(1);
 			primeiroDiaAno.setMonth(0);
 			return primeiroDiaAno.getTime();
 		}
-		const inicioMes = mes.toDate();
-		inicioMes.setDate(1);
-		return inicioMes.getTime();
+		if (mes) {
+			const inicioMes = mes.toDate();
+			inicioMes.setDate(1);
+			return inicioMes.getTime();
+		}
+		return 0;
 	}
 
 	function obtemDataFinal() {
-		if (fullYear) {
+		if (fullYear && ano) {
 			const ultimoDiaAno = ano.toDate();
 			ultimoDiaAno.setMonth(12);
 			ultimoDiaAno.setDate(0);
 			return ultimoDiaAno.getTime();
 		}
-		const fimMes = mes.toDate();
-		fimMes.setMonth(fimMes.getMonth() + 1);
-		fimMes.setDate(0);
-		return fimMes.getTime();
+		if (mes) {
+			const fimMes = mes.toDate();
+			fimMes.setMonth(fimMes.getMonth() + 1);
+			fimMes.setDate(0);
+			return fimMes.getTime();
+		}
+		return 0;
 	}
 
 	function extraiSomas(lista: ISomaCategoriasPorMes[]) {

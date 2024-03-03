@@ -2,33 +2,32 @@ import { FormControl, FormControlLabel, FormGroup, InputLabel, MenuItem, Select,
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
-import { Dayjs } from "dayjs";
-import { ChangeEvent, FC, useState } from "react";
+import { ChangeEvent, FC } from "react";
 import { TipoComparacaoEnum } from "../../../enums/TipoComparacaoEnum";
 import { TipoMovimentacaoEnum } from "../../../enums/TipoMovimentacaoEnum";
 import { IFiltersAnaliticProps } from "../../../interfaces/IFiltersAnaliticProps";
 import './FiltersAnalitic.scss';
+import { Dayjs } from "dayjs";
 
 const FiltersAnalitic: FC<IFiltersAnaliticProps> = (props: IFiltersAnaliticProps) => {
-	const [ano, setAno] = useState<Dayjs | null>(props.ano);
-	const [mes, setMes] = useState<Dayjs | null>(props.mes);
-	const [tipoMovimentacao, setTipomovimentacao] = useState(props.tipoMovimentacao);
-	const [tipoComparacao, setTipoComparacao] = useState(props.tipoComparacao)
-	const [fullYear, setFullYear] = useState(props.fullYear);
 
 	const handleChangeMovimentacao = (event: SelectChangeEvent) => {
 		const newValue = event.target.value;
-		setTipomovimentacao(newValue);
+		props.setTipoMovimentacao(newValue);
 	};
-
 	const handleChangeComparacao = (event: SelectChangeEvent) => {
 		const newValue = event.target.value;
-		setTipoComparacao(newValue);
+		props.setTipoComparacao(newValue);
 	};
-
 	const handleChangeFullYear = (event: ChangeEvent<HTMLInputElement>) => {
-		setFullYear(event.target.checked);
+		props.setFullYear(event.target.checked);
 	};
+	const handleChangeMes = (data: Dayjs | null) => {
+			props.setMes(data);
+	}
+	const handleChangeAno = (data: Dayjs | null) => {
+			props.setAno(data);
+	}
 
 	return (
 		<div className="card-filters">
@@ -37,9 +36,9 @@ const FiltersAnalitic: FC<IFiltersAnaliticProps> = (props: IFiltersAnaliticProps
 					<div className="filter">
 						<DatePicker
 							label={"Ano"}
-							value={ano}
-							defaultValue={ano}
-							onChange={(newValue) => setAno(newValue)}
+							value={props.ano}
+							defaultValue={props.ano}
+							onChange={(newValue) => handleChangeAno(newValue)}
 							views={['year']}
 							slotProps={{ textField: { size: 'small' } }}
 							format='YYYY'
@@ -52,13 +51,13 @@ const FiltersAnalitic: FC<IFiltersAnaliticProps> = (props: IFiltersAnaliticProps
 					<div className="filter">
 						<DatePicker
 							label={"Mês"}
-							value={mes}
-							defaultValue={mes}
-							onChange={(newValue) => setMes(newValue)}
+							value={props.mes}
+							defaultValue={props.mes}
+							onChange={(newValue) => handleChangeMes(newValue)}
 							views={['month']}
 							slotProps={{ textField: { size: 'small' } }}
 							format='MM'
-							disabled={fullYear}
+							disabled={props.fullYear}
 						/>
 					</div>
 				</DemoContainer>
@@ -88,7 +87,7 @@ const FiltersAnalitic: FC<IFiltersAnaliticProps> = (props: IFiltersAnaliticProps
 					</InputLabel>
 					<Select
 						id="select-movimentacoes"
-						value={tipoMovimentacao}
+						value={props.tipoMovimentacao}
 						onChange={handleChangeMovimentacao}
 						defaultValue={TipoMovimentacaoEnum.POSITIVO.toString()}
 					>
@@ -119,7 +118,7 @@ const FiltersAnalitic: FC<IFiltersAnaliticProps> = (props: IFiltersAnaliticProps
 					</InputLabel>
 					<Select
 						id="select-comparacao"
-						value={tipoComparacao}
+						value={props.tipoComparacao}
 						onChange={handleChangeComparacao}
 						defaultValue={TipoComparacaoEnum.TRESMESES.toString()}
 					>
