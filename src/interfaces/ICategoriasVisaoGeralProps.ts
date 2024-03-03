@@ -1,4 +1,5 @@
 export type ICategoriasVisaoGeralProps = {
 	nomeCategorias: string[];
-	somaCategorias: number[]
+	somaCategorias: number[];
+	tipoMovimentacao: string;
 }

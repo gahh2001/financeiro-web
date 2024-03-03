@@ -1,10 +1,13 @@
 import { BarChart } from '@mui/x-charts/BarChart';
 import { FC } from 'react';
+import { TipoMovimentacaoEnum } from '../../../enums/TipoMovimentacaoEnum';
 import { ICategoriasVisaoGeralProps } from '../../../interfaces/ICategoriasVisaoGeralProps';
 import '../../../paginas/analitico/Analitico.scss';
 import './CategoriasVisaoGeral.scss';
 
 const CategoriasVisaoGeral: FC<ICategoriasVisaoGeralProps> = (props: ICategoriasVisaoGeralProps) => {
+	const color = props.tipoMovimentacao === TipoMovimentacaoEnum.NEGATIVO
+		? "#AD4331" : "#42B84A"
 
 	return (
 		<div className='card-visao-geral'>
@@ -30,7 +33,7 @@ const CategoriasVisaoGeral: FC<ICategoriasVisaoGeralProps> = (props: ICategorias
 					series={[
 						{
 						data: props.somaCategorias,
-						color: "#00B165"
+						color: color
 						},
 					]}
 					margin={{

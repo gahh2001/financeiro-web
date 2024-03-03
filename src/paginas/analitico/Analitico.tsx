@@ -73,6 +73,7 @@ export const Analitico = () => {
 				<CategoriasVisaoGeral
 					nomeCategorias={nomeCategorias}
 					somaCategorias={somaCategorias}
+					tipoMovimentacao={tipoMovimentacao}
 				/>
 				<CategoriasPorcentagem/>
 			</div>
