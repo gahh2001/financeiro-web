@@ -138,14 +138,12 @@ const GraficosMensais: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProps
 			</div>
 		</>
 	)
-	:<>
-		<div className="card-graficos">
-			<div className="titulo">Gráfico de gastos</div>
-			<div className='mensagem'>
-				Nenhum registro de despesa para este mês!
-			</div>
+	:<div className="card-graficos">
+		<div className="titulo">Gráfico de gastos</div>
+		<div className='mensagem'>
+			Nenhum registro de despesa para este mês!
 		</div>
-	</>;
+	</div>;
 	}
 };
 

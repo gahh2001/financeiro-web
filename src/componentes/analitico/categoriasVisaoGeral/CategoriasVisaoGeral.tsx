@@ -44,7 +44,9 @@ const CategoriasVisaoGeral: FC<ICategoriasVisaoGeralProps> = (props: ICategorias
 					}}
 				/>
 			</div>
-		: <>kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk</>
+		: <div className='mensagem'>
+			Nenhum registro para este período!
+		</div>
 	}
 }
 

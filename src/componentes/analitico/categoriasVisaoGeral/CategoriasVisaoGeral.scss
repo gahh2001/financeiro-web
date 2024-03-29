@@ -1,7 +1,7 @@
 @import '../../../VariaveisSCSS.scss';
 
 .card-visao-geral {
-	width: 57%;
+	width: 54%;
 	height: 44vh;
 	box-shadow: -1px 0px 5px 3px $sombras;
 	padding: 1vh;
@@ -23,5 +23,15 @@
 		width: 100%;
 		height: 38vh;
 		display: flex;
+	}
+
+	.mensagem {
+		width: auto;
+		height: 90%;
+		font-size: 3vh;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		color: $color-in-linhas;
 	}
 }
