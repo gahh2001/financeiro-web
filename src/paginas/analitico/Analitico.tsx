@@ -10,6 +10,7 @@ import FiltersAnalitic from "../../componentes/analitico/filtersAnalitc/FiltersA
 import { TipoComparacaoEnum } from "../../enums/TipoComparacaoEnum";
 import { TipoMovimentacaoEnum } from "../../enums/TipoMovimentacaoEnum";
 import back from "../../http";
+import { IFatia } from "../../interfaces/IFatia";
 import { ISomaCategoriasPorMes } from "../../interfaces/ISomaCategoriasPorMes";
 import { CategoriaMovimentacaoService } from "../../services/CategoriaMovimentacaoService";
 import './Analitico.scss';
@@ -22,6 +23,7 @@ export const Analitico = () => {
 	const [fullYear, setFullYear] = useState(false);
 	const [nomeCategorias, setNomeCategorias] = useState<string[]>([]);
 	const [somaCategorias, setSomaCategorias] = useState<number[]>([]);
+	const [porcentagens, setPorcentagens] = useState<IFatia[]>([]);
 	const propsSetMes = (date: Dayjs | null) => {
 		setMes(date);
 	};
@@ -39,20 +41,21 @@ export const Analitico = () => {
 	};
 
 	useEffect(() => {
-		const buscaSomaCategorias = async () => {
+		const atualizaVisaoGeral = async () => {
 			try {
 				const categoriaMovimentacaoService = new CategoriaMovimentacaoService(back);
 				const soma = await categoriaMovimentacaoService
 					.obtemSomaCategoriasEValores(1, obtemDataInicial(), obtemDataFinal(), tipoMovimentacao);
 				if (soma?.data) {
 					extraiSomas(soma.data);
+					extraiPorcentagens(soma.data);
 				}
 			} catch (error) {
 				console.log("erro ao obter a soma por categorias ", error);
 			}
 		};
-		buscaSomaCategorias();
-	}, [ano, mes, tipoMovimentacao, tipoComparacao, fullYear]);
+		atualizaVisaoGeral();
+	}, [ano, mes, tipoMovimentacao, fullYear]);
 
 	return (
 		<div className="analitico">
@@ -75,7 +78,9 @@ export const Analitico = () => {
 					somaCategorias={somaCategorias}
 					tipoMovimentacao={tipoMovimentacao}
 				/>
-				<CategoriasPorcentagem/>
+				<CategoriasPorcentagem
+					fatias={porcentagens}
+				/>
 			</div>
 			<div className="down-section">
 				<CategoriasComparacao/>
@@ -125,6 +130,22 @@ export const Analitico = () => {
 		});
 		setNomeCategorias(categorias);
 		setSomaCategorias(somas);
+	}
+
+	function extraiPorcentagens(lista: ISomaCategoriasPorMes[]) {
+		const total : number = lista.reduce((total, item) => total + item.somaMovimentacao, 0);
+		const porcentagens: IFatia[] = [];
+		let id = 0
+		lista.forEach((soma) => {
+			const fatia: IFatia = {
+				id: id + 1,
+				value: soma.somaMovimentacao,
+				label: soma.nomeCategoria,
+			}
+			id++;
+			porcentagens.push(fatia);
+		})
+		setPorcentagens(porcentagens);
 	}
 }
 

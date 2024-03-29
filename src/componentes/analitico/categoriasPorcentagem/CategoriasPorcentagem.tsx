@@ -1,21 +1,23 @@
 import { PieChart } from '@mui/x-charts/PieChart';
 import { FC } from 'react';
+import { ICategoriasPorcentagemProps } from '../../../interfaces/ICategoriasPorcentagemProps';
 import './CategoriasPorcentagem.scss';
 
-const CategoriasPorcentagem: FC = () => {
-	const data = [
-		{ id: 0, value: 10, label: 'teste A' },
-		{ id: 1, value: 15, label: 'teste B' },
-		{ id: 2, value: 20, label: 'teste C' },
-		{ id: 3, value: 25, label: 'teste D' }
-	];
+const CategoriasPorcentagem: FC<ICategoriasPorcentagemProps> = (props: ICategoriasPorcentagemProps) => {
+	const data = props.fatias;
 
 	return (
 		<div className='card-porcentagem'>
 			<div className="titulo">
 				Porcentagens
 			</div>
-			<div className="grafic">
+			{montaGrafico()}
+		</div>
+	)
+
+	function montaGrafico() {
+		return props.fatias.length
+		? <div className="grafic">
 			<PieChart
 				series={[
 					{
@@ -31,9 +33,11 @@ const CategoriasPorcentagem: FC = () => {
 					bottom: 5,
 				}}
 			/>
-			</div>
 		</div>
-	)
+		: <div className='mensagem'>
+			Nenhum registro para este período!
+		</div>
+	}
 }
 
 export default CategoriasPorcentagem;
