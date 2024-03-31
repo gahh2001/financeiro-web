@@ -10,10 +10,10 @@ import FiltersAnalitic from "../../componentes/analitico/filtersAnalitc/FiltersA
 import { TipoComparacaoEnum } from "../../enums/TipoComparacaoEnum";
 import { TipoMovimentacaoEnum } from "../../enums/TipoMovimentacaoEnum";
 import back from "../../http";
-import { IFatia } from "../../interfaces/IFatia";
 import { ISomaCategoriasPorMes } from "../../interfaces/ISomaCategoriasPorMes";
 import { CategoriaMovimentacaoService } from "../../services/CategoriaMovimentacaoService";
 import './Analitico.scss';
+import { ISeriesChart } from "../../interfaces/ISeriesChart";
 
 export const Analitico = () => {
 	const [ano, setAno] = useState<Dayjs | null>(dayjs(new Date().getTime()));
@@ -23,7 +23,7 @@ export const Analitico = () => {
 	const [fullYear, setFullYear] = useState(false);
 	const [nomeCategorias, setNomeCategorias] = useState<string[]>([]);
 	const [somaCategorias, setSomaCategorias] = useState<number[]>([]);
-	const [porcentagens, setPorcentagens] = useState<IFatia[]>([]);
+	const [porcentagens, setPorcentagens] = useState<ISeriesChart[]>([]);
 	const propsSetMes = (date: Dayjs | null) => {
 		setMes(date);
 	};
@@ -134,10 +134,10 @@ export const Analitico = () => {
 
 	function extraiPorcentagens(lista: ISomaCategoriasPorMes[]) {
 		const total : number = lista.reduce((total, item) => total + item.somaMovimentacao, 0);
-		const porcentagens: IFatia[] = [];
+		const porcentagens: ISeriesChart[] = [];
 		let id = 0
 		lista.forEach((soma) => {
-			const fatia: IFatia = {
+			const fatia: ISeriesChart = {
 				id: id + 1,
 				value: soma.somaMovimentacao,
 				label: soma.nomeCategoria,

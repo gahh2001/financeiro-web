@@ -1,5 +1,5 @@
-import { IFatia } from "./IFatia"
+import { ISeriesChart } from "./ISeriesChart";
 
 export type ICategoriasPorcentagemProps = {
-	fatias: IFatia[];
+	fatias: ISeriesChart[];
 }
