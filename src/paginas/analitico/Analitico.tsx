@@ -7,13 +7,14 @@ import CategoriasInformacoesGerais from "../../componentes/analitico/categoriasI
 import CategoriasPorcentagem from "../../componentes/analitico/categoriasPorcentagem/CategoriasPorcentagem";
 import CategoriasVisaoGeral from "../../componentes/analitico/categoriasVisaoGeral/CategoriasVisaoGeral";
 import FiltersAnalitic from "../../componentes/analitico/filtersAnalitc/FiltersAnalitc";
-import { TipoComparacaoEnum } from "../../enums/TipoComparacaoEnum";
+import { obtemNumeroEnum, TipoComparacaoEnum } from "../../enums/TipoComparacaoEnum";
 import { TipoMovimentacaoEnum } from "../../enums/TipoMovimentacaoEnum";
 import back from "../../http";
+import { ISeriesChart } from "../../interfaces/ISeriesChart";
+import { ISeriesComparacao } from "../../interfaces/ISeriesComparacao";
 import { ISomaCategoriasPorMes } from "../../interfaces/ISomaCategoriasPorMes";
 import { CategoriaMovimentacaoService } from "../../services/CategoriaMovimentacaoService";
 import './Analitico.scss';
-import { ISeriesChart } from "../../interfaces/ISeriesChart";
 
 export const Analitico = () => {
 	const [ano, setAno] = useState<Dayjs | null>(dayjs(new Date().getTime()));
@@ -24,6 +25,8 @@ export const Analitico = () => {
 	const [nomeCategorias, setNomeCategorias] = useState<string[]>([]);
 	const [somaCategorias, setSomaCategorias] = useState<number[]>([]);
 	const [porcentagens, setPorcentagens] = useState<ISeriesChart[]>([]);
+	const [comparacoes, setComparacoes] = useState<ISeriesComparacao[]>([]);
+	const [agrupamentoMesAno, setAgrupamentoMesAno] = useState<string[]>([])
 	const propsSetMes = (date: Dayjs | null) => {
 		setMes(date);
 	};
@@ -54,8 +57,26 @@ export const Analitico = () => {
 				console.log("erro ao obter a soma por categorias ", error);
 			}
 		};
+		
 		atualizaVisaoGeral();
 	}, [ano, mes, tipoMovimentacao, fullYear]);
+	
+	useEffect(() => {
+		const atualizaComparacoes = async () => {
+			try {
+				const categoriaMovimentacaoService = new CategoriaMovimentacaoService(back);
+				const somaComparacoes = await categoriaMovimentacaoService
+					.obtemSomaCategoriasEValoresPorMeses(1, obtemDataInicialComparacao(),
+						obtemDataFinalComparacao(), tipoMovimentacao);
+				if (somaComparacoes?.data) {
+					extraiSomaComparacoes(somaComparacoes.data);
+				}
+			} catch (error) {
+				console.log("erro ao obter movimentações para comparação de períodos", error)
+			}
+		};
+		atualizaComparacoes();
+	}, [tipoComparacao, tipoMovimentacao])
 
 	return (
 		<div className="analitico">
@@ -83,7 +104,10 @@ export const Analitico = () => {
 				/>
 			</div>
 			<div className="down-section">
-				<CategoriasComparacao/>
+				<CategoriasComparacao
+					comparacoes={comparacoes}
+					agrupamentosMes={agrupamentoMesAno}
+				/>
 				<CategoriasEvolucao/>
 				<CategoriasInformacoesGerais/>
 			</div>
@@ -121,6 +145,29 @@ export const Analitico = () => {
 		return 0;
 	}
 
+	function obtemDataInicialComparacao() {
+		const dataInicial = new Date();
+		dataInicial.setDate(1)
+		switch (tipoComparacao) {
+			case TipoComparacaoEnum.TRESMESES:
+				dataInicial.setMonth(dataInicial.getMonth() - 2)
+				break;
+			case TipoComparacaoEnum.SEISMESES:
+				dataInicial.setMonth(dataInicial.getMonth() - 5)
+			break;
+			default:
+				dataInicial.setMonth(dataInicial.getMonth() - 11)
+		}
+		return dataInicial.getTime();
+	}
+
+	function obtemDataFinalComparacao() {
+		const fimMes = new Date();
+		fimMes.setMonth(fimMes.getMonth() + 1);
+		fimMes.setDate(0);
+		return fimMes.getTime();
+	}
+
 	function extraiSomas(lista: ISomaCategoriasPorMes[]) {
 		const categorias: string[] = [];
 		const somas: number[] = [];
@@ -133,7 +180,6 @@ export const Analitico = () => {
 	}
 
 	function extraiPorcentagens(lista: ISomaCategoriasPorMes[]) {
-		const total : number = lista.reduce((total, item) => total + item.somaMovimentacao, 0);
 		const porcentagens: ISeriesChart[] = [];
 		let id = 0
 		lista.forEach((soma) => {
@@ -141,11 +187,52 @@ export const Analitico = () => {
 				id: id + 1,
 				value: soma.somaMovimentacao,
 				label: soma.nomeCategoria,
+				data: []
 			}
 			id++;
 			porcentagens.push(fatia);
 		})
 		setPorcentagens(porcentagens);
+	}
+
+	function extraiSomaComparacoes(lista: ISomaCategoriasPorMes[]) {
+		const categoriasSet: Set<string> = new Set();
+		lista.forEach(soma => {
+			categoriasSet.add(soma.nomeCategoria);
+		});
+		const categoriasUnicas: string[] = Array.from(categoriasSet);
+		let graficosProntos: ISeriesComparacao[] = [];
+		let nomeAgrupamento: string[] = [];
+		const totalMeses = obtemNumeroEnum(tipoComparacao);
+		for (const categoria of categoriasUnicas ) {
+			const mesVerificadoData = new Date(lista[0].data);
+			let mesVerificado = mesVerificadoData.getMonth() - 1;
+			let anoVerificado = mesVerificadoData.getFullYear();
+			let contagemMes = 1;
+			let somasNoMes = [];
+			while (contagemMes <= totalMeses) {
+				let somaNesteMes = lista.find((dado) =>
+					dado.nomeCategoria === categoria
+					&& new Date(dado.data).getMonth() === mesVerificado)?.somaMovimentacao;
+				if (!somaNesteMes) {
+					somaNesteMes = 0;
+				}
+				somasNoMes.push(somaNesteMes);
+				nomeAgrupamento.push(mesVerificado + 1 + "/" + anoVerificado); //rever isso, tirar dentro do while
+				contagemMes++;
+				if (mesVerificado === 11) {
+					anoVerificado++;
+				}
+				mesVerificado++;
+				setAgrupamentoMesAno(nomeAgrupamento); // meses estão indo maior que 12
+			}
+			const series: ISeriesComparacao = {
+				label: categoria,
+				data: somasNoMes,
+			};
+			graficosProntos.push(series);
+		}
+		setComparacoes(graficosProntos);
 	}
 }
 

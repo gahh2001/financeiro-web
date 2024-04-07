@@ -1,37 +1,16 @@
 import { BarChart } from '@mui/x-charts/BarChart';
-import { FC, useState } from 'react';
+import { FC } from 'react';
+import { ICategoriasComparacaoProps } from '../../../interfaces/ICategoriasComparacaoProps';
 import '../../../paginas/analitico/Analitico.scss';
 import './CategoriasComparacao.scss';
 
-const CategoriasComparacao: FC = () => {
-	const [nomeCategorias, setNomeCategorias] = useState<string[]>(["teste", "teste1", "teste2"]);
+const CategoriasComparacao: FC<ICategoriasComparacaoProps> = (props: ICategoriasComparacaoProps) => {
 	const highlightScope = {
 		highlighted: 'series',
 		faded: 'global',
 	} as const;
 
-	const series = [
-		{
-			label: 'series 1',
-			data: [2423, 2210, 764,],
-		},
-		{
-			label: 'series 2',
-			data: [2362, 2254, 1962,],
-		},
-		{
-			label: 'series 3',
-			data: [1145, 1214, 975,],
-		},
-		{
-			label: 'series 4',
-			data: [2361, 979, 2430,],
-		},
-		{
-			label: 'series 5',
-			data: [968, 1371, 1381,],
-		},
-		].map((s) => ({ ...s, highlightScope }));
+	const series = props.comparacoes.map((s) => ({ ...s, highlightScope }));
 
 	return (
 		<div className='card-categorias-comparacao'>
@@ -43,7 +22,7 @@ const CategoriasComparacao: FC = () => {
 				xAxis={[
 					{
 					id: 'barCategories',
-					data: nomeCategorias,
+					data: props.agrupamentosMes,
 					scaleType: 'band',
 					},
 				]}

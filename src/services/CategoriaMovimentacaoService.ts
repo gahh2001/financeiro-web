@@ -65,4 +65,22 @@ export class CategoriaMovimentacaoService {
 			return undefined;
 		}
 	}
+
+	async obtemSomaCategoriasEValoresPorMeses(idConta: number, dataInicio: number,
+		dataFim: number, tipoMovimentacao: string) {
+	const params = {
+		idConta: idConta,
+		dataInicio: dataInicio,
+		dataFim: dataFim,
+		tipoMovimentacao: tipoMovimentacao
+	};
+	try {
+		const response = await this.axiosInstance
+			.get<ISomaCategoriasPorMes[]>(`${this.urlDefault}/soma-categorias-meses`, {params});
+		return {...response};
+	} catch (error) {
+		console.log(`Não foi possível obter a comparação da soma de categorias`, error);
+		return undefined;
+	}
+}
 }
