@@ -2,12 +2,12 @@ import { FormControl, FormControlLabel, FormGroup, InputLabel, MenuItem, Select,
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import { Dayjs } from "dayjs";
 import { ChangeEvent, FC } from "react";
 import { TipoComparacaoEnum } from "../../../enums/TipoComparacaoEnum";
 import { TipoMovimentacaoEnum } from "../../../enums/TipoMovimentacaoEnum";
 import { IFiltersAnaliticProps } from "../../../interfaces/IFiltersAnaliticProps";
 import './FiltersAnalitic.scss';
-import { Dayjs } from "dayjs";
 
 const FiltersAnalitic: FC<IFiltersAnaliticProps> = (props: IFiltersAnaliticProps) => {
 
@@ -23,10 +23,10 @@ const FiltersAnalitic: FC<IFiltersAnaliticProps> = (props: IFiltersAnaliticProps
 		props.setFullYear(event.target.checked);
 	};
 	const handleChangeMes = (data: Dayjs | null) => {
-			props.setMes(data);
+		props.setMes(data);
 	}
 	const handleChangeAno = (data: Dayjs | null) => {
-			props.setAno(data);
+		props.setAno(data);
 	}
 
 	return (

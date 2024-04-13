@@ -57,7 +57,6 @@ export const Analitico = () => {
 				console.log("erro ao obter a soma por categorias ", error);
 			}
 		};
-		
 		atualizaVisaoGeral();
 	}, [ano, mes, tipoMovimentacao, fullYear]);
 	
@@ -119,11 +118,16 @@ export const Analitico = () => {
 			const primeiroDiaAno = ano.toDate();
 			primeiroDiaAno.setDate(1);
 			primeiroDiaAno.setMonth(0);
+			primeiroDiaAno.setHours(0);
+			primeiroDiaAno.setMinutes(0);
 			return primeiroDiaAno.getTime();
 		}
-		if (mes) {
+		if (mes && ano) {
 			const inicioMes = mes.toDate();
 			inicioMes.setDate(1);
+			inicioMes.setHours(0);
+			inicioMes.setMinutes(0);
+			inicioMes.setFullYear(ano.year());
 			return inicioMes.getTime();
 		}
 		return 0;
@@ -134,12 +138,17 @@ export const Analitico = () => {
 			const ultimoDiaAno = ano.toDate();
 			ultimoDiaAno.setMonth(12);
 			ultimoDiaAno.setDate(0);
+			ultimoDiaAno.setHours(23);
+			ultimoDiaAno.setMinutes(59);
 			return ultimoDiaAno.getTime();
 		}
-		if (mes) {
+		if (mes && ano) {
 			const fimMes = mes.toDate();
 			fimMes.setMonth(fimMes.getMonth() + 1);
 			fimMes.setDate(0);
+			fimMes.setFullYear(ano.year());
+			fimMes.setHours(23);
+			fimMes.setMinutes(59);
 			return fimMes.getTime();
 		}
 		return 0;
@@ -148,6 +157,8 @@ export const Analitico = () => {
 	function obtemDataInicialComparacao() {
 		const dataInicial = new Date();
 		dataInicial.setDate(1)
+		dataInicial.setHours(0);
+		dataInicial.setMinutes(0);
 		switch (tipoComparacao) {
 			case TipoComparacaoEnum.TRESMESES:
 				dataInicial.setMonth(dataInicial.getMonth() - 2)
@@ -165,6 +176,8 @@ export const Analitico = () => {
 		const fimMes = new Date();
 		fimMes.setMonth(fimMes.getMonth() + 1);
 		fimMes.setDate(0);
+		fimMes.setHours(23);
+		fimMes.setMinutes(59);
 		return fimMes.getTime();
 	}
 
@@ -205,8 +218,8 @@ export const Analitico = () => {
 		let nomeAgrupamento: string[] = [];
 		const totalMeses = obtemNumeroEnum(tipoComparacao);
 		for (const categoria of categoriasUnicas ) {
-			const mesVerificadoData = new Date(lista[0].data);
-			let mesVerificado = mesVerificadoData.getMonth() - 1;
+			const mesVerificadoData = new Date(obtemDataInicialComparacao());
+			let mesVerificado = mesVerificadoData.getMonth();
 			let anoVerificado = mesVerificadoData.getFullYear();
 			let contagemMes = 1;
 			let somasNoMes = [];
@@ -218,13 +231,17 @@ export const Analitico = () => {
 					somaNesteMes = 0;
 				}
 				somasNoMes.push(somaNesteMes);
-				nomeAgrupamento.push(mesVerificado + 1 + "/" + anoVerificado); //rever isso, tirar dentro do while
+				nomeAgrupamento.push(mesVerificado + 1 + "/" + anoVerificado);
 				contagemMes++;
 				if (mesVerificado === 11) {
 					anoVerificado++;
 				}
-				mesVerificado++;
-				setAgrupamentoMesAno(nomeAgrupamento); // meses estão indo maior que 12
+				if (mesVerificado === 11) {
+					mesVerificado = 0;
+				} else {
+					mesVerificado++;
+				}
+				setAgrupamentoMesAno(nomeAgrupamento);
 			}
 			const series: ISeriesComparacao = {
 				label: categoria,
