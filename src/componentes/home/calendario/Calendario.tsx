@@ -92,14 +92,14 @@ const Calendario: FC<CalendarioProps> = (props: CalendarioProps) => {
 							const firstDay = currentMonth.clone().subtract(1, "month").startOf("month");
 							handleDayClick(firstDay.date(), firstDay.month(), firstDay.year());}
 					}
-					>Anterior</button>
+					>{currentMonth.clone().subtract(1, "month").format("MMMM")}</button>
 					<h1>{currentMonth.format("MMMM YYYY")}</h1>
 					<button onClick={() => {
 						setCurrentMonth(currentMonth.clone().add(1, "month"));
 						const firstDay = currentMonth.clone().add(1, "month").startOf("month");
 						handleDayClick(firstDay.date(), firstDay.month(), firstDay.year());
 					}}
-					>Próximo</button>
+					>{currentMonth.clone().add(1, "month").format("MMMM")}</button>
 				</div>
 				<div className="weekdays">
 					{weekdays.map((weekday) => (

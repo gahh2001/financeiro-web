@@ -75,26 +75,29 @@ const InformacoesDoDia: FC<InformacoesDoDiaProps> = (props: InformacoesDoDiaProp
 					/{props.selectedDate.getMonth() + 1}
 					/{props.selectedDate.getFullYear()}
 				</div>
-				<div className="info-dia">
-					<div className='simbol'>
-						<AddCircleOutlineRounded
-							sx={{ color: "#44A81D" }}
-							fontSize="large"
-						/>
+				<div className="infos">
+					<div className="info-dia">
+						<div className='simbol'>
+							<AddCircleOutlineRounded
+								sx={{ color: "#44A81D" }}
+								fontSize="large"
+							/>
+						</div>
+						Total de rendimentos: $
+						{somaDia(movimentacoesDoDia, TipoMovimentacaoEnum.POSITIVO).toFixed(2).replace('.', ',')}
 					</div>
-					Total de rendimentos: $
-					{somaDia(movimentacoesDoDia, TipoMovimentacaoEnum.POSITIVO).toFixed(2).replace('.', ',')}
-				</div>
-				<div className="info-dia">
-					<div className='simbol'>
-						<RemoveCircleOutlineRounded
-							color="error"
-							fontSize="large"
-						/>
+					<div className="info-dia">
+						<div className='simbol'>
+							<RemoveCircleOutlineRounded
+								color="error"
+								fontSize="large"
+							/>
+						</div>
+						Total de gastos: $
+						{somaDia(movimentacoesDoDia, TipoMovimentacaoEnum.NEGATIVO).toFixed(2).replace('.', ',')}
 					</div>
-					Total de gastos: $
-					{somaDia(movimentacoesDoDia, TipoMovimentacaoEnum.NEGATIVO).toFixed(2).replace('.', ',')}
 				</div>
+				
 				<div className="buttons">
 					<button
 						style={{ marginRight: "40px" }}

@@ -17,6 +17,7 @@
 	.titulo {
 		height: auto;
 		background-color: transparent;
+		color: $color-in-linhas;
 		font-weight: bold;
 		font-size: 3.1vh;
 		text-align: center;
@@ -28,7 +29,7 @@
 		width: 99%;
 		min-height: 40vh;
 		max-height: 40vh;
-		background-color: $fundo-cards;
+		background-color: $fundo-components;
 		border: 2px solid $sombras;
 		box-shadow: 4px 4px 5px 1px $sombras;
 		border-radius: 20px;
@@ -40,27 +41,32 @@
 			font-size: 120%;
 		}
 
-		.info-dia {
-			.simbol {
-				margin-right: 1vh;
-				margin-left: 0.6vh;
+		.infos {
+			justify-content: center;
+			width: 100%;
+
+			.info-dia {
+				.simbol {
+					margin-right: 1vh;
+					margin-left: 0.6vh;
+					display: flex;
+				}
+
+				width: 85%;
+				font-size: 2.8vh;
+				height: 5vh;
+				align-items: center;
+				background-color: $fundo-linhas;
+				margin-bottom: 2%;
 				display: flex;
-			}
+				border-radius: 10px;
+				border: 2px solid $fundo-linhas;
+				box-shadow: 2px 2px 7px 1px $sombras;
+				color: $color-in-linhas;
 
-			width: 99%;
-			font-size: 2.8vh;
-			height: 5vh;
-			align-items: center;
-			background-color: $fundo-linhas;
-			margin-bottom: 2%;
-			display: flex;
-			border-radius: 10px;
-			border: 2px solid $fundo-linhas;
-			box-shadow: 2px 2px 7px 1px $sombras;
-			color: $color-in-linhas;
-
-			svg {
-				background-color: transparent;
+				svg {
+					background-color: transparent;
+				}
 			}
 		}
 
@@ -103,6 +109,7 @@
 			font-size: 1.7vh;
 			display: flex;
 			margin-bottom: 1vh;
+			color: $color-in-linhas;
 		}
 
 		.saldo {

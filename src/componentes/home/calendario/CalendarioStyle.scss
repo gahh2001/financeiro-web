@@ -27,18 +27,17 @@
 		}
 
 		button {
-			width: 14vh;
-			height: 6vh;
-			background-color: #bac54f;
-			color: rgb(0, 0, 0);
-			border-radius: 10px;
-			border: 1px solid #4a4154;
-			//padding: 1.5vh;
-			font-size: 3vh;
+			width: 14.5vh;
+			height: 5vh;
+			background-color: #386c9a;
+			color: $color-in-linhas;
+			border-radius: 20px;
+			border: 1px solid #000000;
+			font-size: 2.5vh;
 			cursor: pointer;
 
 			&:hover {
-				background-color: #FFF570;
+				background-color: #5082af;
 			}
 		}
 	}
@@ -70,10 +69,9 @@
 		align-items: center;
 		height: 82%;
 		grid-gap: 1.1%;
-		//margin-bottom: 3%;
 
 		.day {
-			background-color: $fundo-cards;
+			background-color: #2f2f31;
 			font-size: 5.5vh;
 			width: 100%;
 			height: 90%;
@@ -86,14 +84,15 @@
 			justify-content: center;
 			display: flex;
 			align-items: center;
+			color: $color-in-linhas;
 
 			&:hover {
-				background-color: #70aae4e8;
+				background-color: #696868;
 			}
 		}
 
 		.selected-day {
-			background-color: #70aae4e8;
+			background-color: #696868;
 			font-size: 5.5vh;
 			width: 100%;
 			height: 90%;
