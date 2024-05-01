@@ -1,3 +1,46 @@
+@import '../../VariaveisSCSS.scss';
+
 .login {
-	width: 30vh;
+
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	padding: 10rem;
+	background: linear-gradient(180deg, rgba(2,0,36,1) 0%, rgb(0, 55, 26) 35%, rgb(0, 69, 83) 100%);
+
+	.card {
+		width: 50vh;
+		height: 50vh;
+		box-shadow: -1px 0px 5px 3px $sombras;
+		border-radius: 4vh;
+		background-color: rgb(23, 24, 24);
+		justify-content: center;
+		align-items: center;
+		padding: 1rem;
+
+		.titulo {
+			color: $color-in-linhas;
+			font-size: 4vh;
+			display: flex;
+			justify-content: center;
+			margin-bottom: 1vh;
+		}
+
+		.texto {
+			font-size: 2.3vh;
+			color: $color-in-linhas;
+			display: flex;
+			justify-content: center;
+			text-align: center;
+			margin-bottom: 5vh;
+			margin-top: 2.5vh;
+		}
+
+		.google {
+			display: flex;
+			justify-content: center;
+			margin-bottom: 5vh;
+		}
+	}
+	
 }
