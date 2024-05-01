@@ -1,24 +1,34 @@
 //import './login.scss';
+import back from '../../http';
+
+import { useEffect } from "react";
+import { LoginService } from '../../services/LoginService';
 
 export const Login = () => {
 
-	return (
-		<>
-			<div id="g_id_onload"
-				data-client_id="536894210778-998102hp7nml43ape8dtkpviiuvaj4ds.apps.googleusercontent.com"
-				data-login_uri="http://localhost:3000/login"
-				data-auto_prompt="false">
-			</div>
-			<div className="g_id_signin"
-				data-type="standard"
-				data-size="large"
-				data-theme="outline"
-				data-text="sign_in_with"
-				data-shape="rectangular"
-				data-logo_alignment="left">
-			</div>
-		</>
-	)
+	useEffect(() => {
+		const buttonDiv = document.getElementById('buttonDiv');
+		if (buttonDiv) {
+		  google.accounts.id.initialize({
+			client_id: "536894210778-998102hp7nml43ape8dtkpviiuvaj4ds.apps.googleusercontent.com",
+			callback: handleCredentialResponse
+		  });
+		  google.accounts.id.renderButton(buttonDiv, { type: 'standard', theme: 'outline', size: 'large' });
+		  google.accounts.id.prompt();
+		}
+	  }, []);
+	
+	  function handleCredentialResponse(response: any) {
+		const service = new LoginService(back);
+		console.log("Encoded JWT ID token: " + response.credential);
+		service.autentica(response.credential);
+	  }
+	
+	  return (
+		<div>
+		  <div id="buttonDiv"></div>
+		</div>
+	  );
 }
 
 export default Login;
