@@ -9,14 +9,9 @@ import back from "../../../http";
 import { IMovimentacao } from "../../../interfaces/IMovimentacao";
 import { MovimentacaoService } from "../../../services/MovimentacaoService";
 import "./CalendarioStyle.scss";
+import { ICalendarioProps } from "../../../interfaces/ICalendarioProps";
 
-interface CalendarioProps {
-	onDayClick: (selectedDate: Date) => void;
-	closeModalAdd: () => void;
-	closeModalRemove: () => void;
-}
-
-const Calendario: FC<CalendarioProps> = (props: CalendarioProps) => {
+const Calendario: FC<ICalendarioProps> = (props: ICalendarioProps) => {
 	moment.locale("pt-br");
 	const [currentMonth, setCurrentMonth] = useState(moment());
 	const [selectedDay, setSelectedDay] = useState(moment().date() + currentMonth.format('YYYYMM'));
@@ -43,7 +38,7 @@ const Calendario: FC<CalendarioProps> = (props: CalendarioProps) => {
 				const ultimoDiaMes = new Date();
 				ultimoDiaMes.setMonth(ultimoDiaMes.getMonth() + 1);
 				ultimoDiaMes.setDate(0);
-				const response = await movimentacaoService.getMovimentacao(1,
+				const response = await movimentacaoService.getMovimentacao(props.googleId,
 					primeiroDiaMes.getTime(), ultimoDiaMes.getTime());
 				if (response?.data) {
 					setMovimentacoesDoMes(response.data);

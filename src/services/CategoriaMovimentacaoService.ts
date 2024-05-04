@@ -7,25 +7,28 @@ export class CategoriaMovimentacaoService {
 	constructor(private readonly axiosInstance: AxiosInstance) {}
 	urlDefault = "/categoria-movimentacao"
 
-	async obtemCategoriasMovimentacaoPorIdConta(idConta: number) {
+	async obtemCategoriasMovimentacaoPorConta(googleId: string | null) {
 		const params = {
-			idConta: idConta,
+			googleId: googleId,
 		};
 		try {
 			const response = await this.axiosInstance
 				.get<ICategoriaMovimentacao[]>(this.urlDefault, { params });
 			return { ...response };
 		} catch (error) {
-			console.log(`Não foi possível obter as movimentações`, error);
+			console.log(`Não foi possível obter as categorias de movimentações`, error);
 			return undefined;
 		}
 	}
 
-	async obtemCategoriaMovimentacaoPorId(id: number) {
+	async obtemCategoriaMovimentacaoPorId(googleId : string | null, id: number) {
 		const url = `${this.urlDefault}/${id}`;
+		const params = {
+			googleId: googleId,
+		}
 		try {
 			const response = await this.axiosInstance
-				.get<ICategoriaMovimentacao>(url)
+				.get<ICategoriaMovimentacao>(url, {params})
 			return {...response.data}
 		} catch (error) {
 			console.log(`Não foi possível obter a categoria de movimentação`, error);
@@ -33,9 +36,10 @@ export class CategoriaMovimentacaoService {
 		}
 	}
 
-	async obtemCategoriasPorTipoMovimentacaoEConta(idConta: number, tipoMovimentacao: TipoMovimentacaoEnum) {
+	async obtemCategoriasPorTipoMovimentacaoEConta(googleId : string | null,
+			tipoMovimentacao: TipoMovimentacaoEnum) {
 		const params = {
-			idConta: idConta,
+			googleId: googleId,
 			tipoMovimentacao: tipoMovimentacao.toString(),
 		};
 		try {
@@ -48,10 +52,10 @@ export class CategoriaMovimentacaoService {
 		}
 	}
 
-	async obtemSomaCategoriasEValores(idConta: number, dataInicio: number,
+	async obtemSomaCategoriasEValores(googleId : string | null, dataInicio: number,
 			dataFim: number, tipoMovimentacao: string) {
 		const params = {
-			idConta: idConta,
+			googleId: googleId,
 			dataInicio: dataInicio,
 			dataFim: dataFim,
 			tipoMovimentacao: tipoMovimentacao
@@ -66,21 +70,21 @@ export class CategoriaMovimentacaoService {
 		}
 	}
 
-	async obtemSomaCategoriasEValoresPorMeses(idConta: number, dataInicio: number,
+	async obtemSomaCategoriasEValoresPorMeses(googleId : string | null, dataInicio: number,
 		dataFim: number, tipoMovimentacao: string) {
-	const params = {
-		idConta: idConta,
-		dataInicio: dataInicio,
-		dataFim: dataFim,
-		tipoMovimentacao: tipoMovimentacao
-	};
-	try {
-		const response = await this.axiosInstance
-			.get<ISomaCategoriasPorMes[]>(`${this.urlDefault}/soma-categorias-meses`, {params});
-		return {...response};
-	} catch (error) {
-		console.log(`Não foi possível obter a comparação da soma de categorias`, error);
-		return undefined;
+		const params = {
+			googleId: googleId,
+			dataInicio: dataInicio,
+			dataFim: dataFim,
+			tipoMovimentacao: tipoMovimentacao
+		};
+		try {
+			const response = await this.axiosInstance
+				.get<ISomaCategoriasPorMes[]>(`${this.urlDefault}/soma-categorias-meses`, {params});
+			return {...response};
+		} catch (error) {
+			console.log(`Não foi possível obter a comparação da soma de categorias`, error);
+			return undefined;
+		}
 	}
-}
 }

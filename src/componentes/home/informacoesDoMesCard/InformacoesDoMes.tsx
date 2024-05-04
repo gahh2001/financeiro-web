@@ -24,7 +24,7 @@ const InformacoesDoMes: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProp
 				const ultimoDiaMes = new Date(props.selectedDate);
 				ultimoDiaMes.setMonth(ultimoDiaMes.getMonth() + 1);
 				ultimoDiaMes.setDate(0);
-				const response = await movimentacaoService.getMovimentacao(1,
+				const response = await movimentacaoService.getMovimentacao(props.googleId,
 							primeiroDiaMes.getTime(), ultimoDiaMes.getTime());
 				if (response?.data) {
 					setMovimentacoesDoMes(response.data);

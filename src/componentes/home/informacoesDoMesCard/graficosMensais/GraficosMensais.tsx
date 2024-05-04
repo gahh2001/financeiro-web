@@ -22,9 +22,9 @@ const GraficosMensais: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProps
 				dataFim.setMonth(dataFim.getMonth() + 1);
 				dataFim.setDate(0);
 				const somaPositivas = await categoriaMovimentacaoService
-					.obtemSomaCategoriasEValores(1, dataInicio.getTime(), dataFim.getTime(), "POSITIVO");
+					.obtemSomaCategoriasEValores(props.googleId, dataInicio.getTime(), dataFim.getTime(), "POSITIVO");
 				const somaNegativas = await categoriaMovimentacaoService
-					.obtemSomaCategoriasEValores(1, dataInicio.getTime(), dataFim.getTime(), "NEGATIVO");
+					.obtemSomaCategoriasEValores(props.googleId, dataInicio.getTime(), dataFim.getTime(), "NEGATIVO");
 				if (somaPositivas?.data) {
 					extractSomaCategoriasPositivas(somaPositivas.data)
 				}

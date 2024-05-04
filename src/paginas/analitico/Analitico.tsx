@@ -1,5 +1,5 @@
 import dayjs, { Dayjs } from "dayjs";
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import NavBar from "../../componentes/AppBar/AppBar";
 import CategoriasComparacao from "../../componentes/analitico/categoriasComparacao/CategoriasComparacao";
 import CategoriasEvolucao from "../../componentes/analitico/categoriasEvolucao/CategoriasEvolucao";
@@ -15,8 +15,9 @@ import { ISeriesComparacao } from "../../interfaces/ISeriesComparacao";
 import { ISomaCategoriasPorMes } from "../../interfaces/ISomaCategoriasPorMes";
 import { CategoriaMovimentacaoService } from "../../services/CategoriaMovimentacaoService";
 import './Analitico.scss';
+import { IGoogleIdProps } from "../../interfaces/IGoogleIdProps";
 
-export const Analitico = () => {
+const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 	const [ano, setAno] = useState<Dayjs | null>(dayjs(new Date().getTime()));
 	const [mes, setMes] = useState<Dayjs | null>(ano);
 	const [tipoMovimentacao, setTipoMovimentacao] = useState(TipoMovimentacaoEnum.POSITIVO.toString());
@@ -48,7 +49,7 @@ export const Analitico = () => {
 			try {
 				const categoriaMovimentacaoService = new CategoriaMovimentacaoService(back);
 				const soma = await categoriaMovimentacaoService
-					.obtemSomaCategoriasEValores(1, obtemDataInicial(), obtemDataFinal(), tipoMovimentacao);
+					.obtemSomaCategoriasEValores(props.googleId, obtemDataInicial(), obtemDataFinal(), tipoMovimentacao);
 				if (soma?.data) {
 					extraiSomas(soma.data);
 					extraiPorcentagens(soma.data);
@@ -65,7 +66,7 @@ export const Analitico = () => {
 			try {
 				const categoriaMovimentacaoService = new CategoriaMovimentacaoService(back);
 				const somaComparacoes = await categoriaMovimentacaoService
-					.obtemSomaCategoriasEValoresPorMeses(1, obtemDataInicialComparacao(),
+					.obtemSomaCategoriasEValoresPorMeses(props.googleId, obtemDataInicialComparacao(),
 						obtemDataFinalComparacao(), tipoMovimentacao);
 				if (somaComparacoes?.data) {
 					extraiSomaComparacoes(somaComparacoes.data);

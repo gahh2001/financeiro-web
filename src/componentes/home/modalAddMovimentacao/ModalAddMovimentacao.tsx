@@ -11,30 +11,17 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import dayjs, { Dayjs } from 'dayjs';
 import 'dayjs/locale/en-gb';
-import { ChangeEvent, ReactNode, useEffect, useState } from "react";
+import { ChangeEvent, FC, useEffect, useState } from "react";
 import { TipoMovimentacaoEnum } from '../../../enums/TipoMovimentacaoEnum';
 import back from '../../../http';
 import { ICategoriaMovimentacao } from '../../../interfaces/ICategoriaMovimentacao';
+import { IModalAdicionar } from '../../../interfaces/IModalAdicionar';
 import { IMovimentacao } from '../../../interfaces/IMovimentacao';
 import { CategoriaMovimentacaoService } from '../../../services/CategoriaMovimentacaoService';
 import { MovimentacaoService } from '../../../services/MovimentacaoService';
 import "./ModalAddMovimentacao.scss";
 
-interface ModalType {
-	children?: ReactNode;
-	isOpen: boolean;
-	tipo: TipoMovimentacaoEnum;
-	closeModal: () => void;
-	edit: boolean;
-	idMovimentacao: number | undefined;
-	date: Date;
-	categoria: string;
-	valor: string;
-	descricao: string;
-	selectedDate: Date;
-}
-
-export default function ModalAddMovimentacao(props: ModalType) {
+const ModalAddMovimentacao: FC<IModalAdicionar> = (props: IModalAdicionar)  =>{
 	const categoriaMovimentacaoService = new CategoriaMovimentacaoService(back);
 	const movimentacaoService = new MovimentacaoService(back);
 	const verboTitulo = props.edit
@@ -58,7 +45,7 @@ export default function ModalAddMovimentacao(props: ModalType) {
 		const buscaCategorias = async () => {
 			try {
 				const categorias = await categoriaMovimentacaoService
-					.obtemCategoriasPorTipoMovimentacaoEConta(1, props.tipo);
+					.obtemCategoriasPorTipoMovimentacaoEConta(props.googleId, props.tipo);
 				if (categorias?.data) {
 					setCategoriasCarregadas(categorias.data);
 				}
@@ -217,9 +204,9 @@ export default function ModalAddMovimentacao(props: ModalType) {
 			}
 			if (props.edit) {
 				novaMovimentacao.id = props.idMovimentacao;
-				response = await movimentacaoService.atualizaMovimentacao(novaMovimentacao);
+				response = await movimentacaoService.atualizaMovimentacao(props.googleId, novaMovimentacao);
 			} else {
-				response = await movimentacaoService.adicionaMovimentacao(novaMovimentacao);
+				response = await movimentacaoService.adicionaMovimentacao(props.googleId, novaMovimentacao);
 			}
 			if (response?.status && response.status === 200) {
 				setLoading(false);
@@ -247,3 +234,5 @@ export default function ModalAddMovimentacao(props: ModalType) {
 		))
 	}
 }
+
+export default ModalAddMovimentacao;

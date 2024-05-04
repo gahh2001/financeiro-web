@@ -3,10 +3,11 @@ import { IMovimentacao } from "../interfaces/IMovimentacao";
 
 export class MovimentacaoService {
 	constructor(private readonly axiosInstance: AxiosInstance){}
+	
 
-	async getMovimentacao(idConta: number, dataInicio: number, dataFim: number) {
+	async getMovimentacao(googleId: string | null, dataInicio: number, dataFim: number) {
 		const params = {
-			idConta: 1,
+			idConta: googleId,
 			dataInicio: dataInicio,
 			dataFim: dataFim
 		}
@@ -20,11 +21,14 @@ export class MovimentacaoService {
 		}
 	}
 
-	async apagaMovimentacao(idMovimentacao: number) {
+	async apagaMovimentacao(googleId: string | null, idMovimentacao: number) {
 		const url = `/movimentacao/${idMovimentacao}`;
+		const params = {
+			googleId: googleId,
+		}
 		try {
 			const response = await this.axiosInstance
-				.delete(url);
+				.delete(url, {params});
 			return response;
 		} catch (error) {
 			console.log(`Não foi possível obter as movimentações`, error);
@@ -32,10 +36,13 @@ export class MovimentacaoService {
 		}
 	}
 
-	async adicionaMovimentacao(movimentacao: IMovimentacao) {
+	async adicionaMovimentacao(googleId : string | null, movimentacao: IMovimentacao) {
+		const params = {
+			googleId: googleId,
+		}
 		try {
 			const response = await this.axiosInstance
-				.post('/movimentacao', movimentacao)
+				.post('/movimentacao', movimentacao, {params})
 			return {...response}
 		} catch (error) {
 			console.log("Erro ao salvar movimentação")
@@ -43,10 +50,13 @@ export class MovimentacaoService {
 		}
 	}
 
-	async atualizaMovimentacao(movimentacao: IMovimentacao) {
+	async atualizaMovimentacao(googleId : string | null, movimentacao: IMovimentacao) {
+		const params = {
+			googleId: googleId,
+		}
 		try {
 			const response = await this.axiosInstance
-				.patch('/movimentacao', movimentacao)
+				.patch('/movimentacao', movimentacao, {params})
 			return {...response}
 		} catch (error) {
 			console.log("Erro ao atualizar movimentação")

@@ -2,10 +2,20 @@ import back from '../../http';
 import './login.scss';
 
 import { Divider } from '@mui/material';
-import { useEffect } from "react";
+import { FC, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
+import { IGoogleIdProps } from '../../interfaces/IGoogleIdProps';
 import { LoginService } from '../../services/LoginService';
 
-export const Login = () => {
+const Login: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
+
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (props.googleId) {
+			navigate("/home")
+		}
+	}, [props.googleId]);
 
 	useEffect(() => {
 		const buttonDiv = document.getElementById('buttonDiv');
@@ -19,10 +29,13 @@ export const Login = () => {
 			google.accounts.id.prompt();
 		}
 	}, []);
-	
+
 	async function handleCredentialResponse(response: any) {
 		const service = new LoginService(back);
 		const resposta = await service.autentica(response.credential);
+		if (resposta && resposta.data) {
+			props.setId(resposta.data.credential);
+		}
 	}
 	
 	return (

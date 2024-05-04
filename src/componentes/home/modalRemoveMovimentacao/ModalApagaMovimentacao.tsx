@@ -2,23 +2,15 @@ import { DeleteForever } from '@mui/icons-material';
 import CheckIcon from '@mui/icons-material/Check';
 import { LinearProgress } from '@mui/material';
 import Box from '@mui/material/Box';
-import { ReactNode, useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { TipoMovimentacaoEnum } from '../../../enums/TipoMovimentacaoEnum';
 import back from '../../../http';
-import { IMovimentacao } from '../../../interfaces/IMovimentacao';
+import { IModalApagar } from '../../../interfaces/IModalApagar';
 import { CategoriaMovimentacaoService } from '../../../services/CategoriaMovimentacaoService';
 import { MovimentacaoService } from '../../../services/MovimentacaoService';
 import "./ModalApagaMovimentacao.scss";
 
-interface ModalType {
-	children?: ReactNode;
-	isOpen: boolean;
-	tipo: TipoMovimentacaoEnum;
-	closeModalRemove: () => void;
-	movimentacao: IMovimentacao | null;
-}
-
-export default function ModalApagaMovimentacao(props: ModalType) {
+const ModalApagaMovimentacao: FC<IModalApagar> = (props: IModalApagar) => {
 	const movimentacaoService = new MovimentacaoService(back);
 	const categoriaMovimentacaoService = new CategoriaMovimentacaoService(back);
 	const [categoriaMovimentacao, setCategoriaMovimentacao] = useState<string>();
@@ -33,6 +25,7 @@ export default function ModalApagaMovimentacao(props: ModalType) {
 	let idCategoria = 0;
 	let valor = 0;
 	let descricao = "";
+
 	if (possuiMovimentacaoEData) {
 		const dateString = props.movimentacao?.dataMovimentacao as string | undefined;
 		date = dateString ? new Date(dateString) : undefined;
@@ -123,7 +116,7 @@ export default function ModalApagaMovimentacao(props: ModalType) {
 	async function apagaMovimentacao(id: number) {
 		setLoading(true);
 		setSuccess(false);
-		const response = await movimentacaoService.apagaMovimentacao(id);
+		const response = await movimentacaoService.apagaMovimentacao(props.googleId, id);
 		console.log(response);
 		if (response?.status && response.status === 200) {
 			setLoading(false);
@@ -134,7 +127,7 @@ export default function ModalApagaMovimentacao(props: ModalType) {
 	async function getDescricaoCategoriaPorId(idCategoriaMovimentacao: number) {
 		try {
 			const categoria = await categoriaMovimentacaoService
-				.obtemCategoriaMovimentacaoPorId(idCategoriaMovimentacao);
+				.obtemCategoriaMovimentacaoPorId(props.googleId, idCategoriaMovimentacao);
 			if (categoria) {
 				return categoria.nomeCategoria
 			}
@@ -145,3 +138,5 @@ export default function ModalApagaMovimentacao(props: ModalType) {
 		
 	}
 }
+
+export default ModalApagaMovimentacao;

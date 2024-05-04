@@ -1,5 +1,6 @@
 import { ThemeProvider, createTheme } from "@mui/material";
-import { useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import NavBar from "../../componentes/AppBar/AppBar";
 import Calendario from "../../componentes/home/calendario/Calendario";
 import InformacoesDoDia from "../../componentes/home/informacoesDoDiaCard/InformacoesDoDia";
@@ -10,10 +11,11 @@ import useModalAddMovimentacao from "../../componentes/home/modalAddMovimentacao
 import ModalApagaMovimentacao from "../../componentes/home/modalRemoveMovimentacao/ModalApagaMovimentacao";
 import useModalRemoveMovimentacao from "../../componentes/home/modalRemoveMovimentacao/UseModalRemoveMovimentacao";
 import { TipoMovimentacaoEnum } from '../../enums/TipoMovimentacaoEnum';
+import { IGoogleIdProps } from "../../interfaces/IGoogleIdProps";
 import { IMovimentacao } from "../../interfaces/IMovimentacao";
 import './Home.module.scss';
 
-export const Home = () => {
+const Home: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 	const [selectedDate, setSelectedDate] = useState(new Date());
 	const [idMovimentacao, setIdMovimentacao] = useState<number | undefined>(undefined);
 	const [data, setData] = useState(new Date());
@@ -26,6 +28,20 @@ export const Home = () => {
 	const [isOpenDialogDescricao, setIsOpenDialogDescricao] = useState(false);
 	const [tipo, setTipo] = useState(TipoMovimentacaoEnum.POSITIVO);
 	const [movimentacaoApagar, setMovimentacaoApagar] = useState<IMovimentacao | null>(null);
+	const isMounted = useRef(true);
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		return () => {
+			isMounted.current = false;
+		};
+	}, []);
+
+	useEffect(() => {
+		if (!props.googleId && isMounted.current) {
+			navigate("/login")
+		}
+	}, [props.googleId])
 
 	const darkTheme = createTheme({
 		palette: {
@@ -86,11 +102,13 @@ export const Home = () => {
 						flex: "0.7"
 					}}>
 						<Calendario
+							googleId={props.googleId}
 							onDayClick={propsCalendario}
 							closeModalAdd={closeModalAdd}
 							closeModalRemove={closeModalRemove}
 						/>
 						<InformacoesDoMes
+							googleId={props.googleId}
 							selectedDate={selectedDate}
 							modalAddRendimento={propsModalAddRendimento}
 							modalAddDespesa={propsModalAddDespesa}
@@ -99,6 +117,7 @@ export const Home = () => {
 					</div>
 					<div style={{flex: "0.3", display: "flex"}}>
 						<InformacoesDoDia
+							googleId={props.googleId}
 							selectedDate={selectedDate}
 							modalAddRendimento={propsModalAddRendimento}
 							modalAddDespesa={propsModalAddDespesa}
@@ -109,6 +128,7 @@ export const Home = () => {
 					</div>
 				</div>
 				<ModalAddMovimentacao
+					googleId={props.googleId}
 					isOpen={isOpenModalAdd}
 					closeModal={closeModalAdd}
 					tipo= {tipo}
@@ -121,6 +141,7 @@ export const Home = () => {
 					selectedDate={selectedDate}
 				/>
 				<ModalApagaMovimentacao
+					googleId={props.googleId}
 					isOpen={isOpenModalRemove}
 					tipo={tipo}
 					closeModalRemove={closeModalRemove}

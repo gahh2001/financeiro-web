@@ -16,18 +16,9 @@ import { IMovimentacao } from '../../../interfaces/IMovimentacao';
 import { ContaService } from '../../../services/ContaService';
 import { MovimentacaoService } from '../../../services/MovimentacaoService';
 import './InformacoesDoDia.scss';
+import { IInformacoesDoDiaProps } from '../../../interfaces/IInformacoesDoDiaProps';
 
-interface InformacoesDoDiaProps {
-	selectedDate: Date;
-	modalAddRendimento: () => void;
-	modalAddDespesa: () => void;
-	modalApagaMovimentacao: (movimentacaoApagar: IMovimentacao) => void;
-	dialogDescricao: (description: string) => void;
-	handleEditMovimentacao: (idMovimentacao: number | undefined, data: Date, valor: string, categoria: string,
-		descricao: string, tipoEdit: TipoMovimentacaoEnum) => void;
-}
-
-const InformacoesDoDia: FC<InformacoesDoDiaProps> = (props: InformacoesDoDiaProps) => {
+const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaProps) => {
 
 	const [movimentacoesDoDia, setMovimentacoesDoDia] = useState<IMovimentacao[]>([]);
 	const [saldo, setSaldo] = useState<number>();
@@ -37,7 +28,7 @@ const InformacoesDoDia: FC<InformacoesDoDiaProps> = (props: InformacoesDoDiaProp
 		const buscaMovimentacoesDoDia = async () => {
 			try {
 				const dia = props.selectedDate;
-				const response = await movimentacaoService.getMovimentacao(1,
+				const response = await movimentacaoService.getMovimentacao(props.googleId,
 					dia.getTime(), dia.getTime());
 				if (response?.data) {
 					setMovimentacoesDoDia(response.data);
@@ -55,7 +46,7 @@ const InformacoesDoDia: FC<InformacoesDoDiaProps> = (props: InformacoesDoDiaProp
 		const atualizaSaldoConta = async () => {
 			try {
 				const contaService = new ContaService(back);
-				const response = await contaService.listaContaPorId(1);
+				const response = await contaService.listaContaPorGoogleId(props.googleId);
 				if (response?.data) {
 					setSaldo(response.data.saldoConta);
 				}
