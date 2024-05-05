@@ -1,6 +1,6 @@
 export type IMovimentacao = {
 	id?: number;
-	idConta: number;
+	googleId: string | null;
 	valor: number;
 	dataMovimentacao: Date;
 	tipoMovimentacao: string;

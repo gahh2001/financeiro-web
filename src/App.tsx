@@ -13,7 +13,7 @@ function App() {
 	});
 
 	const [userId, setUserId] = useState<string | null>(localStorage.getItem('googleId'));
-	const setId = (id: string) =>  {
+	const setId = (id: string) => {
 		localStorage.setItem('googleId', id);
 		setUserId(id);
 	}
@@ -47,7 +47,6 @@ function App() {
 				}/>
 			</Routes>
 		</ThemeProvider>
-		
 	);
 }
 

@@ -7,7 +7,7 @@ export class MovimentacaoService {
 
 	async getMovimentacao(googleId: string | null, dataInicio: number, dataFim: number) {
 		const params = {
-			idConta: googleId,
+			googleId: googleId,
 			dataInicio: dataInicio,
 			dataFim: dataFim
 		}

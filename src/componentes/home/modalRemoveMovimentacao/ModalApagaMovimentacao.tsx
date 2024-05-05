@@ -117,7 +117,6 @@ const ModalApagaMovimentacao: FC<IModalApagar> = (props: IModalApagar) => {
 		setLoading(true);
 		setSuccess(false);
 		const response = await movimentacaoService.apagaMovimentacao(props.googleId, id);
-		console.log(response);
 		if (response?.status && response.status === 200) {
 			setLoading(false);
 			setSuccess(true);
@@ -133,7 +132,7 @@ const ModalApagaMovimentacao: FC<IModalApagar> = (props: IModalApagar) => {
 			}
 			console.log("Erro ao obter a categoria id: ", idCategoriaMovimentacao)
 		} catch (error) {
-			return "Erro ao obter a categoria"
+			console.log(error)
 		}
 		
 	}

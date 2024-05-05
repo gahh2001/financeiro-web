@@ -195,7 +195,7 @@ const ModalAddMovimentacao: FC<IModalAdicionar> = (props: IModalAdicionar)  =>{
 			setLoading(true);
 			setSuccess(false);
 			const novaMovimentacao: IMovimentacao = {
-				idConta: 1,
+				googleId: props.googleId,
 				valor: parseFloat(valor),
 				dataMovimentacao: data?.toDate() ? data?.toDate() : new Date(),
 				tipoMovimentacao: props.tipo.toString(),
