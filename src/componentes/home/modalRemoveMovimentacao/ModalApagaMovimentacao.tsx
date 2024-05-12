@@ -76,14 +76,6 @@ const ModalApagaMovimentacao: FC<IModalApagar> = (props: IModalApagar) => {
 								{valor.toFixed(2).replace('.', ',')}
 							</div>
 						</div>
-						<div className="headers">
-							Descrição
-						</div>
-						<div className='movimentacao'>
-							<div className='descricao'>
-								{descricao}
-							</div>
-						</div>
 						<div className="buttons">
 							<button onClick={props.closeModalRemove}>
 								{success ? "Fechar" : "Cancelar"}
