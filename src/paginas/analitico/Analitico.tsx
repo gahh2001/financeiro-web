@@ -1,6 +1,6 @@
 import dayjs, { Dayjs } from "dayjs";
-import { FC, useEffect, useState } from "react";
-import NavBar from "../../componentes/AppBar/AppBar";
+import { FC, useEffect, useRef, useState } from "react";
+import AppBar from "../../componentes/AppBar/AppBar";
 import CategoriasComparacao from "../../componentes/analitico/categoriasComparacao/CategoriasComparacao";
 import CategoriasEvolucao from "../../componentes/analitico/categoriasEvolucao/CategoriasEvolucao";
 import CategoriasInformacoesGerais from "../../componentes/analitico/categoriasInformacoesGerais/CategoriasInformacoesGerais";
@@ -10,12 +10,13 @@ import FiltersAnalitic from "../../componentes/analitico/filtersAnalitc/FiltersA
 import { obtemNumeroEnum, TipoComparacaoEnum } from "../../enums/TipoComparacaoEnum";
 import { TipoMovimentacaoEnum } from "../../enums/TipoMovimentacaoEnum";
 import back from "../../http";
+import { IGoogleIdProps } from "../../interfaces/IGoogleIdProps";
 import { ISeriesChart } from "../../interfaces/ISeriesChart";
 import { ISeriesComparacao } from "../../interfaces/ISeriesComparacao";
 import { ISomaCategoriasPorMes } from "../../interfaces/ISomaCategoriasPorMes";
 import { CategoriaMovimentacaoService } from "../../services/CategoriaMovimentacaoService";
 import './Analitico.scss';
-import { IGoogleIdProps } from "../../interfaces/IGoogleIdProps";
+import { useNavigate } from "react-router-dom";
 
 const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 	const [ano, setAno] = useState<Dayjs | null>(dayjs(new Date().getTime()));
@@ -28,6 +29,9 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 	const [porcentagens, setPorcentagens] = useState<ISeriesChart[]>([]);
 	const [comparacoes, setComparacoes] = useState<ISeriesComparacao[]>([]);
 	const [agrupamentoMesAno, setAgrupamentoMesAno] = useState<string[]>([])
+	const isMounted = useRef(true);
+	const navigate = useNavigate();
+
 	const propsSetMes = (date: Dayjs | null) => {
 		setMes(date);
 	};
@@ -43,6 +47,18 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 	const propsSetTipoComparacao = (tipo: string) => {
 		setTipoComparacao(tipo);
 	};
+
+	useEffect(() => {
+		return () => {
+			isMounted.current = false;
+		};
+	}, []);
+
+	useEffect(() => {
+		if (!props.googleId && isMounted.current) {
+			navigate("/login")
+		}
+	}, [props.googleId])
 
 	useEffect(() => {
 		const atualizaVisaoGeral = async () => {
@@ -80,7 +96,10 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 
 	return (
 		<div className="analitico">
-			<NavBar modulo="Analítico"/>
+			<AppBar
+				modulo="Analítico"
+				urlPicture={props.urlPicture}
+			/>
 			<div className="top-section">
 				<FiltersAnalitic
 					ano={ano}

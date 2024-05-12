@@ -3,8 +3,9 @@ import { Avatar, Box, Divider, IconButton, ListItemIcon, Menu, MenuItem, Tooltip
 import { FC, Fragment, useState } from 'react';
 import DrawerPages from '../menu/Menu';
 import "./AppBarStyle.scss";
+import { IAppBarProps } from '../../interfaces/IAppBarProps';
 
-const NavBar: FC<{modulo: string}> = (modulo) => {
+const AppBar: FC<IAppBarProps> = (props: IAppBarProps) => {
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 	const open = Boolean(anchorEl);
 	const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -13,13 +14,19 @@ const NavBar: FC<{modulo: string}> = (modulo) => {
 	const handleClose = () => {
 		setAnchorEl(null);
 	};
+	let urlPicture: string;
+	if (props.urlPicture !== null) {
+		urlPicture = props.urlPicture;
+	} else {
+		urlPicture = "";
+	}
 
 	return (
 		<div className='app-bar'>
 			<DrawerPages/>
 			<div className="modulo">
 				<h1>
-					{modulo.modulo}
+					{props.modulo}
 				</h1>
 			</div>
 			<Fragment>
@@ -34,7 +41,7 @@ const NavBar: FC<{modulo: string}> = (modulo) => {
 							aria-expanded={open ? 'true' : undefined}
 						>
 							<Avatar
-								src='https://lh3.googleusercontent.com/a/ACg8ocLFciF30Lwpk_hIpPvl2Z8MIAn7BvKdmU3AjHk9WKB1Yqctje1n=s96-c'
+								src={urlPicture}
 								sx={{ width: "5.5vh", height: "5.5vh" }}
 							></Avatar>
 						</IconButton>
@@ -97,4 +104,4 @@ const NavBar: FC<{modulo: string}> = (modulo) => {
 	);
 }
 
-export default NavBar
+export default AppBar

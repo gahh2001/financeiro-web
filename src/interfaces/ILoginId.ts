@@ -1,3 +1,4 @@
 export type ILoginId = {
-	credential: string
+	credential: string;
+	picture: string;
 }

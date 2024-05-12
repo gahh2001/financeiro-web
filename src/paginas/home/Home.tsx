@@ -1,7 +1,7 @@
 import { ThemeProvider, createTheme } from "@mui/material";
 import { FC, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import NavBar from "../../componentes/AppBar/AppBar";
+import AppBar from "../../componentes/AppBar/AppBar";
 import Calendario from "../../componentes/home/calendario/Calendario";
 import InformacoesDoDia from "../../componentes/home/informacoesDoDiaCard/InformacoesDoDia";
 import DialogDescricaoMovimentacao from "../../componentes/home/informacoesDoDiaCard/dialogDescricaoMovimentacao/DialogDescricaoMovimentacao";
@@ -94,7 +94,10 @@ const Home: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 	return (
 		<div className="home">
 			<ThemeProvider theme={darkTheme}>
-				<NavBar modulo="Home"/>
+				<AppBar
+					modulo="Home"
+					urlPicture={props.urlPicture}
+				/>
 				<div style={{ display: 'flex', height: "93.3vh" }}>
 					<div style={{
 						flexDirection: 'column',

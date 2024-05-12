@@ -13,9 +13,14 @@ function App() {
 	});
 
 	const [userId, setUserId] = useState<string | null>(localStorage.getItem('googleId'));
+	const [urlPicture, setUrlPicture] = useState<string | null>(localStorage.getItem('urlPicture'));
 	const setId = (id: string) => {
 		localStorage.setItem('googleId', id);
 		setUserId(id);
+	}
+	const setPicure = (url: string) => {
+		localStorage.setItem('urlPicture', url);
+		setUrlPicture(url);
 	}
 
 	return (
@@ -25,24 +30,32 @@ function App() {
 					<Home
 						googleId={userId}
 						setId={setId}
+						setPicture={setPicure}
+						urlPicture={urlPicture}
 					/>
 				} />
 				<Route path="/login" element={
 					<Login
 						googleId={userId}
+						urlPicture={urlPicture}
 						setId={setId}
+						setPicture={setPicure}
 					/>
 				} />
 				<Route path="/home" element={
 					<Home
 						googleId={userId}
+						urlPicture={urlPicture}
 						setId={setId}
+						setPicture={setPicure}
 					/>
 				}/>
 				<Route path="/analitico" element={
 					<Analitico
 						googleId={userId}
+						urlPicture={urlPicture}
 						setId={setId}
+						setPicture={setPicure}
 					/>
 				}/>
 			</Routes>

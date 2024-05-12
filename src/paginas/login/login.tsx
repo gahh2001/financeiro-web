@@ -13,7 +13,7 @@ const Login: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 
 	useEffect(() => {
 		if (props.googleId) {
-			navigate("/home")
+			navigate("/home");
 		}
 	}, [props.googleId]);
 
@@ -33,8 +33,12 @@ const Login: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 	async function handleCredentialResponse(response: any) {
 		const service = new LoginService(back);
 		const resposta = await service.autentica(response.credential);
-		if (resposta && resposta.data) {
+		if (resposta && resposta.data && resposta.data.credential && resposta.data.picture) {
+			localStorage.setItem('googleId', resposta.data.credential);
+			localStorage.setItem('urlPicture', resposta.data.picture);
 			props.setId(resposta.data.credential);
+			props.setPicture(resposta.data.picture);
+			navigate("/home");
 		}
 	}
 	
