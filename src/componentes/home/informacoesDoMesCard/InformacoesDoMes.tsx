@@ -19,16 +19,18 @@ const InformacoesDoMes: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProp
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const movimentacaoService = new MovimentacaoService(back);
-				const primeiroDiaMes = new Date(props.selectedDate);
-				primeiroDiaMes.setDate(1);
-				const ultimoDiaMes = new Date(props.selectedDate);
-				ultimoDiaMes.setMonth(ultimoDiaMes.getMonth() + 1);
-				ultimoDiaMes.setDate(0);
-				const response = await movimentacaoService.getMovimentacao(props.googleId,
-							primeiroDiaMes.getTime(), ultimoDiaMes.getTime());
-				if (response?.data) {
-					setMovimentacoesDoMes(response.data);
+				if (props.googleId !== "") {
+					const movimentacaoService = new MovimentacaoService(back);
+					const primeiroDiaMes = new Date(props.selectedDate);
+					primeiroDiaMes.setDate(1);
+					const ultimoDiaMes = new Date(props.selectedDate);
+					ultimoDiaMes.setMonth(ultimoDiaMes.getMonth() + 1);
+					ultimoDiaMes.setDate(0);
+					const response = await movimentacaoService.getMovimentacao(props.googleId,
+								primeiroDiaMes.getTime(), ultimoDiaMes.getTime());
+					if (response?.data) {
+						setMovimentacoesDoMes(response.data);
+					}
 				}
 			} catch (error) {
 				console.error('Erro ao buscar movimentações:', error);

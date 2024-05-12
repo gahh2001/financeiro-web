@@ -44,10 +44,12 @@ const ModalAddMovimentacao: FC<IModalAdicionar> = (props: IModalAdicionar)  =>{
 	useEffect(() => {
 		const buscaCategorias = async () => {
 			try {
-				const categorias = await categoriaMovimentacaoService
-					.obtemCategoriasPorTipoMovimentacaoEConta(props.googleId, props.tipo);
-				if (categorias?.data) {
-					setCategoriasCarregadas(categorias.data);
+				if (props.googleId !== "") {
+					const categorias = await categoriaMovimentacaoService
+						.obtemCategoriasPorTipoMovimentacaoEConta(props.googleId, props.tipo);
+					if (categorias?.data) {
+						setCategoriasCarregadas(categorias.data);
+					}
 				}
 			} catch (error) {
 				console.log("erro ao carregar categorias do tipo ", props.tipo);

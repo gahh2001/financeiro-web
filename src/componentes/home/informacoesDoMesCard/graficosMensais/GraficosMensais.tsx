@@ -16,21 +16,23 @@ const GraficosMensais: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProps
 	useEffect(() => {
 		const buscaSomaCategorias = async () => {
 			try {
-				const categoriaMovimentacaoService = new CategoriaMovimentacaoService(back);
-				const dataInicio = new Date(props.selectedDate);
-				dataInicio.setDate(1);
-				const dataFim = new Date(props.selectedDate);
-				dataFim.setMonth(dataFim.getMonth() + 1);
-				dataFim.setDate(0);
-				const somaPositivas = await categoriaMovimentacaoService
-					.obtemSomaCategoriasEValores(props.googleId, dataInicio.getTime(), dataFim.getTime(), "POSITIVO");
-				const somaNegativas = await categoriaMovimentacaoService
-					.obtemSomaCategoriasEValores(props.googleId, dataInicio.getTime(), dataFim.getTime(), "NEGATIVO");
-				if (somaPositivas?.data) {
-					extractSomaCategoriasPositivas(somaPositivas.data)
-				}
-				if (somaNegativas?.data) {
-					extractSomaCategoriasNegativas(somaNegativas.data)
+				if (props.googleId !== "") {
+					const categoriaMovimentacaoService = new CategoriaMovimentacaoService(back);
+					const dataInicio = new Date(props.selectedDate);
+					dataInicio.setDate(1);
+					const dataFim = new Date(props.selectedDate);
+					dataFim.setMonth(dataFim.getMonth() + 1);
+					dataFim.setDate(0);
+					const somaPositivas = await categoriaMovimentacaoService
+						.obtemSomaCategoriasEValores(props.googleId, dataInicio.getTime(), dataFim.getTime(), "POSITIVO");
+					const somaNegativas = await categoriaMovimentacaoService
+						.obtemSomaCategoriasEValores(props.googleId, dataInicio.getTime(), dataFim.getTime(), "NEGATIVO");
+					if (somaPositivas?.data) {
+						extractSomaCategoriasPositivas(somaPositivas.data)
+					}
+					if (somaNegativas?.data) {
+						extractSomaCategoriasNegativas(somaNegativas.data)
+					}
 				}
 			} catch (error) {
 				console.log("Erro ao atualizar soma das categorias")

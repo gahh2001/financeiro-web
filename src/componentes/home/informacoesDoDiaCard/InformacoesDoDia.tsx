@@ -29,11 +29,13 @@ const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaPr
 	useEffect(() => {
 		const buscaMovimentacoesDoDia = async () => {
 			try {
-				const dia = props.selectedDate;
-				const response = await movimentacaoService.getMovimentacao(props.googleId,
-					dia.getTime(), dia.getTime());
-				if (response?.data) {
-					setMovimentacoesDoDia(response.data);
+				if (props.googleId !== "") {
+					const dia = props.selectedDate;
+					const response = await movimentacaoService.getMovimentacao(props.googleId,
+						dia.getTime(), dia.getTime());
+					if (response?.data) {
+						setMovimentacoesDoDia(response.data);
+					}
 				}
 			} catch (error) {
 				console.error('Erro ao buscar movimentações:', error);
@@ -47,10 +49,12 @@ const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaPr
 	useEffect(() => {
 		const atualizaSaldoConta = async () => {
 			try {
-				const contaService = new ContaService(back);
-				const response = await contaService.listaContaPorGoogleId(props.googleId);
-				if (response?.data) {
-					setSaldo(response.data.saldoConta);
+				if (props.googleId !== "") {
+					const contaService = new ContaService(back);
+					const response = await contaService.listaContaPorGoogleId(props.googleId);
+					if (response?.data) {
+						setSaldo(response.data.saldoConta);
+					}
 				}
 			} catch (error) {
 				console.error('Erro ao buscar saldo:', error);

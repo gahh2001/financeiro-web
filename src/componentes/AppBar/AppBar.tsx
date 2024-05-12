@@ -4,16 +4,25 @@ import { FC, Fragment, useState } from 'react';
 import DrawerPages from '../menu/Menu';
 import "./AppBarStyle.scss";
 import { IAppBarProps } from '../../interfaces/IAppBarProps';
+import { useNavigate } from 'react-router-dom';
 
 const AppBar: FC<IAppBarProps> = (props: IAppBarProps) => {
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 	const open = Boolean(anchorEl);
+	const navigate = useNavigate();
 	const handleClick = (event: React.MouseEvent<HTMLElement>) => {
 		setAnchorEl(event.currentTarget);
 	};
 	const handleClose = () => {
 		setAnchorEl(null);
 	};
+	const logout = () => {
+		localStorage.removeItem('googleId');
+		localStorage.removeItem('urlPicture');
+		props.setId("");
+		props.setPicture("");
+		navigate("/login");
+	}
 	let urlPicture: string;
 	if (props.urlPicture !== null) {
 		urlPicture = props.urlPicture;
@@ -92,7 +101,7 @@ const AppBar: FC<IAppBarProps> = (props: IAppBarProps) => {
 						</ListItemIcon>
 						Configurações
 					</MenuItem>
-					<MenuItem onClick={handleClose}>
+					<MenuItem onClick={logout}>
 						<ListItemIcon>
 							<Logout fontSize="small" />
 						</ListItemIcon>

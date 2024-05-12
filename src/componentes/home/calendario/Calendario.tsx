@@ -30,19 +30,21 @@ const Calendario: FC<ICalendarioProps> = (props: ICalendarioProps) => {
 	useEffect(() => {
 		const buscaMovimentacoesDoMes = async () => {
 			try {
-				const movimentacaoService = new MovimentacaoService(back);
-				const primeiroDiaMes = new Date();
-				primeiroDiaMes.setMonth(currentMonth.month());
-				primeiroDiaMes.setFullYear(currentMonth.year());
-				primeiroDiaMes.setDate(1);
-				const ultimoDiaMes = new Date();
-				ultimoDiaMes.setMonth(ultimoDiaMes.getMonth() + 1);
-				ultimoDiaMes.setDate(0);
-				const response = await movimentacaoService.getMovimentacao(props.googleId,
-					primeiroDiaMes.getTime(), ultimoDiaMes.getTime());
-				if (response?.data) {
-					setMovimentacoesDoMes(response.data);
-					setCarregado(true);
+				if (props.googleId !== "") {
+					const movimentacaoService = new MovimentacaoService(back);
+					const primeiroDiaMes = new Date();
+					primeiroDiaMes.setMonth(currentMonth.month());
+					primeiroDiaMes.setFullYear(currentMonth.year());
+					primeiroDiaMes.setDate(1);
+					const ultimoDiaMes = new Date();
+					ultimoDiaMes.setMonth(ultimoDiaMes.getMonth() + 1);
+					ultimoDiaMes.setDate(0);
+					const response = await movimentacaoService.getMovimentacao(props.googleId,
+						primeiroDiaMes.getTime(), ultimoDiaMes.getTime());
+					if (response?.data) {
+						setMovimentacoesDoMes(response.data);
+						setCarregado(true);
+					}
 				}
 			} catch (error) {
 				console.error('Erro ao buscar movimentações:', error);

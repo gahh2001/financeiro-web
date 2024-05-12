@@ -97,6 +97,8 @@ const Home: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 				<AppBar
 					modulo="Home"
 					urlPicture={props.urlPicture}
+					setId={props.setId}
+					setPicture={props.setPicture}
 				/>
 				<div style={{ display: 'flex', height: "93.3vh" }}>
 					<div style={{

@@ -12,7 +12,7 @@ const Login: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		if (props.googleId) {
+		if (props.googleId && props.googleId !== "") {
 			navigate("/home");
 		}
 	}, [props.googleId]);

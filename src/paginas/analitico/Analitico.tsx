@@ -1,5 +1,6 @@
 import dayjs, { Dayjs } from "dayjs";
 import { FC, useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import AppBar from "../../componentes/AppBar/AppBar";
 import CategoriasComparacao from "../../componentes/analitico/categoriasComparacao/CategoriasComparacao";
 import CategoriasEvolucao from "../../componentes/analitico/categoriasEvolucao/CategoriasEvolucao";
@@ -16,7 +17,6 @@ import { ISeriesComparacao } from "../../interfaces/ISeriesComparacao";
 import { ISomaCategoriasPorMes } from "../../interfaces/ISomaCategoriasPorMes";
 import { CategoriaMovimentacaoService } from "../../services/CategoriaMovimentacaoService";
 import './Analitico.scss';
-import { useNavigate } from "react-router-dom";
 
 const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 	const [ano, setAno] = useState<Dayjs | null>(dayjs(new Date().getTime()));
@@ -63,12 +63,14 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 	useEffect(() => {
 		const atualizaVisaoGeral = async () => {
 			try {
-				const categoriaMovimentacaoService = new CategoriaMovimentacaoService(back);
-				const soma = await categoriaMovimentacaoService
-					.obtemSomaCategoriasEValores(props.googleId, obtemDataInicial(), obtemDataFinal(), tipoMovimentacao);
-				if (soma?.data) {
-					extraiSomas(soma.data);
-					extraiPorcentagens(soma.data);
+				if (props.googleId !== "") {
+					const categoriaMovimentacaoService = new CategoriaMovimentacaoService(back);
+					const soma = await categoriaMovimentacaoService
+						.obtemSomaCategoriasEValores(props.googleId, obtemDataInicial(), obtemDataFinal(), tipoMovimentacao);
+					if (soma?.data) {
+						extraiSomas(soma.data);
+						extraiPorcentagens(soma.data);
+					}
 				}
 			} catch (error) {
 				console.log("erro ao obter a soma por categorias ", error);
@@ -99,6 +101,8 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 			<AppBar
 				modulo="Analítico"
 				urlPicture={props.urlPicture}
+				setId={props.setId}
+				setPicture={props.setPicture}
 			/>
 			<div className="top-section">
 				<FiltersAnalitic
