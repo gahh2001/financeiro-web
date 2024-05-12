@@ -83,13 +83,13 @@ const NavBar: FC<{modulo: string}> = (modulo) => {
 						<ListItemIcon>
 							<Settings fontSize="small" />
 						</ListItemIcon>
-						Settings
+						Configurações
 					</MenuItem>
 					<MenuItem onClick={handleClose}>
 						<ListItemIcon>
 							<Logout fontSize="small" />
 						</ListItemIcon>
-						Logout
+						Sair
 					</MenuItem>
 				</Menu>
 			</Fragment>
