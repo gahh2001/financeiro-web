@@ -3,6 +3,7 @@ import {
 	AssessmentOutlined,
 	RemoveCircleOutlineRounded
 } from '@mui/icons-material';
+import { Divider } from '@mui/material';
 import { FC, useEffect, useState } from 'react';
 import { TipoMovimentacaoEnum } from '../../../enums/TipoMovimentacaoEnum';
 import back from '../../../http';
@@ -54,7 +55,7 @@ const InformacoesDoMes: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProp
 				<div className="info-mes">
 					<div className='simbol'>
 						<RemoveCircleOutlineRounded
-							sx={{ color: "#B82121" }}
+							sx={{ color: "#FF2121" }}
 						/>
 					</div>
 					Total de gastos do mês: R$
@@ -63,12 +64,13 @@ const InformacoesDoMes: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProp
 				<div className="info-mes">
 					<div className='simbol'>
 						<AssessmentOutlined
-							sx={{ color: "#3451C7" }}
+							sx={{ color: "#0085FF" }}
 						/>
 					</div>
 					Você gastou: {calculaPorcentagemTotal(movimentacoesDoMes)}% dos rendimentos.
 				</div>
 			</div>
+			<Divider orientation='vertical'/>
 			<GraficosMensais
 				{...props}
 			/>

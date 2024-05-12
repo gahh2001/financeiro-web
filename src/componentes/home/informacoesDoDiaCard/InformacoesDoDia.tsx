@@ -1,22 +1,24 @@
 import {
 	AddCircleOutlineRounded,
+	AddTaskOutlined,
 	AssessmentOutlined,
 	DeleteForever,
 	ErrorOutline,
 	InfoOutlined,
 	ModeEdit,
+	PlaylistRemove,
 	RemoveCircleOutlineRounded
 } from '@mui/icons-material';
-import { IconButton } from '@mui/material';
+import { Divider, IconButton } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
 import { FC, useEffect, useState } from 'react';
 import { TipoMovimentacaoEnum } from '../../../enums/TipoMovimentacaoEnum';
 import back from '../../../http';
+import { IInformacoesDoDiaProps } from '../../../interfaces/IInformacoesDoDiaProps';
 import { IMovimentacao } from '../../../interfaces/IMovimentacao';
 import { ContaService } from '../../../services/ContaService';
 import { MovimentacaoService } from '../../../services/MovimentacaoService';
 import './InformacoesDoDia.scss';
-import { IInformacoesDoDiaProps } from '../../../interfaces/IInformacoesDoDiaProps';
 
 const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaProps) => {
 
@@ -61,6 +63,14 @@ const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaPr
 	return (
 		<div className="informacoes-do-dia">
 			<div className="card-resumo-dia">
+				<div className="saldo">
+					<AssessmentOutlined
+						sx={{ color: "#3451C7" }}
+						fontSize="large"
+					/>
+					Saldo atual: ${saldo?.toFixed(2).replace('.', ',')}
+				</div>
+				<Divider variant='middle'/>
 				<div className="titulo">
 					Resumo do dia {props.selectedDate.getDate().toString().padStart(2,"0")}
 					/{props.selectedDate.getMonth() + 1}
@@ -94,14 +104,14 @@ const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaPr
 						style={{ marginRight: "40px" }}
 						onClick={props.modalAddRendimento}
 					>
-						<AddCircleOutlineRounded
+						<AddTaskOutlined
 							sx={{ color: "#44A81D" }}
 						/> <br/>
 						Adicionar rendimento
 					</button>
 					<button onClick={props.modalAddDespesa}>
-						<RemoveCircleOutlineRounded
-							sx={{ color: "#B82121" }}
+						<PlaylistRemove
+							sx={{ color: "#CE2121" }}
 						/> <br />
 						Adicionar despesa
 					</button>
@@ -112,14 +122,8 @@ const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaPr
 					/>
 					Selecione um dia do calendário para ver as movimentações.
 				</div>
-				<div className="saldo">
-					<AssessmentOutlined
-						sx={{ color: "#3451C7" }}
-						fontSize="large"
-					/>
-					Saldo atual: ${saldo?.toFixed(2).replace('.', ',')}
-				</div>
 			</div>
+			<Divider variant='middle'/>
 			{listaMovimentacoesDoDia(movimentacoesDoDia)}
 		</div>
 	);
@@ -179,7 +183,7 @@ const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaPr
 											onClick={() => props.dialogDescricao(movimentacao.descricaoMovimentacao)}
 										>
 											<InfoOutlined
-												sx={{ color: "#3451C7" }}
+												sx={{ color: "#0085FF" }}
 											/>
 										</IconButton>
 									</Tooltip>

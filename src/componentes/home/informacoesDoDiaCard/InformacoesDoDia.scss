@@ -6,7 +6,7 @@
 	flex-direction: column;
 	flex: 1;
 	background-color: $fundo-components;
-	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+	box-shadow: 1px 1px 5px 3px $sombras;
 	padding: 2%;
 	border-radius: 20px;
 	width: 98%;
@@ -22,16 +22,15 @@
 		font-size: 3.1vh;
 		text-align: center;
 		margin-bottom: 1.7%;
+		margin-top: 1.5vh;
 	}
 
 	.card-resumo-dia {
 		flex: 1;
 		width: 99%;
-		min-height: 40vh;
-		max-height: 40vh;
+		min-height: 48vh;
+		max-height: 48vh;
 		background-color: $fundo-components;
-		border: 2px solid $sombras;
-		box-shadow: 4px 4px 5px 1px $sombras;
 		border-radius: 20px;
 		padding: 1.7%;
 		margin-bottom: 1.5%;
@@ -52,14 +51,15 @@
 					display: flex;
 				}
 
-				width: 85%;
+				width: 99%;
 				font-size: 2.8vh;
 				height: 5vh;
 				align-items: center;
-				background-color: $fundo-linhas;
+				justify-content: center;
+				background-color: $fundo-components-light;
 				margin-bottom: 2%;
 				display: flex;
-				border-radius: 10px;
+				border-radius: 20px;
 				border: 2px solid $fundo-linhas;
 				box-shadow: 2px 2px 7px 1px $sombras;
 				color: $color-in-linhas;
@@ -80,19 +80,20 @@
 			button {
 				svg {
 					background-color: transparent;
-					font-size: 5vh;
+					font-size: 6vh;
 				}
 
 				text-align: center;
 				font-size: 1.5vh;
-				background-color: $fundo-linhas;
-				width: 40%;
-				height: auto;
+				background-color: $fundo-components-light;
+				width: 33%;
+				height: 15vh;
 				border: 2px solid $fundo-linhas;
 				box-shadow: 2px 2px 7px 1px $sombras;
-				border-radius: 7px;
+				border-radius: 70px;
 				cursor: pointer;
 				color: $color-in-linhas;
+				margin-top: 1vh;
 
 				&:hover {
 					background-color: #3e3e3e;
@@ -105,10 +106,10 @@
 			text-align: center;
 			background-color: transparent;
 			width: 102%;
-			height: 10%;
+			height: 8%;
 			font-size: 1.7vh;
 			display: flex;
-			margin-bottom: 1vh;
+			margin-top: 12vh;
 			color: $color-in-linhas;
 		}
 
@@ -117,14 +118,15 @@
 			width: 99%;
 			height: 4.8vh;
 			font-size: 2.8vh;
-			background-color: $fundo-linhas;
+			background-color: $fundo-components-light;
 			align-items: center;
 			text-align: center;
 			display: flex;
-			border-radius: 10px;
+			border-radius: 20px;
 			border: 2px solid $fundo-linhas;
 			box-shadow: 2px 2px 7px 1px $sombras;
 			color: $color-in-linhas;
+			margin-bottom: 2vh;
 
 			svg {
 				background-color: transparent;
@@ -134,10 +136,8 @@
 
 	.card-movimentacoes {
 		width: 100%;
-		min-height: 48vh;
-		background-color: $fundo-cards;
-		border: 2px solid $sombras;
-		box-shadow: 4px 4px 5px 1px $sombras;
+		min-height: 38vh;
+		background-color: $fundo-components;
 		border-radius: 20px;
 		padding: 1.7%;
 		align-items: center;
@@ -151,16 +151,17 @@
 		.header {
 			display: flex;
 			font-size: 2vh;
+			margin-top: 2vh;
 			margin-bottom: 0.5%;
 			text-align: center;
 			background-color: transparent;
 			height: auto;
+			color: $color-in-linhas;
 
 			.header-categoria {
 				background-color: transparent;
 				width: 30%;
 				text-align: right;
-
 			}
 
 			.header-valor {
@@ -177,7 +178,7 @@
 		}
 
 		.movimentacoes-diarias {
-			height: 82%;
+			height: 79%;
 			overflow-y: auto;
 			background-color: transparent;
 		}
@@ -186,11 +187,11 @@
 			font-size: 2.3vh;
 			width: 98%;
 			height: auto;
-			background-color: $fundo-linhas;
+			background-color: $fundo-components-light;
 			text-align: center;
 			margin-bottom: 1.5%;
 			display: flex;
-			border-radius: 10px;
+			border-radius: 20px;
 			border: 2px solid $fundo-linhas;
 			box-shadow: 2px 2px 7px 1px $sombras;
 			align-items: center;
@@ -235,7 +236,7 @@
 	}
 
 	.movimentacoes-diarias::-webkit-scrollbar {
-		width: 9px;
+		width: 6px;
 	}
 
 	.movimentacoes-diarias::-webkit-scrollbar-thumb {

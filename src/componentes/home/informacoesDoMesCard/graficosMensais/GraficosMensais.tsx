@@ -1,3 +1,4 @@
+import { Divider } from '@mui/material';
 import { BarChart } from '@mui/x-charts/BarChart';
 import { FC, useEffect, useState } from 'react';
 import back from '../../../../http';
@@ -41,6 +42,7 @@ const GraficosMensais: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProps
 	return (
 		<>
 			{obtemGraficoRendimentos()}
+			<Divider orientation='vertical'/>
 			{obtemGraficoDespesas()}
 		</>
 	);

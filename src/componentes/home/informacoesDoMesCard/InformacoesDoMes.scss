@@ -3,12 +3,12 @@
 .informacoes-do-mes {
 	display: flex;
 	background-color: $fundo-components;
-	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+	box-shadow: 1px 1px 5px 3px $sombras;
 	padding: 0.9%;
 	border-radius: 25px;
-	width: 98.7%;
-	height: 31%;
-	margin-top: 0.7%;
+	width: 98%;
+	height: 30%;
+	margin-top: 1.5%;
 	margin-left: 0.5%;
 	margin-right: 0.5%;
 
@@ -24,14 +24,13 @@
 		font-weight: bold;
 		font-size: 3vh;
 		text-align: center;
+		color: $color-in-linhas;
 	}
 	
 	.card-resumo-mes {
 		width: 33%;
 		height: auto;
-		background-color: $fundo-cards;
-		border: 2px solid $sombras;
-		box-shadow: 4px 4px 5px 1px $sombras;
+		background-color: $fundo-components;
 		border-radius: 20px;
 		padding: 0.4%;
 		align-items: center;
@@ -49,14 +48,14 @@
 			width: 99%;
 			height: 21%;
 			font-size: 2vh;
-			background-color: $fundo-linhas;
+			background-color: $fundo-components-light;
+			border: 2px solid $fundo-linhas;
+			box-shadow: 2px 2px 7px 1px $sombras;
 			text-align: left;
 			align-items: center;
 			margin-top: 2.5%;
 			display: flex;
-			border-radius: 10px;
-			border: 2px solid $fundo-linhas;
-			box-shadow: 2px 2px 7px 1px $sombras;
+			border-radius: 20px;
 			color: $color-in-linhas;
 		}
 	}

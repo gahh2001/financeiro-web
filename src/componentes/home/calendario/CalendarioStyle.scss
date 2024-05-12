@@ -1,11 +1,11 @@
 @import '../../../VariaveisSCSS.scss';
 
 .calendar-card {
-	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+	box-shadow: 1px 1px 5px 3px $sombras;;
 	padding: 3vh;
 	background-color: $fundo-components;
-	width: 98.7%;
-	height: 70vh;
+	width: 98%;
+	height: 67vh;
 	border-radius: 3vh;
 	margin-left: 0.5%;
 	margin-right: 0.5%;
