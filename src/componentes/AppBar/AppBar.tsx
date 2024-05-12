@@ -24,7 +24,7 @@ const NavBar: FC<{modulo: string}> = (modulo) => {
 			</div>
 			<Fragment>
 				<Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-					<Tooltip title="Account settings">
+					<Tooltip title="Configurações">
 						<IconButton
 							onClick={handleClick}
 							size="small"
