@@ -1,6 +1,6 @@
 import { AssessmentOutlined, CalendarMonth } from '@mui/icons-material';
 import MenuIcon from '@mui/icons-material/Menu';
-import { IconButton } from '@mui/material';
+import { IconButton, Tooltip } from '@mui/material';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
@@ -37,9 +37,11 @@ export default function TemporaryDrawer() {
 		<div>
 			<Fragment key={"drawer"}>
 				<div className='icons'>
+				<Tooltip title="Menu" placement='right'>
 					<IconButton onClick={toggleDrawer(true)}>
 						<MenuIcon sx={{fontSize: "5vh"}}/>
 					</IconButton>
+				</Tooltip>
 				</div>
 				<Drawer
 					anchor="left"
