@@ -4,6 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 import Analitico from './paginas/analitico/Analitico';
 import Home from './paginas/home/Home';
 import Login from './paginas/login/login';
+import { IGoogleIdProps } from './interfaces/IGoogleIdProps';
 
 function App() {
 	const darkTheme = createTheme({
@@ -14,6 +15,7 @@ function App() {
 
 	const [userId, setUserId] = useState<string | null>(localStorage.getItem('googleId'));
 	const [urlPicture, setUrlPicture] = useState<string | null>(localStorage.getItem('urlPicture'));
+
 	const setId = (id: string) => {
 		localStorage.setItem('googleId', id);
 		setUserId(id);
@@ -22,40 +24,34 @@ function App() {
 		localStorage.setItem('urlPicture', url);
 		setUrlPicture(url);
 	}
+	const props: IGoogleIdProps = {
+		googleId: userId,
+		setId: setId,
+		setPicture: setPicure,
+		urlPicture: urlPicture
+	}
 
 	return (
 		<ThemeProvider theme={darkTheme}>
 			<Routes>
 				<Route path="/" element={
 					<Home
-						googleId={userId}
-						setId={setId}
-						setPicture={setPicure}
-						urlPicture={urlPicture}
+						{...props}
 					/>
 				} />
 				<Route path="/login" element={
 					<Login
-						googleId={userId}
-						urlPicture={urlPicture}
-						setId={setId}
-						setPicture={setPicure}
+						{...props}
 					/>
 				} />
 				<Route path="/home" element={
 					<Home
-						googleId={userId}
-						urlPicture={urlPicture}
-						setId={setId}
-						setPicture={setPicure}
+						{...props}
 					/>
 				}/>
 				<Route path="/analitico" element={
 					<Analitico
-						googleId={userId}
-						urlPicture={urlPicture}
-						setId={setId}
-						setPicture={setPicure}
+						{...props}
 					/>
 				}/>
 			</Routes>

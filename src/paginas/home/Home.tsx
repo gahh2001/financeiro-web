@@ -1,4 +1,4 @@
-import { ThemeProvider, createTheme } from "@mui/material";
+import { createTheme } from "@mui/material";
 import { FC, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AppBar from "../../componentes/AppBar/AppBar";
@@ -93,71 +93,69 @@ const Home: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 
 	return (
 		<div className="home">
-			<ThemeProvider theme={darkTheme}>
-				<AppBar
-					modulo="Home"
-					urlPicture={props.urlPicture}
-					setId={props.setId}
-					setPicture={props.setPicture}
-				/>
-				<div style={{ display: 'flex', height: "93.3vh" }}>
-					<div style={{
-						flexDirection: 'column',
-						display: 'flex',
-						flex: "0.7"
-					}}>
-						<Calendario
-							googleId={props.googleId}
-							onDayClick={propsCalendario}
-							closeModalAdd={closeModalAdd}
-							closeModalRemove={closeModalRemove}
-						/>
-						<InformacoesDoMes
-							googleId={props.googleId}
-							selectedDate={selectedDate}
-							modalAddRendimento={propsModalAddRendimento}
-							modalAddDespesa={propsModalAddDespesa}
-							modalApagaMovimentacao={propsModalApagaRendimento}
-						/>
-					</div>
-					<div style={{flex: "0.3", display: "flex"}}>
-						<InformacoesDoDia
-							googleId={props.googleId}
-							selectedDate={selectedDate}
-							modalAddRendimento={propsModalAddRendimento}
-							modalAddDespesa={propsModalAddDespesa}
-							modalApagaMovimentacao={propsModalApagaRendimento}
-							dialogDescricao={(description) => propsDialogDescricao(description)}
-							handleEditMovimentacao={handleEditMovimentacao}
-						/>
-					</div>
+			<AppBar
+				modulo="Home"
+				urlPicture={props.urlPicture}
+				setId={props.setId}
+				setPicture={props.setPicture}
+			/>
+			<div style={{ display: 'flex', height: "93.3vh" }}>
+				<div style={{
+					flexDirection: 'column',
+					display: 'flex',
+					flex: "0.7"
+				}}>
+					<Calendario
+						googleId={props.googleId}
+						onDayClick={propsCalendario}
+						closeModalAdd={closeModalAdd}
+						closeModalRemove={closeModalRemove}
+					/>
+					<InformacoesDoMes
+						googleId={props.googleId}
+						selectedDate={selectedDate}
+						modalAddRendimento={propsModalAddRendimento}
+						modalAddDespesa={propsModalAddDespesa}
+						modalApagaMovimentacao={propsModalApagaRendimento}
+					/>
 				</div>
-				<ModalAddMovimentacao
-					googleId={props.googleId}
-					isOpen={isOpenModalAdd}
-					closeModal={closeModalAdd}
-					tipo= {tipo}
-					edit={edit}
-					idMovimentacao={idMovimentacao}
-					date={data}
-					categoria={categoria}
-					valor={valor}
-					descricao={descricao}
-					selectedDate={selectedDate}
-				/>
-				<ModalApagaMovimentacao
-					googleId={props.googleId}
-					isOpen={isOpenModalRemove}
-					tipo={tipo}
-					closeModalRemove={closeModalRemove}
-					movimentacao={movimentacaoApagar}
-				/>
-				<DialogDescricaoMovimentacao
-					openDialog={isOpenDialogDescricao}
-					description={descricao}
-					onClose={closeDialogDescricao}
-				/>
-			</ThemeProvider>
+				<div style={{flex: "0.3", display: "flex"}}>
+					<InformacoesDoDia
+						googleId={props.googleId}
+						selectedDate={selectedDate}
+						modalAddRendimento={propsModalAddRendimento}
+						modalAddDespesa={propsModalAddDespesa}
+						modalApagaMovimentacao={propsModalApagaRendimento}
+						dialogDescricao={(description) => propsDialogDescricao(description)}
+						handleEditMovimentacao={handleEditMovimentacao}
+					/>
+				</div>
+			</div>
+			<ModalAddMovimentacao
+				googleId={props.googleId}
+				isOpen={isOpenModalAdd}
+				closeModal={closeModalAdd}
+				tipo= {tipo}
+				edit={edit}
+				idMovimentacao={idMovimentacao}
+				date={data}
+				categoria={categoria}
+				valor={valor}
+				descricao={descricao}
+				selectedDate={selectedDate}
+			/>
+			<ModalApagaMovimentacao
+				googleId={props.googleId}
+				isOpen={isOpenModalRemove}
+				tipo={tipo}
+				closeModalRemove={closeModalRemove}
+				movimentacao={movimentacaoApagar}
+			/>
+			<DialogDescricaoMovimentacao
+				openDialog={isOpenDialogDescricao}
+				description={descricao}
+				onClose={closeDialogDescricao}
+			/>
 		</div>
 	);
 }
