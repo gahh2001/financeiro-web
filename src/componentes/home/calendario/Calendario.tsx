@@ -6,10 +6,10 @@ import "moment/locale/pt-br";
 import { FC, useEffect, useState } from "react";
 import { TipoMovimentacaoEnum } from "../../../enums/TipoMovimentacaoEnum";
 import back from "../../../http";
+import { ICalendarioProps } from "../../../interfaces/ICalendarioProps";
 import { IMovimentacao } from "../../../interfaces/IMovimentacao";
 import { MovimentacaoService } from "../../../services/MovimentacaoService";
 import "./CalendarioStyle.scss";
-import { ICalendarioProps } from "../../../interfaces/ICalendarioProps";
 
 const Calendario: FC<ICalendarioProps> = (props: ICalendarioProps) => {
 	moment.locale("pt-br");
@@ -123,7 +123,7 @@ const Calendario: FC<ICalendarioProps> = (props: ICalendarioProps) => {
 			let possuiMovimentacao = 0;
 			movimentacoesDoMes.forEach((movimentacao) => {
 				let date = new Date(movimentacao.dataMovimentacao)
-				const dia = date.getDate();
+				const dia = date.getDate() + 1;
 				const mes = date.getMonth();
 				if (dia === day && month === mes
 					&& movimentacao.tipoMovimentacao.toUpperCase() === operador.toString()) {
