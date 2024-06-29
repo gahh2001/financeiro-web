@@ -60,58 +60,107 @@
 				vertical-align: middle;
 				align-items: center;
 				flex-wrap: wrap;
-				
-				.headers {
-					width: 70%;
-					height: 5%;
-					display: flex;
-					justify-content: space-around;
-					color: $color-in-linhas;
-					font-size: 2vh;
-					align-items: center;
-				}
 
-				.listagem {
+				.list {
 					height: 92%;
-					width: 70%;
-					overflow-y: auto;
+					width: 75%;
 
-					.itens {
-						margin-top: 2%;
-						align-content: center;
-						text-align: center;
-						justify-content: center;
+					.headers {
+						width: 100%;
+						height: 5%;
 						display: flex;
-						flex-wrap: wrap;
+						justify-content: space-around;
+						color: $color-in-linhas;
+						font-size: 2vh;
+						align-items: center;
+						margin-left: 2vh;
+						margin-right: 2vh;
+					}
 
-						button {
+					.listagem {
+						height: 92%;
+						//width: 110%;
+						overflow-y: auto;
+
+						.itens {
+							margin-top: 2%;
+							align-content: center;
+							text-align: center;
+							justify-content: center;
 							display: flex;
-							width: 90%;
-							height: 6vh;
-							font-size: 2.5vh;
-							justify-content: space-around;
-							color: $color-in-linhas;
-							background-color: $fundo-components-light;
-							border-radius: 20px;
-							border: 2px solid $fundo-linhas;
-							box-shadow: 2px 2px 7px 1px $sombras;
-							margin-bottom: 1vh;
-							align-items: center;
+							flex-wrap: wrap;
+
+							button {
+								display: flex;
+								width: 90%;
+								height: 6vh;
+								font-size: 2.5vh;
+								justify-content: space-between;
+								color: $color-in-linhas;
+								background-color: $fundo-components-light;
+								border-radius: 20px;
+								border: 2px solid $fundo-linhas;
+								box-shadow: 2px 2px 7px 1px $sombras;
+								margin-bottom: 1vh;
+								align-items: center;
+								padding-left: 8vh;
+								padding-right: 8vh;
+
+								.NEGATIVO {
+									color: rgba(225, 87, 52, 0.858);
+								}
+								.POSITIVO {
+									color: rgb(35, 157, 18);
+								}
+							}
 						}
+					}
+
+					.listagem::-webkit-scrollbar {
+						width: 6px;
+					}
+				
+					.listagem::-webkit-scrollbar-thumb {
+						background: #b36931;
+						border-radius: 6px;
+					}
+				
+					.listagem::-webkit-scrollbar-thumb:hover {
+						background: #555;
 					}
 				}
 
-				.listagem::-webkit-scrollbar {
-					width: 6px;
-				}
-			
-				.listagem::-webkit-scrollbar-thumb {
-					background: #b36931;
-					border-radius: 6px;
-				}
-			
-				.listagem::-webkit-scrollbar-thumb:hover {
-					background: #555;
+				.adicionar {
+					display: flex;
+					justify-content: center;
+					text-align: center;
+					margin-left: 8vh;
+					//height: 7vh;
+					width: 12%;
+					background-color: transparent;
+		
+					button {
+						svg {
+							background-color: transparent;
+							font-size: 7vh;
+						}
+		
+						text-align: center;
+						font-size: 2vh;
+						background-color: $fundo-components-light;
+						width: 100%;
+						height: 15vh;
+						border: 2px solid $fundo-linhas;
+						box-shadow: 2px 2px 7px 1px $sombras;
+						border-radius: 60px;
+						cursor: pointer;
+						color: $color-in-linhas;
+						//margin-top: 1vh;
+		
+						&:hover {
+							background-color: #3e3e3e;
+						}
+					}
 				}
 			}
 		}
