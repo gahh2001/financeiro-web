@@ -1,10 +1,10 @@
 import { Logout, Settings } from '@mui/icons-material';
 import { Avatar, Box, Divider, IconButton, ListItemIcon, Menu, MenuItem, Tooltip } from '@mui/material';
 import { FC, Fragment, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { IAppBarProps } from '../../interfaces/IAppBarProps';
 import DrawerPages from '../menu/Menu';
 import "./AppBarStyle.scss";
-import { IAppBarProps } from '../../interfaces/IAppBarProps';
-import { useNavigate } from 'react-router-dom';
 
 const AppBar: FC<IAppBarProps> = (props: IAppBarProps) => {
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -16,6 +16,9 @@ const AppBar: FC<IAppBarProps> = (props: IAppBarProps) => {
 	const handleClose = () => {
 		setAnchorEl(null);
 	};
+	const handleConfig = () => {
+		navigate("/configuracoes");
+	}
 	const logout = () => {
 		localStorage.removeItem('googleId');
 		localStorage.removeItem('urlPicture');
@@ -34,9 +37,7 @@ const AppBar: FC<IAppBarProps> = (props: IAppBarProps) => {
 		<div className='app-bar'>
 			<DrawerPages/>
 			<div className="modulo">
-				<h1>
-					{props.modulo}
-				</h1>
+				{props.modulo}
 			</div>
 			<Fragment>
 				<Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
@@ -95,7 +96,7 @@ const AppBar: FC<IAppBarProps> = (props: IAppBarProps) => {
 						<Avatar /> Meu perfil
 					</MenuItem>
 					<Divider />
-					<MenuItem onClick={handleClose}>
+					<MenuItem onClick={handleConfig}>
 						<ListItemIcon>
 							<Settings fontSize="small" />
 						</ListItemIcon>

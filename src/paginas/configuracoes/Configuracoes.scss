@@ -1,0 +1,119 @@
+@import '../../VariaveisSCSS.scss';
+
+.configuracoes  {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	.card {
+		display: flex;
+		margin-top: 6vh;
+		background-color: $fundo-components;
+		box-shadow: 1px 1px 5px 3px $sombras;
+		border-radius: 3vh;
+		width: 90%;
+		height: 80vh;
+
+		.card-menus {
+			align-content: center;
+			text-align: center;
+			justify-items: center;
+			vertical-align: middle;
+			width: 20%;
+			height: 100%;
+
+			button {
+				background-color: $fundo-components;
+				color: $color-in-linhas;
+				height: 8%;
+				width: auto;
+				border-radius: 20px;
+
+				&:hover {
+					background-color: $fundo-components-light;
+				}
+			}
+		}
+
+		.config {
+			height: 100%;
+			width: 79%;
+
+			.titulo {
+				margin-top: 2vh;
+				width: 100%;
+				height: auto;
+				font-weight: bold;
+				font-size: 3vh;
+				text-align: center;
+				color: $color-in-linhas;
+			}
+
+			.categorias {
+				height: 93%;
+				width: 100%;
+				display: flex;
+				align-content: center;
+				text-align: center;
+				justify-items: center;
+				vertical-align: middle;
+				align-items: center;
+				flex-wrap: wrap;
+				
+				.headers {
+					width: 70%;
+					height: 5%;
+					display: flex;
+					justify-content: space-around;
+					color: $color-in-linhas;
+					font-size: 2vh;
+					align-items: center;
+				}
+
+				.listagem {
+					height: 92%;
+					width: 70%;
+					overflow-y: auto;
+
+					.itens {
+						margin-top: 2%;
+						align-content: center;
+						text-align: center;
+						justify-content: center;
+						display: flex;
+						flex-wrap: wrap;
+
+						button {
+							display: flex;
+							width: 90%;
+							height: 6vh;
+							font-size: 2.5vh;
+							justify-content: space-around;
+							color: $color-in-linhas;
+							background-color: $fundo-components-light;
+							border-radius: 20px;
+							border: 2px solid $fundo-linhas;
+							box-shadow: 2px 2px 7px 1px $sombras;
+							margin-bottom: 1vh;
+							align-items: center;
+						}
+					}
+				}
+
+				.listagem::-webkit-scrollbar {
+					width: 6px;
+				}
+			
+				.listagem::-webkit-scrollbar-thumb {
+					background: #b36931;
+					border-radius: 6px;
+				}
+			
+				.listagem::-webkit-scrollbar-thumb:hover {
+					background: #555;
+				}
+			}
+		}
+	}
+}
