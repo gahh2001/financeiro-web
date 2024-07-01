@@ -7,10 +7,13 @@ import { ICategoriaMovimentacao } from "../../interfaces/ICategoriaMovimentacao"
 import { IGoogleIdProps } from "../../interfaces/IGoogleIdProps";
 import { CategoriaMovimentacaoService } from "../../services/CategoriaMovimentacaoService";
 import "./Configuracoes.scss";
+import ModalCategoria from "./modalAdicionaCategoria/ModalCategoria";
+import useModalCategoria from "./modalAdicionaCategoria/UseModalCategoria";
 
 const Configuracoes: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 	const categoriaMovimentacaoService = new CategoriaMovimentacaoService(back);
 	const [categorias, setCategorias] = useState<ICategoriaMovimentacao[]>([]);
+	const {isOpenModalAdd, closeModalCategoria} = useModalCategoria();
 	const [aba, setAba] = useState<string>("Categorias")
 
 	useEffect(() => {
@@ -54,6 +57,10 @@ const Configuracoes: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 					</div>
 				</div>
 			</div>
+			<ModalCategoria
+				closeModal={closeModalCategoria}
+				isOpen={isOpenModalAdd}
+			/>
 		</Fragment>
 	);
 
@@ -83,8 +90,7 @@ const Configuracoes: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 				</div>
 				<div className="adicionar">
 					<button
-						//style={{ marginRight: "40px" }}
-						//onClick={props.modalAddRendimento}
+						onClick={closeModalCategoria}
 					>
 						<AddTaskOutlined
 							sx={{ color: "#44A81D" }}

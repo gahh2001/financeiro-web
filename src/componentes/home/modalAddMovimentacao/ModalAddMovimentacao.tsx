@@ -21,7 +21,7 @@ import { CategoriaMovimentacaoService } from '../../../services/CategoriaMovimen
 import { MovimentacaoService } from '../../../services/MovimentacaoService';
 import "./ModalAddMovimentacao.scss";
 
-const ModalAddMovimentacao: FC<IModalAdicionar> = (props: IModalAdicionar)  =>{
+const ModalAddMovimentacao: FC<IModalAdicionar> = (props: IModalAdicionar)  => {
 	const categoriaMovimentacaoService = new CategoriaMovimentacaoService(back);
 	const movimentacaoService = new MovimentacaoService(back);
 	const verboTitulo = props.edit
@@ -169,11 +169,11 @@ const ModalAddMovimentacao: FC<IModalAdicionar> = (props: IModalAdicionar)  =>{
 									onClick={() => salvarMovimentacao()}
 									disabled={success}
 								>
-								{success
-									? <CheckIcon sx={{color: "green"}}/>
-									: <AddCircleOutlineRounded sx={{ color: corBotaoAdd }} />
-								}
-							</button>
+									{success
+										? <CheckIcon sx={{color: "green"}}/>
+										: <AddCircleOutlineRounded sx={{ color: corBotaoAdd }} />
+									}
+								</button>
 							</div>
 						</div>
 						<div className='progress'>

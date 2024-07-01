@@ -31,15 +31,15 @@
 	}
 
 	@media (max-width: 1550px) {
-		height: 300px;
-	}
-
-	@media (max-width: 1350px) {
 		height: 290px;
 	}
 
+	@media (max-width: 1350px) {
+		height: 270px;
+	}
+
 	@media (max-width: 1250px) {
-		height: 280px;
+		height: 260px;
 	}
 
 	.titulo {
@@ -68,7 +68,7 @@
 	.buttons {
 		width: 100%;
 		align-items: right;
-		height: 18%;
+		height: 18vh;
 		margin-top: 19px;
 		background-color: transparent;
 		display: flex;

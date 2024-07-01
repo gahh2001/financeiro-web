@@ -4,7 +4,7 @@ import { IMovimentacao } from "./IMovimentacao";
 export type IInformacoesDoDiaProps = {
 	selectedDate: Date;
 	googleId: string | null;
-		modalAddRendimento: () => void;
+	modalAddRendimento: () => void;
 	modalAddDespesa: () => void;
 	modalApagaMovimentacao: (movimentacaoApagar: IMovimentacao) => void;
 	dialogDescricao: (description: string) => void;
