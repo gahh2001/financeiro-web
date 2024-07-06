@@ -74,7 +74,7 @@ const ModalCategoria: FC<IModalCategoriaProps> = (props: IModalCategoriaProps) =
 								required
 								sx={{ m: 1, width: "44vh", marginLeft: "28px" }}
 								size="small"
-								error={tipoVazio}
+								error={!props.edit && tipoVazio}
 								disabled={props.edit}
 							>
 								<InputLabel
@@ -166,7 +166,7 @@ const ModalCategoria: FC<IModalCategoriaProps> = (props: IModalCategoriaProps) =
 									? <CheckIcon sx={{color: "green"}}/>
 									: <AddCircleOutlineRounded sx={{ color: "#44A81D" }} />
 								}
-								Salvar
+								{success ? "Salvo" : "Salvar"}
 							</button>
 						</div>
 						<div className='progress'>
@@ -209,7 +209,7 @@ const ModalCategoria: FC<IModalCategoriaProps> = (props: IModalCategoriaProps) =
 
 	function validaCamposCategoria() {
 		const nomeVazio = nome.trim() === "";
-		const tipoVazio = tipo.trim() === "";
+		const tipoVazio = !props.edit && tipo.trim() === "";
 		const iconeVazio = icone.trim() === "";
 		const corVazio = cor.trim() === "";
 		setNomeVazio(nomeVazio);

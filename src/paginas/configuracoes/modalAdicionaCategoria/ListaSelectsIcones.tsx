@@ -1,5 +1,5 @@
 import { AccountBalance, AccountBalanceWallet, AttachMoney, Audiotrack, Commute, Cottage, CreditCard, Dining, Discount, Flight, LocalGasStation, ShoppingCart, SportsEsports, Star, Store } from "@mui/icons-material";
-import BarChartIcon from '@mui/icons-material/BarChart';
+import BarChart from "@mui/icons-material/BarChart";
 import { MenuItem } from "@mui/material";
 
 const listaSelectIcones = () => {
@@ -8,7 +8,7 @@ const listaSelectIcones = () => {
 				key={"grafico"}
 				value={"GRAFICO"}
 			>
-				<BarChartIcon/>
+				<BarChart/>
 			</MenuItem>,
 			<MenuItem
 				key={"banco"}

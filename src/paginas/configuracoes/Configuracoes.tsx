@@ -1,4 +1,4 @@
-import { AddCircleOutlineRounded, AddTaskOutlined } from "@mui/icons-material";
+import { AddTaskOutlined } from "@mui/icons-material";
 import { Button, Divider } from "@mui/material";
 import { FC, Fragment, useEffect, useState } from "react";
 import AppBar from "../../componentes/AppBar/AppBar";
@@ -7,6 +7,7 @@ import { ICategoriaMovimentacao } from "../../interfaces/ICategoriaMovimentacao"
 import { IGoogleIdProps } from "../../interfaces/IGoogleIdProps";
 import { CategoriaMovimentacaoService } from "../../services/CategoriaMovimentacaoService";
 import "./Configuracoes.scss";
+import ConverteIcone from "./ConverteIcones";
 import ModalCategoria from "./modalAdicionaCategoria/ModalCategoria";
 import useModalCategoria from "./modalAdicionaCategoria/UseModalCategoria";
 
@@ -72,7 +73,24 @@ const Configuracoes: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 						<div className="titulo">
 							{aba}
 						</div>
-						{montaCategoriasMovimentacao()}
+						<div className="categorias">
+							{montaCategoriasMovimentacao()}
+							<Divider orientation="vertical"/>
+							<div className="adicionar">
+								<div className="text">
+									As categorias servem para classificar suas movimentações. <br /><br />
+									Você pode clicar para editar ou criar categorias personalidas para identificar suas movimentações!
+								</div> <br />
+								<button
+									onClick={handleAddCategoria}
+								>
+									<AddTaskOutlined
+										sx={{ color: "#44A81D" }}
+									/> <br />
+									Criar nova
+								</button>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -91,49 +109,36 @@ const Configuracoes: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 	);
 
 	function montaCategoriasMovimentacao() {
-		return (
-			<div className="categorias">
-				<div className="list">
-					<div className="headers">
-						<p>Tipo</p>
-						<p>Nome</p>
-						<p>Ícone</p>
-					</div>
-					<div className="listagem">
-						<Divider/>
-						<div className="itens">
-							{categorias.map((categoria, index) => (
-								<Button
-									key={categoria.id}
-									onClick={() => handleEditCategoria(categoria.id, categoria.nomeCategoria,
-										categoria.icone, categoria.corIcone)}
-								>
-									<p className={categoria.tipoMovimentacao}>
-										{categoria.tipoMovimentacao === "POSITIVO" ? "Positiva" : "Negativa"}
-									</p>
-									<p>{categoria.nomeCategoria}</p>
-									<AddCircleOutlineRounded sx={{color: categoria.corIcone}}/>
-								</Button>
-							))}
-						</div>
-					</div>
+		return categorias && categorias.length > 0
+			? ( <div className="list">
+				<div className="headers">
+					<p>Tipo</p>
+					<p>Nome</p>
+					<p>Ícone</p>
 				</div>
-				<div className="adicionar">
-					<div className="text">
-						As categorias servem para classificar suas movimentações. <br /><br />
-						Você pode clicar para editar ou criar categorias personalidas para identificar suas movimentações!
-					</div> <br />
-					<button
-						onClick={handleAddCategoria}
-					>
-						<AddTaskOutlined
-							sx={{ color: "#44A81D" }}
-						/> <br />
-						Criar nova
-					</button>
+				<div className="listagem">
+					<Divider/>
+					<div className="itens">
+						{categorias.map((categoria, index) => (
+							<Button
+								key={categoria.id}
+								onClick={() => handleEditCategoria(categoria.id, categoria.nomeCategoria,
+									categoria.icone, categoria.corIcone)}
+							>
+								<p className={categoria.tipoMovimentacao}>
+									{categoria.tipoMovimentacao === "POSITIVO" ? "Positiva" : "Negativa"}
+								</p>
+								<p>{categoria.nomeCategoria}</p>
+								<ConverteIcone icone={categoria.icone} corIcone={categoria.corIcone}/>
+							</Button>
+						))}
+					</div>
 				</div>
 			</div>
-		)
+			)
+			: <div className="lista-vazia">
+				Nenhuma categoria foi cadastrada ainda!
+			</div>
 	}
 }
 

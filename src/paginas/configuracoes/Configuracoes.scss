@@ -63,7 +63,7 @@
 
 				.list {
 					height: 92%;
-					width: 75%;
+					width: 74%;
 
 					.headers {
 						width: 90%;
@@ -130,12 +130,19 @@
 					}
 				}
 
+				.lista-vazia {
+					height: 92%;
+					width: 75%;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					font-size: 2vh;
+					color: $color-in-linhas;
+				}
+
 				.adicionar {
-					//display: flex;
 					justify-content: center;
 					text-align: center;
-					//margin-left: 8vh;
-					//height: 7vh;
 					width: 25%;
 					padding: 1vh;
 					background-color: transparent;
@@ -163,7 +170,6 @@
 						border-radius: 60px;
 						cursor: pointer;
 						color: $color-in-linhas;
-						//margin-top: 1vh;
 		
 						&:hover {
 							background-color: #3e3e3e;
