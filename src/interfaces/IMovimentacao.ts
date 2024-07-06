@@ -7,4 +7,6 @@ export type IMovimentacao = {
 	idCategoriaMovimentacao: number;
 	nomeCategoriaMovimentacao?: string;
 	descricaoMovimentacao: string;
+	icone: string;
+	corIcone: string;
 }

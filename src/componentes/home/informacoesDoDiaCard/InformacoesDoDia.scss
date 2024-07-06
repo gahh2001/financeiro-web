@@ -41,7 +41,6 @@
 		}
 
 		.infos {
-			justify-content: center;
 			width: 100%;
 
 			.info-dia {
@@ -76,6 +75,8 @@
 			margin-top: 2vh;
 			margin-bottom: 3vh;
 			background-color: transparent;
+			display: flex;
+			justify-content: space-evenly;
 
 			button {
 				svg {
@@ -153,26 +154,14 @@
 			font-size: 2vh;
 			margin-top: 2vh;
 			margin-bottom: 0.5%;
-			text-align: center;
+			//text-align: center;
+			justify-content: space-evenly;
 			background-color: transparent;
 			height: auto;
 			color: $color-in-linhas;
 
-			.header-categoria {
+			p {
 				background-color: transparent;
-				width: 30%;
-				text-align: right;
-			}
-
-			.header-valor {
-				background-color: transparent;
-				width: 26%;
-				text-align: right;
-			}
-
-			.header-acoes {
-				background-color: transparent;
-				width: 30%;
 				text-align: right;
 			}
 		}
@@ -214,9 +203,16 @@
 				width: 30%;
 			}
 
-			.valor-movimentacao {
+			.POSITIVO {
 				background-color: transparent;
 				width: 30%;
+				color: #239d12;
+			}
+
+			.NEGATIVO {
+				background-color: transparent;
+				width: 30%;
+				color: #e15734db;
 			}
 
 			.buttons {

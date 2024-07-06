@@ -193,7 +193,7 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 		if (inputsValidados) {
 			setLoading(true);
 			setSuccess(false);
-			const novaMovimentacao: IMovimentacao = {
+			const novaMovimentacao: Partial<IMovimentacao> = {
 				googleId: props.googleId,
 				valor: parseFloat(valor),
 				dataMovimentacao: data?.toDate() ? data?.toDate() : new Date(),

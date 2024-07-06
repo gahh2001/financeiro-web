@@ -73,6 +73,7 @@ const Configuracoes: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 						<div className="titulo">
 							{aba}
 						</div>
+						<Divider orientation="horizontal"/>
 						<div className="categorias">
 							{montaCategoriasMovimentacao()}
 							<Divider orientation="vertical"/>
@@ -117,7 +118,6 @@ const Configuracoes: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 					<p>Ícone</p>
 				</div>
 				<div className="listagem">
-					<Divider/>
 					<div className="itens">
 						{categorias.map((categoria, index) => (
 							<Button

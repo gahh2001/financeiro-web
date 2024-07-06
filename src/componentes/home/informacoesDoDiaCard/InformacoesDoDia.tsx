@@ -16,6 +16,7 @@ import { TipoMovimentacaoEnum } from '../../../enums/TipoMovimentacaoEnum';
 import back from '../../../http';
 import { IInformacoesDoDiaProps } from '../../../interfaces/IInformacoesDoDiaProps';
 import { IMovimentacao } from '../../../interfaces/IMovimentacao';
+import ConverteIcone from '../../../paginas/configuracoes/ConverteIcones';
 import { ContaService } from '../../../services/ContaService';
 import { MovimentacaoService } from '../../../services/MovimentacaoService';
 import './InformacoesDoDia.scss';
@@ -94,7 +95,7 @@ const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaPr
 					<div className="info-dia">
 						<div className='simbol'>
 							<RemoveCircleOutlineRounded
-								color="error"
+								sx={{color: "#e15734db"}}
 								fontSize="large"
 							/>
 						</div>
@@ -105,7 +106,7 @@ const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaPr
 				
 				<div className="buttons">
 					<button
-						style={{ marginRight: "40px" }}
+						
 						onClick={props.modalAddRendimento}
 					>
 						<AddTaskOutlined
@@ -115,7 +116,7 @@ const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaPr
 					</button>
 					<button onClick={props.modalAddDespesa}>
 						<PlaylistRemove
-							sx={{ color: "#CE2121" }}
+							sx={{ color: "#e15734db" }}
 						/> <br />
 						Adicionar despesa
 					</button>
@@ -148,34 +149,20 @@ const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaPr
 				<div className='card-movimentacoes'>
 					<div className="titulo">Movimentações:</div>
 					<div className="header">
-						<div className="header-categoria">Categoria:</div>
-						<div className="header-valor">Valor:</div>
-						<div className='header-acoes'>Ações</div>	
+						<p>Categoria:</p>
+						<p>Valor:</p>
+						<p>Ações</p>
 					</div>
 					<div className='movimentacoes-diarias'>
 						{movimentacoes.map((movimentacao, index) => (
 							<div key={index} className="movimentacao-dia">
 								<div className="icon-movimentacao">
-									{movimentacao.tipoMovimentacao.toUpperCase() === TipoMovimentacaoEnum.POSITIVO.toString()
-										? (
-											<Tooltip
-												title="Movimentação positiva"
-												placement="left"
-											>
-												<AddCircleOutlineRounded sx={{ color: "#44A81D" }} />
-											</Tooltip>)
-										: (
-											<Tooltip
-												title="Movimentação negativa"
-												placement="left"
-											>
-												<RemoveCircleOutlineRounded sx={{ color: "#B82121" }} />
-											</Tooltip>)}
+									<ConverteIcone icone={movimentacao.icone} corIcone={movimentacao.corIcone} />
 								</div>
 								<div className="descricao-movimentacao">
 									{movimentacao.nomeCategoriaMovimentacao}
 								</div>
-								<div className="valor-movimentacao">
+								<div className={movimentacao.tipoMovimentacao}>
 									${movimentacao.valor.toFixed(2).replace('.', ',')}
 								</div>
 								<div className='buttons'>
@@ -215,7 +202,7 @@ const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaPr
 											onClick={() =>
 												props.modalApagaMovimentacao(movimentacao)}
 										>
-											<DeleteForever sx={{ color: "#B82121" }}
+											<DeleteForever sx={{ color: "#e15734db" }}
 										/>
 										</IconButton>
 									</Tooltip>
@@ -228,7 +215,7 @@ const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaPr
 		: <div className='card-movimentacoes'>
 			<div className='titulo'>
 				<ErrorOutline
-					sx={{ color: "#B82121" }}
+					sx={{ color: "#e15734db" }}
 					fontSize='large'
 				/> <br />
 				Não há movimentações para este dia. <br />

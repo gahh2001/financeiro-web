@@ -36,7 +36,7 @@ export class MovimentacaoService {
 		}
 	}
 
-	async adicionaMovimentacao(googleId : string | null, movimentacao: IMovimentacao) {
+	async adicionaMovimentacao(googleId : string | null, movimentacao: Partial<IMovimentacao>) {
 		const params = {
 			googleId: googleId,
 		}
@@ -50,7 +50,7 @@ export class MovimentacaoService {
 		}
 	}
 
-	async atualizaMovimentacao(googleId : string | null, movimentacao: IMovimentacao) {
+	async atualizaMovimentacao(googleId : string | null, movimentacao: Partial<IMovimentacao>) {
 		const params = {
 			googleId: googleId,
 		}

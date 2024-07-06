@@ -57,7 +57,7 @@ const InformacoesDoMes: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProp
 				<div className="info-mes">
 					<div className='simbol'>
 						<RemoveCircleOutlineRounded
-							sx={{ color: "#FF2121" }}
+							sx={{ color: "#e15734db" }}
 						/>
 					</div>
 					Total de gastos do mês: R$

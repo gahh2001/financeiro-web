@@ -48,10 +48,11 @@
 				font-size: 3vh;
 				text-align: center;
 				color: $color-in-linhas;
+				margin-bottom: 5vh;
 			}
 
 			.categorias {
-				height: 93%;
+				height: 87%;
 				width: 100%;
 				display: flex;
 				align-content: center;
@@ -62,19 +63,19 @@
 				flex-wrap: wrap;
 
 				.list {
-					height: 92%;
+					height: 97%;
 					width: 74%;
 
 					.headers {
-						width: 90%;
+						width: 87%;
 						height: 5%;
 						display: flex;
 						justify-content: space-around;
 						color: $color-in-linhas;
 						font-size: 2vh;
 						align-items: center;
-						margin-left: 6vh;
-						margin-right: 4vh;
+						margin-left: 9vh;
+						margin-right: 1vh;
 					}
 
 					.listagem {
@@ -107,10 +108,10 @@
 								padding-right: 8vh;
 
 								.NEGATIVO {
-									color: rgba(225, 87, 52, 0.858);
+									color: #e15734db;
 								}
 								.POSITIVO {
-									color: rgb(35, 157, 18);
+									color: #239d12;
 								}
 							}
 						}
