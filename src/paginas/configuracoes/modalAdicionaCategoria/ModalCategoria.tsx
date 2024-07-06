@@ -1,21 +1,55 @@
 import { AddCircleOutlineRounded } from "@mui/icons-material";
 import CheckIcon from '@mui/icons-material/Check';
-import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
-import { FC, Fragment, useState } from "react";
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import { Box, FormControl, InputLabel, LinearProgress, MenuItem, Select, TextField, Tooltip } from "@mui/material";
+import { FC, Fragment, useEffect, useState } from "react";
+import back from '../../../http';
+import { ICategoriaMovimentacao } from "../../../interfaces/ICategoriaMovimentacao";
 import { IModalCategoriaProps } from "../../../interfaces/IModalCategoriaProps";
+import { CategoriaMovimentacaoService } from "../../../services/CategoriaMovimentacaoService";
+import listaSelectCores from "./ListaSelectsCores";
+import listaSelectIcones from "./ListaSelectsIcones";
 import "./ModalCategoria.scss";
 
 const ModalCategoria: FC<IModalCategoriaProps> = (props: IModalCategoriaProps) => {
 	const [nome, setNome] = useState("");
+	const [nomeVazio, setNomeVazio] = useState(false);
 	const [tipo, setTipo] = useState("");
+	const [tipoVazio, setTipoVazio] = useState(false);
 	const [icone, setIcone] = useState("");
+	const [iconeVazio, setIconeVazio] = useState(false);
 	const [cor, setCor] = useState("");
+	const [corVazio, setCorVazio] = useState(false);
+	const [loading, setLoading] = useState(false);
 	const [success, setSuccess] = useState(false);
+	const [primeiroClique, setPrimeiroClique] = useState(false);
+	const categoriaService = new CategoriaMovimentacaoService(back);
+	const labelTipo = props.edit ? "Você não pode editar o tipo de uma categoria 😬" : "Tipo";
 
-	const handleChangeTipo = (event: SelectChangeEvent) => {
-		const newValue = event.target.value;
-		setTipo(typeof newValue === 'string' ? newValue : "");
-	};
+	useEffect(() => {
+		if (props.edit) {
+			setNome(props.nome);
+			setIcone(props.icone);
+			setCor(props.corIcone);
+		} else {
+			setNome("");
+			setTipo("");
+			setIcone("");
+			setCor("");
+			setNomeVazio(false);
+			setTipoVazio(false);
+			setIconeVazio(false);
+			setCorVazio(false);
+			setPrimeiroClique(false);
+		}
+		setSuccess(false);
+	}, [props.closeModal]);
+
+	useEffect(() => {
+		if (primeiroClique) {
+			validaCamposCategoria();
+		}
+	},[nome, tipo, icone, cor]);
 
 	return (
 		<Fragment>
@@ -26,25 +60,33 @@ const ModalCategoria: FC<IModalCategoriaProps> = (props: IModalCategoriaProps) =
 							Adicionar categoria de movimentação
 						</div>
 						<div className="linha">
-							<TextField label="Nome da categoria" size="small" sx={{ m: 1, width: "44vh" }}/>
+							<TextField
+								label="Nome da categoria"
+								size="small"
+								sx={{ m: 1, width: "44vh" }}
+								value={nome}
+								error={nomeVazio}
+								onChange={(e) => setNome(e.target.value)}
+							/>
 						</div>
 						<div className="linha">
 							<FormControl
 								required
-								sx={{ m: 1, width: "44vh" }}
+								sx={{ m: 1, width: "44vh", marginLeft: "28px" }}
 								size="small"
-								//error={emptyCategoria}
+								error={tipoVazio}
+								disabled={props.edit}
 							>
 								<InputLabel
 									id="demo-simple-select-helper-label"
 								>
-									Tipo
+									{labelTipo}
 								</InputLabel>
 								<Select
 									id="select-tipo"
 									value={tipo}
-									label="Age"
-									onChange={handleChangeTipo}
+									label="tipo"
+									onChange={(e) => setTipo(e.target.value)}
 									required={true}
 								>
 									<MenuItem
@@ -61,13 +103,19 @@ const ModalCategoria: FC<IModalCategoriaProps> = (props: IModalCategoriaProps) =
 									</MenuItem>
 								</Select>
 							</FormControl>
+							<Tooltip
+								title="Categorias Positivas categorizam entrada de valores, enquanto as Negativas indicam gastos"
+								placement="right"
+							>
+								<HelpOutlineIcon/>
+							</Tooltip>
 						</div>
 						<div className="linha">
 							<FormControl
 								required
 								sx={{ m: 1, width: "21vh" }}
 								size="small"
-								//error={emptyCategoria}
+								error={iconeVazio}
 							>
 								<InputLabel
 									id="icone"
@@ -78,22 +126,17 @@ const ModalCategoria: FC<IModalCategoriaProps> = (props: IModalCategoriaProps) =
 									id="select-icone"
 									value={icone}
 									label="icone"
-									onChange={handleChangeTipo}
+									onChange={(e) => setIcone(e.target.value)}
 									required={true}
 								>
-									<MenuItem
-										key={"positivo"}
-										value={"POSITIVO"}
-									>
-										Positiva
-									</MenuItem>
+									{listaSelectIcones()}
 								</Select>
 							</FormControl>
 							<FormControl
 								required
 								sx={{ m: 1, width: "21vh" }}
 								size="small"
-								//error={emptyCategoria}
+								error={corVazio}
 							>
 								<InputLabel
 									id="cor"
@@ -104,15 +147,10 @@ const ModalCategoria: FC<IModalCategoriaProps> = (props: IModalCategoriaProps) =
 									id="select-cor"
 									value={cor}
 									label="cor"
-									onChange={handleChangeTipo}
+									onChange={(e) => setCor(e.target.value)}
 									required={true}
 								>
-									<MenuItem
-										key={"positivo"}
-										value={"POSITIVO"}
-									>
-										Positiva
-									</MenuItem>
+									{listaSelectCores()}
 								</Select>
 							</FormControl>
 						</div>
@@ -128,7 +166,15 @@ const ModalCategoria: FC<IModalCategoriaProps> = (props: IModalCategoriaProps) =
 									? <CheckIcon sx={{color: "green"}}/>
 									: <AddCircleOutlineRounded sx={{ color: "#44A81D" }} />
 								}
+								Salvar
 							</button>
+						</div>
+						<div className='progress'>
+							{loading && (
+								<Box sx={{ width: '100%' }}>
+									<LinearProgress />
+								</Box>
+							)}
 						</div>
 					</div>
 				</div>
@@ -137,7 +183,40 @@ const ModalCategoria: FC<IModalCategoriaProps> = (props: IModalCategoriaProps) =
 	)
 
 	async function salvarCategoria() {
-		
+		setPrimeiroClique(true);
+		const inputsValidados = validaCamposCategoria();
+		let response = undefined;
+		if (inputsValidados) {
+			setLoading(true);
+			setSuccess(false);
+			const novaCategoria: Partial<ICategoriaMovimentacao> = {
+				nomeCategoria: nome,
+				tipoMovimentacao: tipo,
+				icone: icone,
+				corIcone: cor,
+				googleId: props.googleId
+			}
+			if (props.edit) {
+				novaCategoria.id = props.idCategoria;
+				response = await categoriaService.atualizaCategoria(props.googleId, novaCategoria);
+			} else {
+				response = await categoriaService.adicionaCategoria(props.googleId, novaCategoria);
+			}
+			setLoading(false);
+			setSuccess(true);
+		}
+	}
+
+	function validaCamposCategoria() {
+		const nomeVazio = nome.trim() === "";
+		const tipoVazio = tipo.trim() === "";
+		const iconeVazio = icone.trim() === "";
+		const corVazio = cor.trim() === "";
+		setNomeVazio(nomeVazio);
+		setTipoVazio(tipoVazio);
+		setIconeVazio(iconeVazio);
+		setCorVazio(corVazio);
+		return !nomeVazio && !tipoVazio && !iconeVazio && ! corVazio;
 	}
 }
 

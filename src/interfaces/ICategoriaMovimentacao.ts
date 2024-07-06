@@ -1,8 +1,8 @@
 export type ICategoriaMovimentacao = {
-	id: number;
+	id: number | null;
 	tipoMovimentacao: string; //POSITIVO ou NEGATIVO
 	nomeCategoria: string;
-	idConta: number;
-	simbolo: string;
-	corSimbolo: string;
+	icone: string;
+	corIcone: string;
+	googleId: string | null;
 }

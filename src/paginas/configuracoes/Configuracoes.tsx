@@ -14,7 +14,26 @@ const Configuracoes: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 	const categoriaMovimentacaoService = new CategoriaMovimentacaoService(back);
 	const [categorias, setCategorias] = useState<ICategoriaMovimentacao[]>([]);
 	const {isOpenModalAdd, closeModalCategoria} = useModalCategoria();
-	const [aba, setAba] = useState<string>("Categorias")
+	const [aba, setAba] = useState<string>("Categorias");
+	const [edit, setEdit] = useState(false);
+	const [nomeCategoria, setNomeCategoria] = useState("");
+	const [iconeCategoria, setIconeCategoria] = useState("");
+	const [corCategoria, setCorCategoria] = useState("");
+	const [idCategoria, setIdCategoria] = useState<number | null>(null);
+
+	const handleAddCategoria = () => {
+		setEdit(false);
+		closeModalCategoria();
+	};
+
+	const handleEditCategoria = (id: number | null, nome: string, icone: string, cor: string) => {
+		setEdit(true);
+		setIdCategoria(id);
+		setNomeCategoria(nome);
+		setIconeCategoria(icone);
+		setCorCategoria(cor);
+		closeModalCategoria();
+	};
 
 	useEffect(() => {
 		const carregaCategorias = async () => {
@@ -27,7 +46,7 @@ const Configuracoes: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 			}
 		}
 		carregaCategorias();
-	},[aba])
+	},[aba, isOpenModalAdd])
 
 	return (
 		<Fragment>
@@ -60,6 +79,13 @@ const Configuracoes: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 			<ModalCategoria
 				closeModal={closeModalCategoria}
 				isOpen={isOpenModalAdd}
+				edit={edit}
+				nome={nomeCategoria}
+				icone={iconeCategoria}
+				corIcone={corCategoria}
+				idCategoria={idCategoria}
+				googleId={props.googleId}
+				handleEditCategoria={handleEditCategoria}
 			/>
 		</Fragment>
 	);
@@ -77,20 +103,28 @@ const Configuracoes: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 						<Divider/>
 						<div className="itens">
 							{categorias.map((categoria, index) => (
-								<Button key={categoria.id}>
+								<Button
+									key={categoria.id}
+									onClick={() => handleEditCategoria(categoria.id, categoria.nomeCategoria,
+										categoria.icone, categoria.corIcone)}
+								>
 									<p className={categoria.tipoMovimentacao}>
 										{categoria.tipoMovimentacao === "POSITIVO" ? "Positiva" : "Negativa"}
 									</p>
 									<p>{categoria.nomeCategoria}</p>
-									<AddCircleOutlineRounded sx={{color: categoria.corSimbolo}}/>
+									<AddCircleOutlineRounded sx={{color: categoria.corIcone}}/>
 								</Button>
 							))}
 						</div>
 					</div>
 				</div>
 				<div className="adicionar">
+					<div className="text">
+						As categorias servem para classificar suas movimentações. <br /><br />
+						Você pode clicar para editar ou criar categorias personalidas para identificar suas movimentações!
+					</div> <br />
 					<button
-						onClick={closeModalCategoria}
+						onClick={handleAddCategoria}
 					>
 						<AddTaskOutlined
 							sx={{ color: "#44A81D" }}

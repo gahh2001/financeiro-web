@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { TipoMovimentacaoEnum } from "../enums/TipoMovimentacaoEnum";
 
-export type IModalAdicionar = {
+export type IModalAddMovimentacao = {
 	children?: ReactNode;
 	isOpen: boolean;
 	tipo: TipoMovimentacaoEnum;

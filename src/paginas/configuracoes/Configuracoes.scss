@@ -66,15 +66,15 @@
 					width: 75%;
 
 					.headers {
-						width: 100%;
+						width: 90%;
 						height: 5%;
 						display: flex;
 						justify-content: space-around;
 						color: $color-in-linhas;
 						font-size: 2vh;
 						align-items: center;
-						margin-left: 2vh;
-						margin-right: 2vh;
+						margin-left: 6vh;
+						margin-right: 4vh;
 					}
 
 					.listagem {
@@ -92,16 +92,16 @@
 
 							button {
 								display: flex;
-								width: 90%;
-								height: 6vh;
-								font-size: 2.5vh;
+								width: 80%;
+								height: 5.5vh;
+								font-size: 2.2vh;
 								justify-content: space-between;
 								color: $color-in-linhas;
 								background-color: $fundo-components-light;
 								border-radius: 20px;
 								border: 2px solid $fundo-linhas;
 								box-shadow: 2px 2px 7px 1px $sombras;
-								margin-bottom: 1vh;
+								margin-bottom: 1.5vh;
 								align-items: center;
 								padding-left: 8vh;
 								padding-right: 8vh;
@@ -131,25 +131,33 @@
 				}
 
 				.adicionar {
-					display: flex;
+					//display: flex;
 					justify-content: center;
 					text-align: center;
-					margin-left: 8vh;
+					//margin-left: 8vh;
 					//height: 7vh;
-					width: 12%;
+					width: 25%;
+					padding: 1vh;
 					background-color: transparent;
+
+					.text {
+						color: $color-in-linhas;
+						font-size: 2vh;
+						text-align: left;
+						margin-left: 1vh;
+					}
 		
 					button {
 						svg {
 							background-color: transparent;
-							font-size: 7vh;
+							font-size: 45px;
 						}
 		
 						text-align: center;
-						font-size: 2vh;
+						font-size: 15px;
 						background-color: $fundo-components-light;
-						width: 100%;
-						height: 15vh;
+						width: 120px;
+						height: 120px;
 						border: 2px solid $fundo-linhas;
 						box-shadow: 2px 2px 7px 1px $sombras;
 						border-radius: 60px;

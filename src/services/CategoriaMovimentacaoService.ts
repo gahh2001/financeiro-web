@@ -7,6 +7,28 @@ export class CategoriaMovimentacaoService {
 	constructor(private readonly axiosInstance: AxiosInstance) {}
 	urlDefault = "/categoria-movimentacao"
 
+	async adicionaCategoria(googleId : string | null, categoria: Partial<ICategoriaMovimentacao>) {
+		try {
+			const response = await this.axiosInstance
+				.post(this.urlDefault, categoria)
+			return {...response}
+		} catch (error) {
+			console.log("Erro ao salvar categoria")
+			return undefined;
+		}
+	}
+
+	async atualizaCategoria(googleId : string | null, categoria: Partial<ICategoriaMovimentacao>) {
+		try {
+			const response = await this.axiosInstance
+				.patch(this.urlDefault, categoria)
+			return {...response}
+		} catch (error) {
+			console.log("Erro ao atualizar categoria")
+			return undefined;
+		}
+	}
+
 	async obtemCategoriasMovimentacaoPorConta(googleId: string | null) {
 		const params = {
 			googleId: googleId,

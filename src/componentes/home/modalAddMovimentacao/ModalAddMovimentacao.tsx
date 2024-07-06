@@ -15,13 +15,13 @@ import { ChangeEvent, FC, useEffect, useState } from "react";
 import { TipoMovimentacaoEnum } from '../../../enums/TipoMovimentacaoEnum';
 import back from '../../../http';
 import { ICategoriaMovimentacao } from '../../../interfaces/ICategoriaMovimentacao';
-import { IModalAdicionar } from '../../../interfaces/IModalAdicionar';
+import { IModalAddMovimentacao } from '../../../interfaces/IModalAddMovimentacao';
 import { IMovimentacao } from '../../../interfaces/IMovimentacao';
 import { CategoriaMovimentacaoService } from '../../../services/CategoriaMovimentacaoService';
 import { MovimentacaoService } from '../../../services/MovimentacaoService';
 import "./ModalAddMovimentacao.scss";
 
-const ModalAddMovimentacao: FC<IModalAdicionar> = (props: IModalAdicionar)  => {
+const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimentacao)  => {
 	const categoriaMovimentacaoService = new CategoriaMovimentacaoService(back);
 	const movimentacaoService = new MovimentacaoService(back);
 	const verboTitulo = props.edit
@@ -70,6 +70,7 @@ const ModalAddMovimentacao: FC<IModalAdicionar> = (props: IModalAdicionar)  => {
 			setEmptyValor(false);
 			setPrimeiroClique(false);
 		}
+		setSuccess(false);
 	}, [props.closeModal])
 
 	const handleChangeCategoria = (event: SelectChangeEvent) => {
@@ -93,10 +94,6 @@ const ModalAddMovimentacao: FC<IModalAdicionar> = (props: IModalAdicionar)  => {
 			validaInputsMovimentacao();
 		}
 	},[categoria, valor]);
-
-	useEffect(() => {
-		setSuccess(false);
-	}, [props.closeModal]);
 
 	return (
 		<>
@@ -210,18 +207,16 @@ const ModalAddMovimentacao: FC<IModalAdicionar> = (props: IModalAdicionar)  => {
 			} else {
 				response = await movimentacaoService.adicionaMovimentacao(props.googleId, novaMovimentacao);
 			}
-			if (response?.status && response.status === 200) {
-				setLoading(false);
-				setSuccess(true);
-			}
+			setLoading(false);
+			setSuccess(true);
 		}
 	}
 
 	function validaInputsMovimentacao() {
 		const emptyFieldCategoria = categoria.trim() === "";
 		const emptyFieldValor = valor.trim() === "" || parseInt(valor) <= 0;
-		setEmptyCategoria(emptyFieldCategoria ? true : false);
-		setEmptyValor(emptyFieldValor ? true : false);
+		setEmptyCategoria(emptyFieldCategoria);
+		setEmptyValor(emptyFieldValor);
 		return !emptyFieldCategoria && !emptyFieldValor;
 	}
 
@@ -229,7 +224,7 @@ const ModalAddMovimentacao: FC<IModalAdicionar> = (props: IModalAdicionar)  => {
 		return categoriasReceived.map((categ, index) => (
 			<MenuItem
 				key={index}
-				value={categ.id.toString()}
+				value={categ.id?.toString()}
 			>
 				{categ.nomeCategoria}
 			</MenuItem>
