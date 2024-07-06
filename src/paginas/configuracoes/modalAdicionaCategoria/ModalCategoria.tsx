@@ -216,7 +216,7 @@ const ModalCategoria: FC<IModalCategoriaProps> = (props: IModalCategoriaProps) =
 		setTipoVazio(tipoVazio);
 		setIconeVazio(iconeVazio);
 		setCorVazio(corVazio);
-		return !nomeVazio && !tipoVazio && !iconeVazio && ! corVazio;
+		return !nomeVazio && !tipoVazio && !iconeVazio && !corVazio;
 	}
 }
 
