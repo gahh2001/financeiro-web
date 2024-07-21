@@ -16,7 +16,7 @@
 .modal-apaga {
 	background-color: $fundo-linhas;
 	width: 37%;
-	height: 310px;
+	height: 350px;
 	padding: 1rem;
 	border-radius: 25px;
 	color: $color-in-linhas;
@@ -103,7 +103,6 @@
 
 		.apagar {
 			margin-right: 5%;
-			font-size: 4vh;
 			width: 15%;
 			height: 100%;
 			cursor: pointer;
@@ -113,7 +112,7 @@
 			}
 
 			svg {
-				font-size: 5vh;
+				font-size: 4vh;
 			}
 		}
 

@@ -41,14 +41,6 @@ const ModalApagaMovimentacao: FC<IModalApagar> = (props: IModalApagar) => {
 		}
 	}, [props.closeModalRemove])
 
-	useEffect(() => {
-		const fetchData = async () => {
-			const descricao = await getDescricaoCategoriaPorId(idCategoria);
-			setCategoriaMovimentacao(descricao);
-		};
-		fetchData();
-	}, [idCategoria]);
-
 	return (
 		<>
 			{props.isOpen && possuiMovimentacaoEData && !!date &&(
@@ -70,7 +62,7 @@ const ModalApagaMovimentacao: FC<IModalApagar> = (props: IModalApagar) => {
 								/{date?.getFullYear()}
 							</div>
 							<div className="info">
-								{categoriaMovimentacao}
+								{props.movimentacao?.descricaoMovimentacao}
 							</div>
 							<div className="info">
 								{valor.toFixed(2).replace('.', ',')}
@@ -113,20 +105,6 @@ const ModalApagaMovimentacao: FC<IModalApagar> = (props: IModalApagar) => {
 			setLoading(false);
 			setSuccess(true);
 		}
-	}
-
-	async function getDescricaoCategoriaPorId(idCategoriaMovimentacao: number) {
-		try {
-			const categoria = await categoriaMovimentacaoService
-				.obtemCategoriaMovimentacaoPorId(props.googleId, idCategoriaMovimentacao);
-			if (categoria) {
-				return categoria.nomeCategoria
-			}
-			console.log("Erro ao obter a categoria id: ", idCategoriaMovimentacao)
-		} catch (error) {
-			console.log(error)
-		}
-		
 	}
 }
 

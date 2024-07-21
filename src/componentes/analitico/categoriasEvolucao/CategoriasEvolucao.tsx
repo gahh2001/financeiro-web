@@ -5,9 +5,6 @@ import '../../../paginas/analitico/Analitico.scss';
 import './CategoriasEvolucao.scss';
 
 const CategoriasEvolucao: FC<ICategoriasComparacaoProps> = (props: ICategoriasComparacaoProps) => {
-	if (props.agrupamentosMes && props.evolucao)
-	console.log("+++", props.evolucao , props.agrupamentosMes);
-
 	return props.evolucao ? (
 		<div className='card-categorias-evolucao'>
 			<div className="titulo">
