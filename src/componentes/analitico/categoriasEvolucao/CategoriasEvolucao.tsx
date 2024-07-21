@@ -1,12 +1,14 @@
 import { LineChart } from '@mui/x-charts/LineChart';
-import { FC, useState } from 'react';
+import { FC } from 'react';
+import { ICategoriasComparacaoProps } from '../../../interfaces/ICategoriasComparacaoProps';
 import '../../../paginas/analitico/Analitico.scss';
 import './CategoriasEvolucao.scss';
 
-const CategoriasEvolucao: FC = () => {
-	const [nomeCategorias, setNomeCategorias] = useState<string[]>(["teste", "teste1", "teste3", "teste4", "teste2"]);
+const CategoriasEvolucao: FC<ICategoriasComparacaoProps> = (props: ICategoriasComparacaoProps) => {
+	if (props.agrupamentosMes && props.evolucao)
+	console.log("+++", props.evolucao , props.agrupamentosMes);
 
-	return (
+	return props.evolucao ? (
 		<div className='card-categorias-evolucao'>
 			<div className="titulo">
 				Evolução
@@ -16,17 +18,11 @@ const CategoriasEvolucao: FC = () => {
 					xAxis={[
 						{
 						id: 'barCategories',
-						data: nomeCategorias,
+						data: props.agrupamentosMes,
 						scaleType: 'band',
 						},
 					]}
-					series={[
-						{
-							data: [15, 23, 18, 19, 13],
-							label: 'Example',
-							color: '#4e79a7',
-						},
-					]}
+					series={props.evolucao}
 					margin={{
 						left: 30,
 						right: 10,
@@ -36,7 +32,7 @@ const CategoriasEvolucao: FC = () => {
 				/>
 			</div>
 		</div>
-	)
+	) : <></>
 }
 
 export default CategoriasEvolucao;

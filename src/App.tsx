@@ -1,11 +1,11 @@
 import { ThemeProvider, createTheme } from '@mui/material';
 import { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
+import { IGoogleIdProps } from './interfaces/IGoogleIdProps';
 import Analitico from './paginas/analitico/Analitico';
 import Configuracoes from './paginas/configuracoes/Configuracoes';
 import Home from './paginas/home/Home';
 import Login from './paginas/login/login';
-import { IGoogleIdProps } from './interfaces/IGoogleIdProps';
 
 function App() {
 	const darkTheme = createTheme({

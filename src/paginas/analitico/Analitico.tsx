@@ -14,6 +14,7 @@ import back from "../../http";
 import { IGoogleIdProps } from "../../interfaces/IGoogleIdProps";
 import { ISeriesChart } from "../../interfaces/ISeriesChart";
 import { ISeriesComparacao } from "../../interfaces/ISeriesComparacao";
+import { ISeriesEvolucao } from "../../interfaces/ISeriesEvolucao";
 import { ISomaCategoriasPorMes } from "../../interfaces/ISomaCategoriasPorMes";
 import { CategoriaMovimentacaoService } from "../../services/CategoriaMovimentacaoService";
 import './Analitico.scss';
@@ -28,7 +29,10 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 	const [somaCategorias, setSomaCategorias] = useState<number[]>([]);
 	const [porcentagens, setPorcentagens] = useState<ISeriesChart[]>([]);
 	const [comparacoes, setComparacoes] = useState<ISeriesComparacao[]>([]);
-	const [agrupamentoMesAno, setAgrupamentoMesAno] = useState<string[]>([])
+	const [evolucao, setEvolucao] = useState<ISeriesEvolucao[]>([]);
+	const [agrupamentoMesAnoEvolucao, setAgrupamentoMesAnoEvolucao] = useState<string[]>([]);
+	const [agrupamentoMesAnoComparacao, setAgrupamentoMesAnoComparacao] = useState<string[]>([]);
+	const categoriaService = new CategoriaMovimentacaoService(back);
 	const isMounted = useRef(true);
 	const navigate = useNavigate();
 
@@ -82,19 +86,35 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 	useEffect(() => {
 		const atualizaComparacoes = async () => {
 			try {
-				const categoriaMovimentacaoService = new CategoriaMovimentacaoService(back);
-				const somaComparacoes = await categoriaMovimentacaoService
+				const somaComparacoes = await categoriaService
 					.obtemSomaCategoriasEValoresPorMeses(props.googleId, obtemDataInicialComparacao(),
 						obtemDataFinalComparacao(), tipoMovimentacao);
 				if (somaComparacoes?.data) {
+					console.log(somaComparacoes.data);
 					extraiSomaComparacoes(somaComparacoes.data);
 				}
 			} catch (error) {
-				console.log("erro ao obter movimentações para comparação de períodos", error)
+				console.log("erro ao obter movimentações para comparação de períodos", error);
 			}
 		};
 		atualizaComparacoes();
-	}, [tipoComparacao, tipoMovimentacao])
+	}, [tipoComparacao, tipoMovimentacao]);
+
+	useEffect(() => {
+		const atualizaEvolucao = async () => {
+			try {
+				const evolucoes = await categoriaService
+					.obtemSomaCategoriasEvolucao(props.googleId, obtemDataInicialComparacao(),
+						obtemDataFinalComparacao());
+				if (evolucoes?.data) {
+					extraiEvolucoes(evolucoes.data);
+				}
+			} catch (error) {
+				console.log("erro ao obter as somas para o painel de evolução", error);
+			}
+		};
+		atualizaEvolucao();
+	}, [tipoComparacao]);
 
 	return (
 		<div className="analitico">
@@ -129,9 +149,14 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 			<div className="down-section">
 				<CategoriasComparacao
 					comparacoes={comparacoes}
-					agrupamentosMes={agrupamentoMesAno}
+					agrupamentosMes={agrupamentoMesAnoComparacao}
+					evolucao={null}
 				/>
-				<CategoriasEvolucao/>
+				<CategoriasEvolucao
+					agrupamentosMes={agrupamentoMesAnoEvolucao}
+					evolucao={evolucao}
+					comparacoes={null}
+				/>
 				<CategoriasInformacoesGerais/>
 			</div>
 		</div>
@@ -265,7 +290,7 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 				} else {
 					mesVerificado++;
 				}
-				setAgrupamentoMesAno(nomeAgrupamento);
+				setAgrupamentoMesAnoComparacao(nomeAgrupamento);
 			}
 			const series: ISeriesComparacao = {
 				label: categoria,
@@ -274,6 +299,55 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 			graficosProntos.push(series);
 		}
 		setComparacoes(graficosProntos);
+	}
+
+	function extraiEvolucoes(lista: ISomaCategoriasPorMes[]) {
+		const categoriasSet: Set<string> = new Set();
+		lista.forEach(soma => {
+			categoriasSet.add(soma.nomeCategoria);
+		});
+		const categoriasUnicas: string[] = Array.from(categoriasSet);
+		if (!categoriasUnicas.includes("Despesas")) {
+			categoriasUnicas.push("Despesas");
+		}
+		let graficosProntos: ISeriesEvolucao[] = [];
+		let nomeAgrupamentoSet: Set<string> = new Set();
+		const totalMeses = obtemNumeroEnum(tipoComparacao);
+		for (const categoria of categoriasUnicas ) {
+			const mesVerificadoData = new Date(obtemDataInicialComparacao());
+			let mesVerificado = mesVerificadoData.getMonth();
+			let anoVerificado = mesVerificadoData.getFullYear();
+			let contagemMes = 1;
+			let somasNoMes = [];
+			while (contagemMes <= totalMeses) {
+				let somaNesteMes = lista.find((dado) =>
+					dado.nomeCategoria === categoria
+					&& new Date(dado.data).getMonth() + 1 === mesVerificado)?.somaMovimentacao;
+				if (!somaNesteMes) {
+					somaNesteMes = 0;
+				}
+				somasNoMes.push(somaNesteMes);
+				nomeAgrupamentoSet.add(mesVerificado + 1 + "/" + anoVerificado);
+				contagemMes++;
+				if (mesVerificado === 11) {
+					anoVerificado++;
+				}
+				if (mesVerificado === 11) {
+					mesVerificado = 0;
+				} else {
+					mesVerificado++;
+				}
+			}
+			const series: ISeriesEvolucao = {
+				label: categoria,
+				data: somasNoMes,
+				color: categoria === "Rendimentos" ? "#42B84A" : "#AD4331"
+			};
+			graficosProntos.push(series);
+		}
+		const nomeAgrupamento: string[] = Array.from(nomeAgrupamentoSet);
+		setAgrupamentoMesAnoEvolucao(nomeAgrupamento);
+		setEvolucao(graficosProntos);
 	}
 }
 

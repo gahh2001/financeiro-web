@@ -93,7 +93,7 @@ export class CategoriaMovimentacaoService {
 	}
 
 	async obtemSomaCategoriasEValoresPorMeses(googleId : string | null, dataInicio: number,
-		dataFim: number, tipoMovimentacao: string) {
+			dataFim: number, tipoMovimentacao: string) {
 		const params = {
 			googleId: googleId,
 			dataInicio: dataInicio,
@@ -106,6 +106,22 @@ export class CategoriaMovimentacaoService {
 			return {...response};
 		} catch (error) {
 			console.log(`Não foi possível obter a comparação da soma de categorias`, error);
+			return undefined;
+		}
+	}
+
+	async obtemSomaCategoriasEvolucao(googleId : string | null, dataInicio: number, dataFim: number) {
+		const params = {
+			googleId: googleId,
+			dataInicio: dataInicio,
+			dataFim: dataFim,
+		};
+		try {
+			const response = await this.axiosInstance
+				.get<ISomaCategoriasPorMes[]>(`${this.urlDefault}/soma-tipos-meses`, {params});
+			return {...response};
+		} catch (error) {
+			console.log(`Não foi possível obter a soma de categorias para a evolução`, error);
 			return undefined;
 		}
 	}

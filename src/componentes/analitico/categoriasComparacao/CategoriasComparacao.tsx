@@ -10,9 +10,9 @@ const CategoriasComparacao: FC<ICategoriasComparacaoProps> = (props: ICategorias
 		faded: 'global',
 	} as const;
 
-	const series = props.comparacoes.map((s) => ({ ...s, highlightScope }));
+	const series = props.comparacoes?.map((s) => ({ ...s, highlightScope }));
 
-	return (
+	return series && props.agrupamentosMes ? (
 		<div className='card-categorias-comparacao'>
 			<div className="titulo">
 				Comparações
@@ -36,7 +36,7 @@ const CategoriasComparacao: FC<ICategoriasComparacaoProps> = (props: ICategorias
 			/>
 			</div>
 		</div>
-	)
+	) : <></>
 }
 
 export default CategoriasComparacao;
