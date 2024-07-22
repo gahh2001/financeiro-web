@@ -90,7 +90,7 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 					.obtemSomaCategoriasEValoresPorMeses(props.googleId, obtemDataInicialComparacao(),
 						obtemDataFinalComparacao(), tipoMovimentacao);
 				if (somaComparacoes?.data) {
-					console.log(somaComparacoes.data);
+					console.log("+++", somaComparacoes.data);
 					extraiSomaComparacoes(somaComparacoes.data);
 				}
 			} catch (error) {

@@ -6,14 +6,11 @@ import { FC, useEffect, useState } from "react";
 import { TipoMovimentacaoEnum } from '../../../enums/TipoMovimentacaoEnum';
 import back from '../../../http';
 import { IModalApagar } from '../../../interfaces/IModalApagar';
-import { CategoriaMovimentacaoService } from '../../../services/CategoriaMovimentacaoService';
 import { MovimentacaoService } from '../../../services/MovimentacaoService';
 import "./ModalApagaMovimentacao.scss";
 
 const ModalApagaMovimentacao: FC<IModalApagar> = (props: IModalApagar) => {
 	const movimentacaoService = new MovimentacaoService(back);
-	const categoriaMovimentacaoService = new CategoriaMovimentacaoService(back);
-	const [categoriaMovimentacao, setCategoriaMovimentacao] = useState<string>();
 	const [success, setSuccess] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const tipoMovimentacao = props.tipo === TipoMovimentacaoEnum.POSITIVO ? 'rendimento' : 'despesa';
@@ -22,17 +19,13 @@ const ModalApagaMovimentacao: FC<IModalApagar> = (props: IModalApagar) => {
 
 	let date = undefined;
 	let id = 0;
-	let idCategoria = 0;
 	let valor = 0;
-	let descricao = "";
 
 	if (possuiMovimentacaoEData) {
 		const dateString = props.movimentacao?.dataMovimentacao as string | undefined;
 		date = dateString ? new Date(dateString) : undefined;
 		id = props.movimentacao?.id ? props.movimentacao.id : 0
-		idCategoria = props.movimentacao ? props.movimentacao.idCategoriaMovimentacao : 0;
 		valor = props.movimentacao ? props.movimentacao.valor : 0;
-		descricao = props.movimentacao ? props.movimentacao.descricaoMovimentacao : "";
 	}
 
 	useEffect(() => {
