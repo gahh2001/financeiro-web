@@ -5,31 +5,39 @@ import '../../../paginas/analitico/Analitico.scss';
 import './CategoriasEvolucao.scss';
 
 const CategoriasEvolucao: FC<ICategoriasComparacaoProps> = (props: ICategoriasComparacaoProps) => {
-	return props.evolucao ? (
+	return (
 		<div className='card-categorias-evolucao'>
 			<div className="titulo">
 				Evolução
 			</div>
-			<div className="grafic">
-				<LineChart
-					xAxis={[
-						{
-						id: 'barCategories',
-						data: props.agrupamentosMes,
-						scaleType: 'band',
-						},
-					]}
-					series={props.evolucao}
-					margin={{
-						left: 30,
-						right: 10,
-						top: 50,
-						bottom: 25,
-					}}
-				/>
-			</div>
+			{montaGrafico()}
 		</div>
-	) : <></>
+	);
+
+	function montaGrafico() {
+		return props.evolucao && props.evolucao.length
+		? <div className="grafic">
+			<LineChart
+				xAxis={[
+					{
+					id: 'barCategories',
+					data: props.agrupamentosMes,
+					scaleType: 'band',
+					},
+				]}
+				series={props.evolucao}
+				margin={{
+					left: 30,
+					right: 10,
+					top: 50,
+					bottom: 25,
+				}}
+			/>
+		</div>
+		: <div className='mensagem'>
+			Nenhum registro para este período!
+		</div>
+	}
 }
 
 export default CategoriasEvolucao;

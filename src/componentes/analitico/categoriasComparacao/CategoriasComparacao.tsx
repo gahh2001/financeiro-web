@@ -12,12 +12,18 @@ const CategoriasComparacao: FC<ICategoriasComparacaoProps> = (props: ICategorias
 
 	const series = props.comparacoes?.map((s) => ({ ...s, highlightScope }));
 
-	return series && props.agrupamentosMes ? (
+	return (
 		<div className='card-categorias-comparacao'>
 			<div className="titulo">
 				Comparações
 			</div>
-			<div className="grafic">
+			{montaGrafico()}
+		</div>
+	);
+
+	function montaGrafico() {
+		return series && props.comparacoes && props.comparacoes.length
+		? <div className="grafic">
 			<BarChart
 				xAxis={[
 					{
@@ -34,9 +40,11 @@ const CategoriasComparacao: FC<ICategoriasComparacaoProps> = (props: ICategorias
 					bottom: 25,
 				}}
 			/>
-			</div>
 		</div>
-	) : <></>
+		: <div className='mensagem'>
+			Nenhum registro para este período!
+		</div>
+	}
 }
 
 export default CategoriasComparacao;

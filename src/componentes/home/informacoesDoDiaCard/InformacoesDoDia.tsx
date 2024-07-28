@@ -73,7 +73,7 @@ const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaPr
 						sx={{ color: "#3451C7" }}
 						fontSize="large"
 					/>
-					Saldo atual: ${saldo?.toFixed(2).replace('.', ',')}
+					Saldo atual: ${saldo ? saldo.toFixed(2).replace('.', ',') : 0}
 				</div>
 				<Divider variant='middle'/>
 				<div className="titulo">
