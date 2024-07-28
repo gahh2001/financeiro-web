@@ -1,6 +1,7 @@
 import { AxiosInstance } from "axios";
 import { TipoMovimentacaoEnum } from "../enums/TipoMovimentacaoEnum";
 import { ICategoriaMovimentacao } from "../interfaces/ICategoriaMovimentacao";
+import { IMediasAnalitico } from "../interfaces/IMediasAnalitico";
 import { ISomaCategoriasPorMes } from "../interfaces/ISomaCategoriasPorMes";
 
 export class CategoriaMovimentacaoService {
@@ -122,6 +123,22 @@ export class CategoriaMovimentacaoService {
 			return {...response};
 		} catch (error) {
 			console.log(`Não foi possível obter a soma de categorias para a evolução`, error);
+			return undefined;
+		}
+	}
+
+	async obtemInformacoesgerais(googleId : string | null, dataInicio: number, dataFim: number) {
+		const params = {
+			googleId: googleId,
+			dataInicio: dataInicio,
+			dataFim: dataFim,
+		};
+		try {
+			const response = await this.axiosInstance
+				.get<IMediasAnalitico>(`${this.urlDefault}/soma-informacoes-gerais`, {params});
+			return {...response};
+		} catch (error) {
+			console.log(`Não foi possível obter a soma das informações gerais`, error);
 			return undefined;
 		}
 	}

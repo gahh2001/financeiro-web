@@ -12,6 +12,7 @@ import { obtemNumeroEnum, TipoComparacaoEnum } from "../../enums/TipoComparacaoE
 import { TipoMovimentacaoEnum } from "../../enums/TipoMovimentacaoEnum";
 import back from "../../http";
 import { IGoogleIdProps } from "../../interfaces/IGoogleIdProps";
+import { IMediasAnalitico } from "../../interfaces/IMediasAnalitico";
 import { ISeriesChart } from "../../interfaces/ISeriesChart";
 import { ISeriesComparacao } from "../../interfaces/ISeriesComparacao";
 import { ISeriesEvolucao } from "../../interfaces/ISeriesEvolucao";
@@ -32,6 +33,8 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 	const [evolucao, setEvolucao] = useState<ISeriesEvolucao[]>([]);
 	const [agrupamentoMesAnoEvolucao, setAgrupamentoMesAnoEvolucao] = useState<string[]>([]);
 	const [agrupamentoMesAnoComparacao, setAgrupamentoMesAnoComparacao] = useState<string[]>([]);
+	const [tipoInformacoesGerais, setTipoInformacoesGerais] = useState('comparison')
+	const [mediasGerais, setMediasgerais] = useState<IMediasAnalitico>();
 	const categoriaService = new CategoriaMovimentacaoService(back);
 	const isMounted = useRef(true);
 	const navigate = useNavigate();
@@ -50,6 +53,10 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 	};
 	const propsSetTipoComparacao = (tipo: string) => {
 		setTipoComparacao(tipo);
+	};
+
+	const propsSetTipoInformacoesgerais = (tipo: string) => {
+		setTipoInformacoesGerais(tipo);
 	};
 
 	useEffect(() => {
@@ -90,7 +97,6 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 					.obtemSomaCategoriasEValoresPorMeses(props.googleId, obtemDataInicialComparacao(),
 						obtemDataFinalComparacao(), tipoMovimentacao);
 				if (somaComparacoes?.data) {
-					console.log("+++", somaComparacoes.data);
 					extraiSomaComparacoes(somaComparacoes.data);
 				}
 			} catch (error) {
@@ -115,6 +121,26 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 		};
 		atualizaEvolucao();
 	}, [tipoComparacao]);
+
+	useEffect(() => {
+		let dataInicio: number;
+		let dataFim: number;
+		if (tipoInformacoesGerais === "comparison") {
+			dataInicio = obtemDataInicialComparacao();
+			dataFim = obtemDataFinalComparacao();
+		} else {
+			dataInicio = obtemDataInicial();
+			dataFim = obtemDataFinal();
+		}
+		const atualizaMedias = async () => {
+			const medias = await categoriaService
+				.obtemInformacoesgerais(props.googleId, dataInicio, dataFim);
+			if (medias?.data) {
+				extraiMedias(medias.data);
+			}
+		}
+		atualizaMedias();
+	}, [tipoInformacoesGerais, tipoComparacao, mes, ano, fullYear]);
 
 	return (
 		<div className="analitico">
@@ -157,7 +183,11 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 					evolucao={evolucao}
 					comparacoes={null}
 				/>
-				<CategoriasInformacoesGerais/>
+				<CategoriasInformacoesGerais
+					tipo={tipoInformacoesGerais}
+					setComparison={propsSetTipoInformacoesgerais}
+					medias={mediasGerais}
+				/>
 			</div>
 		</div>
 	);
@@ -348,6 +378,11 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 		const nomeAgrupamento: string[] = Array.from(nomeAgrupamentoSet);
 		setAgrupamentoMesAnoEvolucao(nomeAgrupamento);
 		setEvolucao(graficosProntos);
+	}
+
+	function extraiMedias(medias: IMediasAnalitico) {
+		medias.porcentagem = (medias.gastomedia * 100) / medias.ganhoMedia;
+		setMediasgerais(medias);
 	}
 }
 
