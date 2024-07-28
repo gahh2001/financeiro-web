@@ -63,10 +63,6 @@ const Configuracoes: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 						<Divider variant="fullWidth"/>
 						<Button>Categorias de movimentação</Button>
 						<Divider variant="fullWidth"/>
-						<Button>Teste</Button>
-						<Divider variant="fullWidth"/>
-						<Button>Configuração</Button>
-						<Divider variant="fullWidth"/>
 					</div>
 					<Divider orientation="vertical" variant="fullWidth"/>
 					<div className="config">
