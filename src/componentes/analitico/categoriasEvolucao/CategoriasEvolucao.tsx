@@ -15,7 +15,8 @@ const CategoriasEvolucao: FC<ICategoriasComparacaoProps> = (props: ICategoriasCo
 	);
 
 	function montaGrafico() {
-		return props.evolucao && props.evolucao.length
+		return props.evolucao && props.evolucao.length && props.agrupamentosMes
+			&& props.agrupamentosMes.length && props.agrupamentosMes.length === props.evolucao[0].data.length
 		? <div className="grafic">
 			<LineChart
 				xAxis={[

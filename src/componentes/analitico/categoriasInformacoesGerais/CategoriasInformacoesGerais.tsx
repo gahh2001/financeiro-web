@@ -15,6 +15,20 @@ const CategoriasInformacoesGerais: FC<ICategoriasInformacoesGeraisProps> = (prop
 			<div className="titulo">
 				Informações gerais
 			</div>
+			<div className="type-comparison">
+				<FormControl>
+					<RadioGroup
+						row
+						aria-labelledby="demo-radio-buttons-group-label"
+						defaultValue="comparison"
+						name="radio-buttons-group"
+						onChange={handleChangeComparison}
+					>
+						<FormControlLabel value="comparison" control={<Radio />} label="Usar comparação" />
+						<FormControlLabel value="selection" control={<Radio />} label="Usar mês selecionado" />
+					</RadioGroup>
+				</FormControl>
+			</div>
 			{montaGrafico()}
 		</div>
 	)
@@ -22,20 +36,6 @@ const CategoriasInformacoesGerais: FC<ICategoriasInformacoesGeraisProps> = (prop
 	function montaGrafico() {
 		return props.medias && props.medias.categoriaMaisGasta ?
 			<>
-				<div className="type-comparison">
-					<FormControl>
-						<RadioGroup
-							row
-							aria-labelledby="demo-radio-buttons-group-label"
-							defaultValue="comparison"
-							name="radio-buttons-group"
-							onChange={handleChangeComparison}
-						>
-							<FormControlLabel value="comparison" control={<Radio />} label="Usar comparação" />
-							<FormControlLabel value="selection" control={<Radio />} label="Usar mês selecionado" />
-						</RadioGroup>
-					</FormControl>
-				</div>
 				<div className="infos">
 					<div className="info">
 						A categoria que você mais ganhou foi {props.medias?.categoriaMaisGasta}.
