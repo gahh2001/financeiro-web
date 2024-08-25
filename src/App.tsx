@@ -6,6 +6,7 @@ import Analitico from './paginas/analitico/Analitico';
 import Configuracoes from './paginas/configuracoes/Configuracoes';
 import Home from './paginas/home/Home';
 import Login from './paginas/login/login';
+import About from './paginas/about/about';
 
 function App() {
 	const darkTheme = createTheme({
@@ -59,6 +60,9 @@ function App() {
 					<Configuracoes
 						{...props}
 					/>
+				}/>
+				<Route path="/about-me" element={
+					<About/>
 				}/>
 			</Routes>
 		</ThemeProvider>

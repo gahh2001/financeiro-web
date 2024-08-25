@@ -1,0 +1,62 @@
+@import '../../VariaveisSCSS.scss';
+
+.about {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	justify-content: center;
+	align-items: center;
+
+	.titulo {
+		font-size: 5vh;
+		align-items: center;
+		color: $color-in-linhas;
+		width: 100%;
+		text-align: center;
+		margin: 4vh;
+	}
+
+	.titulo-card-l {
+		font-size: 4vh;
+		align-items: center;
+		color: $color-in-linhas;
+		width: 60%;
+		text-align: center;
+		margin: 2vh;
+		margin-left: 25%;
+	}
+
+	.card-sobre-projeto-l {
+		background-color: $fundo-components;
+		color: #b1b1b1;
+		width: 60%;
+		padding: 4vh;
+		border-radius: 5vh;
+		font-size: 3vh;
+		text-align: justify;
+		margin-left: 25%;
+		margin-bottom: 3vh;
+	}
+
+	.titulo-card-r {
+		font-size: 4vh;
+		align-items: center;
+		color: $color-in-linhas;
+		width: 60%;
+		text-align: center;
+		margin: 2vh;
+		margin-right: 25%;
+	}
+
+	.card-sobre-projeto-r {
+		background-color: $fundo-components;
+		color: #b1b1b1;
+		width: 60%;
+		padding: 4vh;
+		border-radius: 5vh;
+		font-size: 3vh;
+		text-align: justify;
+		margin-right: 25%;
+		margin-bottom: 3vh;
+	}
+}
