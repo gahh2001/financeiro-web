@@ -184,7 +184,7 @@ const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaPr
 									>
 										<IconButton
 											color="inherit"
-											onClick={() => props.handleEditMovimentacao(movimentacao.id, movimentacao.dataMovimentacao,
+											onClick={() => props.handleEditMovimentacao(movimentacao.id, props.selectedDate,
 												movimentacao.valor.toString(), movimentacao.idCategoriaMovimentacao
 												? movimentacao.idCategoriaMovimentacao.toString() : "",
 												movimentacao.descricaoMovimentacao,

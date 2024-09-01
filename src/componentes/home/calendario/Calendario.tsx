@@ -74,9 +74,10 @@ const Calendario: FC<ICalendarioProps> = (props: ICalendarioProps) => {
 	const handleDayClick = (daySelected: number, monthSelected: number, yearSelected: number) => {
 		setSelectedDay(daySelected + currentMonth.format('YYYYMM'));
 		const selectedDate = new Date();
-		selectedDate.setDate(daySelected);
 		selectedDate.setMonth(monthSelected);
+		selectedDate.setDate(daySelected);
 		selectedDate.setFullYear(yearSelected);
+		selectedDate.setHours(12);
 		props.onDayClick(selectedDate);
 	};
 
@@ -122,8 +123,10 @@ const Calendario: FC<ICalendarioProps> = (props: ICalendarioProps) => {
 		if (movimentacoesDoMes.length > 0) {
 			let possuiMovimentacao = 0;
 			movimentacoesDoMes.forEach((movimentacao) => {
-				let date = new Date(movimentacao.dataMovimentacao)
-				const dia = date.getDate() + 1;
+				let dataString: string = movimentacao.dataMovimentacao.toString();
+				dataString = dataString.replace('00', '12')
+				let date = new Date(dataString);
+				const dia = date.getDate();
 				const mes = date.getMonth();
 				if (dia === day && month === mes
 					&& movimentacao.tipoMovimentacao.toUpperCase() === operador.toString()) {
