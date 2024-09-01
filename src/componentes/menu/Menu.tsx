@@ -1,6 +1,6 @@
-import { AssessmentOutlined, CalendarMonth } from '@mui/icons-material';
+import { AssessmentOutlined, CalendarMonth, InfoOutlined } from '@mui/icons-material';
 import MenuIcon from '@mui/icons-material/Menu';
-import { IconButton, Tooltip } from '@mui/material';
+import { Divider, IconButton, Tooltip } from '@mui/material';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
@@ -37,11 +37,11 @@ export default function TemporaryDrawer() {
 		<div>
 			<Fragment key={"drawer"}>
 				<div className='icons'>
-				<Tooltip title="Menu" placement='right'>
-					<IconButton onClick={toggleDrawer(true)}>
-						<MenuIcon sx={{fontSize: "5vh"}}/>
-					</IconButton>
-				</Tooltip>
+					<Tooltip title="Menu" placement='right'>
+						<IconButton onClick={toggleDrawer(true)}>
+							<MenuIcon sx={{fontSize: "5vh"}}/>
+						</IconButton>
+					</Tooltip>
 				</div>
 				<Drawer
 					anchor="left"
@@ -49,12 +49,12 @@ export default function TemporaryDrawer() {
 					onClose={toggleDrawer(false)}
 				>
 					<Box
-						sx={{ width: 250 }}
+						sx={{ width: 250, height: 750 }}
 						role="presentation"
 						onClick={toggleDrawer(false)}
 					>
 						<List>
-							<ListItem key={"inicio"}>
+							<ListItem key={"home"} >
 								<ListItemButton onClick={() => handleNavigate("/home")}>
 									<ListItemIcon>
 										<CalendarMonth/>
@@ -62,12 +62,29 @@ export default function TemporaryDrawer() {
 									<ListItemText primary={"Home"}/>
 								</ListItemButton>
 							</ListItem>
+							<Divider/>
 							<ListItem key={"analitico"}>
 								<ListItemButton onClick={() => handleNavigate("/analitico")}>
 									<ListItemIcon>
 										<AssessmentOutlined/>
 									</ListItemIcon>
 									<ListItemText primary={"Analítico"}/>
+								</ListItemButton>
+							</ListItem>
+							<Divider/>
+						</List>
+					</Box>
+					<Box
+						sx={{ width: 250 }}
+					>
+						<Divider/>
+						<List>
+							<ListItem key={"about"} >
+								<ListItemButton onClick={() => handleNavigate("/about-me")}>
+									<ListItemIcon>
+										<InfoOutlined/>
+									</ListItemIcon>
+									<ListItemText primary={"Sobre o dev"}/>
 								</ListItemButton>
 							</ListItem>
 						</List>

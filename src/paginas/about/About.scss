@@ -8,13 +8,28 @@
 	justify-content: center;
 	align-items: center;
 
-	.titulo {
-		font-size: 5vh;
-		align-items: center;
-		color: $color-in-linhas;
-		width: 100%;
-		text-align: center;
-		margin: 4vh;
+	.header { display: flex;
+		.voltar {
+			button{
+				width: 16vh;
+				height: 4vh;
+				margin-top: 5vh;
+				border-radius: 2vh;
+				color: $color-in-linhas;
+				background-color: $fundo-components;
+				border: 2px solid $fundo-linhas;
+				box-shadow: 2px 2px 7px 1px $sombras;
+				cursor: pointer;
+			}
+		}
+		.titulo {
+			font-size: 5vh;
+			align-items: center;
+			color: $color-in-linhas;
+			width: 100%;
+			text-align: center;
+			margin: 4vh;
+		}
 	}
 
 	.titulo-card-l {
@@ -25,11 +40,11 @@
 		margin-bottom: 2vh;
 	}
 
-	.card-sobre-projeto-l {
+	.card-l {
 		background-color: $fundo-components;
 		color: #b1b1b1;
 		width: 60%;
-		padding: 4vh;
+		padding: 3vh;
 		border-radius: 5vh;
 		font-size: 3vh;
 		text-align: justify;
@@ -45,11 +60,11 @@
 		margin-bottom: 2vh;
 	}
 
-	.card-sobre-projeto-r {
+	.card-r {
 		background-color: $fundo-components;
 		color: #b1b1b1;
 		width: 60%;
-		padding: 4vh;
+		padding: 3vh;
 		border-radius: 5vh;
 		font-size: 3vh;
 		text-align: justify;

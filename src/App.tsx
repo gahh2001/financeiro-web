@@ -5,8 +5,8 @@ import { IGoogleIdProps } from './interfaces/IGoogleIdProps';
 import Analitico from './paginas/analitico/Analitico';
 import Configuracoes from './paginas/configuracoes/Configuracoes';
 import Home from './paginas/home/Home';
-import Login from './paginas/login/login';
-import About from './paginas/about/about';
+import Login from './paginas/login/Login';
+import About from './paginas/about/About';
 
 function App() {
 	const darkTheme = createTheme({
