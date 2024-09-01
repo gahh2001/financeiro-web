@@ -133,36 +133,28 @@ const Calendario: FC<ICalendarioProps> = (props: ICalendarioProps) => {
 					possuiMovimentacao++;
 				}
 			});
+			let cor = '';
 			switch (operador) {
 				case TipoMovimentacaoEnum.NEGATIVO:
-					if (possuiMovimentacao > 0) {
-						return (
-							<CircleTwoTone
-								sx={{ color: "#9a1d1d", backgroundColor: 'transparent' }}
-								fontSize='medium'
-							/>
-						);
-					}
-					return (
-						<CircleTwoTone
-							sx={{ color: "transparent", backgroundColor: 'transparent' }}
-						/>
-					);
+					cor = "#9a1d1d";
+					break;
 				case TipoMovimentacaoEnum.POSITIVO:
-					if (possuiMovimentacao > 0) {
-						return (
-							<CircleTwoTone
-								sx={{ color: "#2D9632", backgroundColor: 'transparent' }}
-								fontSize='medium'
-							/>
-						);
-					}
-					return (
-						<CircleTwoTone
-							sx={{ color: "transparent", backgroundColor: 'transparent' }}
-						/>
-					);
+					cor = "#2D9632"
+					break;
 			}
+			if (possuiMovimentacao > 0) {
+				return (
+					<CircleTwoTone
+						sx={{ color: cor, backgroundColor: 'transparent' }}
+						fontSize='medium'
+					/>
+				);
+			}
+			return (
+				<CircleTwoTone
+					sx={{ color: "transparent", backgroundColor: 'transparent' }}
+				/>
+			);
 		}
 	}
 };

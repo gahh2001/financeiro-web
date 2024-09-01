@@ -189,7 +189,6 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 	async function salvarMovimentacao() {
 		setPrimeiroClique(true);
 		const inputsValidados = validaInputsMovimentacao();
-		let response = undefined;
 		if (inputsValidados) {
 			setLoading(true);
 			setSuccess(false);
@@ -203,9 +202,9 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 			}
 			if (props.edit) {
 				novaMovimentacao.id = props.idMovimentacao;
-				response = await movimentacaoService.atualizaMovimentacao(props.googleId, novaMovimentacao);
+				await movimentacaoService.atualizaMovimentacao(props.googleId, novaMovimentacao);
 			} else {
-				response = await movimentacaoService.adicionaMovimentacao(props.googleId, novaMovimentacao);
+				await movimentacaoService.adicionaMovimentacao(props.googleId, novaMovimentacao);
 			}
 			setLoading(false);
 			setSuccess(true);
