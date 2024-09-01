@@ -1,5 +1,5 @@
 import { Logout, Settings } from '@mui/icons-material';
-import { Avatar, Box, Divider, IconButton, ListItemIcon, Menu, MenuItem, Tooltip } from '@mui/material';
+import { Avatar, Box, IconButton, ListItemIcon, Menu, MenuItem, Tooltip } from '@mui/material';
 import { FC, Fragment, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IAppBarProps } from '../../interfaces/IAppBarProps';
@@ -92,10 +92,10 @@ const AppBar: FC<IAppBarProps> = (props: IAppBarProps) => {
 					transformOrigin={{ horizontal: 'right', vertical: 'top' }}
 					anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
 				>
-					<MenuItem onClick={handleClose}>
+					{/* <MenuItem onClick={handleClose}>
 						<Avatar /> Meu perfil
 					</MenuItem>
-					<Divider />
+					<Divider /> FUTURO*/}
 					<MenuItem onClick={handleConfig}>
 						<ListItemIcon>
 							<Settings fontSize="small" />
