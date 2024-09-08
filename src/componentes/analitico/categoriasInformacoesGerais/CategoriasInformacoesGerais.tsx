@@ -34,7 +34,7 @@ const CategoriasInformacoesGerais: FC<ICategoriasInformacoesGeraisProps> = (prop
 	)
 
 	function montaGrafico() {
-		return props.medias && props.medias.categoriaMaisGasta ?
+		return props.medias ?
 			<>
 				<div className="infos">
 					<div className="info">
