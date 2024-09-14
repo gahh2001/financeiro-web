@@ -27,8 +27,8 @@ const CategoriasPorcentagem: FC<ICategoriasPorcentagemProps> = (props: ICategori
 					},
 				]}
 				margin={{
-					left: 1,
-					right: 90,
+					left: 10,
+					right: 250,
 					top: 20,
 					bottom: 5,
 				}}

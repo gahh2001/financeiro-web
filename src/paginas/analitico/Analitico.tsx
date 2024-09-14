@@ -350,9 +350,12 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 			let contagemMes = 1;
 			let somasNoMes = [];
 			while (contagemMes <= totalMeses) {
+				let dateTeste = new Date(lista[0].data).getMonth() + 1;
 				let somaNesteMes = lista.find((dado) =>
 					dado.nomeCategoria === categoria
-					&& new Date(dado.data).getMonth() + 1 === mesVerificado)?.somaMovimentacao;
+					&& ( new Date(dado.data).getMonth() + 1 === mesVerificado
+					|| ( new Date(dado.data).getMonth() + 1 === 12 && mesVerificado === 0 ) )
+				)?.somaMovimentacao;
 				if (!somaNesteMes) {
 					somaNesteMes = 0;
 				}
@@ -360,10 +363,8 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 				nomeAgrupamentoSet.add(mesVerificado + 1 + "/" + anoVerificado);
 				contagemMes++;
 				if (mesVerificado === 11) {
-					anoVerificado++;
-				}
-				if (mesVerificado === 11) {
 					mesVerificado = 0;
+					anoVerificado++;
 				} else {
 					mesVerificado++;
 				}
