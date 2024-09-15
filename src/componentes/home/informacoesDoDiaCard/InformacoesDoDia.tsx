@@ -52,7 +52,6 @@ const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaPr
 				console.error('Erro ao buscar saldo:', error);
 			}
 		};
-
 		atualizaSaldoConta();
 	}, [props.modalAddRendimento, props.modalAddDespesa, props.modalApagaMovimentacao]);
 
