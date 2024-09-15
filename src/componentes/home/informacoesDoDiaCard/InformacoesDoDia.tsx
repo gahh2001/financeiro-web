@@ -28,9 +28,11 @@ const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaPr
 	useEffect(() => {
 		const buscaMovimentacoesDoDia = async () => {
 			if ( props.movimentacoesMes.length ) {
+				const teste = new Date(props.movimentacoesMes[0].dataMovimentacao).getUTCDate();
+				debugger;
 				const movimentacoes = props.movimentacoesMes
 					.filter((movimentacao) =>
-						new Date(movimentacao.dataMovimentacao).getDate() + 1 === props.selectedDate.getDate()
+						new Date(movimentacao.dataMovimentacao).getUTCDate() === props.selectedDate.getDate()
 					)
 				setMovimentacoesDoDia(movimentacoes);
 			}

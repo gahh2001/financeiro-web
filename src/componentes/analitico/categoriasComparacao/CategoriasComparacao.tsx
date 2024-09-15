@@ -36,7 +36,7 @@ const CategoriasComparacao: FC<ICategoriasComparacaoProps> = (props: ICategorias
 				margin={{
 					left: 45,
 					right: 10,
-					top: 70,
+					top: 100,
 					bottom: 25,
 				}}
 			/>

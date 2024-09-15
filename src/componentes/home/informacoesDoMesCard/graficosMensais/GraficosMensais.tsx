@@ -92,7 +92,7 @@ const GraficosMensais: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProps
 							},
 						]}
 						margin={{
-							left: 40,
+							left: 50,
 							right: 1,
 							top: 20,
 							bottom: 20,

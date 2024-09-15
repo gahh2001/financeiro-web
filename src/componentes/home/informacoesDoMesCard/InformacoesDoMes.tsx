@@ -66,8 +66,9 @@ const InformacoesDoMes: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProp
 	function calculaPorcentagemTotal(movimentacoes: IMovimentacao[]) {
 		const ganhos = somaTotalMes(movimentacoes, TipoMovimentacaoEnum.POSITIVO);
 		const gastos = somaTotalMes(movimentacoes, TipoMovimentacaoEnum.NEGATIVO);
-		const porcentagemGasto = (gastos * 100) / ganhos
-		return Math.round(porcentagemGasto? porcentagemGasto : 0);
+		const porcentagemGasto = (gastos * 100) / ganhos;
+		const resultado = Math.round(porcentagemGasto? porcentagemGasto : 0);
+		return gastos > ganhos ? '+100' : resultado;
 	}
 
 	function obtemNomeMes(mes: number) {
