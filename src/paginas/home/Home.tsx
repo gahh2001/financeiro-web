@@ -1,4 +1,3 @@
-import { createTheme } from "@mui/material";
 import { FC, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AppBar from "../../componentes/AppBar/AppBar";
@@ -22,6 +21,7 @@ const Home: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 	const [categoria, setCategoria] = useState("");
 	const [valor, setValor] = useState("");
 	const [descricao, setDescricao] = useState("");
+	const [movimentacoesDoMes, setMovimentacoesDoMes] = useState<IMovimentacao[]>([]);
 	const [edit, setEdit] = useState(false);
 	const {isOpenModalAdd, closeModalAdd} = useModalAddMovimentacao();
 	const {isOpenModalRemove, closeModalRemove} = useModalRemoveMovimentacao();
@@ -43,12 +43,9 @@ const Home: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 		}
 	}, [props.googleId])
 
-	const darkTheme = createTheme({
-		palette: {
-			mode: 'dark',
-		},
-	});
-
+	const propsMovimentcoesMes = (movimentacoes: IMovimentacao[]) => {
+		setMovimentacoesDoMes(movimentacoes)
+	}
 	const propsCalendario = (date: Date) => {
 		setSelectedDate(date);
 	};
@@ -106,14 +103,17 @@ const Home: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 					flex: "0.7"
 				}}>
 					<Calendario
+						isOpenModalAdd={isOpenModalAdd}
+						isOpenModalRemove={isOpenModalRemove}
 						googleId={props.googleId}
 						onDayClick={propsCalendario}
-						closeModalAdd={closeModalAdd}
-						closeModalRemove={closeModalRemove}
+						atualizaMovimentacoesMes={propsMovimentcoesMes}
+						movimentacoesMes={movimentacoesDoMes}
 					/>
 					<InformacoesDoMes
 						googleId={props.googleId}
 						selectedDate={selectedDate}
+						movimentacoesMes={movimentacoesDoMes}
 						modalAddRendimento={propsModalAddRendimento}
 						modalAddDespesa={propsModalAddDespesa}
 						modalApagaMovimentacao={propsModalApagaRendimento}
@@ -123,6 +123,9 @@ const Home: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 					<InformacoesDoDia
 						googleId={props.googleId}
 						selectedDate={selectedDate}
+						movimentacoesMes={movimentacoesDoMes}
+						isOpenModalAdd={isOpenModalAdd}
+						isOpenModalRemove={isOpenModalRemove}
 						modalAddRendimento={propsModalAddRendimento}
 						modalAddDespesa={propsModalAddDespesa}
 						modalApagaMovimentacao={propsModalApagaRendimento}
@@ -134,7 +137,6 @@ const Home: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 			<ModalAddMovimentacao
 				googleId={props.googleId}
 				isOpen={isOpenModalAdd}
-				closeModal={closeModalAdd}
 				tipo= {tipo}
 				edit={edit}
 				idMovimentacao={idMovimentacao}
@@ -143,6 +145,9 @@ const Home: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 				valor={valor}
 				descricao={descricao}
 				selectedDate={selectedDate}
+				movimentacoesMes={movimentacoesDoMes}
+				closeModal={closeModalAdd}
+				atualizaMovimentacoesMes={propsMovimentcoesMes}
 			/>
 			<ModalApagaMovimentacao
 				googleId={props.googleId}

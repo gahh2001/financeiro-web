@@ -39,7 +39,7 @@ const GraficosMensais: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProps
 			}
 		};
 		buscaSomaCategorias();
-	}, [props.selectedDate, props.modalAddDespesa, props.modalAddRendimento, props.modalApagaMovimentacao]);
+	}, [props.movimentacoesMes]);
 
 	return (
 		<>

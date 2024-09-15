@@ -7,7 +7,6 @@ import { FC, useEffect, useState } from "react";
 import { TipoMovimentacaoEnum } from "../../../enums/TipoMovimentacaoEnum";
 import back from "../../../http";
 import { ICalendarioProps } from "../../../interfaces/ICalendarioProps";
-import { IMovimentacao } from "../../../interfaces/IMovimentacao";
 import { MovimentacaoService } from "../../../services/MovimentacaoService";
 import "./CalendarioStyle.scss";
 
@@ -19,7 +18,6 @@ const Calendario: FC<ICalendarioProps> = (props: ICalendarioProps) => {
 	const firstDayOfMonth = currentMonth.clone().startOf("month");
 	const daysInMonth = currentMonth.daysInMonth();
 	const startingDay = parseInt(firstDayOfMonth.format("d"), 10);
-	const [movimentacoesDoMes, setMovimentacoesDoMes] = useState<IMovimentacao[]>([]);
 	const [carregado, setCarregado] = useState(false);
 
 	const days = [];
@@ -37,12 +35,12 @@ const Calendario: FC<ICalendarioProps> = (props: ICalendarioProps) => {
 					primeiroDiaMes.setFullYear(currentMonth.year());
 					primeiroDiaMes.setDate(1);
 					const ultimoDiaMes = new Date();
-					ultimoDiaMes.setMonth(ultimoDiaMes.getMonth() + 1);
+					ultimoDiaMes.setMonth(primeiroDiaMes.getMonth() + 1);
 					ultimoDiaMes.setDate(0);
 					const response = await movimentacaoService.getMovimentacao(props.googleId,
 						primeiroDiaMes.getTime(), ultimoDiaMes.getTime());
 					if (response?.data) {
-						setMovimentacoesDoMes(response.data);
+						props.atualizaMovimentacoesMes(response.data);
 						setCarregado(true);
 					}
 				}
@@ -51,7 +49,7 @@ const Calendario: FC<ICalendarioProps> = (props: ICalendarioProps) => {
 			}
 		};
 		buscaMovimentacoesDoMes();
-	}, [selectedDay, props.closeModalAdd, props.closeModalRemove])
+	}, [currentMonth, props.isOpenModalAdd, props.isOpenModalRemove]);
 
 	for (let day = 1; day <= daysInMonth; day++) {
 		const isCurrentDay = (day + currentMonth.format('YYYYMM')) === selectedDay;
@@ -86,17 +84,21 @@ const Calendario: FC<ICalendarioProps> = (props: ICalendarioProps) => {
 			? <div className="calendar-card">
 				<div className="header">
 					<button onClick={() =>
-						{setCurrentMonth(currentMonth.clone().subtract(1, "month"));
+						{
+							setCurrentMonth(currentMonth.clone().subtract(1, "month"));
 							const firstDay = currentMonth.clone().subtract(1, "month").startOf("month");
-							handleDayClick(firstDay.date(), firstDay.month(), firstDay.year());}
+							handleDayClick(firstDay.date(), firstDay.month(), firstDay.year());
+						}
 					}
 					>{currentMonth.clone().subtract(1, "month").format("MMMM")}</button>
 					<h1>{currentMonth.format("MMMM YYYY")}</h1>
-					<button onClick={() => {
-						setCurrentMonth(currentMonth.clone().add(1, "month"));
-						const firstDay = currentMonth.clone().add(1, "month").startOf("month");
-						handleDayClick(firstDay.date(), firstDay.month(), firstDay.year());
-					}}
+					<button onClick={() =>
+						{
+							setCurrentMonth(currentMonth.clone().add(1, "month"));
+							const firstDay = currentMonth.clone().add(1, "month").startOf("month");
+							handleDayClick(firstDay.date(), firstDay.month(), firstDay.year());
+						}
+					}
 					>{currentMonth.clone().add(1, "month").format("MMMM")}</button>
 				</div>
 				<div className="weekdays">
@@ -120,9 +122,9 @@ const Calendario: FC<ICalendarioProps> = (props: ICalendarioProps) => {
 	);
 
 	function verificaDiaComMovimentação(day: number, month: number, operador: TipoMovimentacaoEnum) {
-		if (movimentacoesDoMes.length > 0) {
+		if (props.movimentacoesMes.length > 0) {
 			let possuiMovimentacao = 0;
-			movimentacoesDoMes.forEach((movimentacao) => {
+			props.movimentacoesMes.forEach((movimentacao) => {
 				let dataString: string = movimentacao.dataMovimentacao.toString();
 				dataString = dataString.replace('00', '12')
 				let date = new Date(dataString);

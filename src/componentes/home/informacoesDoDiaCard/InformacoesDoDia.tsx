@@ -18,34 +18,25 @@ import { IInformacoesDoDiaProps } from '../../../interfaces/IInformacoesDoDiaPro
 import { IMovimentacao } from '../../../interfaces/IMovimentacao';
 import ConverteIcone from '../../../paginas/configuracoes/ConverteIcones';
 import { ContaService } from '../../../services/ContaService';
-import { MovimentacaoService } from '../../../services/MovimentacaoService';
 import './InformacoesDoDia.scss';
 
 const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaProps) => {
 
 	const [movimentacoesDoDia, setMovimentacoesDoDia] = useState<IMovimentacao[]>([]);
 	const [saldo, setSaldo] = useState<number>();
-	const movimentacaoService = new MovimentacaoService(back);
 
 	useEffect(() => {
 		const buscaMovimentacoesDoDia = async () => {
-			try {
-				if (props.googleId !== "") {
-					const dia = props.selectedDate;
-					const response = await movimentacaoService.getMovimentacao(props.googleId,
-						dia.getTime(), dia.getTime());
-					if (response?.data) {
-						setMovimentacoesDoDia(response.data);
-					}
-				}
-			} catch (error) {
-				console.error('Erro ao buscar movimentações:', error);
+			if ( props.movimentacoesMes.length ) {
+				const movimentacoes = props.movimentacoesMes
+					.filter((movimentacao) =>
+						new Date(movimentacao.dataMovimentacao).getDate() + 1 === props.selectedDate.getDate()
+					)
+				setMovimentacoesDoDia(movimentacoes);
 			}
 		};
 		buscaMovimentacoesDoDia();
-	}, [props.selectedDate, props.modalAddDespesa,
-		props.modalAddRendimento, props.modalApagaMovimentacao
-	]);
+	}, [props.selectedDate, props.modalAddRendimento, props.modalAddDespesa, props.modalApagaMovimentacao]);
 
 	useEffect(() => {
 		const atualizaSaldoConta = async () => {
@@ -63,7 +54,7 @@ const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaPr
 		};
 
 		atualizaSaldoConta();
-	}, [saldo, props.modalAddDespesa, props.modalAddRendimento, props.modalApagaMovimentacao]);
+	}, [props.modalAddRendimento, props.modalAddDespesa, props.modalApagaMovimentacao]);
 
 	return (
 		<div className="informacoes-do-dia">

@@ -43,16 +43,18 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 
 	useEffect(() => {
 		const buscaCategorias = async () => {
-			try {
-				if (props.googleId !== "") {
-					const categorias = await categoriaMovimentacaoService
-						.obtemCategoriasPorTipoMovimentacaoEConta(props.googleId, props.tipo);
-					if (categorias?.data) {
-						setCategoriasCarregadas(categorias.data);
+			if ( props.isOpen ) {
+				try {
+					if (props.googleId !== "") {
+						const categorias = await categoriaMovimentacaoService
+							.obtemCategoriasPorTipoMovimentacaoEConta(props.googleId, props.tipo);
+						if (categorias?.data) {
+							setCategoriasCarregadas(categorias.data);
+						}
 					}
+				} catch (error) {
+					console.log("erro ao carregar categorias do tipo ", props.tipo);
 				}
-			} catch (error) {
-				console.log("erro ao carregar categorias do tipo ", props.tipo);
 			}
 		}
 		buscaCategorias();
@@ -71,7 +73,7 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 			setPrimeiroClique(false);
 		}
 		setSuccess(false);
-	}, [props.closeModal])
+	}, [props.closeModal]);
 
 	const handleChangeCategoria = (event: SelectChangeEvent) => {
 		const newValue = event.target.value;
@@ -200,12 +202,20 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 				idCategoriaMovimentacao: parseInt(categoria),
 				descricaoMovimentacao: descricao
 			}
+			let response;
 			if (props.edit) {
 				novaMovimentacao.id = props.idMovimentacao;
-				await movimentacaoService.atualizaMovimentacao(props.googleId, novaMovimentacao);
+				response = await movimentacaoService.atualizaMovimentacao(props.googleId, novaMovimentacao);
 			} else {
-				await movimentacaoService.adicionaMovimentacao(props.googleId, novaMovimentacao);
+				response = await movimentacaoService.adicionaMovimentacao(props.googleId, novaMovimentacao);
 			}
+			// if (response && response.status === 200) {
+			// 	const nomeCategoria = categoriasCarregadas.find( (catego) => catego.id === parseInt(categoria) )?.nomeCategoria;
+			// 	novaMovimentacao.nomeCategoriaMovimentacao = nomeCategoria;
+			// 	let movimentacoes = props.movimentacoesMes;
+			// 	movimentacoes.push(novaMovimentacao as IMovimentacao);
+			// 	props.atualizaMovimentacoesMes(movimentacoes);
+			// }
 			setLoading(false);
 			setSuccess(true);
 		}

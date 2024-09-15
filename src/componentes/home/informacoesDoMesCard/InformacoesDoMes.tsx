@@ -4,40 +4,14 @@ import {
 	RemoveCircleOutlineRounded
 } from '@mui/icons-material';
 import { Divider } from '@mui/material';
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
 import { TipoMovimentacaoEnum } from '../../../enums/TipoMovimentacaoEnum';
-import back from '../../../http';
 import { InformacoesDoMesProps } from '../../../interfaces/IInformacoesDoMesProps';
 import { IMovimentacao } from '../../../interfaces/IMovimentacao';
-import { MovimentacaoService } from '../../../services/MovimentacaoService';
 import './InformacoesDoMes.scss';
 import GraficosMensais from './graficosMensais/GraficosMensais';
 
 const InformacoesDoMes: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProps) => {
-	const [movimentacoesDoMes, setMovimentacoesDoMes] = useState<IMovimentacao[]>([]);
-
-	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				if (props.googleId !== "") {
-					const movimentacaoService = new MovimentacaoService(back);
-					const primeiroDiaMes = new Date(props.selectedDate);
-					primeiroDiaMes.setDate(1);
-					const ultimoDiaMes = new Date(props.selectedDate);
-					ultimoDiaMes.setMonth(ultimoDiaMes.getMonth() + 1);
-					ultimoDiaMes.setDate(0);
-					const response = await movimentacaoService.getMovimentacao(props.googleId,
-								primeiroDiaMes.getTime(), ultimoDiaMes.getTime());
-					if (response?.data) {
-						setMovimentacoesDoMes(response.data);
-					}
-				}
-			} catch (error) {
-				console.error('Erro ao buscar movimentações:', error);
-			}
-		};
-		fetchData();
-	}, [props.selectedDate, props.modalAddDespesa, props.modalAddRendimento, props.modalApagaMovimentacao]);
 
 	return (
 		<div className="informacoes-do-mes">
@@ -52,7 +26,7 @@ const InformacoesDoMes: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProp
 					/>
 					</div>
 					Total recebido no mês: R$
-					{somaTotalMes(movimentacoesDoMes, TipoMovimentacaoEnum.POSITIVO).toFixed(2).replace('.', ',')}
+					{somaTotalMes(props.movimentacoesMes, TipoMovimentacaoEnum.POSITIVO).toFixed(2).replace('.', ',')}
 				</div>
 				<div className="info-mes">
 					<div className='simbol'>
@@ -61,7 +35,7 @@ const InformacoesDoMes: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProp
 						/>
 					</div>
 					Total de gastos do mês: R$
-					{somaTotalMes(movimentacoesDoMes, TipoMovimentacaoEnum.NEGATIVO).toFixed(2).replace('.', ',')}
+					{somaTotalMes(props.movimentacoesMes, TipoMovimentacaoEnum.NEGATIVO).toFixed(2).replace('.', ',')}
 				</div>
 				<div className="info-mes">
 					<div className='simbol'>
@@ -69,7 +43,7 @@ const InformacoesDoMes: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProp
 							sx={{ color: "#0085FF" }}
 						/>
 					</div>
-					Você gastou: {calculaPorcentagemTotal(movimentacoesDoMes)}% dos rendimentos.
+					Você gastou: {calculaPorcentagemTotal(props.movimentacoesMes)}% dos rendimentos.
 				</div>
 			</div>
 			<Divider orientation='vertical'/>

@@ -4,6 +4,9 @@ import { IMovimentacao } from "./IMovimentacao";
 export type IInformacoesDoDiaProps = {
 	selectedDate: Date;
 	googleId: string | null;
+	movimentacoesMes: IMovimentacao[];
+	isOpenModalAdd: boolean;
+	isOpenModalRemove: boolean;
 	modalAddRendimento: () => void;
 	modalAddDespesa: () => void;
 	modalApagaMovimentacao: (movimentacaoApagar: IMovimentacao) => void;
