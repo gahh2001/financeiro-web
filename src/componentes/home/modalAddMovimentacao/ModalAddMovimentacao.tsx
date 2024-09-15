@@ -202,20 +202,12 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 				idCategoriaMovimentacao: parseInt(categoria),
 				descricaoMovimentacao: descricao
 			}
-			let response;
 			if (props.edit) {
 				novaMovimentacao.id = props.idMovimentacao;
-				response = await movimentacaoService.atualizaMovimentacao(props.googleId, novaMovimentacao);
+				await movimentacaoService.atualizaMovimentacao(props.googleId, novaMovimentacao);
 			} else {
-				response = await movimentacaoService.adicionaMovimentacao(props.googleId, novaMovimentacao);
+				await movimentacaoService.adicionaMovimentacao(props.googleId, novaMovimentacao);
 			}
-			// if (response && response.status === 200) {
-			// 	const nomeCategoria = categoriasCarregadas.find( (catego) => catego.id === parseInt(categoria) )?.nomeCategoria;
-			// 	novaMovimentacao.nomeCategoriaMovimentacao = nomeCategoria;
-			// 	let movimentacoes = props.movimentacoesMes;
-			// 	movimentacoes.push(novaMovimentacao as IMovimentacao);
-			// 	props.atualizaMovimentacoesMes(movimentacoes);
-			// }
 			setLoading(false);
 			setSuccess(true);
 		}
