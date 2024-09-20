@@ -168,8 +168,11 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 					somaCategorias={somaCategorias}
 					tipoMovimentacao={tipoMovimentacao}
 				/>
-				<CategoriasPorcentagem
-					fatias={porcentagens}
+				
+				<CategoriasInformacoesGerais
+					tipo={tipoInformacoesGerais}
+					setComparison={propsSetTipoInformacoesgerais}
+					medias={mediasGerais}
 				/>
 			</div>
 			<div className="down-section">
@@ -183,10 +186,8 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 					evolucao={evolucao}
 					comparacoes={null}
 				/>
-				<CategoriasInformacoesGerais
-					tipo={tipoInformacoesGerais}
-					setComparison={propsSetTipoInformacoesgerais}
-					medias={mediasGerais}
+				<CategoriasPorcentagem
+					fatias={porcentagens}
 				/>
 			</div>
 		</div>

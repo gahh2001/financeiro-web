@@ -37,7 +37,7 @@ const CategoriasVisaoGeral: FC<ICategoriasVisaoGeralProps> = (props: ICategorias
 						},
 					]}
 					margin={{
-						left: 37,
+						left: 50,
 						right: 10,
 						top: 20,
 						bottom: 25,
