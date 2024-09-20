@@ -1,0 +1,128 @@
+@import '../../../VariaveisSCSS.scss';
+
+.categorias {
+	height: 87%;
+	width: 100%;
+	display: flex;
+	align-content: center;
+	text-align: center;
+	justify-items: center;
+	vertical-align: middle;
+	align-items: center;
+	flex-wrap: wrap;
+
+	.list {
+		height: 97%;
+		width: 74%;
+
+		.headers {
+			width: 87%;
+			height: 5%;
+			display: flex;
+			justify-content: space-around;
+			color: $color-in-linhas;
+			font-size: 2vh;
+			align-items: center;
+			margin-left: 9vh;
+			margin-right: 1vh;
+		}
+
+		.listagem {
+			height: 92%;
+			overflow-y: auto;
+
+			.itens {
+				margin-top: 2%;
+				align-content: center;
+				text-align: center;
+				justify-content: center;
+				display: flex;
+				flex-wrap: wrap;
+
+				button {
+					display: flex;
+					width: 80%;
+					height: 5.5vh;
+					font-size: 2.2vh;
+					justify-content: space-between;
+					color: $color-in-linhas;
+					background-color: $fundo-components-light;
+					border-radius: 20px;
+					border: 2px solid $fundo-linhas;
+					box-shadow: 2px 2px 7px 1px $sombras;
+					margin-bottom: 1.5vh;
+					align-items: center;
+					padding-left: 8vh;
+					padding-right: 8vh;
+
+					.NEGATIVO {
+						color: #e15734db;
+					}
+					.POSITIVO {
+						color: #239d12;
+					}
+				}
+			}
+		}
+
+		.listagem::-webkit-scrollbar {
+			width: 6px;
+		}
+	
+		.listagem::-webkit-scrollbar-thumb {
+			background: #b36931;
+			border-radius: 6px;
+		}
+	
+		.listagem::-webkit-scrollbar-thumb:hover {
+			background: #555;
+		}
+	}
+
+	.lista-vazia {
+		height: 92%;
+		width: 74%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 2vh;
+		color: $color-in-linhas;
+	}
+
+	.adicionar {
+		justify-content: center;
+		text-align: center;
+		width: 25%;
+		padding: 1vh;
+		background-color: transparent;
+
+		.text {
+			color: $color-in-linhas;
+			font-size: 2vh;
+			text-align: left;
+			margin-left: 1vh;
+		}
+
+		button {
+			svg {
+				background-color: transparent;
+				font-size: 45px;
+			}
+
+			text-align: center;
+			font-size: 15px;
+			background-color: $fundo-components-light;
+			width: 120px;
+			height: 120px;
+			border: 2px solid $fundo-linhas;
+			box-shadow: 2px 2px 7px 1px $sombras;
+			border-radius: 60px;
+			cursor: pointer;
+			color: $color-in-linhas;
+
+			&:hover {
+				background-color: #3e3e3e;
+			}
+		}
+	}
+}

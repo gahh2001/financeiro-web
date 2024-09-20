@@ -1,44 +1,32 @@
-import { AddTaskOutlined } from "@mui/icons-material";
 import { Button, Divider } from "@mui/material";
 import { FC, Fragment, useEffect, useState } from "react";
 import AppBar from "../../componentes/AppBar/AppBar";
+import Categorias from "../../componentes/configuracoes/categorias/Categorias";
+import Geral from "../../componentes/configuracoes/geral/Geral";
 import back from '../../http';
 import { ICategoriaMovimentacao } from "../../interfaces/ICategoriaMovimentacao";
 import { IGoogleIdProps } from "../../interfaces/IGoogleIdProps";
 import { CategoriaMovimentacaoService } from "../../services/CategoriaMovimentacaoService";
 import "./Configuracoes.scss";
-import ConverteIcone from "./ConverteIcones";
-import ModalCategoria from "./modalAdicionaCategoria/ModalCategoria";
 import useModalCategoria from "./modalAdicionaCategoria/UseModalCategoria";
 
 const Configuracoes: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 	const categoriaMovimentacaoService = new CategoriaMovimentacaoService(back);
 	const [categorias, setCategorias] = useState<ICategoriaMovimentacao[]>([]);
-	const {isOpenModalAdd, closeModalCategoria} = useModalCategoria();
-	const [aba, setAba] = useState<string>("Categorias");
-	const [edit, setEdit] = useState(false);
-	const [nomeCategoria, setNomeCategoria] = useState("");
-	const [iconeCategoria, setIconeCategoria] = useState("");
-	const [corCategoria, setCorCategoria] = useState("");
-	const [idCategoria, setIdCategoria] = useState<number | null>(null);
+	const {isOpenModalAdd: isOpenModalAddCategoria, closeModalCategoria} = useModalCategoria();
+	const [aba, setAba] = useState<string>("CATEGORIAS");
+
+	const handleEditAba = (nome: string) => {
+		setAba(nome);
+	}
 
 	const handleAddCategoria = () => {
-		setEdit(false);
-		closeModalCategoria();
-	};
-
-	const handleEditCategoria = (id: number | null, nome: string, icone: string, cor: string) => {
-		setEdit(true);
-		setIdCategoria(id);
-		setNomeCategoria(nome);
-		setIconeCategoria(icone);
-		setCorCategoria(cor);
 		closeModalCategoria();
 	};
 
 	useEffect(() => {
 		const carregaCategorias = async () => {
-			if (aba === "Categorias") {
+			if (aba === "CATEGORIAS") {
 				const categorias = await categoriaMovimentacaoService
 					.obtemCategoriasMovimentacaoPorConta(props.googleId);
 				if (categorias) {
@@ -47,7 +35,7 @@ const Configuracoes: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 			}
 		}
 		carregaCategorias();
-	},[aba, isOpenModalAdd])
+	},[aba, isOpenModalAddCategoria]);
 
 	return (
 		<Fragment>
@@ -61,7 +49,17 @@ const Configuracoes: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 				<div className="card">
 					<div className="card-menus">
 						<Divider variant="fullWidth"/>
-						<Button>Categorias de movimentação</Button>
+						<Button
+							onClick={() => handleEditAba("CATEGORIAS")}
+						>
+							Categorias de movimentação
+						</Button>
+						<Divider variant="fullWidth"/>
+						<Button
+							onClick={() => handleEditAba("GERAL")}
+						>
+							Geral
+						</Button>
 						<Divider variant="fullWidth"/>
 					</div>
 					<Divider orientation="vertical" variant="fullWidth"/>
@@ -70,71 +68,24 @@ const Configuracoes: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 							{aba}
 						</div>
 						<Divider orientation="horizontal"/>
-						<div className="categorias">
-							{montaCategoriasMovimentacao()}
-							<Divider orientation="vertical"/>
-							<div className="adicionar">
-								<div className="text">
-									As categorias servem para classificar suas movimentações. <br /><br />
-									Você pode clicar para editar ou criar categorias personalidas para identificar suas movimentações!
-								</div> <br />
-								<button
-									onClick={handleAddCategoria}
-								>
-									<AddTaskOutlined
-										sx={{ color: "#44A81D" }}
-									/> <br />
-									Criar nova
-								</button>
-							</div>
-						</div>
+						{escolheConfiguracao()}
 					</div>
 				</div>
 			</div>
-			<ModalCategoria
-				closeModal={closeModalCategoria}
-				isOpen={isOpenModalAdd}
-				edit={edit}
-				nome={nomeCategoria}
-				icone={iconeCategoria}
-				corIcone={corCategoria}
-				idCategoria={idCategoria}
-				googleId={props.googleId}
-				handleEditCategoria={handleEditCategoria}
-			/>
 		</Fragment>
 	);
 
-	function montaCategoriasMovimentacao() {
-		return categorias && categorias.length > 0
-			? ( <div className="list">
-				<div className="headers">
-					<p>Tipo</p>
-					<p>Nome</p>
-					<p>Ícone</p>
-				</div>
-				<div className="listagem">
-					<div className="itens">
-						{categorias.map((categoria, index) => (
-							<Button
-								key={categoria.id}
-								onClick={() => handleEditCategoria(categoria.id, categoria.nomeCategoria,
-									categoria.icone, categoria.corIcone)}
-							>
-								<p className={categoria.tipoMovimentacao}>
-									{categoria.tipoMovimentacao === "POSITIVO" ? "Positiva" : "Negativa"}
-								</p>
-								<p>{categoria.nomeCategoria}</p>
-								<ConverteIcone icone={categoria.icone} corIcone={categoria.corIcone}/>
-							</Button>
-						))}
-					</div>
-				</div>
-			</div>
-			)
-			: <div className="lista-vazia">
-				Nenhuma categoria foi cadastrada ainda!
-			</div>
+	function escolheConfiguracao() {
+		switch (aba) {
+			case "GERAL":
+				return <Geral/>
+			default:
+				return <Categorias
+					categorias={categorias}
+					googleId={props.googleId}
+					handleAddCategoria={handleAddCategoria}
+				/>
+		}
 	}
 }
 
