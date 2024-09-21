@@ -351,7 +351,6 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 			let contagemMes = 1;
 			let somasNoMes = [];
 			while (contagemMes <= totalMeses) {
-				let dateTeste = new Date(lista[0].data).getMonth() + 1;
 				let somaNesteMes = lista.find((dado) =>
 					dado.nomeCategoria === categoria
 					&& ( new Date(dado.data).getMonth() + 1 === mesVerificado

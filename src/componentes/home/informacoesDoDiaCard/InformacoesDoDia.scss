@@ -21,19 +21,18 @@
 		font-weight: bold;
 		font-size: 3.1vh;
 		text-align: center;
-		margin-bottom: 1.7%;
-		margin-top: 1.5vh;
+		margin-bottom: 2vh;
+		margin-top: 1vh;
 	}
 
 	.card-resumo-dia {
 		flex: 1;
 		width: 99%;
-		min-height: 48vh;
-		max-height: 48vh;
+		min-height: 42vh;
+		max-height: 42vh;
 		background-color: $fundo-components;
 		border-radius: 20px;
 		padding: 1.7%;
-		margin-bottom: 1.5%;
 
 		svg {
 			background-color: transparent;
@@ -42,25 +41,29 @@
 
 		.infos {
 			width: 100%;
+			display: flex;
+			justify-content: space-around;
 
 			.info-dia {
-				.simbol {
-					margin-right: 1vh;
-					margin-left: 0.6vh;
+				.total {
+					width: 100%;
 					display: flex;
+					justify-content: center;
+					
 				}
-
-				width: 99%;
-				font-size: 2.8vh;
-				height: 5vh;
+				flex-wrap: wrap;
+				width: 48%;
+				font-size: 2.3vh;
+				height: 10vh;
 				align-items: center;
 				justify-content: center;
 				background-color: $fundo-components-light;
 				margin-bottom: 2%;
 				display: flex;
+				//flex-direction: column;
 				border-radius: 20px;
 				border: 2px solid $fundo-linhas;
-				box-shadow: 2px 2px 7px 1px $sombras;
+				box-shadow: 0px 0px 5px 2px $sombras;
 				color: $color-in-linhas;
 
 				svg {
@@ -72,7 +75,7 @@
 		.buttons {
 			text-align: center;
 			height: 7vh;
-			margin-top: 2vh;
+			margin-top: 0.5vh;
 			margin-bottom: 3vh;
 			background-color: transparent;
 			display: flex;
@@ -81,14 +84,14 @@
 			button {
 				svg {
 					background-color: transparent;
-					font-size: 7vh;
+					font-size: 5vh;
 				}
 
 				text-align: center;
 				font-size: 1.5vh;
 				background-color: $fundo-components-light;
-				width: 33%;
-				height: 15vh;
+				width: 24%;
+				height: 12vh;
 				border: 2px solid $fundo-linhas;
 				box-shadow: 2px 2px 7px 1px $sombras;
 				border-radius: 50px;
@@ -102,21 +105,10 @@
 			}
 		}
 
-		.dica {
-			justify-content: center;
-			text-align: center;
-			background-color: transparent;
-			width: 102%;
-			height: 8%;
-			font-size: 1.7vh;
-			display: flex;
-			margin-top: 12vh;
-			color: $color-in-linhas;
-		}
-
 		.saldo {
-			justify-content: center;
-			width: 99%;
+			margin-inline: 8vh;
+			justify-content: space-around;
+			width: 65%;
 			height: 4.8vh;
 			font-size: 2.8vh;
 			background-color: $fundo-components-light;
@@ -143,6 +135,17 @@
 		padding: 1.7%;
 		align-items: center;
 		overflow: hidden;
+
+		.dica {
+			justify-content: center;
+			text-align: center;
+			background-color: transparent;
+			width: 102%;
+			height: 6%;
+			font-size: 1.7vh;
+			display: flex;
+			color: $color-in-linhas;
+		}
 
 		svg {
 			background-color: transparent;

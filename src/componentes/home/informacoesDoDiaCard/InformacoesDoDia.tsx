@@ -28,8 +28,6 @@ const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaPr
 	useEffect(() => {
 		const buscaMovimentacoesDoDia = async () => {
 			if ( props.movimentacoesMes.length ) {
-				const teste = new Date(props.movimentacoesMes[0].dataMovimentacao).getUTCDate();
-				debugger;
 				const movimentacoes = props.movimentacoesMes
 					.filter((movimentacao) =>
 						new Date(movimentacao.dataMovimentacao).getUTCDate() === props.selectedDate.getDate()
@@ -64,7 +62,7 @@ const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaPr
 					<AssessmentOutlined
 						sx={{ color: "#3451C7" }}
 						fontSize="large"
-					/>
+					/> 
 					Saldo atual: ${saldo ? saldo.toFixed(2).replace('.', ',') : 0}
 				</div>
 				<Divider variant='middle'/>
@@ -75,24 +73,24 @@ const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaPr
 				</div>
 				<div className="infos">
 					<div className="info-dia">
-						<div className='simbol'>
-							<AddCircleOutlineRounded
-								sx={{ color: "#44A81D" }}
-								fontSize="large"
-							/>
-						</div>
-						Total de rendimentos: $
-						{somaDia(movimentacoesDoDia, TipoMovimentacaoEnum.POSITIVO).toFixed(2).replace('.', ',')}
+						<div className="total">
+							Total de rendimentos
+						</div> <br />
+						<AddCircleOutlineRounded
+							sx={{ color: "#44A81D" }}
+							fontSize="large"
+						/>
+						${somaDia(movimentacoesDoDia, TipoMovimentacaoEnum.POSITIVO).toFixed(2).replace('.', ',')}
 					</div>
 					<div className="info-dia">
-						<div className='simbol'>
-							<RemoveCircleOutlineRounded
-								sx={{color: "#e15734db"}}
-								fontSize="large"
-							/>
-						</div>
-						Total de gastos: $
-						{somaDia(movimentacoesDoDia, TipoMovimentacaoEnum.NEGATIVO).toFixed(2).replace('.', ',')}
+						<div className="total">
+							Total de gastos
+						</div> <br />
+						<RemoveCircleOutlineRounded
+							sx={{color: "#e15734db"}}
+							fontSize="large"
+						/>
+						${somaDia(movimentacoesDoDia, TipoMovimentacaoEnum.NEGATIVO).toFixed(2).replace('.', ',')}
 					</div>
 				</div>
 				
@@ -112,12 +110,6 @@ const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaPr
 						/> <br />
 						Adicionar despesa
 					</button>
-				</div>
-				<div className="dica">
-					<InfoOutlined
-						fontSize="small"
-					/>
-					Selecione um dia do calendário para ver as movimentações.
 				</div>
 			</div>
 			<Divider variant='middle'/>
@@ -139,7 +131,13 @@ const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaPr
 		return movimentacoes && movimentacoes.length > 0
 			? (
 				<div className='card-movimentacoes'>
-					<div className="titulo">Movimentações:</div>
+					<div className="titulo">Movimentações</div>
+					<div className="dica">
+						<InfoOutlined
+							fontSize="small"
+						/>
+						Selecione um dia do calendário para ver as movimentações.
+					</div>
 					<div className="header">
 						<p>Categoria:</p>
 						<p>Valor:</p>
