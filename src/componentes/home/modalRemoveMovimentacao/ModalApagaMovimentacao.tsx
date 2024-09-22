@@ -28,6 +28,13 @@ const ModalApagaMovimentacao: FC<IModalApagar> = (props: IModalApagar) => {
 		valor = props.movimentacao ? props.movimentacao.valor : 0;
 	}
 
+	const handleKeyDown = (event: React.KeyboardEvent) => {
+		if (event.key === 'Enter') {
+			event.preventDefault();
+			apagaMovimentacao(id);
+		}
+	};
+
 	useEffect(() => {
 		return () => {
 			setSuccess(false);
@@ -67,6 +74,7 @@ const ModalApagaMovimentacao: FC<IModalApagar> = (props: IModalApagar) => {
 							</button>
 							<div className='apagar'>
 								<button
+									onKeyDown={handleKeyDown}
 									onClick={() => apagaMovimentacao(id)}
 									disabled={success}
 								>

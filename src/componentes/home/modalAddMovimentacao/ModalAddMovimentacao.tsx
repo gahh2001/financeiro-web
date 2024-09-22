@@ -91,6 +91,13 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 		setValor(numberValue.toFixed(2));
 	};
 
+	const handleKeyDown = (event: React.KeyboardEvent) => {
+		if (event.key === 'Enter') {
+			event.preventDefault();
+			salvarMovimentacao();
+		}
+	};
+
 	useEffect(() => {
 		if (primeiroClique) {
 			validaInputsMovimentacao();
@@ -100,7 +107,7 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 	return (
 		<>
 			{props.isOpen && (
-				<div className="modal-overlay-adiciona">
+				<div className="modal-overlay-adiciona" onKeyDown={handleKeyDown}>
 					<div className="modal-adiciona">
 						<div className="titulo">{verboTitulo} {tipoMovimentacao}</div>
 							<div className='inputs'>

@@ -33,6 +33,8 @@ const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaPr
 						new Date(movimentacao.dataMovimentacao).getUTCDate() === props.selectedDate.getDate()
 					)
 				setMovimentacoesDoDia(movimentacoes);
+			} else {
+				setMovimentacoesDoDia([]);
 			}
 		};
 		buscaMovimentacoesDoDia();
