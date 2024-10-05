@@ -28,7 +28,7 @@ const CategoriasEvolucao: FC<ICategoriasComparacaoProps> = (props: ICategoriasCo
 				]}
 				series={props.evolucao}
 				margin={{
-					left: 30,
+					left: 50,
 					right: 10,
 					top: 50,
 					bottom: 25,
