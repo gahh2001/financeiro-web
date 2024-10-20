@@ -2,10 +2,10 @@ import { AddTaskOutlined } from "@mui/icons-material";
 import { Button, Divider } from "@mui/material";
 import { FC, Fragment, useEffect, useState } from "react";
 import { ICategoriasProps } from "../../../interfaces/ICategoriasProps";
-import ConverteIcone from "../../../paginas/configuracoes/ConverteIcones";
-import ModalCategoria from "../../../paginas/configuracoes/modalAdicionaCategoria/ModalCategoria";
-import useModalCategoria from "../../../paginas/configuracoes/modalAdicionaCategoria/UseModalCategoria";
 import "./Categorias.scss";
+import useModalCategoria from "./modalAdicionaCategoria/UseModalCategoria";
+import ModalCategoria from "./modalAdicionaCategoria/ModalCategoria";
+import ConverteIcone from "./ConverteIcones";
 
 const Categorias: FC<ICategoriasProps> = (props: ICategoriasProps) => {
 

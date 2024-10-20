@@ -1,4 +1,4 @@
-@import '../../../VariaveisSCSS.scss';
+@import '../../../../VariaveisSCSS.scss';
 
 .modal-overlay {
 	z-index: 1;
@@ -20,7 +20,7 @@
 	padding: 1rem;
 	border: 1px solid $sombras;
 	box-shadow: 5px 4px 7px 1px $sombras;
-	height: 360px;
+	height: 380px;
 	width: 70vh;
 
 	.titulo {

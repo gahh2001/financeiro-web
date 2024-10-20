@@ -8,7 +8,7 @@ import { ICategoriaMovimentacao } from "../../interfaces/ICategoriaMovimentacao"
 import { IGoogleIdProps } from "../../interfaces/IGoogleIdProps";
 import { CategoriaMovimentacaoService } from "../../services/CategoriaMovimentacaoService";
 import "./Configuracoes.scss";
-import useModalCategoria from "./modalAdicionaCategoria/UseModalCategoria";
+import useModalCategoria from "../../componentes/configuracoes/categorias/modalAdicionaCategoria/UseModalCategoria";
 
 const Configuracoes: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 	const categoriaMovimentacaoService = new CategoriaMovimentacaoService(back);

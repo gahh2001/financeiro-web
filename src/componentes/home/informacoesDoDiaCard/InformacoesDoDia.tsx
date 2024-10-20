@@ -16,8 +16,8 @@ import { TipoMovimentacaoEnum } from '../../../enums/TipoMovimentacaoEnum';
 import back from '../../../http';
 import { IInformacoesDoDiaProps } from '../../../interfaces/IInformacoesDoDiaProps';
 import { IMovimentacao } from '../../../interfaces/IMovimentacao';
-import ConverteIcone from '../../../paginas/configuracoes/ConverteIcones';
 import { ContaService } from '../../../services/ContaService';
+import ConverteIcone from '../../configuracoes/categorias/ConverteIcones';
 import './InformacoesDoDia.scss';
 
 const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaProps) => {

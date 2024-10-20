@@ -5,7 +5,7 @@ import {
 } from "@mui/icons-material";
 import BarChart from "@mui/icons-material/BarChart";
 import { FC } from "react";
-import { IModalCategoriaProps } from "../../interfaces/IModalCategoriaProps";
+import { IModalCategoriaProps } from "../../../interfaces/IModalCategoriaProps";
 
 const ConverteIcone: FC<Partial<IModalCategoriaProps>> = (props: Partial<IModalCategoriaProps>) => {
 	switch (props.icone) {
