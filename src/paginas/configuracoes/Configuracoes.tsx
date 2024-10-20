@@ -78,7 +78,9 @@ const Configuracoes: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 	function escolheConfiguracao() {
 		switch (aba) {
 			case "GERAL":
-				return <Geral/>
+				return <Geral
+					googleId={props.googleId}
+				/>
 			default:
 				return <Categorias
 					categorias={categorias}

@@ -17,4 +17,18 @@ export class ContaService {
 		}
 		
 	}
+
+	async zeraSaldo(googleId: string | null | undefined) {
+		const params = {
+			googleId: googleId,
+		}
+		try {
+			const response = await this.axiosInstance.post('/conta/zerar-saldo', {params});
+			return { ...response };
+		} catch (error) {
+			console.log(`Não foi possível zerar o saldo`, error);
+			return undefined;
+		}
+		
+	}
 }
