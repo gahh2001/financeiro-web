@@ -41,7 +41,7 @@ const Home: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 		if (!props.googleId && isMounted.current) {
 			navigate("/login")
 		}
-	}, [props.googleId])
+	}, [props.googleId]);
 
 	const propsMovimentcoesMes = (movimentacoes: IMovimentacao[]) => {
 		setMovimentacoesDoMes(movimentacoes)

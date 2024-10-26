@@ -1,20 +1,23 @@
 import { Button, Divider } from "@mui/material";
-import { FC, Fragment, useEffect, useState } from "react";
+import { FC, Fragment, useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import AppBar from "../../componentes/AppBar/AppBar";
 import Categorias from "../../componentes/configuracoes/categorias/Categorias";
+import useModalCategoria from "../../componentes/configuracoes/categorias/modalAdicionaCategoria/UseModalCategoria";
 import Geral from "../../componentes/configuracoes/geral/Geral";
 import back from '../../http';
 import { ICategoriaMovimentacao } from "../../interfaces/ICategoriaMovimentacao";
 import { IGoogleIdProps } from "../../interfaces/IGoogleIdProps";
 import { CategoriaMovimentacaoService } from "../../services/CategoriaMovimentacaoService";
 import "./Configuracoes.scss";
-import useModalCategoria from "../../componentes/configuracoes/categorias/modalAdicionaCategoria/UseModalCategoria";
 
 const Configuracoes: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 	const categoriaMovimentacaoService = new CategoriaMovimentacaoService(back);
 	const [categorias, setCategorias] = useState<ICategoriaMovimentacao[]>([]);
 	const {isOpenModalAdd: isOpenModalAddCategoria, closeModalCategoria} = useModalCategoria();
 	const [aba, setAba] = useState<string>("CATEGORIAS");
+	const isMounted = useRef(true);
+	const navigate = useNavigate();
 
 	const handleEditAba = (nome: string) => {
 		setAba(nome);
@@ -37,6 +40,18 @@ const Configuracoes: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 		carregaCategorias();
 	},[aba, isOpenModalAddCategoria]);
 
+	useEffect(() => {
+		return () => {
+			isMounted.current = false;
+		};
+	}, []);
+
+	useEffect(() => {
+		if (!props.googleId && isMounted.current) {
+			navigate("/login")
+		}
+	}, [props.googleId]);
+
 	return (
 		<Fragment>
 			<AppBar
@@ -48,7 +63,7 @@ const Configuracoes: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 			<div className="configuracoes">
 				<div className="card">
 					<div className="card-menus">
-						<Divider variant="fullWidth"/>
+						<Divider orientation="horizontal"/>
 						<Button
 							onClick={() => handleEditAba("CATEGORIAS")}
 						>
