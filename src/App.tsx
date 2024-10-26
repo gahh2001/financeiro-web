@@ -1,12 +1,12 @@
 import { ThemeProvider, createTheme } from '@mui/material';
 import { useState } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { IGoogleIdProps } from './interfaces/IGoogleIdProps';
+import About from './paginas/about/About';
 import Analitico from './paginas/analitico/Analitico';
 import Configuracoes from './paginas/configuracoes/Configuracoes';
 import Home from './paginas/home/Home';
 import Login from './paginas/login/Login';
-import About from './paginas/about/About';
 
 function App() {
 	const darkTheme = createTheme({
@@ -36,34 +36,12 @@ function App() {
 	return (
 		<ThemeProvider theme={darkTheme}>
 			<Routes>
-				<Route path="/" element={
-					<Home
-						{...props}
-					/>
-				} />
-				<Route path="/login" element={
-					<Login
-						{...props}
-					/>
-				} />
-				<Route path="/home" element={
-					<Home
-						{...props}
-					/>
-				}/>
-				<Route path="/analitico" element={
-					<Analitico
-						{...props}
-					/>
-				}/>
-				<Route path="/configuracoes" element={
-					<Configuracoes
-						{...props}
-					/>
-				}/>
-				<Route path="/about-me" element={
-					<About/>
-				}/>
+				<Route path="/login" element={ <Login {...props} />} />
+				<Route path="/home" element={<Home {...props} />}/>
+				<Route path="/analitico" element={<Analitico {...props} />}/>
+				<Route path="/configuracoes" element={<Configuracoes {...props} />}/>
+				<Route path="/about-me" element={<About/>}/>
+				<Route path="*" element={<Navigate to="/home" replace />} />
 			</Routes>
 		</ThemeProvider>
 	);
