@@ -76,8 +76,7 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 	}, [props.closeModal]);
 
 	const handleChangeCategoria = (event: SelectChangeEvent) => {
-		const newValue = event.target.value;
-		setCategoria(typeof newValue === 'string' ? newValue : "");
+		setCategoria(event.target.value);
 	};
 
 	const handleChangeDescricao = (event: ChangeEvent<HTMLInputElement>) => {
@@ -236,7 +235,7 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 			>
 				{categ.nomeCategoria}
 			</MenuItem>
-		))
+		));
 	}
 }
 

@@ -7,6 +7,7 @@ import Analitico from './paginas/analitico/Analitico';
 import Configuracoes from './paginas/configuracoes/Configuracoes';
 import Home from './paginas/home/Home';
 import Login from './paginas/login/Login';
+import Movimentacoes from './paginas/movimentacoes/Movimentacoes';
 
 function App() {
 	const darkTheme = createTheme({
@@ -39,6 +40,7 @@ function App() {
 				<Route path="/login" element={ <Login {...props} />} />
 				<Route path="/home" element={<Home {...props} />}/>
 				<Route path="/analitico" element={<Analitico {...props} />}/>
+				<Route path="/movimentacoes" element={<Movimentacoes {...props} />}/>
 				<Route path="/configuracoes" element={<Configuracoes {...props} />}/>
 				<Route path="/about-me" element={<About/>}/>
 				<Route path="*" element={<Navigate to="/home" replace />} />

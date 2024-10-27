@@ -1,4 +1,4 @@
-import { AssessmentOutlined, CalendarMonth, InfoOutlined } from '@mui/icons-material';
+import { AssessmentOutlined, CalendarMonth, InfoOutlined, ListAlt } from '@mui/icons-material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Divider, IconButton, Tooltip } from '@mui/material';
 import Box from '@mui/material/Box';
@@ -49,7 +49,7 @@ export default function TemporaryDrawer() {
 					onClose={toggleDrawer(false)}
 				>
 					<Box
-						sx={{ width: 250, height: 750 }}
+						sx={{ width: 250, height: 900 }}
 						role="presentation"
 						onClick={toggleDrawer(false)}
 					>
@@ -69,6 +69,15 @@ export default function TemporaryDrawer() {
 										<AssessmentOutlined/>
 									</ListItemIcon>
 									<ListItemText primary={"Analítico"}/>
+								</ListItemButton>
+							</ListItem>
+							<Divider/>
+							<ListItem key={"movimentacoes"} >
+								<ListItemButton onClick={() => handleNavigate("/movimentacoes")}>
+									<ListItemIcon>
+										<ListAlt/>
+									</ListItemIcon>
+									<ListItemText primary={"Movimentações"}/>
 								</ListItemButton>
 							</ListItem>
 							<Divider/>

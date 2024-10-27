@@ -60,10 +60,10 @@ export class CategoriaMovimentacaoService {
 	}
 
 	async obtemCategoriasPorTipoMovimentacaoEConta(googleId : string | null,
-			tipoMovimentacao: TipoMovimentacaoEnum) {
+			tipoMovimentacao: TipoMovimentacaoEnum | null) {
 		const params = {
 			googleId: googleId,
-			tipoMovimentacao: tipoMovimentacao.toString(),
+			tipoMovimentacao: tipoMovimentacao?.toString(),
 		};
 		try {
 			const response = await this.axiosInstance

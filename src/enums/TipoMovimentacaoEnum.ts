@@ -1,6 +1,7 @@
 enum TipoMovimentacaoEnum{
 	POSITIVO = "POSITIVO",
-	NEGATIVO = "NEGATIVO"
+	NEGATIVO = "NEGATIVO",
+	TODOS = "TODOS"
 }
 
 export { TipoMovimentacaoEnum };
