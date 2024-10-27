@@ -10,7 +10,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import dayjs, { Dayjs } from 'dayjs';
-import 'dayjs/locale/en-gb';
+import 'dayjs/locale/pt-br';
 import { ChangeEvent, FC, useEffect, useState } from "react";
 import { TipoMovimentacaoEnum } from '../../../enums/TipoMovimentacaoEnum';
 import back from '../../../http';
@@ -111,7 +111,7 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 					<div className="modal-adiciona">
 						<div className="titulo">{verboTitulo} {tipoMovimentacao}</div>
 							<div className='inputs'>
-								<LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="en-gb">
+								<LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="pt-br">
 									<DemoContainer components={['DatePicker']}>
 										<DatePicker
 											sx={{ m: 1, width: "25vh" }}

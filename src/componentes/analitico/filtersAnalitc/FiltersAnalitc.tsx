@@ -46,7 +46,7 @@ const FiltersAnalitic: FC<IFiltersAnaliticProps> = (props: IFiltersAnaliticProps
 					</div>
 				</DemoContainer>
 			</LocalizationProvider>
-			<LocalizationProvider dateAdapter={AdapterDayjs}>
+			<LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="pt-br">
 				<DemoContainer components={['DatePicker']} sx={{justifyContent: 'center'}}>
 					<div className="filter">
 						<DatePicker
