@@ -26,7 +26,10 @@ const InformacoesDoMes: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProp
 					/>
 					</div>
 					Total recebido no mês: R$
-					{somaTotalMes(props.movimentacoesMes, TipoMovimentacaoEnum.POSITIVO).toFixed(2).replace('.', ',')}
+					{props.visivel
+						? somaTotalMes(props.movimentacoesMes, TipoMovimentacaoEnum.POSITIVO).toFixed(2).replace('.', ',')
+						: "***"
+					}
 				</div>
 				<div className="info-mes">
 					<div className='simbol'>
@@ -35,7 +38,10 @@ const InformacoesDoMes: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProp
 						/>
 					</div>
 					Total de gastos do mês: R$
-					{somaTotalMes(props.movimentacoesMes, TipoMovimentacaoEnum.NEGATIVO).toFixed(2).replace('.', ',')}
+					{props.visivel
+						? somaTotalMes(props.movimentacoesMes, TipoMovimentacaoEnum.NEGATIVO).toFixed(2).replace('.', ',')
+						: "***"
+					}
 				</div>
 				<div className="info-mes">
 					<div className='simbol'>

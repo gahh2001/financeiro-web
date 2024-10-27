@@ -7,7 +7,9 @@ import {
 	InfoOutlined,
 	ModeEdit,
 	PlaylistRemove,
-	RemoveCircleOutlineRounded
+	RemoveCircleOutlineRounded,
+	RemoveRedEye,
+	VisibilityOff
 } from '@mui/icons-material';
 import { Divider, IconButton } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
@@ -23,7 +25,7 @@ import './InformacoesDoDia.scss';
 const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaProps) => {
 
 	const [movimentacoesDoDia, setMovimentacoesDoDia] = useState<IMovimentacao[]>([]);
-	const [saldo, setSaldo] = useState<number>();
+	const [saldo, setSaldo] = useState<number>(0);
 
 	useEffect(() => {
 		const buscaMovimentacoesDoDia = async () => {
@@ -60,12 +62,27 @@ const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaPr
 	return (
 		<div className="informacoes-do-dia">
 			<div className="card-resumo-dia">
-				<div className="saldo">
-					<AssessmentOutlined
-						sx={{ color: "#3451C7" }}
-						fontSize="large"
-					/> 
-					Saldo atual: ${saldo ? saldo.toFixed(2).replace('.', ',') : 0}
+				<div className="topo">
+					<div className="saldo">
+						<AssessmentOutlined
+							sx={{ color: "#3451C7" }}
+							fontSize="large"
+						/> 
+						Saldo atual: ${props.visivel ? saldo.toFixed(2).replace('.', ',') : "***"}
+					</div>
+					<Tooltip
+						title={props.visivel ? "Ocultar valores" : "Mostrar valores"}
+						placement="top"
+					>
+						<IconButton
+							onClick={() => props.setVisible()}
+						>
+							{props.visivel
+								? <RemoveRedEye color='action' />
+								: <VisibilityOff color='action' />
+							}
+						</IconButton>
+					</Tooltip>
 				</div>
 				<Divider variant='middle'/>
 				<div className="titulo">
@@ -82,7 +99,7 @@ const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaPr
 							sx={{ color: "#44A81D" }}
 							fontSize="large"
 						/>
-						${somaDia(movimentacoesDoDia, TipoMovimentacaoEnum.POSITIVO).toFixed(2).replace('.', ',')}
+						${somaDia(movimentacoesDoDia, TipoMovimentacaoEnum.POSITIVO)}
 					</div>
 					<div className="info-dia">
 						<div className="total">
@@ -92,7 +109,7 @@ const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaPr
 							sx={{color: "#e15734db"}}
 							fontSize="large"
 						/>
-						${somaDia(movimentacoesDoDia, TipoMovimentacaoEnum.NEGATIVO).toFixed(2).replace('.', ',')}
+						${somaDia(movimentacoesDoDia, TipoMovimentacaoEnum.NEGATIVO)}
 					</div>
 				</div>
 				
@@ -126,7 +143,7 @@ const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaPr
 				soma += movimentacao.valor;
 			}
 		}
-		return soma;
+		return props.visivel ? soma.toFixed(2).replace('.', ',') : "***"
 	}
 
 	function listaMovimentacoesDoDia(movimentacoes: IMovimentacao[]) {

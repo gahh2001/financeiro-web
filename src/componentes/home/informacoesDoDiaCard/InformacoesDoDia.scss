@@ -105,26 +105,33 @@
 			}
 		}
 
-		.saldo {
-			margin-inline: 8vh;
-			justify-content: space-around;
-			width: 65%;
-			height: 4.8vh;
-			font-size: 2.8vh;
-			background-color: $fundo-components-light;
-			align-items: center;
-			text-align: center;
+		.topo {
 			display: flex;
-			border-radius: 20px;
-			border: 2px solid $fundo-linhas;
-			box-shadow: 2px 2px 7px 1px $sombras;
-			color: $color-in-linhas;
+			align-items: center;
+			justify-content: center;
 			margin-bottom: 2vh;
 
-			svg {
-				background-color: transparent;
+			.saldo {
+				margin-right: 2vh;
+				justify-content: space-around;
+				width: 65%;
+				height: 4.8vh;
+				font-size: 2.8vh;
+				background-color: $fundo-components-light;
+				align-items: center;
+				text-align: center;
+				display: flex;
+				border-radius: 20px;
+				border: 2px solid $fundo-linhas;
+				box-shadow: 2px 2px 7px 1px $sombras;
+				color: $color-in-linhas;
+	
+				svg {
+					background-color: transparent;
+				}
 			}
 		}
+
 	}
 
 	.card-movimentacoes {

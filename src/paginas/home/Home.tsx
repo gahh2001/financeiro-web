@@ -28,6 +28,7 @@ const Home: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 	const [isOpenDialogDescricao, setIsOpenDialogDescricao] = useState(false);
 	const [tipo, setTipo] = useState(TipoMovimentacaoEnum.POSITIVO);
 	const [movimentacaoApagar, setMovimentacaoApagar] = useState<IMovimentacao | null>(null);
+	const [visivel, setVisivel] = useState(false);
 	const isMounted = useRef(true);
 	const navigate = useNavigate();
 
@@ -58,6 +59,9 @@ const Home: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 		setTipo(TipoMovimentacaoEnum.NEGATIVO);
 		setEdit(false);
 		closeModalAdd();
+	}
+	const setVisible = () => {
+		setVisivel(!visivel);
 	}
 	const propsModalApagaRendimento = (movimentacaoApagar: IMovimentacao) => {
 		movimentacaoApagar.tipoMovimentacao.toUpperCase() === TipoMovimentacaoEnum.POSITIVO
@@ -117,6 +121,7 @@ const Home: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 						modalAddRendimento={propsModalAddRendimento}
 						modalAddDespesa={propsModalAddDespesa}
 						modalApagaMovimentacao={propsModalApagaRendimento}
+						visivel={visivel}
 					/>
 				</div>
 				<div style={{flex: "0.3", display: "flex"}}>
@@ -131,6 +136,8 @@ const Home: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 						modalApagaMovimentacao={propsModalApagaRendimento}
 						dialogDescricao={(description) => propsDialogDescricao(description)}
 						handleEditMovimentacao={handleEditMovimentacao}
+						setVisible={setVisible}
+						visivel={visivel}
 					/>
 				</div>
 			</div>
