@@ -27,13 +27,13 @@ const Calendario: FC<ICalendarioProps> = (props: ICalendarioProps) => {
 
 	useEffect(() => {
 		const buscaMovimentacoesDoMes = async () => {
-			debugger;
 			try {
 				if (props.googleId !== "") {
 					const movimentacaoService = new MovimentacaoService(back);
-					const primeiroDiaMes : Date = currentMonth.toDate();
+					const primeiroDiaMes : Date = currentMonth.clone().toDate();
 					primeiroDiaMes.setDate(1);
-					const ultimoDiaMes = new Date();
+					const ultimoDiaMes : Date = currentMonth.clone().toDate();
+					ultimoDiaMes.setDate(15)
 					ultimoDiaMes.setMonth(primeiroDiaMes.getMonth() + 1);
 					ultimoDiaMes.setDate(0);
 					const response = await movimentacaoService.getMovimentacao(props.googleId,
@@ -71,6 +71,7 @@ const Calendario: FC<ICalendarioProps> = (props: ICalendarioProps) => {
 	const handleDayClick = (daySelected: number, monthSelected: number, yearSelected: number) => {
 		setSelectedDay(daySelected + currentMonth.clone().format('YYYYMM'));
 		const selectedDate = new Date();
+		selectedDate.setDate(15);
 		selectedDate.setMonth(monthSelected);
 		selectedDate.setDate(daySelected);
 		selectedDate.setFullYear(yearSelected);
