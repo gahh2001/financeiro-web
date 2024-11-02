@@ -21,6 +21,25 @@ export class MovimentacaoService {
 		}
 	}
 
+	async obtemPorParametros(googleId: string | null | undefined, dataInicio: number | undefined,
+			dataFim: number | undefined, tipo: string | undefined, categorias: string[] | undefined) {
+		const params = {
+			googleId: googleId,
+			dataInicio: dataInicio,
+			dataFim: dataFim,
+			tipoMovimentacao: tipo,
+			categorias: categorias
+		}
+		try {
+			const response = await this.axiosInstance
+				.get<IMovimentacao[]>('/movimentacao', {params});
+			return {...response };
+		} catch (error) {
+			console.log(`Não foi possível obter as movimentações`, error);
+			return undefined;
+		}
+	}
+
 	async apagaMovimentacao(googleId: string | null, idMovimentacao: number) {
 		const url = `/movimentacao/${idMovimentacao}`;
 		const params = {

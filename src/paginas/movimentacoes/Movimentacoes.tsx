@@ -1,11 +1,13 @@
 import { Divider } from "@mui/material";
 import dayjs, { Dayjs } from "dayjs";
-import { FC, Fragment, useState } from "react";
+import { FC, Fragment, useEffect, useRef, useState } from "react";
 import AppBar from "../../componentes/AppBar/AppBar";
 import { TipoMovimentacaoEnum } from "../../enums/TipoMovimentacaoEnum";
 import { IGoogleIdProps } from "../../interfaces/IGoogleIdProps";
 import './Movimentacoes.scss';
 import FiltrosMovimentacoes from "./componentes/FiltrosMovimentacoes";
+import ListaMovimentacoes from "./componentes/ListaMovimentacoes";
+import { useNavigate } from "react-router-dom";
 
 const Movimentacoes: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 	const [dataInicio, setDataInicio] = useState<Dayjs | null>(() => {
@@ -21,6 +23,8 @@ const Movimentacoes: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 	});
 	const [tipo, setTipo] = useState<string>(TipoMovimentacaoEnum.TODOS.toString());
 	const [categorias, setCategorias] = useState(["Todas"]);
+	const isMounted = useRef(true);
+	const navigate = useNavigate();
 
 	const setDataInicioProps = (newValue: Dayjs | null) => {
 		setDataInicio(newValue);
@@ -34,6 +38,12 @@ const Movimentacoes: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 	const setTipoProps = (value: string) => {
 		setTipo(value);
 	}
+
+	useEffect(() => {
+		if (!props.googleId && isMounted.current) {
+			navigate("/login")
+		}
+	}, [props.googleId]);
 
 	return (
 		<Fragment>
@@ -57,7 +67,13 @@ const Movimentacoes: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 						setTipo={setTipoProps}
 					/>
 					<Divider orientation="vertical"/>
-					
+					<ListaMovimentacoes
+						categorias={categorias}
+						dataInicio={dataInicio}
+						dataFim={dataFim}
+						googleId={props.googleId}
+						tipo={tipo}
+					/>
 				</div>
 			</div>
 		</Fragment>

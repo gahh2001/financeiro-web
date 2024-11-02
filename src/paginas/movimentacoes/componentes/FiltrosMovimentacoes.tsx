@@ -15,8 +15,6 @@ const FiltrosMovimentacoes: FC<FiltrosMovimentacoesProps> = (props: FiltrosMovim
 	const [categoriasCarregadas, setCategoriasCarregadas] = useState<ICategoriaMovimentacao[]>([]);
 	const categoriaMovimentacaoService = new CategoriaMovimentacaoService(back);
 	const theme = useTheme();
-	const isMounted = useRef(true);
-	const navigate = useNavigate();
 	const ITEM_HEIGHT = 48;
 	const ITEM_PADDING_TOP = 8;
 	const tipoEnum = props.tipo === "TODOS"
@@ -57,9 +55,6 @@ const FiltrosMovimentacoes: FC<FiltrosMovimentacoesProps> = (props: FiltrosMovim
 
 	useEffect(() => {
 		const buscaCategorias = async () => {
-			if (!props.googleId && isMounted.current) {
-				navigate("/login")
-			}
 			try {
 				if (props.googleId !== "") {
 					const categorias = await categoriaMovimentacaoService
