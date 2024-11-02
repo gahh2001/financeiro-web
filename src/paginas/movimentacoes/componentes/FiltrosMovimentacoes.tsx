@@ -65,8 +65,6 @@ const FiltrosMovimentacoes: FC<FiltrosMovimentacoesProps> = (props: FiltrosMovim
 					const categorias = await categoriaMovimentacaoService
 						.obtemCategoriasPorTipoMovimentacaoEConta(props.googleId, tipoEnum);
 					if (categorias?.data) {
-						let categoriasNovas;
-
 						setCategoriasCarregadas(categorias.data);
 					}
 				}

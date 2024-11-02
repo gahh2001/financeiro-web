@@ -8,8 +8,17 @@ import './Movimentacoes.scss';
 import FiltrosMovimentacoes from "./componentes/FiltrosMovimentacoes";
 
 const Movimentacoes: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
-	const [dataInicio, setDataInicio] = useState<Dayjs | null>(dayjs());
-	const [dataFim, setDataFim] = useState<Dayjs | null>(dayjs());
+	const [dataInicio, setDataInicio] = useState<Dayjs | null>(() => {
+		const inicioMes = new Date();
+		inicioMes.setDate(1);
+		return dayjs(inicioMes);
+	});
+	const [dataFim, setDataFim] = useState<Dayjs | null>(() => {
+		const fimMes = new Date();
+		fimMes.setMonth(fimMes.getMonth() + 1);
+		fimMes.setDate(0);
+		return dayjs(fimMes);
+	});
 	const [tipo, setTipo] = useState<string>(TipoMovimentacaoEnum.TODOS.toString());
 	const [categorias, setCategorias] = useState(["Todas"]);
 
