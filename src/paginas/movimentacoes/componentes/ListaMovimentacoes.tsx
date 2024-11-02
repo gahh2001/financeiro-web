@@ -1,8 +1,8 @@
 import { FC, useEffect, useState } from "react";
-import { FiltrosMovimentacoesProps } from "../../../interfaces/FiltrosMovimentacoesProps";
-import { MovimentacaoService } from "../../../services/MovimentacaoService";
 import back from "../../../http";
+import { FiltrosMovimentacoesProps } from "../../../interfaces/FiltrosMovimentacoesProps";
 import { IMovimentacao } from "../../../interfaces/IMovimentacao";
+import { MovimentacaoService } from "../../../services/MovimentacaoService";
 
 
 const ListaMovimentacoes: FC<Partial<FiltrosMovimentacoesProps>> = (props: Partial <FiltrosMovimentacoesProps>) => {
@@ -21,7 +21,7 @@ const ListaMovimentacoes: FC<Partial<FiltrosMovimentacoesProps>> = (props: Parti
 					}
 				}
 			} catch (error) {
-				console.log("erro ao carregar categorias");
+				console.log("erro ao carregar movimentações");
 			}
 		}
 		buscaCategorias();
