@@ -1,11 +1,13 @@
+import { ArrowDownward, InfoOutlined } from "@mui/icons-material";
+import { Button, IconButton, Tooltip } from "@mui/material";
 import { FC, useEffect, useState } from "react";
+import ConverteIcone from "../../../componentes/configuracoes/categorias/ConverteIcones";
 import back from "../../../http";
-import { FiltrosMovimentacoesProps } from "../../../interfaces/FiltrosMovimentacoesProps";
+import { ListaMovimentacaoProps } from "../../../interfaces/FiltrosMovimentacoesProps";
 import { IMovimentacao } from "../../../interfaces/IMovimentacao";
 import { MovimentacaoService } from "../../../services/MovimentacaoService";
 
-
-const ListaMovimentacoes: FC<Partial<FiltrosMovimentacoesProps>> = (props: Partial <FiltrosMovimentacoesProps>) => {
+const ListaMovimentacoes: FC<ListaMovimentacaoProps> = (props: ListaMovimentacaoProps) => {
 	const movimentacaoService = new MovimentacaoService(back);
 	const [movimentacoes, setMovimentacoes] = useState<IMovimentacao[]>([]);
 
@@ -29,9 +31,59 @@ const ListaMovimentacoes: FC<Partial<FiltrosMovimentacoesProps>> = (props: Parti
 
 	return (
 		<div className="listagem">
-			
+			<div className="headers">
+				<Button>
+					Data <ArrowDownward/>
+				</Button>
+				<Button>
+					Categoria <ArrowDownward/>
+				</Button>
+				<Button>
+					Valor <ArrowDownward/>
+				</Button>
+				<Button>
+					Descrição <ArrowDownward/>
+				</Button>
+			</div>
+			{montaMovimentacoes(movimentacoes)}
 		</div>
 	);
+
+	function montaMovimentacoes(movimentacoes: IMovimentacao[]) {
+		return movimentacoes && movimentacoes.length && (
+			<div className="lista-movimentacoes">
+				{movimentacoes.map((movimentacao, index) => (
+					<div key={index} className="movimentacao">
+						<div className="icon">
+							<ConverteIcone icone={movimentacao.icone} corIcone={movimentacao.corIcone} />
+						</div>
+						<p>
+							{new Date(movimentacao.dataMovimentacao).getDate().toString().padStart(2,"0")}
+							/{new Date(movimentacao.dataMovimentacao).getMonth() + 1}
+							/{new Date(movimentacao.dataMovimentacao).getFullYear()}
+						</p>
+						<p className="variavel">{movimentacao.nomeCategoriaMovimentacao}</p>
+						<p className="variavel">{movimentacao.valor.toFixed(2).replace('.', ',')}</p>
+						<div className="icon">
+							<Tooltip
+								title="Ver descrição da movimentação"
+								placement="top"
+							>
+								<IconButton
+									onClick={() => props.dialogDescricao(movimentacao.descricaoMovimentacao)}
+								>
+									<InfoOutlined
+										sx={{ color: "#0085FF" }}
+									/>
+								</IconButton>
+							</Tooltip>
+						</div>
+					</div>
+				))}
+			</div>
+		);
+	}
 }
+
 
 export default ListaMovimentacoes;

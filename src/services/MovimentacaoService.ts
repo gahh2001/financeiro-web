@@ -28,11 +28,11 @@ export class MovimentacaoService {
 			dataInicio: dataInicio,
 			dataFim: dataFim,
 			tipoMovimentacao: tipo,
-			categorias: categorias
+			categorias: categorias?.join(',')
 		}
 		try {
 			const response = await this.axiosInstance
-				.get<IMovimentacao[]>('/movimentacao', {params});
+				.get<IMovimentacao[]>('/movimentacao/parametros', {params});
 			return {...response };
 		} catch (error) {
 			console.log(`Não foi possível obter as movimentações`, error);

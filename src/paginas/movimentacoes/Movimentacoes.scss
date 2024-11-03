@@ -32,6 +32,73 @@
 		.listagem {
 			width: 80%;
 			height: 100%;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			overflow: hidden;
+
+			.headers {
+				width: 65%;
+				height: 5vh;
+				display: flex;
+				justify-content: space-around;
+				color: $color-in-linhas;
+				align-items: center;
+				margin-left: 16vh;
+				font-size: 2vh;
+
+				svg {
+					font-size: 1.5vh;
+				}
+			}
+
+			.lista-movimentacoes {
+				width: 80%;
+				height: 650px;
+				overflow-y: auto;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+
+				.movimentacao {
+					font-size: 2.3vh;
+					width: 90%;
+					height: auto;
+					background-color: $fundo-components-light;
+					text-align: center;
+					margin-bottom: 1.5%;
+					display: flex;
+					justify-content: space-around;
+					border-radius: 20px;
+					border: 2px solid $fundo-linhas;
+					box-shadow: 2px 2px 7px 1px $sombras;
+					align-items: center;
+					color: $color-in-linhas;
+
+					.variavel{
+						width: 20%;
+					}
+		
+					svg {
+						background-color: transparent;
+						font-size: 3vh;
+					}
+				}
+			}
 		}
+	}
+
+	.lista-movimentacoes::-webkit-scrollbar {
+		width: 6px;
+	}
+	
+	.lista-movimentacoes::-webkit-scrollbar-thumb {
+		background: #acacac;
+		border-radius: 6px;
+	}
+	
+	.lista-movimentacoes::-webkit-scrollbar-thumb:hover {
+		background: #555;
 	}
 }

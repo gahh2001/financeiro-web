@@ -222,6 +222,12 @@ const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaPr
 				</div>
 			)
 		: <div className='card-movimentacoes'>
+			<div className="dica">
+				<InfoOutlined
+					fontSize="small"
+				/>
+				Selecione um dia do calendário para ver as movimentações.
+			</div>
 			<div className='titulo'>
 				<ErrorOutline
 					sx={{ color: "#e15734db" }}

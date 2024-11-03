@@ -1,13 +1,14 @@
 import { Divider } from "@mui/material";
 import dayjs, { Dayjs } from "dayjs";
 import { FC, Fragment, useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import AppBar from "../../componentes/AppBar/AppBar";
+import DialogDescricaoMovimentacao from "../../componentes/home/informacoesDoDiaCard/dialogDescricaoMovimentacao/DialogDescricaoMovimentacao";
 import { TipoMovimentacaoEnum } from "../../enums/TipoMovimentacaoEnum";
 import { IGoogleIdProps } from "../../interfaces/IGoogleIdProps";
 import './Movimentacoes.scss';
 import FiltrosMovimentacoes from "./componentes/FiltrosMovimentacoes";
 import ListaMovimentacoes from "./componentes/ListaMovimentacoes";
-import { useNavigate } from "react-router-dom";
 
 const Movimentacoes: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 	const [dataInicio, setDataInicio] = useState<Dayjs | null>(() => {
@@ -21,6 +22,8 @@ const Movimentacoes: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 		fimMes.setDate(0);
 		return dayjs(fimMes);
 	});
+	const [isOpenDialogDescricao, setIsOpenDialogDescricao] = useState(false);
+	const [descricao, setDescricao] = useState("");
 	const [tipo, setTipo] = useState<string>(TipoMovimentacaoEnum.TODOS.toString());
 	const [categorias, setCategorias] = useState(["Todas"]);
 	const isMounted = useRef(true);
@@ -37,6 +40,13 @@ const Movimentacoes: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 	}
 	const setTipoProps = (value: string) => {
 		setTipo(value);
+	}
+	const propsDialogDescricao = (description: string) => {
+		setIsOpenDialogDescricao(true);
+		setDescricao(description);
+	}
+	const closeDialogDescricao = () => {
+		setIsOpenDialogDescricao(false);
 	}
 
 	useEffect(() => {
@@ -65,6 +75,7 @@ const Movimentacoes: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 						googleId={props.googleId}
 						tipo={tipo}
 						setTipo={setTipoProps}
+						dialogDescricao={(description) => propsDialogDescricao(description)}
 					/>
 					<Divider orientation="vertical"/>
 					<ListaMovimentacoes
@@ -73,9 +84,15 @@ const Movimentacoes: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 						dataFim={dataFim}
 						googleId={props.googleId}
 						tipo={tipo}
+						dialogDescricao={(description) => propsDialogDescricao(description)}
 					/>
 				</div>
 			</div>
+			<DialogDescricaoMovimentacao
+				openDialog={isOpenDialogDescricao}
+				description={descricao}
+				onClose={closeDialogDescricao}
+			/>
 		</Fragment>
 	);
 }

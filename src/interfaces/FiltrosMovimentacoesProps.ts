@@ -1,13 +1,17 @@
 import { Dayjs } from "dayjs";
 
-export interface FiltrosMovimentacoesProps {
+export interface FiltrosMovimentacoesProps extends ListaMovimentacaoProps {
 	setDataFim: (data: Dayjs | null)=> void;
 	setDataInicio: (data: Dayjs | null) => void;
 	setCategorias: (categorias: string[])=> void;
 	setTipo: (value: string)=> void;
+}
+
+export interface ListaMovimentacaoProps {
+	categorias: string[];
+	googleId: string | null;
 	dataInicio: Dayjs | null;
 	dataFim: Dayjs | null;
 	tipo: string;
-	categorias: string[];
-	googleId: string | null;
+	dialogDescricao: (description: string) => void
 }
