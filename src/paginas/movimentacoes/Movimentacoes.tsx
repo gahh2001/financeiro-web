@@ -1,16 +1,16 @@
 import { Divider } from "@mui/material";
 import dayjs, { Dayjs } from "dayjs";
+import { useAtom } from "jotai";
 import { FC, Fragment, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { googleIdAtom } from "../../atoms/atom";
 import AppBar from "../../componentes/AppBar/AppBar";
 import DialogDescricaoMovimentacao from "../../componentes/home/informacoesDoDiaCard/dialogDescricaoMovimentacao/DialogDescricaoMovimentacao";
+import FiltrosMovimentacoes from "../../componentes/movimentacoes/FiltrosMovimentacoes";
+import ListaMovimentacoes from "../../componentes/movimentacoes/ListaMovimentacoes";
 import { TipoMovimentacaoEnum } from "../../enums/TipoMovimentacaoEnum";
 import { IGoogleIdProps } from "../../interfaces/IGoogleIdProps";
 import './Movimentacoes.scss';
-import FiltrosMovimentacoes from "./componentes/FiltrosMovimentacoes";
-import ListaMovimentacoes from "./componentes/ListaMovimentacoes";
-import { googleIdAtom } from "../../atoms/atom";
-import { useAtom } from "jotai";
 
 const Movimentacoes: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 	const [dataInicio, setDataInicio] = useState<Dayjs | null>(() => {

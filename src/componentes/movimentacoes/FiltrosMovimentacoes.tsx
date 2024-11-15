@@ -4,12 +4,12 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { useAtom } from "jotai";
 import { FC, useEffect, useState } from "react";
-import { googleIdAtom } from "../../../atoms/atom";
-import { TipoMovimentacaoEnum } from "../../../enums/TipoMovimentacaoEnum";
-import back from "../../../http";
-import { FiltrosMovimentacoesProps } from "../../../interfaces/FiltrosMovimentacoesProps";
-import { ICategoriaMovimentacao } from "../../../interfaces/ICategoriaMovimentacao";
-import { CategoriaMovimentacaoService } from "../../../services/CategoriaMovimentacaoService";
+import { googleIdAtom } from "../../atoms/atom";
+import { TipoMovimentacaoEnum } from "../../enums/TipoMovimentacaoEnum";
+import back from "../../http";
+import { FiltrosMovimentacoesProps } from "../../interfaces/FiltrosMovimentacoesProps";
+import { ICategoriaMovimentacao } from "../../interfaces/ICategoriaMovimentacao";
+import { CategoriaMovimentacaoService } from "../../services/CategoriaMovimentacaoService";
 
 
 const FiltrosMovimentacoes: FC<FiltrosMovimentacoesProps> = (props: FiltrosMovimentacoesProps) => {

@@ -2,12 +2,12 @@ import { ArrowDownward, InfoOutlined } from "@mui/icons-material";
 import { Button, IconButton, Tooltip } from "@mui/material";
 import { useAtom } from "jotai";
 import { FC, useEffect, useState } from "react";
-import { googleIdAtom } from "../../../atoms/atom";
-import ConverteIcone from "../../../componentes/configuracoes/categorias/ConverteIcones";
-import back from "../../../http";
-import { ListaMovimentacaoProps } from "../../../interfaces/FiltrosMovimentacoesProps";
-import { IMovimentacao } from "../../../interfaces/IMovimentacao";
-import { MovimentacaoService } from "../../../services/MovimentacaoService";
+import { googleIdAtom } from "../../atoms/atom";
+import back from "../../http";
+import { ListaMovimentacaoProps } from "../../interfaces/FiltrosMovimentacoesProps";
+import { IMovimentacao } from "../../interfaces/IMovimentacao";
+import { MovimentacaoService } from "../../services/MovimentacaoService";
+import ConverteIcone from "../configuracoes/categorias/ConverteIcones";
 
 const ListaMovimentacoes: FC<ListaMovimentacaoProps> = (props: ListaMovimentacaoProps) => {
 	const movimentacaoService = new MovimentacaoService(back);
@@ -44,8 +44,8 @@ const ListaMovimentacoes: FC<ListaMovimentacaoProps> = (props: ListaMovimentacao
 				<Button>
 					Valor <ArrowDownward/>
 				</Button>
-				<Button>
-					Descrição <ArrowDownward/>
+				<Button >
+					Descrição
 				</Button>
 			</div>
 			{montaMovimentacoes(movimentacoes)}
