@@ -13,7 +13,6 @@ export type IModalAddMovimentacao = {
 	valor: string;
 	descricao: string;
 	selectedDate: Date;
-	googleId: string | null;
 	movimentacoesMes: IMovimentacao[];
 	closeModal: () => void;
 	atualizaMovimentacoesMes: (movimentacoes: IMovimentacao[]) => void;

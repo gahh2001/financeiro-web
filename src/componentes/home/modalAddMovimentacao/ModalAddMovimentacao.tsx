@@ -11,7 +11,9 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import dayjs, { Dayjs } from 'dayjs';
 import 'dayjs/locale/pt-br';
+import { useAtom } from 'jotai';
 import { ChangeEvent, FC, useEffect, useState } from "react";
+import { googleIdAtom } from '../../../atoms/atom';
 import { TipoMovimentacaoEnum } from '../../../enums/TipoMovimentacaoEnum';
 import back from '../../../http';
 import { ICategoriaMovimentacao } from '../../../interfaces/ICategoriaMovimentacao';
@@ -22,6 +24,7 @@ import { MovimentacaoService } from '../../../services/MovimentacaoService';
 import "./ModalAddMovimentacao.scss";
 
 const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimentacao)  => {
+	const [googleId] = useAtom(googleIdAtom);
 	const categoriaMovimentacaoService = new CategoriaMovimentacaoService(back);
 	const movimentacaoService = new MovimentacaoService(back);
 	const verboTitulo = props.edit
@@ -45,9 +48,9 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 		const buscaCategorias = async () => {
 			if ( props.isOpen ) {
 				try {
-					if (props.googleId !== "") {
+					if (googleId !== "") {
 						const categorias = await categoriaMovimentacaoService
-							.obtemCategoriasPorTipoMovimentacaoEConta(props.googleId, props.tipo);
+							.obtemCategoriasPorTipoMovimentacaoEConta(googleId, props.tipo);
 						if (categorias?.data) {
 							setCategoriasCarregadas(categorias.data);
 						}
@@ -201,7 +204,7 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 			setLoading(true);
 			setSuccess(false);
 			const novaMovimentacao: Partial<IMovimentacao> = {
-				googleId: props.googleId,
+				googleId: googleId,
 				valor: parseFloat(valor),
 				dataMovimentacao: data?.toDate() ? data?.toDate() : new Date(),
 				tipoMovimentacao: props.tipo.toString(),
@@ -210,9 +213,9 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 			}
 			if (props.edit) {
 				novaMovimentacao.id = props.idMovimentacao;
-				await movimentacaoService.atualizaMovimentacao(props.googleId, novaMovimentacao);
+				await movimentacaoService.atualizaMovimentacao(googleId, novaMovimentacao);
 			} else {
-				await movimentacaoService.adicionaMovimentacao(props.googleId, novaMovimentacao);
+				await movimentacaoService.adicionaMovimentacao(googleId, novaMovimentacao);
 			}
 			setLoading(false);
 			setSuccess(true);

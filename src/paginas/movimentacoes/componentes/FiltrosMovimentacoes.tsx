@@ -2,8 +2,9 @@ import { Box, Checkbox, Chip, FormControl, InputLabel, MenuItem, OutlinedInput, 
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
-import { FC, useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useAtom } from "jotai";
+import { FC, useEffect, useState } from "react";
+import { googleIdAtom } from "../../../atoms/atom";
 import { TipoMovimentacaoEnum } from "../../../enums/TipoMovimentacaoEnum";
 import back from "../../../http";
 import { FiltrosMovimentacoesProps } from "../../../interfaces/FiltrosMovimentacoesProps";
@@ -14,6 +15,7 @@ import { CategoriaMovimentacaoService } from "../../../services/CategoriaMovimen
 const FiltrosMovimentacoes: FC<FiltrosMovimentacoesProps> = (props: FiltrosMovimentacoesProps) => {
 	const [categoriasCarregadas, setCategoriasCarregadas] = useState<ICategoriaMovimentacao[]>([]);
 	const categoriaMovimentacaoService = new CategoriaMovimentacaoService(back);
+	const [googleId] = useAtom(googleIdAtom);
 	const theme = useTheme();
 	const ITEM_HEIGHT = 48;
 	const ITEM_PADDING_TOP = 8;
@@ -56,9 +58,9 @@ const FiltrosMovimentacoes: FC<FiltrosMovimentacoesProps> = (props: FiltrosMovim
 	useEffect(() => {
 		const buscaCategorias = async () => {
 			try {
-				if (props.googleId !== "") {
+				if (googleId !== "") {
 					const categorias = await categoriaMovimentacaoService
-						.obtemCategoriasPorTipoMovimentacaoEConta(props.googleId, tipoEnum);
+						.obtemCategoriasPorTipoMovimentacaoEConta(googleId, tipoEnum);
 					if (categorias?.data) {
 						setCategoriasCarregadas(categorias.data);
 					}

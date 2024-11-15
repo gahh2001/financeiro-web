@@ -1,6 +1,8 @@
 import { ArrowDownward, InfoOutlined } from "@mui/icons-material";
 import { Button, IconButton, Tooltip } from "@mui/material";
+import { useAtom } from "jotai";
 import { FC, useEffect, useState } from "react";
+import { googleIdAtom } from "../../../atoms/atom";
 import ConverteIcone from "../../../componentes/configuracoes/categorias/ConverteIcones";
 import back from "../../../http";
 import { ListaMovimentacaoProps } from "../../../interfaces/FiltrosMovimentacoesProps";
@@ -10,13 +12,14 @@ import { MovimentacaoService } from "../../../services/MovimentacaoService";
 const ListaMovimentacoes: FC<ListaMovimentacaoProps> = (props: ListaMovimentacaoProps) => {
 	const movimentacaoService = new MovimentacaoService(back);
 	const [movimentacoes, setMovimentacoes] = useState<IMovimentacao[]>([]);
+	const [googleId] = useAtom(googleIdAtom);
 
 	useEffect(() => {
 		const buscaCategorias = async () => {
 			try {
-				if (props.googleId !== "") {
+				if (googleId !== "") {
 					const categorias = await movimentacaoService
-						.obtemPorParametros(props.googleId, props.dataInicio?.valueOf(), props.dataFim?.valueOf(),
+						.obtemPorParametros(googleId, props.dataInicio?.valueOf(), props.dataFim?.valueOf(),
 							props.tipo, props.categorias);
 					if (categorias?.data) {
 						setMovimentacoes(categorias.data);

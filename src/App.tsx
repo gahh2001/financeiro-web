@@ -1,6 +1,8 @@
 import { ThemeProvider, createTheme } from '@mui/material';
+import { useAtom } from 'jotai';
 import { useState } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
+import { googleIdAtom } from './atoms/atom';
 import { IGoogleIdProps } from './interfaces/IGoogleIdProps';
 import About from './paginas/about/About';
 import Analitico from './paginas/analitico/Analitico';
@@ -10,25 +12,25 @@ import Login from './paginas/login/Login';
 import Movimentacoes from './paginas/movimentacoes/Movimentacoes';
 
 function App() {
+	const [googleId, setGoogleId] = useAtom(googleIdAtom);
+
 	const darkTheme = createTheme({
 		palette: {
 			mode: 'dark',
 		},
 	});
 
-	const [userId, setUserId] = useState<string | null>(localStorage.getItem('googleId'));
+	setGoogleId(localStorage.getItem('googleId'));
 	const [urlPicture, setUrlPicture] = useState<string | null>(localStorage.getItem('urlPicture'));
 
 	const setId = (id: string) => {
 		localStorage.setItem('googleId', id);
-		setUserId(id);
 	}
 	const setPicure = (url: string) => {
 		localStorage.setItem('urlPicture', url);
 		setUrlPicture(url);
 	}
 	const props: IGoogleIdProps = {
-		googleId: userId,
 		setId: setId,
 		setPicture: setPicure,
 		urlPicture: urlPicture

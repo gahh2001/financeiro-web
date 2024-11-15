@@ -25,7 +25,6 @@ const Geral: FC<Partial<IGoogleIdProps>> = (props: Partial<IGoogleIdProps>) => {
 			<ModalZerar
 				closeModal={closeModalZerar}
 				isOpen={isOpenModalAdd}
-				googleId={props.googleId}
 				handleEditCategoria={handleEditCategoria}
 			/>
 		</Fragment>

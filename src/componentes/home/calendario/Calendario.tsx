@@ -1,9 +1,11 @@
 import { CircleTwoTone } from "@mui/icons-material";
 import { CircularProgress } from "@mui/material";
 import classNames from 'classnames';
+import { useAtom } from "jotai";
 import moment from "moment";
 import "moment/locale/pt-br";
 import { FC, useEffect, useState } from "react";
+import { googleIdAtom } from "../../../atoms/atom";
 import { TipoMovimentacaoEnum } from "../../../enums/TipoMovimentacaoEnum";
 import back from "../../../http";
 import { ICalendarioProps } from "../../../interfaces/ICalendarioProps";
@@ -19,6 +21,7 @@ const Calendario: FC<ICalendarioProps> = (props: ICalendarioProps) => {
 	const daysInMonth = currentMonth.daysInMonth();
 	const startingDay = parseInt(firstDayOfMonth.format("d"), 10);
 	const [carregado, setCarregado] = useState(false);
+	const [googleId] = useAtom(googleIdAtom);
 
 	const days = [];
 	for (let i = 0; i < startingDay; i++) {
@@ -28,7 +31,7 @@ const Calendario: FC<ICalendarioProps> = (props: ICalendarioProps) => {
 	useEffect(() => {
 		const buscaMovimentacoesDoMes = async () => {
 			try {
-				if (props.googleId !== "") {
+				if (googleId !== "") {
 					const movimentacaoService = new MovimentacaoService(back);
 					const primeiroDiaMes : Date = currentMonth.clone().toDate();
 					primeiroDiaMes.setDate(1);
@@ -36,7 +39,7 @@ const Calendario: FC<ICalendarioProps> = (props: ICalendarioProps) => {
 					ultimoDiaMes.setDate(15)
 					ultimoDiaMes.setMonth(primeiroDiaMes.getMonth() + 1);
 					ultimoDiaMes.setDate(0);
-					const response = await movimentacaoService.getMovimentacao(props.googleId,
+					const response = await movimentacaoService.getMovimentacao(googleId,
 						primeiroDiaMes.getTime(), ultimoDiaMes.getTime());
 					if (response?.data) {
 						props.atualizaMovimentacoesMes(response.data);

@@ -8,5 +8,4 @@ export type IModalApagar = {
 	tipo: TipoMovimentacaoEnum;
 	closeModalRemove: () => void;
 	movimentacao: IMovimentacao | null;
-	googleId: string | null;
 }

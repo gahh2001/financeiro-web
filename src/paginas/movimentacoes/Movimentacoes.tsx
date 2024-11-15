@@ -9,6 +9,8 @@ import { IGoogleIdProps } from "../../interfaces/IGoogleIdProps";
 import './Movimentacoes.scss';
 import FiltrosMovimentacoes from "./componentes/FiltrosMovimentacoes";
 import ListaMovimentacoes from "./componentes/ListaMovimentacoes";
+import { googleIdAtom } from "../../atoms/atom";
+import { useAtom } from "jotai";
 
 const Movimentacoes: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 	const [dataInicio, setDataInicio] = useState<Dayjs | null>(() => {
@@ -26,6 +28,7 @@ const Movimentacoes: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 	const [descricao, setDescricao] = useState("");
 	const [tipo, setTipo] = useState<string>(TipoMovimentacaoEnum.TODOS.toString());
 	const [categorias, setCategorias] = useState(["Todas"]);
+	const [googleId] = useAtom(googleIdAtom);
 	const isMounted = useRef(true);
 	const navigate = useNavigate();
 
@@ -50,10 +53,10 @@ const Movimentacoes: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 	}
 
 	useEffect(() => {
-		if (!props.googleId && isMounted.current) {
+		if (!googleId && isMounted.current) {
 			navigate("/login")
 		}
-	}, [props.googleId]);
+	}, [googleId]);
 
 	return (
 		<Fragment>
@@ -72,7 +75,6 @@ const Movimentacoes: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 						setDataInicio={setDataInicioProps}
 						dataFim={dataFim}
 						setDataFim={setDataFimProps}
-						googleId={props.googleId}
 						tipo={tipo}
 						setTipo={setTipoProps}
 						dialogDescricao={(description) => propsDialogDescricao(description)}
@@ -82,7 +84,6 @@ const Movimentacoes: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 						categorias={categorias}
 						dataInicio={dataInicio}
 						dataFim={dataFim}
-						googleId={props.googleId}
 						tipo={tipo}
 						dialogDescricao={(description) => propsDialogDescricao(description)}
 					/>

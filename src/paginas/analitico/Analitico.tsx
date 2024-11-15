@@ -1,6 +1,8 @@
 import dayjs, { Dayjs } from "dayjs";
+import { useAtom } from "jotai";
 import { FC, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { googleIdAtom } from "../../atoms/atom";
 import AppBar from "../../componentes/AppBar/AppBar";
 import CategoriasComparacao from "../../componentes/analitico/categoriasComparacao/CategoriasComparacao";
 import CategoriasEvolucao from "../../componentes/analitico/categoriasEvolucao/CategoriasEvolucao";
@@ -36,6 +38,7 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 	const [tipoInformacoesGerais, setTipoInformacoesGerais] = useState('comparison')
 	const [mediasGerais, setMediasgerais] = useState<IMediasAnalitico>();
 	const categoriaService = new CategoriaMovimentacaoService(back);
+	const [googleId] = useAtom(googleIdAtom);
 	const isMounted = useRef(true);
 	const navigate = useNavigate();
 
@@ -66,18 +69,18 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 	}, []);
 
 	useEffect(() => {
-		if (!props.googleId && isMounted.current) {
+		if (!googleId && isMounted.current) {
 			navigate("/login")
 		}
-	}, [props.googleId])
+	}, [googleId])
 
 	useEffect(() => {
 		const atualizaVisaoGeral = async () => {
 			try {
-				if (props.googleId !== "") {
+				if (googleId !== "") {
 					const categoriaMovimentacaoService = new CategoriaMovimentacaoService(back);
 					const soma = await categoriaMovimentacaoService
-						.obtemSomaCategoriasEValores(props.googleId, obtemDataInicial(), obtemDataFinal(), tipoMovimentacao);
+						.obtemSomaCategoriasEValores(googleId, obtemDataInicial(), obtemDataFinal(), tipoMovimentacao);
 					if (soma?.data) {
 						extraiSomas(soma.data);
 						extraiPorcentagens(soma.data);
@@ -94,7 +97,7 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 		const atualizaComparacoes = async () => {
 			try {
 				const somaComparacoes = await categoriaService
-					.obtemSomaCategoriasEValoresPorMeses(props.googleId, obtemDataInicialComparacao(),
+					.obtemSomaCategoriasEValoresPorMeses(googleId, obtemDataInicialComparacao(),
 						obtemDataFinalComparacao(), tipoMovimentacao);
 				if (somaComparacoes?.data) {
 					extraiSomaComparacoes(somaComparacoes.data);
@@ -110,7 +113,7 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 		const atualizaEvolucao = async () => {
 			try {
 				const evolucoes = await categoriaService
-					.obtemSomaCategoriasEvolucao(props.googleId, obtemDataInicialComparacao(),
+					.obtemSomaCategoriasEvolucao(googleId, obtemDataInicialComparacao(),
 						obtemDataFinalComparacao());
 				if (evolucoes?.data) {
 					extraiEvolucoes(evolucoes.data);
@@ -134,7 +137,7 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 		}
 		const atualizaMedias = async () => {
 			const medias = await categoriaService
-				.obtemInformacoesgerais(props.googleId, dataInicio, dataFim);
+				.obtemInformacoesgerais(googleId, dataInicio, dataFim);
 			if (medias?.data) {
 				extraiMedias(medias.data);
 			}

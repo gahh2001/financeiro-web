@@ -1,7 +1,9 @@
 import { AddCircleOutlineRounded } from "@mui/icons-material";
 import CheckIcon from '@mui/icons-material/Check';
 import { Box, LinearProgress } from "@mui/material";
+import { useAtom } from "jotai";
 import { FC, Fragment, useEffect, useState } from "react";
+import { googleIdAtom } from "../../../../atoms/atom";
 import back from "../../../../http";
 import { IModalCategoriaProps } from "../../../../interfaces/IModalCategoriaProps";
 import { ContaService } from "../../../../services/ContaService";
@@ -11,6 +13,7 @@ const ModalZerar: FC<Partial<IModalCategoriaProps>> = (props: Partial<IModalCate
 	const [loading, setLoading] = useState(false);
 	const [success, setSuccess] = useState(false);
 	const contaService = new ContaService(back);
+	const [googleId] = useAtom(googleIdAtom);
 
 	useEffect(() => {
 		setSuccess(false);
@@ -63,7 +66,7 @@ const ModalZerar: FC<Partial<IModalCategoriaProps>> = (props: Partial<IModalCate
 		let response = undefined;
 		setLoading(true);
 		setSuccess(false);
-		response = await contaService.zeraSaldo(props.googleId);
+		response = await contaService.zeraSaldo(googleId);
 		setLoading(false);
 		setSuccess(true);
 	}

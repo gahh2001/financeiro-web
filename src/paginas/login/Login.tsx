@@ -6,16 +6,18 @@ import { FC, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { IGoogleIdProps } from '../../interfaces/IGoogleIdProps';
 import { LoginService } from '../../services/LoginService';
+import { useAtom } from 'jotai';
+import { googleIdAtom } from '../../atoms/atom';
 
 const Login: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
-
+	const [googleId] = useAtom(googleIdAtom);
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		if (props.googleId && props.googleId !== "") {
+		if (googleId && googleId !== "") {
 			navigate("/home");
 		}
-	}, [props.googleId]);
+	}, [googleId]);
 
 	useEffect(() => {
 		const buttonDiv = document.getElementById('buttonDiv');

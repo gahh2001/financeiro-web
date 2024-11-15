@@ -10,12 +10,15 @@ import { ICategoriaMovimentacao } from "../../interfaces/ICategoriaMovimentacao"
 import { IGoogleIdProps } from "../../interfaces/IGoogleIdProps";
 import { CategoriaMovimentacaoService } from "../../services/CategoriaMovimentacaoService";
 import "./Configuracoes.scss";
+import { useAtom } from "jotai";
+import { googleIdAtom } from "../../atoms/atom";
 
 const Configuracoes: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 	const categoriaMovimentacaoService = new CategoriaMovimentacaoService(back);
 	const [categorias, setCategorias] = useState<ICategoriaMovimentacao[]>([]);
 	const {isOpenModalAdd: isOpenModalAddCategoria, closeModalCategoria} = useModalCategoria();
 	const [aba, setAba] = useState<string>("CATEGORIAS");
+	const [googleId] = useAtom(googleIdAtom);
 	const isMounted = useRef(true);
 	const navigate = useNavigate();
 
@@ -31,7 +34,7 @@ const Configuracoes: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 		const carregaCategorias = async () => {
 			if (aba === "CATEGORIAS") {
 				const categorias = await categoriaMovimentacaoService
-					.obtemCategoriasMovimentacaoPorConta(props.googleId);
+					.obtemCategoriasMovimentacaoPorConta(googleId);
 				if (categorias) {
 					setCategorias(categorias?.data);
 				}
@@ -47,10 +50,10 @@ const Configuracoes: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 	}, []);
 
 	useEffect(() => {
-		if (!props.googleId && isMounted.current) {
+		if (!googleId && isMounted.current) {
 			navigate("/login")
 		}
-	}, [props.googleId]);
+	}, [googleId]);
 
 	return (
 		<Fragment>
@@ -93,13 +96,10 @@ const Configuracoes: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 	function escolheConfiguracao() {
 		switch (aba) {
 			case "GERAL":
-				return <Geral
-					googleId={props.googleId}
-				/>
+				return <Geral/>
 			default:
 				return <Categorias
 					categorias={categorias}
-					googleId={props.googleId}
 					handleAddCategoria={handleAddCategoria}
 				/>
 		}

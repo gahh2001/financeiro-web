@@ -64,7 +64,6 @@ const Categorias: FC<ICategoriasProps> = (props: ICategoriasProps) => {
 				icone={iconeCategoria}
 				corIcone={corCategoria}
 				idCategoria={idCategoria}
-				googleId={props.googleId}
 				handleEditCategoria={handleEditCategoria}
 			/>
 		</Fragment>

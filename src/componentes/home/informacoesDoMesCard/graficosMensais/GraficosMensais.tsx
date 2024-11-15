@@ -1,6 +1,8 @@
 import { Divider } from '@mui/material';
 import { BarChart } from '@mui/x-charts/BarChart';
+import { useAtom } from 'jotai';
 import { FC, useEffect, useState } from 'react';
+import { googleIdAtom } from '../../../../atoms/atom';
 import back from '../../../../http';
 import { InformacoesDoMesProps } from '../../../../interfaces/IInformacoesDoMesProps';
 import { ISomaCategoriasPorMes } from '../../../../interfaces/ISomaCategoriasPorMes';
@@ -12,11 +14,12 @@ const GraficosMensais: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProps
 	const [somaCategoriasPositivas, setSomaCategoriasPositivas] = useState<number[]>([]);
 	const [nomeCategoriasNegativas, setNomeCategoriasNegativas] = useState<string[]>([]);
 	const [somaCategoriasNegativas, setSomaCategoriasNegativas] = useState<number[]>([]);
+	const [googleId] = useAtom(googleIdAtom);
 
 	useEffect(() => {
 		const buscaSomaCategorias = async () => {
 			try {
-				if (props.googleId !== "") {
+				if (googleId !== "") {
 					const categoriaMovimentacaoService = new CategoriaMovimentacaoService(back);
 					const dataInicio = new Date(props.selectedDate);
 					dataInicio.setDate(1);
@@ -24,9 +27,9 @@ const GraficosMensais: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProps
 					dataFim.setMonth(dataFim.getMonth() + 1);
 					dataFim.setDate(0);
 					const somaPositivas = await categoriaMovimentacaoService
-						.obtemSomaCategoriasEValores(props.googleId, dataInicio.getTime(), dataFim.getTime(), "POSITIVO");
+						.obtemSomaCategoriasEValores(googleId, dataInicio.getTime(), dataFim.getTime(), "POSITIVO");
 					const somaNegativas = await categoriaMovimentacaoService
-						.obtemSomaCategoriasEValores(props.googleId, dataInicio.getTime(), dataFim.getTime(), "NEGATIVO");
+						.obtemSomaCategoriasEValores(googleId, dataInicio.getTime(), dataFim.getTime(), "NEGATIVO");
 					if (somaPositivas?.data) {
 						extractSomaCategoriasPositivas(somaPositivas.data)
 					}

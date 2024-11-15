@@ -9,7 +9,6 @@ export interface FiltrosMovimentacoesProps extends ListaMovimentacaoProps {
 
 export interface ListaMovimentacaoProps {
 	categorias: string[];
-	googleId: string | null;
 	dataInicio: Dayjs | null;
 	dataFim: Dayjs | null;
 	tipo: string;
