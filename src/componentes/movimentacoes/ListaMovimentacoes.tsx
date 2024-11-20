@@ -1,4 +1,4 @@
-import { ArrowDownward, InfoOutlined } from "@mui/icons-material";
+import { ArrowDownward, ArrowUpward, InfoOutlined } from "@mui/icons-material";
 import { Button, IconButton, Tooltip } from "@mui/material";
 import { useAtom } from "jotai";
 import { FC, useEffect, useState } from "react";
@@ -13,7 +13,14 @@ const ListaMovimentacoes: FC<ListaMovimentacaoProps> = (props: ListaMovimentacao
 	const movimentacaoService = new MovimentacaoService(back);
 	const [movimentacoes, setMovimentacoes] = useState<IMovimentacao[]>([]);
 	const [movimentacoesIniciais, setMovimentacoesIniciais] = useState<IMovimentacao[]>([]);
+	const [campoOrdem, setCampoOrdem] = useState("data");
+	const [ordemAsc, setOrdemAsc] = useState(true);
 	const [googleId] = useAtom(googleIdAtom);
+
+	function mudaOrdem(campo: string) {
+		setCampoOrdem(campo);
+		setOrdemAsc(!ordemAsc);
+	}
 
 	useEffect(() => {
 		const buscaCategorias = async () => {
@@ -41,6 +48,31 @@ const ListaMovimentacoes: FC<ListaMovimentacaoProps> = (props: ListaMovimentacao
 			));
 		}
 	},[props.tipo]);
+	
+	useEffect(()=> {
+		let sortedMovimentacoes = [...movimentacoes];
+		switch (campoOrdem) {
+			case "data":
+				sortedMovimentacoes.sort((a, b) =>
+					new Date(a.dataMovimentacao).getTime() - new Date(b.dataMovimentacao).getTime()
+				);
+				break;
+			case "categoria":
+				sortedMovimentacoes.sort((a, b) =>
+					(a.nomeCategoriaMovimentacao || "").localeCompare(b.nomeCategoriaMovimentacao || "")
+				);
+				break;
+			case "valor":
+				sortedMovimentacoes.sort((a, b) => a.valor - b.valor);
+				break;
+			default:
+				break;
+		}
+		if (!ordemAsc) {
+			sortedMovimentacoes.reverse();
+		}
+		setMovimentacoes(sortedMovimentacoes);
+	}, [campoOrdem, ordemAsc]);
 
 
 	useEffect(() => {
@@ -59,14 +91,14 @@ const ListaMovimentacoes: FC<ListaMovimentacaoProps> = (props: ListaMovimentacao
 		movimentacoes.length ?
 		<div className="listagem">
 			<div className="headers">
-				<Button>
-					Data <ArrowDownward/>
+				<Button onClick={() => mudaOrdem("data")}>
+					Data {obtemIconeOdem("data")}
 				</Button>
-				<Button>
-					Categoria <ArrowDownward/>
+				<Button onClick={() => mudaOrdem("categoria")}>
+					Categoria {obtemIconeOdem("categoria")}
 				</Button>
-				<Button>
-					Valor <ArrowDownward/>
+				<Button onClick={() => mudaOrdem("valor")}>
+					Valor {obtemIconeOdem("valor")}
 				</Button>
 				<Button >
 					Descrição
@@ -110,6 +142,13 @@ const ListaMovimentacoes: FC<ListaMovimentacaoProps> = (props: ListaMovimentacao
 				))}
 			</div>
 		);
+	}
+
+	function obtemIconeOdem(campo: string) {
+		if (campo === campoOrdem && ordemAsc) {
+			return (<ArrowDownward/>);
+		}
+		return (<ArrowUpward/>);
 	}
 }
 
