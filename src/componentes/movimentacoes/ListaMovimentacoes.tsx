@@ -12,6 +12,7 @@ import ConverteIcone from "../configuracoes/categorias/ConverteIcones";
 const ListaMovimentacoes: FC<ListaMovimentacaoProps> = (props: ListaMovimentacaoProps) => {
 	const movimentacaoService = new MovimentacaoService(back);
 	const [movimentacoes, setMovimentacoes] = useState<IMovimentacao[]>([]);
+	const [movimentacoesIniciais, setMovimentacoesIniciais] = useState<IMovimentacao[]>([]);
 	const [googleId] = useAtom(googleIdAtom);
 
 	useEffect(() => {
@@ -22,6 +23,7 @@ const ListaMovimentacoes: FC<ListaMovimentacaoProps> = (props: ListaMovimentacao
 						.obtemPorParametros(googleId, props.dataInicio?.valueOf(), props.dataFim?.valueOf(),
 							props.tipo, props.categorias);
 					if (categorias?.data) {
+						setMovimentacoesIniciais(categorias.data);
 						setMovimentacoes(categorias.data);
 					}
 				}
@@ -30,9 +32,31 @@ const ListaMovimentacoes: FC<ListaMovimentacaoProps> = (props: ListaMovimentacao
 			}
 		}
 		buscaCategorias();
-	}, [props.dataInicio, props.dataFim, props.tipo, props.categorias]);
+	}, [props.dataInicio, props.dataFim]);
+
+	useEffect(() => {
+		if (props.tipo !== "TODOS") {
+			setMovimentacoes(movimentacoesIniciais.filter(movimentacao =>
+				movimentacao.tipoMovimentacao === props.tipo
+			));
+		}
+	},[props.tipo]);
+
+
+	useEffect(() => {
+		if (!props.categorias.includes("Todas")) {
+			setMovimentacoes(movimentacoesIniciais.filter(movimentacao =>
+				props.categorias.includes( movimentacao.nomeCategoriaMovimentacao || "")
+			));
+			return;
+		}
+		setMovimentacoes(movimentacoesIniciais.filter(movimentacao =>
+			movimentacao.tipoMovimentacao === props.tipo
+		));
+	},[props.categorias]);
 
 	return (
+		movimentacoes.length ?
 		<div className="listagem">
 			<div className="headers">
 				<Button>
@@ -50,6 +74,7 @@ const ListaMovimentacoes: FC<ListaMovimentacaoProps> = (props: ListaMovimentacao
 			</div>
 			{montaMovimentacoes(movimentacoes)}
 		</div>
+		: <div className="nenhuma">Nenhuma movimentação para estes filtros...</div>
 	);
 
 	function montaMovimentacoes(movimentacoes: IMovimentacao[]) {

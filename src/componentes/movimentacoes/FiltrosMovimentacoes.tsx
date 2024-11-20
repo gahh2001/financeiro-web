@@ -11,9 +11,9 @@ import { FiltrosMovimentacoesProps } from "../../interfaces/FiltrosMovimentacoes
 import { ICategoriaMovimentacao } from "../../interfaces/ICategoriaMovimentacao";
 import { CategoriaMovimentacaoService } from "../../services/CategoriaMovimentacaoService";
 
-
 const FiltrosMovimentacoes: FC<FiltrosMovimentacoesProps> = (props: FiltrosMovimentacoesProps) => {
-	const [categoriasCarregadas, setCategoriasCarregadas] = useState<ICategoriaMovimentacao[]>([]);
+	const [categoriasIniciais, setCategoriasIniciais] = useState<ICategoriaMovimentacao[]>([]);
+	const [categorias, setCategorias] = useState<ICategoriaMovimentacao[]>([]);
 	const categoriaMovimentacaoService = new CategoriaMovimentacaoService(back);
 	const [googleId] = useAtom(googleIdAtom);
 	const theme = useTheme();
@@ -60,9 +60,9 @@ const FiltrosMovimentacoes: FC<FiltrosMovimentacoesProps> = (props: FiltrosMovim
 			try {
 				if (googleId !== "") {
 					const categorias = await categoriaMovimentacaoService
-						.obtemCategoriasPorTipoMovimentacaoEConta(googleId, tipoEnum);
+						.obtemCategoriasPorTipoMovimentacaoEConta(googleId, TipoMovimentacaoEnum.TODOS);
 					if (categorias?.data) {
-						setCategoriasCarregadas(categorias.data);
+						setCategoriasIniciais(categorias.data);
 					}
 				}
 			} catch (error) {
@@ -70,6 +70,19 @@ const FiltrosMovimentacoes: FC<FiltrosMovimentacoesProps> = (props: FiltrosMovim
 			}
 		}
 		buscaCategorias();
+	}, []);
+
+	useEffect(() => {
+		if (props.tipo === "TODOS") {
+			setCategorias(categoriasIniciais);
+			return;
+		}
+		setCategorias(categoriasIniciais.filter(categoria =>
+			categoria.tipoMovimentacao === props.tipo
+		));
+		handleChangeCategorias({
+			target: { value: ["Todas"] }
+		} as SelectChangeEvent<typeof props.categorias>);
 	}, [props.tipo]);
 
 	return (
@@ -155,7 +168,7 @@ const FiltrosMovimentacoes: FC<FiltrosMovimentacoesProps> = (props: FiltrosMovim
 					)}
 					MenuProps={MenuProps}
 				>
-					{obtemSelectCategorias(categoriasCarregadas)}
+					{obtemSelectCategorias(categorias)}
 				</Select>
 			</FormControl>
 		</div>
