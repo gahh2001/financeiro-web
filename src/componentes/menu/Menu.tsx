@@ -1,4 +1,4 @@
-import { AssessmentOutlined, CalendarMonth, InfoOutlined, ListAlt } from '@mui/icons-material';
+import { AssessmentOutlined, CalendarMonth, InfoOutlined, ListAlt, Speed } from '@mui/icons-material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Divider, IconButton, Tooltip } from '@mui/material';
 import Box from '@mui/material/Box';
@@ -78,6 +78,16 @@ export default function TemporaryDrawer() {
 										<ListAlt/>
 									</ListItemIcon>
 									<ListItemText primary={"Movimentações"}/>
+								</ListItemButton>
+							</ListItem>
+							<Divider/>
+							<Divider/>
+							<ListItem key={"planejamentos"} >
+								<ListItemButton onClick={() => handleNavigate("/planejamentos")}>
+									<ListItemIcon>
+										<Speed/>
+									</ListItemIcon>
+									<ListItemText primary={"Planejamentos"}/>
 								</ListItemButton>
 							</ListItem>
 							<Divider/>
