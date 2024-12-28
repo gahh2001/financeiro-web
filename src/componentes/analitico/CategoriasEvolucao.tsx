@@ -1,12 +1,10 @@
 import { LineChart } from '@mui/x-charts/LineChart';
 import { FC } from 'react';
-import { ICategoriasComparacaoProps } from '../../../interfaces/ICategoriasComparacaoProps';
-import '../../../paginas/analitico/Analitico.scss';
-import './CategoriasEvolucao.scss';
+import { ICategoriasComparacaoProps } from '../../interfaces/ICategoriasComparacaoProps';
 
 const CategoriasEvolucao: FC<ICategoriasComparacaoProps> = (props: ICategoriasComparacaoProps) => {
 	return (
-		<div className='card-categorias-evolucao'>
+		<div className='card'>
 			<div className="titulo">
 				Evolução
 			</div>

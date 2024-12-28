@@ -1,13 +1,12 @@
 import { PieChart } from '@mui/x-charts/PieChart';
 import { FC } from 'react';
-import { ICategoriasPorcentagemProps } from '../../../interfaces/ICategoriasPorcentagemProps';
-import './CategoriasPorcentagem.scss';
+import { ICategoriasPorcentagemProps } from '../../interfaces/ICategoriasPorcentagemProps';
 
 const CategoriasPorcentagem: FC<ICategoriasPorcentagemProps> = (props: ICategoriasPorcentagemProps) => {
 	const data = props.fatias;
 
 	return (
-		<div className='card-porcentagem'>
+		<div className='card'>
 			<div className="titulo">
 				Porcentagens
 			</div>

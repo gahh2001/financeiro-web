@@ -3,13 +3,13 @@ import { useAtom } from "jotai";
 import { FC, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { googleIdAtom } from "../../atoms/atom";
+import CategoriasComparacao from "../../componentes/analitico/CategoriasComparacao";
+import CategoriasEvolucao from "../../componentes/analitico/CategoriasEvolucao";
+import CategoriasInformacoesGerais from "../../componentes/analitico/CategoriasInformacoesGerais";
+import CategoriasPorcentagem from "../../componentes/analitico/CategoriasPorcentagem";
+import CategoriasVisaoGeral from "../../componentes/analitico/CategoriasVisaoGeral";
+import FiltroData from "../../componentes/analitico/filtros/FiltroData";
 import AppBar from "../../componentes/AppBar/AppBar";
-import CategoriasComparacao from "../../componentes/analitico/categoriasComparacao/CategoriasComparacao";
-import CategoriasEvolucao from "../../componentes/analitico/categoriasEvolucao/CategoriasEvolucao";
-import CategoriasInformacoesGerais from "../../componentes/analitico/categoriasInformacoesGerais/CategoriasInformacoesGerais";
-import CategoriasPorcentagem from "../../componentes/analitico/categoriasPorcentagem/CategoriasPorcentagem";
-import CategoriasVisaoGeral from "../../componentes/analitico/categoriasVisaoGeral/CategoriasVisaoGeral";
-import FiltersAnalitic from "../../componentes/analitico/filtersAnalitc/FiltersAnalitc";
 import { obtemNumeroEnum, TipoComparacaoEnum } from "../../enums/TipoComparacaoEnum";
 import { TipoMovimentacaoEnum } from "../../enums/TipoMovimentacaoEnum";
 import back from "../../http";
@@ -153,8 +153,8 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 				setId={props.setId}
 				setPicture={props.setPicture}
 			/>
-			<div className="top-section">
-				<FiltersAnalitic
+			<div className="conteudo">
+				<FiltroData
 					ano={ano}
 					mes={mes}
 					tipoMovimentacao={tipoMovimentacao}
@@ -171,14 +171,14 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 					somaCategorias={somaCategorias}
 					tipoMovimentacao={tipoMovimentacao}
 				/>
-				
+				<CategoriasPorcentagem
+					fatias={porcentagens}
+				/>
 				<CategoriasInformacoesGerais
 					tipo={tipoInformacoesGerais}
 					setComparison={propsSetTipoInformacoesgerais}
 					medias={mediasGerais}
 				/>
-			</div>
-			<div className="down-section">
 				<CategoriasComparacao
 					comparacoes={comparacoes}
 					agrupamentosMes={agrupamentoMesAnoComparacao}
@@ -188,9 +188,6 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 					agrupamentosMes={agrupamentoMesAnoEvolucao}
 					evolucao={evolucao}
 					comparacoes={null}
-				/>
-				<CategoriasPorcentagem
-					fatias={porcentagens}
 				/>
 			</div>
 		</div>

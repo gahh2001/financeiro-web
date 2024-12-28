@@ -1,17 +1,55 @@
+@import '../../VariaveisSCSS.scss';
+
 .analitico {
-	height: 100%;
 	margin-top: 6.5vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 
-	.top-section {
+	.conteudo {
 		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
 		width: 100%;
 		height: 40%;
-	}
 
-	.down-section {
-		display: flex;
-		width: 100%;
-		height: 40%;
+		.card {
+			background-color: $fundo-components;
+			width: 33%;
+			height: 48vh;
+			box-shadow: 1px 0px 5px 3px $sombras;
+			padding: 1vh;
+			border-radius: 4vh;
+			margin-left: 0.5%;
+			margin-right: 0.5%;
+			margin-top: 1%;
+		
+			.titulo {
+				width: 100%;
+				height: auto;
+				font-weight: bold;
+				font-size: 3vh;
+				text-align: center;
+				color: $color-in-linhas;
+			}
+		
+			.grafic {
+				width: 100%;
+				height: 43vh;
+				display: flex;
+			}
+		
+			.mensagem {
+				width: auto;
+				height: 90%;
+				font-size: 3vh;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				color: $color-in-linhas;
+			}
+		}
 	}
 }
 

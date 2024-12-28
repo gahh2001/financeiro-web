@@ -6,10 +6,10 @@ import { Dayjs } from "dayjs";
 import { ChangeEvent, FC } from "react";
 import { TipoComparacaoEnum } from "../../../enums/TipoComparacaoEnum";
 import { TipoMovimentacaoEnum } from "../../../enums/TipoMovimentacaoEnum";
-import { IFiltersAnaliticProps } from "../../../interfaces/IFiltersAnaliticProps";
-import './FiltersAnalitic.scss';
+import { IFiltroDataProps } from "../../../interfaces/IFiltroDataProps";
+import './FiltroData.scss';
 
-const FiltersAnalitic: FC<IFiltersAnaliticProps> = (props: IFiltersAnaliticProps) => {
+const FiltroData: FC<IFiltroDataProps> = (props: IFiltroDataProps) => {
 
 	const handleChangeMovimentacao = (event: SelectChangeEvent) => {
 		const newValue = event.target.value;
@@ -147,4 +147,4 @@ const FiltersAnalitic: FC<IFiltersAnaliticProps> = (props: IFiltersAnaliticProps
 	)
 }
 
-export default FiltersAnalitic;
+export default FiltroData;

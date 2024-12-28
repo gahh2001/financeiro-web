@@ -1,8 +1,6 @@
 import { BarChart } from '@mui/x-charts/BarChart';
 import { FC } from 'react';
-import { ICategoriasComparacaoProps } from '../../../interfaces/ICategoriasComparacaoProps';
-import '../../../paginas/analitico/Analitico.scss';
-import './CategoriasComparacao.scss';
+import { ICategoriasComparacaoProps } from '../../interfaces/ICategoriasComparacaoProps';
 
 const CategoriasComparacao: FC<ICategoriasComparacaoProps> = (props: ICategoriasComparacaoProps) => {
 	const highlightScope = {
@@ -13,7 +11,7 @@ const CategoriasComparacao: FC<ICategoriasComparacaoProps> = (props: ICategorias
 	const series = props.comparacoes?.map((s) => ({ ...s, highlightScope }));
 
 	return (
-		<div className='card-categorias-comparacao'>
+		<div className='card'>
 			<div className="titulo">
 				Comparações
 			</div>

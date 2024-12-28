@@ -1,6 +1,6 @@
 import { Dayjs } from "dayjs";
 
-export type IFiltersAnaliticProps = {
+export type IFiltroDataProps = {
 	ano: Dayjs | null;
 	mes: Dayjs | null;
 	tipoMovimentacao: string;

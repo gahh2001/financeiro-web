@@ -1,8 +1,6 @@
 import { FormControl, FormControlLabel, Radio, RadioGroup } from '@mui/material';
 import { ChangeEvent, FC } from 'react';
-import { ICategoriasInformacoesGeraisProps } from '../../../interfaces/ICategoriasInformacoesGeraisProps';
-import '../../../paginas/analitico/Analitico.scss';
-import './CategoriasInformacoesGerais.scss';
+import { ICategoriasInformacoesGeraisProps } from '../../interfaces/ICategoriasInformacoesGeraisProps';
 
 const CategoriasInformacoesGerais: FC<ICategoriasInformacoesGeraisProps> = (props: ICategoriasInformacoesGeraisProps) => {
 
@@ -11,7 +9,7 @@ const CategoriasInformacoesGerais: FC<ICategoriasInformacoesGeraisProps> = (prop
 	};
 	
 	return (
-		<div className='card-categorias-informacoes-gerais'>
+		<div className='card'>
 			<div className="titulo">
 				Informações gerais
 			</div>
