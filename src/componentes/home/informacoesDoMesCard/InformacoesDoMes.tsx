@@ -3,7 +3,6 @@ import {
 	AssessmentOutlined,
 	RemoveCircleOutlineRounded
 } from '@mui/icons-material';
-import { Divider } from '@mui/material';
 import { FC } from 'react';
 import { TipoMovimentacaoEnum } from '../../../enums/TipoMovimentacaoEnum';
 import { InformacoesDoMesProps } from '../../../interfaces/IInformacoesDoMesProps';
@@ -15,44 +14,45 @@ const InformacoesDoMes: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProp
 
 	return (
 		<div className="informacoes-do-mes">
-			<div className="card-resumo-mes" style={{ marginRight: "0.5%" }}>
+			<div className="card-resumo-mes">
 				<div className="titulo">
 					Resumo de {obtemNomeMes(props.selectedDate.getMonth())}
 				</div>
-				<div className="info-mes">
-					<div className='simbol'>
-						<AddCircleOutlineRounded
-						sx={{ color: "#44A81D" }}
-					/>
-					</div>
-					Total recebido no mês: R$
-					{props.visivel
-						? somaTotalMes(props.movimentacoesMes, TipoMovimentacaoEnum.POSITIVO).toFixed(2).replace('.', ',')
-						: "***"
-					}
-				</div>
-				<div className="info-mes">
-					<div className='simbol'>
-						<RemoveCircleOutlineRounded
-							sx={{ color: "#e15734db" }}
+				<div className="infos">
+					<div className="info-mes">
+						<div className='simbol'>
+							<AddCircleOutlineRounded
+							sx={{ color: "#44A81D" }}
 						/>
+						</div>
+						Total recebido no mês: R$
+						{props.visivel
+							? somaTotalMes(props.movimentacoesMes, TipoMovimentacaoEnum.POSITIVO).toFixed(2).replace('.', ',')
+							: "***"
+						}
 					</div>
-					Total de gastos do mês: R$
-					{props.visivel
-						? somaTotalMes(props.movimentacoesMes, TipoMovimentacaoEnum.NEGATIVO).toFixed(2).replace('.', ',')
-						: "***"
-					}
-				</div>
-				<div className="info-mes">
-					<div className='simbol'>
-						<AssessmentOutlined
-							sx={{ color: "#0085FF" }}
-						/>
+					<div className="info-mes">
+						<div className='simbol'>
+							<RemoveCircleOutlineRounded
+								sx={{ color: "#e15734db" }}
+							/>
+						</div>
+						Total de gastos do mês: R$
+						{props.visivel
+							? somaTotalMes(props.movimentacoesMes, TipoMovimentacaoEnum.NEGATIVO).toFixed(2).replace('.', ',')
+							: "***"
+						}
 					</div>
-					Você gastou: {calculaPorcentagemTotal(props.movimentacoesMes)}% dos rendimentos.
+					<div className="info-mes">
+						<div className='simbol'>
+							<AssessmentOutlined
+								sx={{ color: "#0085FF" }}
+							/>
+						</div>
+						Você gastou: {calculaPorcentagemTotal(props.movimentacoesMes)}% dos rendimentos.
+					</div>
 				</div>
 			</div>
-			<Divider orientation='vertical'/>
 			<GraficosMensais
 				{...props}
 			/>

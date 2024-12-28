@@ -2,19 +2,18 @@
 
 .informacoes-do-mes {
 	display: flex;
+	flex-direction: column;
 	background-color: $fundo-components;
 	box-shadow: 1px 1px 5px 3px $sombras;
-	padding: 0.9%;
+	padding: 2vh;
 	border-radius: 25px;
-	width: 98%;
+	width: 60%;
 	height: 30%;
-	margin-top: 1.5%;
-	margin-left: 0.5%;
-	margin-right: 0.5%;
+	gap: 3vh;
 
 	svg {
 		background-color: transparent;
-		font-size: 3.5vh;
+		font-size: 2.5vh;
 	}
 
 	.titulo {
@@ -28,34 +27,38 @@
 	}
 	
 	.card-resumo-mes {
-		width: 33%;
+		width: 100%;
 		height: auto;
 		background-color: $fundo-components;
 		border-radius: 20px;
 		padding: 0.4%;
-		overflow: auto;
-		margin-left: 0.5%;
 
-		.info-mes {
-
-			.simbol {
-				margin-right: 1vh;
-				margin-left: 0.6vh;
-				display: flex;
-			}
-
-			width: 99%;
-			height: 21%;
-			font-size: 2vh;
-			background-color: $fundo-components-light;
-			border: 2px solid $fundo-linhas;
-			box-shadow: 2px 2px 7px 1px $sombras;
-			text-align: left;
-			align-items: center;
-			margin-top: 2.5%;
+		.infos {
 			display: flex;
-			border-radius: 20px;
-			color: $color-in-linhas;
+			justify-content: space-between;
+
+			.info-mes {
+				.simbol {
+					margin-right: 1vh;
+					margin-left: 0.6vh;
+					display: flex;
+				}
+
+				width: 33%;
+				height: 4svh;
+				font-size: 1.8vh;
+				background-color: $fundo-components-light;
+				border: 2px solid $fundo-linhas;
+				box-shadow: 2px 2px 7px 1px $sombras;
+				text-align: left;
+				align-items: center;
+				margin-top: 2.5%;
+				display: flex;
+				border-radius: 20px;
+				color: $color-in-linhas;
+			}
 		}
+
+		
 	}
 }

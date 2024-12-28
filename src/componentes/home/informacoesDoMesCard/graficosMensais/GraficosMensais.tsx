@@ -45,11 +45,11 @@ const GraficosMensais: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProps
 	}, [props.movimentacoesMes]);
 
 	return (
-		<>
+		<div className="graficos">
 			{obtemGraficoRendimentos()}
 			<Divider orientation='vertical'/>
 			{obtemGraficoDespesas()}
-		</>
+		</div>
 	);
 
 	function extractSomaCategoriasPositivas(somaCategorias: ISomaCategoriasPorMes[]) {
@@ -78,7 +78,7 @@ const GraficosMensais: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProps
 		return nomeCategoriasPositivas.length > 0
 			&& somaCategoriasPositivas.length > 0
 		? <div className="card-graficos" style={{ marginRight: "0.5%" }}>
-				<div className="titulo">Gráfico de rendimentos</div>
+				<div className="titulo">Rendimentos</div>
 				<div className='grafic'>
 					<BarChart
 						xAxis={[
@@ -118,7 +118,7 @@ const GraficosMensais: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProps
 	? (
 		<>
 			<div className="card-graficos">
-				<div className="titulo">Gráfico de gastos</div>
+				<div className="titulo">Gastos</div>
 				<div className='grafic'>
 					<BarChart
 						xAxis={[
