@@ -1,4 +1,3 @@
-import { Divider } from "@mui/material";
 import dayjs, { Dayjs } from "dayjs";
 import { useAtom } from "jotai";
 import { FC, Fragment, useEffect, useRef, useState } from "react";
@@ -79,7 +78,6 @@ const Movimentacoes: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 						setTipo={setTipoProps}
 						dialogDescricao={(description) => propsDialogDescricao(description)}
 					/>
-					<Divider orientation="vertical"/>
 					<ListaMovimentacoes
 						categorias={categorias}
 						dataInicio={dataInicio}

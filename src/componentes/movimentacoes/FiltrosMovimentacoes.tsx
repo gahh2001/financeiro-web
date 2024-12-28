@@ -91,7 +91,7 @@ const FiltrosMovimentacoes: FC<FiltrosMovimentacoesProps> = (props: FiltrosMovim
 				<LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="pt-br">
 					<DemoContainer components={['DatePicker']}>
 						<DatePicker
-							sx={{ m: 1, width: "25vh" }}
+							sx={{ width: "25vh" }}
 							label="De"
 							value={props.dataInicio}
 							defaultValue={props.dataInicio}
@@ -104,7 +104,7 @@ const FiltrosMovimentacoes: FC<FiltrosMovimentacoesProps> = (props: FiltrosMovim
 				<LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="pt-br">
 					<DemoContainer components={['DatePicker']}>
 						<DatePicker
-							sx={{ m: 1, width: "25vh" }}
+							sx={{ width: "25vh" }}
 							label="Até"
 							value={props.dataFim}
 							defaultValue={props.dataFim}
@@ -115,7 +115,7 @@ const FiltrosMovimentacoes: FC<FiltrosMovimentacoesProps> = (props: FiltrosMovim
 			</div>
 			<div className="filtro">
 				<FormControl
-					sx={{ m: 1, width: "25vh" }}
+					sx={{ width: "25vh" }}
 				>
 					<InputLabel
 						id="demo-simple-select-helper-label"
@@ -150,27 +150,29 @@ const FiltrosMovimentacoes: FC<FiltrosMovimentacoesProps> = (props: FiltrosMovim
 					</Select>
 				</FormControl>
 			</div>
-			<FormControl sx={{ m: 1, width: "25vh" }}>
-				<InputLabel id="demo-multiple-chip-label">Categorias</InputLabel>
-				<Select
-					labelId="demo-multiple-chip-label"
-					id="demo-multiple-chip"
-					multiple
-					value={props.categorias}
-					onChange={handleChangeCategorias}
-					input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
-					renderValue={(selected) => (
-						<Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-							{selected.map((value) => (
-								<Chip key={value} label={value} />
-							))}
-						</Box>
-					)}
-					MenuProps={MenuProps}
-				>
-					{obtemSelectCategorias(categorias)}
-				</Select>
-			</FormControl>
+			<div className="filtro">
+				<FormControl sx={{ width: "25vh" }}>
+					<InputLabel id="demo-multiple-chip-label">Categorias</InputLabel>
+					<Select
+						labelId="demo-multiple-chip-label"
+						id="demo-multiple-chip"
+						multiple
+						value={props.categorias}
+						onChange={handleChangeCategorias}
+						input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+						renderValue={(selected) => (
+							<Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+								{selected.map((value) => (
+									<Chip key={value} label={value} />
+								))}
+							</Box>
+						)}
+						MenuProps={MenuProps}
+					>
+						{obtemSelectCategorias(categorias)}
+					</Select>
+				</FormControl>
+			</div>
 		</div>
 	);
 
