@@ -4,4 +4,15 @@ $fundo-components-light: #2f2f31;
 $sombras: #000000b4;
 $fundo-linhas: $fundo-components;
 $color-in-linhas: #e5e5e5;
+$branco-mais-escuro: #7a7a7a;
 $sombra-cards: 1px 1px 5px 3px $sombras;
+
+@mixin responsivo-width {
+	@media screen and (min-width: 768px) {
+	  width: 60%;
+	}
+  
+	@media screen and (max-width: 768px) {
+	  width: 100%;
+	}
+  }

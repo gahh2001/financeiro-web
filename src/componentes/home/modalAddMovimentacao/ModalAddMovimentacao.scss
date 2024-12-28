@@ -14,46 +14,42 @@
 }
 
 .modal-adiciona {
-	background-color: $fundo-linhas;
-	height: 330px;
+	@media screen and (min-width: 768px) {
+		height: 37vh;
+	}
+	
+	@media screen and (max-width: 768px) {
+		height: 47vh;
+	}
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
 	padding: 1rem;
 	border-radius: 25px;
+	background-color: $fundo-linhas;
 	color: white;
 	border: 1px solid $sombras;
 	box-shadow: 5px 4px 7px 1px $sombras;
-
-	@media (max-width: 1850px) {
-		height: 340px;
-	}
-
-	@media (max-width: 1800px) {
-		height: 320px;
-	}
-
-	@media (max-width: 1550px) {
-		height: 290px;
-	}
-
-	@media (max-width: 1350px) {
-		height: 270px;
-	}
-
-	@media (max-width: 1250px) {
-		height: 260px;
-	}
+	display: flex;
+	gap: 1vh;
 
 	.titulo {
 		height: auto;
 		background-color: transparent;
 		font-weight: bold;
-		font-size: 3.5vh;
+		font-size: 2.7vh;
 		text-align: center;
 		margin-bottom: 1.7%;
 	}
 
 	.inputs {
+		align-items: end;
 		display: flex;
 		justify-content: center;
+		gap: 1vh;
+		@media screen and (max-width: 768px) {
+			flex-direction: column;
+		}
 
 		.space {
 			margin: 3px;
@@ -61,8 +57,11 @@
 	}
 
 	.input-descricao {
-		margin-top: 2vh;
-		justify-content: center;
+		width: 100%;
+		text-align: center;
+		@media screen and (min-width: 768px) {
+			margin-top: 1vh;
+		}
 	}
 
 	.buttons {
@@ -76,9 +75,9 @@
 
 		button {
 			text-align: center;
-			font-size: 3vh;
+			font-size: 2vh;
 			background-color: $fundo-linhas;
-			width: 25%;
+			width: 14vh;
 			height: 6vh;
 			border: 2px solid $fundo-linhas;
 			box-shadow: 2px 2px 7px 1px $sombras;

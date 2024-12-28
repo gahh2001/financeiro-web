@@ -116,7 +116,7 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 								<LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="pt-br">
 									<DemoContainer components={['DatePicker']}>
 										<DatePicker
-											sx={{ m: 1, width: "25vh" }}
+											sx={{width: "250px" }}
 											label="Data"
 											value={data}
 											defaultValue={data ? data : dayjs(props.selectedDate)}
@@ -124,10 +124,9 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 										/>
 									</DemoContainer>
 								</LocalizationProvider>
-								<div className='space'></div>
 								<FormControl
 									required
-									sx={{ m: 1, width: "20vh" }}
+									sx={{ width: "250px" }}
 									error={emptyCategoria}
 								>
 									<InputLabel
@@ -151,16 +150,14 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 									value={valor}
 									onChange={convertInputValor}
 									inputProps={{ type: 'number', step: "0.5"}}
-									sx={{ m: 1, width: "18vh" }}
+									sx={{width: "250px" }}
 									label= "Valor"
 								/>
 							</div>
 							<div className='input-descricao'>
-								<Box
-									sx={{width: "98.5%"}}
-								>
+								<Box>
 									<TextField
-										fullWidth
+										sx={{ width: "100%" }}
 										label="Escreva alguma observação sobre a movimentação"
 										id="fullWidth"
 										value={descricao}

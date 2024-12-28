@@ -4,7 +4,7 @@
 	box-shadow: 1px 1px 5px 3px $sombras;
 	padding: 3vh;
 	background-color: $fundo-components;
-	width: 60%;
+	@include responsivo-width;
 	height: 67vh;
 	border-radius: 3vh;
 
@@ -17,20 +17,20 @@
 		margin-bottom: 1.5vh;
 		color: #e4e4e4;
 
-		h1 {
+		.mes {
 			background-color: $fundo-components;
 			text-align: center;
-			font-size: 4vh;
+			font-size: 2.7vh;
 		}
 
 		button {
-			width: 14.5vh;
+			width: 12vh;
 			height: 5vh;
 			background-color: #386c9a;
 			color: $color-in-linhas;
 			border-radius: 20px;
 			border: 1px solid #000000;
-			font-size: 2.5vh;
+			font-size: 2vh;
 			cursor: pointer;
 
 			&:hover {
@@ -46,10 +46,11 @@
 		justify-content: space-around;
 		font-weight: bold;
 		margin-bottom: 1.3vh;
+		width: 100%;
 
 		.weekday {
 			background-color: $fundo-components;
-			width: 14%;
+			//width: 14%;
 			text-align: center;
 			color: #e4e4e4;
 		}
@@ -65,32 +66,41 @@
 		grid-template-columns: repeat(7, 1fr);
 		align-items: center;
 		height: 84%;
+		width: 100%;
 		grid-gap: 1.1%;
 
 		.day {
 			background-color: #2f2f31;
-			font-size: 5.5vh;
+			font-size: 3vh;
 			width: 100%;
 			height: 90%;
 			text-align: center;
 			border: 1px solid $sombras;
-			border-radius: 10px;
+			border-radius: 1vh;
 			box-shadow: 5px 4px 7px 1px $sombras;
 			font-family: sans-serif;
 			cursor: pointer;
 			justify-content: center;
 			display: flex;
+			@media screen and (max-width: 768px) {
+				flex-direction: column;
+			}
 			align-items: center;
 			color: $color-in-linhas;
+			gap: 0.4vh;
 
 			&:hover {
 				background-color: #696868;
+			}
+
+			svg {
+				font-size: 1.7vh;
 			}
 		}
 
 		.selected-day {
 			background-color: #696868;
-			font-size: 5.5vh;
+			font-size: 3vh;
 			width: 100%;
 			height: 90%;
 			text-align: center;

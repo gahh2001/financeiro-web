@@ -2,12 +2,21 @@
 
 .graficos {
 	display: flex;
+	gap: 2vh;
+
+	@media screen and (max-width: 768px) {
+		flex-direction: column;
+	}
 
 	.card-graficos {
-		width: 49%;
+		@media screen and (min-width: 768px) {
+			width: 49%;
+		}
+		@media screen and (max-width: 768px) {
+			width: 100%;
+		}
 		height: auto;
 		align-items: center;
-		overflow: auto;
 	
 		.titulo {
 			background-color: transparent;

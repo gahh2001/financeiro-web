@@ -11,7 +11,7 @@ import {
 	RemoveRedEye,
 	VisibilityOff
 } from '@mui/icons-material';
-import { Divider, IconButton } from '@mui/material';
+import { IconButton } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
 import { useAtom } from 'jotai';
 import { FC, Fragment, useEffect, useState } from 'react';
@@ -133,7 +133,7 @@ const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaPr
 					</button>
 				</div>
 			</div>
-			<Divider orientation='vertical'/>
+			<div className="divider"></div>
 			{listaMovimentacoesDoDia(movimentacoesDoDia)}
 		</div>
 	);

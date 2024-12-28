@@ -94,7 +94,7 @@ const Calendario: FC<ICalendarioProps> = (props: ICalendarioProps) => {
 						}
 					}
 					>{currentMonth.clone().subtract(1, "month").format("MMMM")}</button>
-					<h1>{currentMonth.format("MMMM YYYY")}</h1>
+					<div className="mes">{currentMonth.format("MMMM YYYY")}</div>
 					<button onClick={() =>
 						{
 							setCurrentMonth(currentMonth.clone().add(1, "month"));
@@ -151,7 +151,6 @@ const Calendario: FC<ICalendarioProps> = (props: ICalendarioProps) => {
 				return (
 					<CircleTwoTone
 						sx={{ color: cor, backgroundColor: 'transparent' }}
-						fontSize='medium'
 					/>
 				);
 			}
