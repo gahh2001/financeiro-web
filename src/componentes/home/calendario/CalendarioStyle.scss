@@ -4,12 +4,9 @@
 	box-shadow: 1px 1px 5px 3px $sombras;
 	padding: 3vh;
 	background-color: $fundo-components;
-	width: 98%;
+	width: 60%;
 	height: 67vh;
 	border-radius: 3vh;
-	margin-left: 0.5%;
-	margin-right: 0.5%;
-	margin-top: 1%;
 
 	.header {
 		height: auto;
@@ -67,7 +64,7 @@
 		display: grid;
 		grid-template-columns: repeat(7, 1fr);
 		align-items: center;
-		height: 82%;
+		height: 84%;
 		grid-gap: 1.1%;
 
 		.day {
