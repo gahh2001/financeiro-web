@@ -14,7 +14,7 @@ import useModalRemoveMovimentacao from "../../componentes/home/modalRemoveMovime
 import { TipoMovimentacaoEnum } from '../../enums/TipoMovimentacaoEnum';
 import { IGoogleIdProps } from "../../interfaces/IGoogleIdProps";
 import { IMovimentacao } from "../../interfaces/IMovimentacao";
-import './Home.module.scss';
+import './Home.scss';
 
 const Home: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 	const [selectedDate, setSelectedDate] = useState(new Date());
@@ -103,43 +103,35 @@ const Home: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 				setId={props.setId}
 				setPicture={props.setPicture}
 			/>
-			<div style={{ display: 'flex', height: "93.3vh", marginTop: '6.5vh' }}>
-				<div style={{
-					flexDirection: 'column',
-					display: 'flex',
-					flex: "0.7"
-				}}>
-					<Calendario
-						isOpenModalAdd={isOpenModalAdd}
-						isOpenModalRemove={isOpenModalRemove}
-						onDayClick={propsCalendario}
-						atualizaMovimentacoesMes={propsMovimentcoesMes}
-						movimentacoesMes={movimentacoesDoMes}
-					/>
-					<InformacoesDoMes
-						selectedDate={selectedDate}
-						movimentacoesMes={movimentacoesDoMes}
-						modalAddRendimento={propsModalAddRendimento}
-						modalAddDespesa={propsModalAddDespesa}
-						modalApagaMovimentacao={propsModalApagaRendimento}
-						visivel={visivel}
-					/>
-				</div>
-				<div style={{flex: "0.3", display: "flex"}}>
-					<InformacoesDoDia
-						selectedDate={selectedDate}
-						movimentacoesMes={movimentacoesDoMes}
-						isOpenModalAdd={isOpenModalAdd}
-						isOpenModalRemove={isOpenModalRemove}
-						modalAddRendimento={propsModalAddRendimento}
-						modalAddDespesa={propsModalAddDespesa}
-						modalApagaMovimentacao={propsModalApagaRendimento}
-						dialogDescricao={(description) => propsDialogDescricao(description)}
-						handleEditMovimentacao={handleEditMovimentacao}
-						setVisible={setVisible}
-						visivel={visivel}
-					/>
-				</div>
+			<div className="conteudo-home">
+				<InformacoesDoDia
+					selectedDate={selectedDate}
+					movimentacoesMes={movimentacoesDoMes}
+					isOpenModalAdd={isOpenModalAdd}
+					isOpenModalRemove={isOpenModalRemove}
+					modalAddRendimento={propsModalAddRendimento}
+					modalAddDespesa={propsModalAddDespesa}
+					modalApagaMovimentacao={propsModalApagaRendimento}
+					dialogDescricao={(description) => propsDialogDescricao(description)}
+					handleEditMovimentacao={handleEditMovimentacao}
+					setVisible={setVisible}
+					visivel={visivel}
+				/>
+				<Calendario
+					isOpenModalAdd={isOpenModalAdd}
+					isOpenModalRemove={isOpenModalRemove}
+					onDayClick={propsCalendario}
+					atualizaMovimentacoesMes={propsMovimentcoesMes}
+					movimentacoesMes={movimentacoesDoMes}
+				/>
+				<InformacoesDoMes
+					selectedDate={selectedDate}
+					movimentacoesMes={movimentacoesDoMes}
+					modalAddRendimento={propsModalAddRendimento}
+					modalAddDespesa={propsModalAddDespesa}
+					modalApagaMovimentacao={propsModalApagaRendimento}
+					visivel={visivel}
+				/>
 			</div>
 			<ModalAddMovimentacao
 				isOpen={isOpenModalAdd}

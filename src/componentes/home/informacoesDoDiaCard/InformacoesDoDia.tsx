@@ -14,7 +14,7 @@ import {
 import { Divider, IconButton } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
 import { useAtom } from 'jotai';
-import { FC, useEffect, useState } from 'react';
+import { FC, Fragment, useEffect, useState } from 'react';
 import { googleIdAtom } from '../../../atoms/atom';
 import { TipoMovimentacaoEnum } from '../../../enums/TipoMovimentacaoEnum';
 import back from '../../../http';
@@ -86,7 +86,7 @@ const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaPr
 						</IconButton>
 					</Tooltip>
 				</div>
-				<Divider variant='middle'/>
+				
 				<div className="titulo">
 					Resumo do dia {props.selectedDate.getDate().toString().padStart(2,"0")}
 					/{props.selectedDate.getMonth() + 1}
@@ -133,7 +133,7 @@ const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaPr
 					</button>
 				</div>
 			</div>
-			<Divider variant='middle'/>
+			<Divider orientation='vertical'/>
 			{listaMovimentacoesDoDia(movimentacoesDoDia)}
 		</div>
 	);
@@ -149,8 +149,7 @@ const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaPr
 	}
 
 	function listaMovimentacoesDoDia(movimentacoes: IMovimentacao[]) {
-		return movimentacoes && movimentacoes.length > 0
-			? (
+		return (
 				<div className='card-movimentacoes'>
 					<div className="titulo">Movimentações</div>
 					<div className="dica">
@@ -159,7 +158,9 @@ const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaPr
 						/>
 						Selecione um dia do calendário para ver as movimentações.
 					</div>
-					<div className="header">
+					{movimentacoes && movimentacoes.length > 0
+			? (<Fragment>
+				<div className="header">
 						<p>Categoria:</p>
 						<p>Valor:</p>
 						<p>Ações</p>
@@ -220,25 +221,18 @@ const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaPr
 								</div>
 							</div>
 						))}
-					</div>
+					</div> </Fragment>)
+					: (<Fragment>
+						<div className='nenhum'>
+							<ErrorOutline
+								sx={{ color: "#e15734db" }}
+								fontSize='large'
+							/>
+							Não há movimentações para este dia
+						</div>
+					</Fragment>)}
 				</div>
 			)
-		: <div className='card-movimentacoes'>
-			<div className="dica">
-				<InfoOutlined
-					fontSize="small"
-				/>
-				Selecione um dia do calendário para ver as movimentações.
-			</div>
-			<div className='titulo'>
-				<ErrorOutline
-					sx={{ color: "#e15734db" }}
-					fontSize='large'
-				/> <br />
-				Não há movimentações para este dia. <br />
-				Selecione um dia para visualizar as movimentações.
-			</div>
-		</div>
 	}
 };
 
