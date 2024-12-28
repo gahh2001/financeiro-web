@@ -4,6 +4,11 @@
 	height: 6.5vh;
 	background-color: $fundo-linhas;
 	display: flex;
+	position: fixed;
+	top: 0;                // Posiciona no topo
+  left: 0;
+  width: 100%;           // Ocupa toda a largura da tela
+  z-index: 1000;
 
 	.modulo {
 		width: 90%;

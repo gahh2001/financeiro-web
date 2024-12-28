@@ -103,7 +103,7 @@ const Home: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 				setId={props.setId}
 				setPicture={props.setPicture}
 			/>
-			<div style={{ display: 'flex', height: "93.3vh" }}>
+			<div style={{ display: 'flex', height: "93.3vh", marginTop: '6.5vh' }}>
 				<div style={{
 					flexDirection: 'column',
 					display: 'flex',

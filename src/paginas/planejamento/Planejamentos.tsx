@@ -34,9 +34,9 @@ const Planejamentos: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 					<div className="desempenho">
 						<div className="titulo">Desempenho</div>
 					</div>
-				</div>
-				<div className="lista-movimentacoes">
-					<div className="titulo">Movimentações</div>
+					<div className="lista-movimentacoes">
+						<div className="titulo">Movimentações</div>
+					</div>
 				</div>
 			</div>
 		</Fragment>
