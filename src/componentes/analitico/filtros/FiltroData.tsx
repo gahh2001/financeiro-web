@@ -4,21 +4,12 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { Dayjs } from "dayjs";
 import { ChangeEvent, FC } from "react";
-import { TipoComparacaoEnum } from "../../../enums/TipoComparacaoEnum";
-import { TipoMovimentacaoEnum } from "../../../enums/TipoMovimentacaoEnum";
 import { IFiltroDataProps } from "../../../interfaces/IFiltroDataProps";
 import './FiltroData.scss';
+import { TipoMovimentacaoEnum } from "../../../enums/TipoMovimentacaoEnum";
 
 const FiltroData: FC<IFiltroDataProps> = (props: IFiltroDataProps) => {
 
-	const handleChangeMovimentacao = (event: SelectChangeEvent) => {
-		const newValue = event.target.value;
-		props.setTipoMovimentacao(newValue);
-	};
-	const handleChangeComparacao = (event: SelectChangeEvent) => {
-		const newValue = event.target.value;
-		props.setTipoComparacao(newValue);
-	};
 	const handleChangeFullYear = (event: ChangeEvent<HTMLInputElement>) => {
 		props.setFullYear(event.target.checked);
 	};
@@ -28,6 +19,10 @@ const FiltroData: FC<IFiltroDataProps> = (props: IFiltroDataProps) => {
 	const handleChangeAno = (data: Dayjs | null) => {
 		props.setAno(data);
 	}
+	const handleChangeMovimentacao = (event: SelectChangeEvent) => {
+		const newValue = event.target.value;
+		props.setTipoMovimentacao(newValue);
+	};
 
 	return (
 		<div className="card-filters">
@@ -102,43 +97,6 @@ const FiltroData: FC<IFiltroDataProps> = (props: IFiltroDataProps) => {
 							value={TipoMovimentacaoEnum.NEGATIVO.toString()}
 						>
 							Despesas
-						</MenuItem>
-					</Select>
-				</FormControl>
-			</div>
-			<div className="filter">
-				<FormControl
-					sx={{m: 1, width: '23vh'}}
-					size="small"
-				>
-					<InputLabel
-						id="comparacao"
-					>
-						Comparação
-					</InputLabel>
-					<Select
-						id="select-comparacao"
-						value={props.tipoComparacao}
-						onChange={handleChangeComparacao}
-						defaultValue={TipoComparacaoEnum.TRESMESES.toString()}
-					>
-						<MenuItem
-							key={"3"}
-							value={TipoComparacaoEnum.TRESMESES.toString()}
-						>
-							Ùltimos 3 meses
-						</MenuItem>
-						<MenuItem
-							key={"6"}
-							value={TipoComparacaoEnum.SEISMESES.toString()}
-						>
-							Ùltimos 6 meses
-						</MenuItem>
-						<MenuItem
-							key={"12"}
-							value={TipoComparacaoEnum.UMANO.toString()}
-						>
-							Ùltimos 12 meses
 						</MenuItem>
 					</Select>
 				</FormControl>

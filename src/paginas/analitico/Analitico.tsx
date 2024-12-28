@@ -8,6 +8,7 @@ import CategoriasEvolucao from "../../componentes/analitico/CategoriasEvolucao";
 import CategoriasInformacoesGerais from "../../componentes/analitico/CategoriasInformacoesGerais";
 import CategoriasPorcentagem from "../../componentes/analitico/CategoriasPorcentagem";
 import CategoriasVisaoGeral from "../../componentes/analitico/CategoriasVisaoGeral";
+import FiltroComparacoes from "../../componentes/analitico/filtros/FiltroComparacoes";
 import FiltroData from "../../componentes/analitico/filtros/FiltroData";
 import AppBar from "../../componentes/AppBar/AppBar";
 import { obtemNumeroEnum, TipoComparacaoEnum } from "../../enums/TipoComparacaoEnum";
@@ -25,7 +26,8 @@ import './Analitico.scss';
 const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 	const [ano, setAno] = useState<Dayjs | null>(dayjs(new Date().getTime()));
 	const [mes, setMes] = useState<Dayjs | null>(ano);
-	const [tipoMovimentacao, setTipoMovimentacao] = useState(TipoMovimentacaoEnum.POSITIVO.toString());
+	const [tipoMovimentacaoTop, setTipoMovimentacaoTop] = useState(TipoMovimentacaoEnum.POSITIVO.toString());
+	const [tipoMovimentacaoDown, setTipoMovimentacaoDown] = useState(TipoMovimentacaoEnum.POSITIVO.toString());
 	const [tipoComparacao, setTipoComparacao] = useState(TipoComparacaoEnum.TRESMESES.toString())
 	const [fullYear, setFullYear] = useState(false);
 	const [nomeCategorias, setNomeCategorias] = useState<string[]>([]);
@@ -51,8 +53,11 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 	const propsSetFullYear = (full: boolean) => {
 		setFullYear(full);
 	};
-	const propsSetTipoMovimentacao = (tipo: string) => {
-		setTipoMovimentacao(tipo);
+	const propsSetTipoMovimentacaoTop = (tipo: string) => {
+		setTipoMovimentacaoTop(tipo);
+	};
+	const propsSetTipoMovimentacaoDown = (tipo: string) => {
+		setTipoMovimentacaoDown(tipo);
 	};
 	const propsSetTipoComparacao = (tipo: string) => {
 		setTipoComparacao(tipo);
@@ -80,7 +85,7 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 				if (googleId !== "") {
 					const categoriaMovimentacaoService = new CategoriaMovimentacaoService(back);
 					const soma = await categoriaMovimentacaoService
-						.obtemSomaCategoriasEValores(googleId, obtemDataInicial(), obtemDataFinal(), tipoMovimentacao);
+						.obtemSomaCategoriasEValores(googleId, obtemDataInicial(), obtemDataFinal(), tipoMovimentacaoTop);
 					if (soma?.data) {
 						extraiSomas(soma.data);
 						extraiPorcentagens(soma.data);
@@ -91,14 +96,14 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 			}
 		};
 		atualizaVisaoGeral();
-	}, [ano, mes, tipoMovimentacao, fullYear]);
+	}, [ano, mes, tipoMovimentacaoTop, fullYear]);
 	
 	useEffect(() => {
 		const atualizaComparacoes = async () => {
 			try {
 				const somaComparacoes = await categoriaService
 					.obtemSomaCategoriasEValoresPorMeses(googleId, obtemDataInicialComparacao(),
-						obtemDataFinalComparacao(), tipoMovimentacao);
+						obtemDataFinalComparacao(), tipoMovimentacaoTop);
 				if (somaComparacoes?.data) {
 					extraiSomaComparacoes(somaComparacoes.data);
 				}
@@ -107,7 +112,7 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 			}
 		};
 		atualizaComparacoes();
-	}, [tipoComparacao, tipoMovimentacao]);
+	}, [tipoComparacao, tipoMovimentacaoDown]);
 
 	useEffect(() => {
 		const atualizaEvolucao = async () => {
@@ -154,41 +159,49 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 				setPicture={props.setPicture}
 			/>
 			<div className="conteudo">
-				<FiltroData
-					ano={ano}
-					mes={mes}
-					tipoMovimentacao={tipoMovimentacao}
-					tipoComparacao={tipoComparacao}
-					fullYear={fullYear}
-					setAno={propsSetAno}
-					setMes={propsSetMes}
-					setFullYear={propsSetFullYear}
-					setTipoMovimentacao={propsSetTipoMovimentacao}
-					setTipoComparacao={propsSetTipoComparacao}
-				/>
-				<CategoriasVisaoGeral
-					nomeCategorias={nomeCategorias}
-					somaCategorias={somaCategorias}
-					tipoMovimentacao={tipoMovimentacao}
-				/>
-				<CategoriasPorcentagem
-					fatias={porcentagens}
-				/>
-				<CategoriasInformacoesGerais
-					tipo={tipoInformacoesGerais}
-					setComparison={propsSetTipoInformacoesgerais}
-					medias={mediasGerais}
-				/>
-				<CategoriasComparacao
-					comparacoes={comparacoes}
-					agrupamentosMes={agrupamentoMesAnoComparacao}
-					evolucao={null}
-				/>
-				<CategoriasEvolucao
-					agrupamentosMes={agrupamentoMesAnoEvolucao}
-					evolucao={evolucao}
-					comparacoes={null}
-				/>
+				<div className="section">
+					<FiltroData
+						ano={ano}
+						mes={mes}
+						tipoMovimentacao={tipoMovimentacaoTop}
+						fullYear={fullYear}
+						setAno={propsSetAno}
+						setMes={propsSetMes}
+						setFullYear={propsSetFullYear}
+						setTipoMovimentacao={propsSetTipoMovimentacaoTop}
+					/>
+					<CategoriasVisaoGeral
+						nomeCategorias={nomeCategorias}
+						somaCategorias={somaCategorias}
+						tipoMovimentacao={tipoMovimentacaoTop}
+					/>
+					<CategoriasPorcentagem
+						fatias={porcentagens}
+					/>
+				</div>
+				<div className="section">
+					<FiltroComparacoes
+						tipoComparacao={tipoComparacao}
+						tipoMovimentacao={tipoMovimentacaoDown}
+						setTipoComparacao={propsSetTipoComparacao}
+						setTipoMovimentacao={propsSetTipoMovimentacaoDown}
+					/>
+					<CategoriasComparacao
+						comparacoes={comparacoes}
+						agrupamentosMes={agrupamentoMesAnoComparacao}
+						evolucao={null}
+					/>
+					<CategoriasEvolucao
+						agrupamentosMes={agrupamentoMesAnoEvolucao}
+						evolucao={evolucao}
+						comparacoes={null}
+					/>
+					<CategoriasInformacoesGerais
+						tipo={tipoInformacoesGerais}
+						setComparison={propsSetTipoInformacoesgerais}
+						medias={mediasGerais}
+					/>
+				</div>
 			</div>
 		</div>
 	);

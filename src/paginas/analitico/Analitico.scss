@@ -7,6 +7,7 @@
 	align-items: center;
 
 	.conteudo {
+		padding: 2vh;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
@@ -14,40 +15,109 @@
 		width: 100%;
 		height: 40%;
 
-		.card {
+		.section {
 			background-color: $fundo-components;
-			width: 33%;
-			height: 48vh;
+			width: 60%;
+			height: auto;
 			box-shadow: 1px 0px 5px 3px $sombras;
 			padding: 1vh;
 			border-radius: 4vh;
 			margin-left: 0.5%;
 			margin-right: 0.5%;
 			margin-top: 1%;
-		
-			.titulo {
-				width: 100%;
-				height: auto;
-				font-weight: bold;
-				font-size: 3vh;
-				text-align: center;
-				color: $color-in-linhas;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 3.5vh;
+
+			.card {
+				width: 70%;
+
+				.titulo {
+					width: 100%;
+					height: auto;
+					font-weight: bold;
+					font-size: 3vh;
+					text-align: center;
+					color: $color-in-linhas;
+				}
+			
+				.grafic {
+					width: 100%;
+					height: 40vh;
+					display: flex;
+				}
+			
+				.mensagem {
+					width: auto;
+					height: 20vh;
+					font-size: 2.5vh;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					color: $color-in-linhas;
+				}
 			}
-		
-			.grafic {
-				width: 100%;
-				height: 43vh;
-				display: flex;
-			}
-		
-			.mensagem {
-				width: auto;
-				height: 90%;
-				font-size: 3vh;
-				display: flex;
+
+			.card-categorias-informacoes-gerais {
+				width: 70%;
+				height: 42vh;
+				padding: 1vh;
+				border-radius: 4vh;
+				margin-left: 0.5%;
+				margin-right: 0.5%;
+				margin-top: 1%;
 				justify-content: center;
-				align-items: center;
-				color: $color-in-linhas;
+
+				.titulo {
+					width: 100%;
+					height: auto;
+					font-weight: bold;
+					font-size: 3vh;
+					text-align: center;
+					color: $color-in-linhas;
+				}
+
+				.type-comparison {
+					color: white;
+					display: flex;
+					justify-content: center;
+					width: 100%;
+					height: 8vh;
+					align-items: center;
+				}
+
+				.infos {
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+					gap: 1.3vh;
+
+					.info {
+						color: #d4d3d3;
+						background-color: $fundo-components-light;
+						border: 2px solid $fundo-linhas;
+						box-shadow: 2px 2px 7px 1px $sombras;
+						width: 90%;
+						height: 4.5vh;
+						border-radius: 4vh;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						font-size: 2vh;
+						font-family: 'Roboto','Helvetica Neue','Helvetica','Arial','sans-serif';
+					}
+				}
+
+				.mensagem {
+					width: auto;
+					height: 70%;
+					font-size: 3vh;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					color: $color-in-linhas;
+				}
 			}
 		}
 	}

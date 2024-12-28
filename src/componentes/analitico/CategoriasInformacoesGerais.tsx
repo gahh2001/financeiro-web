@@ -9,7 +9,7 @@ const CategoriasInformacoesGerais: FC<ICategoriasInformacoesGeraisProps> = (prop
 	};
 	
 	return (
-		<div className='card'>
+		<div className='card-categorias-informacoes-gerais'>
 			<div className="titulo">
 				Informações gerais
 			</div>

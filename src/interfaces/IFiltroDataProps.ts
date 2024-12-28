@@ -3,12 +3,10 @@ import { Dayjs } from "dayjs";
 export type IFiltroDataProps = {
 	ano: Dayjs | null;
 	mes: Dayjs | null;
-	tipoMovimentacao: string;
-	tipoComparacao: string;
 	fullYear: boolean;
+	tipoMovimentacao: string;
 	setMes: (date: Dayjs | null) => void;
-	setAno: (date: Dayjs | null) => void; 
-	setTipoMovimentacao: (tipo: string) => void;
-	setTipoComparacao: (tipo: string) => void;
+	setAno: (date: Dayjs | null) => void;
 	setFullYear: (tipo: boolean) => void;
+	setTipoMovimentacao: (tipo: string) => void;
 }
