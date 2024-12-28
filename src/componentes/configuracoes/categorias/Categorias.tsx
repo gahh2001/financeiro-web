@@ -3,9 +3,9 @@ import { Button, Divider } from "@mui/material";
 import { FC, Fragment, useEffect, useState } from "react";
 import { ICategoriasProps } from "../../../interfaces/ICategoriasProps";
 import "./Categorias.scss";
-import useModalCategoria from "./modalAdicionaCategoria/UseModalCategoria";
-import ModalCategoria from "./modalAdicionaCategoria/ModalCategoria";
 import ConverteIcone from "./ConverteIcones";
+import ModalCategoria from "./modalAdicionaCategoria/ModalCategoria";
+import useModalCategoria from "./modalAdicionaCategoria/UseModalCategoria";
 
 const Categorias: FC<ICategoriasProps> = (props: ICategoriasProps) => {
 
@@ -39,8 +39,6 @@ const Categorias: FC<ICategoriasProps> = (props: ICategoriasProps) => {
 	return (
 		<Fragment>
 			<div className="categorias">
-				{montaCategoriasMovimentacao()}
-				<Divider orientation="vertical"/>
 				<div className="adicionar">
 					<div className="text">
 						As categorias servem para classificar suas movimentações. <br /><br />
@@ -55,6 +53,8 @@ const Categorias: FC<ICategoriasProps> = (props: ICategoriasProps) => {
 						Criar nova
 					</button>
 				</div>
+				<Divider orientation="horizontal"/>
+				{montaCategoriasMovimentacao()}
 			</div>
 			<ModalCategoria
 				closeModal={closeModalCategoria}

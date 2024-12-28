@@ -1,19 +1,20 @@
 @import '../../../VariaveisSCSS.scss';
 
 .categorias {
-	height: 87%;
+	height: 70vh;
 	width: 100%;
 	display: flex;
+	flex-direction: column;
 	align-content: center;
 	text-align: center;
 	justify-items: center;
 	vertical-align: middle;
 	align-items: center;
-	flex-wrap: wrap;
+	gap: 2vh;
 
 	.list {
-		height: 97%;
-		width: 74%;
+		height: 65%;
+		width: 90%;
 
 		.headers {
 			width: 87%;
@@ -28,7 +29,7 @@
 		}
 
 		.listagem {
-			height: 92%;
+			height: 50vh;
 			overflow-y: auto;
 
 			.itens {
@@ -90,17 +91,19 @@
 	}
 
 	.adicionar {
+		display: flex;
 		justify-content: center;
 		text-align: center;
-		width: 25%;
+		width: 80%;
 		padding: 1vh;
 		background-color: transparent;
+		align-items: center;
 
 		.text {
 			color: $color-in-linhas;
 			font-size: 2vh;
 			text-align: left;
-			margin-left: 1vh;
+			width: 70%;
 		}
 
 		button {
@@ -112,11 +115,11 @@
 			text-align: center;
 			font-size: 15px;
 			background-color: $fundo-components-light;
-			width: 120px;
-			height: 120px;
+			width: 15vh;
+			height: 9vh;
 			border: 2px solid $fundo-linhas;
 			box-shadow: 2px 2px 7px 1px $sombras;
-			border-radius: 60px;
+			border-radius: 15px;
 			cursor: pointer;
 			color: $color-in-linhas;
 
