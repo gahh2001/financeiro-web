@@ -37,7 +37,6 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 	const [evolucao, setEvolucao] = useState<ISeriesEvolucao[]>([]);
 	const [agrupamentoMesAnoEvolucao, setAgrupamentoMesAnoEvolucao] = useState<string[]>([]);
 	const [agrupamentoMesAnoComparacao, setAgrupamentoMesAnoComparacao] = useState<string[]>([]);
-	const [tipoInformacoesGerais, setTipoInformacoesGerais] = useState('comparison')
 	const [mediasGerais, setMediasgerais] = useState<IMediasAnalitico>();
 	const categoriaService = new CategoriaMovimentacaoService(back);
 	const [googleId] = useAtom(googleIdAtom);
@@ -63,10 +62,6 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 		setTipoComparacao(tipo);
 	};
 
-	const propsSetTipoInformacoesgerais = (tipo: string) => {
-		setTipoInformacoesGerais(tipo);
-	};
-
 	useEffect(() => {
 		return () => {
 			isMounted.current = false;
@@ -81,6 +76,7 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 
 	useEffect(() => {
 		const atualizaVisaoGeral = async () => {
+			setMes(ano);
 			try {
 				if (googleId !== "") {
 					const categoriaMovimentacaoService = new CategoriaMovimentacaoService(back);
@@ -133,13 +129,8 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 	useEffect(() => {
 		let dataInicio: number;
 		let dataFim: number;
-		if (tipoInformacoesGerais === "comparison") {
-			dataInicio = obtemDataInicialComparacao();
-			dataFim = obtemDataFinalComparacao();
-		} else {
-			dataInicio = obtemDataInicial();
-			dataFim = obtemDataFinal();
-		}
+		dataInicio = obtemDataInicialComparacao();
+		dataFim = obtemDataFinalComparacao();
 		const atualizaMedias = async () => {
 			const medias = await categoriaService
 				.obtemInformacoesgerais(googleId, dataInicio, dataFim);
@@ -148,7 +139,7 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 			}
 		}
 		atualizaMedias();
-	}, [tipoInformacoesGerais, tipoComparacao, mes, ano, fullYear]);
+	}, [tipoComparacao]);
 
 	return (
 		<div className="analitico">
@@ -197,8 +188,6 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 						comparacoes={null}
 					/>
 					<CategoriasInformacoesGerais
-						tipo={tipoInformacoesGerais}
-						setComparison={propsSetTipoInformacoesgerais}
 						medias={mediasGerais}
 					/>
 				</div>

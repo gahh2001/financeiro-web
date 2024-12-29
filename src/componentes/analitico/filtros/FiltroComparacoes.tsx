@@ -3,7 +3,7 @@ import { FC } from "react";
 import { TipoComparacaoEnum } from "../../../enums/TipoComparacaoEnum";
 import { TipoMovimentacaoEnum } from "../../../enums/TipoMovimentacaoEnum";
 import { IFiltroComparacoesProps } from "../../../interfaces/IFiltroComparacoesProps";
-import './FiltroData.scss';
+import './FiltroComparacoes.scss';
 
 const FiltroComparacoes: FC<IFiltroComparacoesProps> = (props: IFiltroComparacoesProps) => {
 
@@ -20,7 +20,7 @@ const FiltroComparacoes: FC<IFiltroComparacoesProps> = (props: IFiltroComparacoe
 		<div className="card-filters">
 			<div className="filter">
 				<FormControl
-					sx={{m: 1, width: '23vh'}}
+					sx={{m: 1, width: '18vh'}}
 					size="small"
 				>
 					<InputLabel
@@ -51,7 +51,7 @@ const FiltroComparacoes: FC<IFiltroComparacoesProps> = (props: IFiltroComparacoe
 			</div>
 			<div className="filter">
 				<FormControl
-					sx={{m: 1, width: '23vh'}}
+					sx={{m: 1, width: '18vh'}}
 					size="small"
 				>
 					<InputLabel

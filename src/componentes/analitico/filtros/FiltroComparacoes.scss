@@ -1,19 +1,22 @@
 @import '../../../VariaveisSCSS.scss';
 
-.card-filters-comparacao {
-	background-color: $fundo-components;
-	width: 60%;
-	height: 40vh;
-	box-shadow: -1px 0px 5px 3px $sombras;
+.card-filters {
+	width: auto;
 	padding: 0.7vh;
-	border-radius: 4vh;
-	margin-left: 0.5%;
-	margin-right: 0.5%;
-	margin-top: 1%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	@media screen and (max-width: 768px) {
+		height: 8vh;
+		gap: 0.1vh;
+		margin-top: 1vh;
+	}
+	@media screen and (min-width: 768px) {
+		gap: 2vh;
+		height: 8vh;
+	}
 
 	.filter {
-		height: 7.5vh;
-		width: 95%;
 		justify-content: center;
 		align-items: center;
 		display: flex;

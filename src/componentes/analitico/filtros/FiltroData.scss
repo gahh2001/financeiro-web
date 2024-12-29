@@ -1,6 +1,6 @@
 @import '../../../VariaveisSCSS.scss';
 
-.card-filters {
+.card-filters-data {
 	background-color: $fundo-components;
 	width: auto;
 	height: 8vh;
@@ -8,15 +8,22 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	gap: 2vh;
+	@media screen and (max-width: 768px) {
+		flex-direction: column;
+		height: 25vh;
+		gap: 0.1vh;
+	}
+	@media screen and (min-width: 768px) {
+		gap: 2vh;
+	}
 
-	.filter {
+	.filter-data {
 		justify-content: center;
 		align-items: center;
 		display: flex;
 	}
 
-	.filter-year {
+	.filter-year-data {
 		color: white;
 		display: flex;
 		justify-content: center;

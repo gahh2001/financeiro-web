@@ -4,9 +4,9 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { Dayjs } from "dayjs";
 import { ChangeEvent, FC } from "react";
+import { TipoMovimentacaoEnum } from "../../../enums/TipoMovimentacaoEnum";
 import { IFiltroDataProps } from "../../../interfaces/IFiltroDataProps";
 import './FiltroData.scss';
-import { TipoMovimentacaoEnum } from "../../../enums/TipoMovimentacaoEnum";
 
 const FiltroData: FC<IFiltroDataProps> = (props: IFiltroDataProps) => {
 
@@ -25,10 +25,10 @@ const FiltroData: FC<IFiltroDataProps> = (props: IFiltroDataProps) => {
 	};
 
 	return (
-		<div className="card-filters">
+		<div className="card-filters-data">
 			<LocalizationProvider dateAdapter={AdapterDayjs}>
 				<DemoContainer components={['DatePicker']} sx={{justifyContent: 'center'}}>
-					<div className="filter">
+					<div className="filter-data">
 						<DatePicker
 							label={"Ano"}
 							value={props.ano}
@@ -43,7 +43,7 @@ const FiltroData: FC<IFiltroDataProps> = (props: IFiltroDataProps) => {
 			</LocalizationProvider>
 			<LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="pt-br">
 				<DemoContainer components={['DatePicker']} sx={{justifyContent: 'center'}}>
-					<div className="filter">
+					<div className="filter-data">
 						<DatePicker
 							label={"Mês"}
 							value={props.mes}
@@ -57,7 +57,7 @@ const FiltroData: FC<IFiltroDataProps> = (props: IFiltroDataProps) => {
 					</div>
 				</DemoContainer>
 			</LocalizationProvider>
-			<div className="filter-year">
+			<div className="filter-year-data">
 				<FormGroup>
 					<FormControlLabel
 						control={
@@ -70,9 +70,9 @@ const FiltroData: FC<IFiltroDataProps> = (props: IFiltroDataProps) => {
 					/>
 				</FormGroup>
 			</div>
-			<div className="filter">
+			<div className="filter-data">
 				<FormControl
-					sx={{m: 1, width: '23vh'}}
+					sx={{width: '23vh'}}
 					size="small"
 				>
 					<InputLabel

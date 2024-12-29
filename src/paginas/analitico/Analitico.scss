@@ -1,23 +1,23 @@
 @import '../../VariaveisSCSS.scss';
 
 .analitico {
-	margin-top: 6.5vh;
+	margin-top: 5.5vh;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 
 	.conteudo {
-		padding: 2vh;
+		padding: 1vh;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
 		width: 100%;
 		height: 40%;
+		gap: 1vh;
 
 		.section {
 			background-color: $fundo-components;
-			width: 60%;
 			height: auto;
 			box-shadow: 1px 0px 5px 3px $sombras;
 			padding: 1vh;
@@ -30,22 +30,42 @@
 			align-items: center;
 			gap: 3.5vh;
 
+			@media screen and (min-width: 768px) {
+				width: 60%;
+			}
+			
+			@media screen and (max-width: 768px) {
+				width: 100%;
+			}
+
 			.card {
-				width: 70%;
+				@media screen and (min-width: 768px) {
+					width: 70%;
+				}
+				
+				@media screen and (max-width: 768px) {
+					width: 100%;
+				}
 
 				.titulo {
 					width: 100%;
 					height: auto;
 					font-weight: bold;
-					font-size: 3vh;
+					font-size: 2.6vh;
 					text-align: center;
 					color: $color-in-linhas;
 				}
 			
 				.grafic {
 					width: 100%;
-					height: 40vh;
 					display: flex;
+					@media screen and (min-width: 768px) {
+						height: 40vh;
+					}
+					
+					@media screen and (max-width: 768px) {
+						height: 40vh;
+					}
 				}
 			
 				.mensagem {
@@ -60,8 +80,14 @@
 			}
 
 			.card-categorias-informacoes-gerais {
-				width: 70%;
-				height: 42vh;
+				@media screen and (min-width: 768px) {
+					width: 70%;
+				}
+				
+				@media screen and (max-width: 768px) {
+					width: 100%;
+				}
+				height: 35vh;
 				padding: 1vh;
 				border-radius: 4vh;
 				margin-left: 0.5%;
@@ -73,18 +99,10 @@
 					width: 100%;
 					height: auto;
 					font-weight: bold;
-					font-size: 3vh;
+					font-size: 2.6vh;
 					text-align: center;
 					color: $color-in-linhas;
-				}
-
-				.type-comparison {
-					color: white;
-					display: flex;
-					justify-content: center;
-					width: 100%;
-					height: 8vh;
-					align-items: center;
+					margin-bottom: 1vh;
 				}
 
 				.infos {
@@ -98,14 +116,22 @@
 						background-color: $fundo-components-light;
 						border: 2px solid $fundo-linhas;
 						box-shadow: 2px 2px 7px 1px $sombras;
-						width: 90%;
+						@media screen and (min-width: 768px) {
+							width: 95%;
+							font-size: 2vh;
+						}
+						
+						@media screen and (max-width: 768px) {
+							width: 100%;
+							font-size: 1.6vh;
+						}
 						height: 4.5vh;
 						border-radius: 4vh;
 						display: flex;
 						align-items: center;
 						justify-content: center;
-						font-size: 2vh;
 						font-family: 'Roboto','Helvetica Neue','Helvetica','Arial','sans-serif';
+						text-align: center;
 					}
 				}
 
