@@ -27,16 +27,14 @@ const Planejamentos: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 			<div className="planejamentos">
 				<div className="lista">
 				</div>
-				<div className="graficos">
-					<div className="grafic">
-						<div className="titulo">Progresso</div>
-					</div>
-					<div className="grafic">
-						<div className="titulo">Desempenho</div>
-					</div>
-					<div className="grafic">
-						<div className="titulo">Movimentações</div>
-					</div>
+				<div className="grafic">
+					<div className="titulo">Progresso</div>
+				</div>
+				<div className="grafic">
+					<div className="titulo">Desempenho</div>
+				</div>
+				<div className="grafic">
+					<div className="titulo">Movimentações</div>
 				</div>
 			</div>
 		</Fragment>
