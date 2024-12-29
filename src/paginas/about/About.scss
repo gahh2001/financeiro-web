@@ -7,13 +7,25 @@
 	width: 100%;
 	justify-content: center;
 	align-items: center;
+	gap: 2vh;
 
-	.header { display: flex;
-		.voltar {
+	.header {
+		display: flex;
+		padding: 2vh;
+		gap: 2vh;
+
+		@media screen and (max-width: 768px) {
+			flex-direction: column;
+		}
+
+		.voltar-header {
+			display: flex;
+			align-items: center;
+			text-align: center;
+
 			button{
 				width: 16vh;
 				height: 4vh;
-				margin-top: 5vh;
 				border-radius: 2vh;
 				color: $color-in-linhas;
 				background-color: $fundo-components;
@@ -23,52 +35,39 @@
 			}
 		}
 		.titulo {
-			font-size: 5vh;
+			font-size: 4vh;
 			align-items: center;
 			color: $color-in-linhas;
 			width: 100%;
 			text-align: center;
-			margin: 4vh;
+			align-items: center;
+			display: flex;
 		}
 	}
 
-	.titulo-card-l {
-		font-size: 4vh;
+	.titulo-card {
+		font-size: 3vh;
 		align-items: center;
 		color: $color-in-linhas;
 		text-align: center;
 		margin-bottom: 2vh;
 	}
 
-	.card-l {
+	.card {
 		background-color: $fundo-components;
 		color: #b1b1b1;
-		width: 60%;
+		@media screen and (min-width: 768px) {
+			width: 60%;
+			font-size: 2.5vh;
+			text-align: justify;
+		}
+		
+		@media screen and (max-width: 768px) {
+			width: 95%;
+			font-size: 1.9vh;
+			text-align: justify;
+		}
 		padding: 3vh;
 		border-radius: 5vh;
-		font-size: 3vh;
-		text-align: justify;
-		margin-left: 25%;
-		margin-bottom: 3vh;
-	}
-
-	.titulo-card-r {
-		font-size: 4vh;
-		align-items: center;
-		color: $color-in-linhas;
-		text-align: center;
-		margin-bottom: 2vh;
-	}
-
-	.card-r {
-		background-color: $fundo-components;
-		color: #b1b1b1;
-		width: 60%;
-		padding: 3vh;
-		border-radius: 5vh;
-		font-size: 3vh;
-		text-align: justify;
-		margin-right: 25%;
-		margin-bottom: 3vh;
 	}
 }

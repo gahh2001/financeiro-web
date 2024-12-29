@@ -2,7 +2,7 @@
 
 .calendar-card {
 	box-shadow: 1px 1px 5px 3px $sombras;
-	padding: 3vh;
+	padding: 2vh;
 	background-color: $fundo-components;
 	@include responsivo-width;
 	height: 67vh;

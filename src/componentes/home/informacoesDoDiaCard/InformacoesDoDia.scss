@@ -109,11 +109,10 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			gap: 3vh;
+			gap: 2vh;
 			margin-bottom: 3vh;
 
 			.saldo {
-				justify-content: space-around;
 				width: 30vh;
 				height: 4.8vh;
 				font-size: 2.8vh;
@@ -121,6 +120,7 @@
 				text-align: center;
 				display: flex;
 				color: $color-in-linhas;
+				gap: 2vh;
 	
 				svg {
 					background-color: transparent;
