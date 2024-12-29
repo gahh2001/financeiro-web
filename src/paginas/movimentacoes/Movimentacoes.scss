@@ -6,28 +6,42 @@
 	justify-content: center;
 	align-items: center;
 	margin-top: 6.5vh;
+	padding: 1vh;
+	align-items: center;
 
 	.card {
 		display: flex;
 		flex-direction: column;
-		margin-top: 6vh;
 		background-color: $fundo-components;
 		box-shadow: 1px 1px 5px 3px $sombras;
 		border-radius: 3vh;
-		width: 60%;
-		height: 80vh;
-		padding: 2vh;
+		@media screen and (min-width: 768px) {
+			width: 60%;
+			height: 90vh;
+		}
+		
+		@media screen and (max-width: 768px) {
+			width: 100%;
+			height: 91vh;
+		}
+		padding: 1vh;
 		justify-content: center;
 		align-items: center;
 
 		.filtros {
-			height: 9vh;
-			width: 100%;
+			width: 95%;
 			display: flex;
+			@media screen and (max-width: 768px) {
+				flex-direction: column;
+				height: 30vh;
+			}
+			@media screen and (min-width: 768px) {
+				height: 9vh;
+			}
 			gap: 1vh;
 			align-items: center;
 			margin-bottom: 2vh;
-			justify-content: space-between;
+			justify-content: center;
 		}
 
 		.listagem {
@@ -40,14 +54,23 @@
 			overflow: hidden;
 
 			.headers {
-				width: 65%;
 				height: 5vh;
 				display: flex;
 				justify-content: space-around;
 				color: $color-in-linhas;
 				align-items: center;
-				margin-left: 16vh;
-				font-size: 2vh;
+
+				@media screen and (max-width: 768px) {
+					button {
+						font-size: 1vh;
+					}
+					width: 80%;
+					margin-left: 6vh;
+				}
+				@media screen and (min-width: 768px) {
+					margin-left: 16vh;
+					width: 65%;
+				}
 
 				svg {
 					font-size: 1.5vh;
@@ -55,15 +78,22 @@
 			}
 
 			.lista-movimentacoes {
-				width: 80%;
-				height: 650px;
 				overflow-y: auto;
 				display: flex;
 				flex-direction: column;
 				align-items: center;
 
+				@media screen and (min-width: 768px) {
+					width: 80%;
+					height: 650px;
+				}
+				
+				@media screen and (max-width: 768px) {
+					width: 100%;
+					height: 450px;
+				}
+
 				.movimentacao {
-					font-size: 2.3vh;
 					width: 90%;
 					height: auto;
 					background-color: $fundo-components-light;
@@ -77,20 +107,35 @@
 					align-items: center;
 					color: $color-in-linhas;
 
+					@media screen and (min-width: 768px) {
+						font-size: 2.3vh;
+					}
+					
+					@media screen and (max-width: 768px) {
+						font-size: 1.5vh;
+					}
+
 					.variavel{
 						width: 20%;
 					}
 		
 					svg {
 						background-color: transparent;
-						font-size: 3vh;
+
+						@media screen and (min-width: 768px) {
+							font-size: 3vh;
+						}
+						
+						@media screen and (max-width: 768px) {
+							font-size: 1.8vh;
+						}
 					}
 				}
 			}
 		}
 
 		.nenhuma {
-			width: 80%;
+			width: 100%;
 			height: 100%;
 			display: flex;
 			justify-content: center;
@@ -100,16 +145,18 @@
 		}
 	}
 
-	.lista-movimentacoes::-webkit-scrollbar {
-		width: 6px;
-	}
-	
-	.lista-movimentacoes::-webkit-scrollbar-thumb {
-		background: #acacac;
-		border-radius: 6px;
-	}
-	
-	.lista-movimentacoes::-webkit-scrollbar-thumb:hover {
-		background: #555;
+	@media screen and (min-width: 768px) {
+		.lista-movimentacoes::-webkit-scrollbar {
+			width: 3px;
+		}
+		
+		.lista-movimentacoes::-webkit-scrollbar-thumb {
+			background: #acacac;
+			border-radius: 6px;
+		}
+		
+		.lista-movimentacoes::-webkit-scrollbar-thumb:hover {
+			background: #555;
+		}
 	}
 }

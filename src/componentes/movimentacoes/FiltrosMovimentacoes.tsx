@@ -115,7 +115,7 @@ const FiltrosMovimentacoes: FC<FiltrosMovimentacoesProps> = (props: FiltrosMovim
 			</div>
 			<div className="filtro">
 				<FormControl
-					sx={{ width: "25vh" }}
+					sx={{ width: "25vh", marginTop: 1 }}
 				>
 					<InputLabel
 						id="demo-simple-select-helper-label"
