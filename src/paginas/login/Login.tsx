@@ -2,12 +2,12 @@ import back from '../../http';
 import './login.scss';
 
 import { Divider } from '@mui/material';
+import { useAtom } from 'jotai';
 import { FC, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
+import { googleIdAtom } from '../../atoms/atom';
 import { IGoogleIdProps } from '../../interfaces/IGoogleIdProps';
 import { LoginService } from '../../services/LoginService';
-import { useAtom } from 'jotai';
-import { googleIdAtom } from '../../atoms/atom';
 
 const Login: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 	const [googleId] = useAtom(googleIdAtom);
@@ -46,10 +46,12 @@ const Login: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 	
 	return (
 		<div className='login'>
-			<div className='card'>
+			<div className="nome-site">
+				Carteira Online
+			</div>
+			<div className='card-login'>
 				<div className="titulo">Login</div>
 				<Divider variant="middle" />
-				<br />
 				<div className="texto">
 					Entre com sua conta do Google para acessar a Carteira Digital.
 				</div>

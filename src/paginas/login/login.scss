@@ -1,29 +1,44 @@
 @import '../../VariaveisSCSS.scss';
 
 .login {
-
 	height: 100vh;
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
-	padding: 10rem;
+	align-items: center;
+	padding: 2vh;
 	background: linear-gradient(180deg, rgba(2,0,36,1) 0%, rgb(0, 55, 26) 35%, rgb(0, 69, 83) 100%);
 
-	.card {
-		width: 50vh;
-		height: 50vh;
+	.nome-site {
+		width: 100%;
+		font-size: 5vh;
+		text-align: center;
+		color: $color-in-linhas;
+	}
+	.card-login {
+		height: 40vh;
 		box-shadow: -1px 0px 5px 3px $sombras;
 		border-radius: 4vh;
 		background-color: rgb(23, 24, 24);
-		justify-content: center;
-		align-items: center;
 		padding: 1rem;
+		margin-top: 15vh;
+		display: flex;
+		flex-direction: column;
+		gap: 3vh;
+
+		@media screen and (min-width: 768px) {
+			width: 30%;
+		}
+		
+		@media screen and (max-width: 768px) {
+			width: 100%;
+		}
 
 		.titulo {
 			color: $color-in-linhas;
 			font-size: 4vh;
 			display: flex;
 			justify-content: center;
-			margin-bottom: 1vh;
 		}
 
 		.texto {
@@ -32,15 +47,19 @@
 			display: flex;
 			justify-content: center;
 			text-align: center;
-			margin-bottom: 5vh;
-			margin-top: 2.5vh;
 		}
 
 		.google {
 			display: flex;
 			justify-content: center;
-			margin-bottom: 5vh;
 		}
 	}
-	
+
+	.cards-demos {
+		display: flex;
+
+		@media screen and (max-width: 768px) {
+			flex-direction: column;
+		}
+	}
 }
