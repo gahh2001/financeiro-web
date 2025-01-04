@@ -99,7 +99,7 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 			try {
 				const somaComparacoes = await categoriaService
 					.obtemSomaCategoriasEValoresPorMeses(googleId, obtemDataInicialComparacao(),
-						obtemDataFinalComparacao(), tipoMovimentacaoTop);
+						obtemDataFinalComparacao(), tipoMovimentacaoDown);
 				if (somaComparacoes?.data) {
 					extraiSomaComparacoes(somaComparacoes.data);
 				}

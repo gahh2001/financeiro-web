@@ -65,11 +65,11 @@ const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaPr
 		<div className="informacoes-do-dia">
 			<div className="card-resumo-dia">
 				<div className="topo">
+					<AssessmentOutlined
+						sx={{ color: "#3451C7" }}
+						fontSize="large"
+					/> 
 					<div className="saldo">
-						<AssessmentOutlined
-							sx={{ color: "#3451C7" }}
-							fontSize="large"
-						/> 
 						Saldo atual: ${props.visivel ? saldo.toFixed(2).replace('.', ',') : "***"}
 					</div>
 					<Tooltip

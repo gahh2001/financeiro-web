@@ -111,14 +111,15 @@
 			justify-content: center;
 			gap: 2vh;
 			margin-bottom: 3vh;
+			font-size: 2.5vh;
 
 			.saldo {
-				width: 30vh;
+				width: 25vh;
 				height: 4.8vh;
-				font-size: 2.8vh;
 				align-items: center;
 				text-align: center;
 				display: flex;
+				justify-content: center;
 				color: $color-in-linhas;
 				gap: 2vh;
 	
