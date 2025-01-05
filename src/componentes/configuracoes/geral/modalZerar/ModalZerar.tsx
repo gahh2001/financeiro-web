@@ -14,9 +14,10 @@ const ModalZerar: FC<Partial<IModalCategoriaProps>> = (props: Partial<IModalCate
 	const [success, setSuccess] = useState(false);
 	const contaService = new ContaService(back);
 	const [googleId] = useAtom(googleIdAtom);
-	const [saldoAtual] = useAtom(saldo);
+	const [saldoAtual, setSaldoAtual] = useAtom(saldo);
 	const [emptyValor, setEmptyValor] = useState(false);
 	const [valor, setValor] = useState("");
+	const [, setPrimeiroClique] = useState(false);
 
 	const convertInputValor = (event: any) => {
 		let value = event.target.value;
@@ -28,6 +29,15 @@ const ModalZerar: FC<Partial<IModalCategoriaProps>> = (props: Partial<IModalCate
 	useEffect(() => {
 		setSuccess(false);
 		setValor("");
+		const atualizarSaldo = async () => {
+			if (saldoAtual === 0) {
+				const response = await contaService.listaContaPorGoogleId(googleId);
+				if (response?.data) {
+					setSaldoAtual(response.data.saldoConta);
+				}
+			}
+		}
+		atualizarSaldo();
 	}, [props.closeModal]);
 
 	return (
@@ -84,11 +94,17 @@ const ModalZerar: FC<Partial<IModalCategoriaProps>> = (props: Partial<IModalCate
 	)
 
 	async function editarSaldo() {
+		setPrimeiroClique(true);
+		if (valor === "") {
+			setEmptyValor(true);
+			return;
+		}
 		setLoading(true);
 		setSuccess(false);
 		await contaService.editarSaldo(googleId, valor);
 		setLoading(false);
 		setSuccess(true);
+		setSaldoAtual(Number(valor));
 	}
 }
 
