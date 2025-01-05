@@ -19,9 +19,6 @@ const FiltrosMovimentacoes: FC<FiltrosMovimentacoesProps> = (props: FiltrosMovim
 	const theme = useTheme();
 	const ITEM_HEIGHT = 48;
 	const ITEM_PADDING_TOP = 8;
-	const tipoEnum = props.tipo === "TODOS"
-		? TipoMovimentacaoEnum.TODOS : props.tipo === "POSITIVO"
-			? TipoMovimentacaoEnum.POSITIVO : TipoMovimentacaoEnum.NEGATIVO;
 	const MenuProps = {
 		PaperProps: {
 			style: {
@@ -154,6 +151,7 @@ const FiltrosMovimentacoes: FC<FiltrosMovimentacoesProps> = (props: FiltrosMovim
 				<FormControl sx={{ width: "25vh" }}>
 					<InputLabel id="demo-multiple-chip-label">Categorias</InputLabel>
 					<Select
+						size="small"
 						labelId="demo-multiple-chip-label"
 						id="demo-multiple-chip"
 						multiple
