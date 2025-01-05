@@ -80,7 +80,7 @@ const FiltrosMovimentacoes: FC<FiltrosMovimentacoesProps> = (props: FiltrosMovim
 		handleChangeCategorias({
 			target: { value: ["Todas"] }
 		} as SelectChangeEvent<typeof props.categorias>);
-	}, [props.tipo]);
+	}, [props.tipo, categoriasIniciais]);
 
 	return (
 		<div className="filtros">
