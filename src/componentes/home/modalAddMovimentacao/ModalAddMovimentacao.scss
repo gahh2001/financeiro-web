@@ -20,7 +20,10 @@
 	
 	@media screen and (max-width: 768px) {
 		height: 47vh;
+		width: 45vh;
+		padding-inline: 8.2vh;
 	}
+
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
