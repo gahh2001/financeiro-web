@@ -59,7 +59,7 @@ const ModalCategoria: FC<IModalCategoriaProps> = (props: IModalCategoriaProps) =
 			{ props.isOpen && ( 
 				<div className="modal-overlay">
 					<div className="modal">
-						<div className="titulo">
+						<div className="titulo-add-categoria">
 							Adicionar categoria de movimentação
 						</div>
 						<div className="linha">
@@ -75,7 +75,7 @@ const ModalCategoria: FC<IModalCategoriaProps> = (props: IModalCategoriaProps) =
 						<div className="linha">
 							<FormControl
 								required
-								sx={{ m: 1, width: "44vh", marginLeft: "28px" }}
+								sx={{ m: 1, width: "44vh" }}
 								size="small"
 								error={!props.edit && tipoVazio}
 								disabled={props.edit}
@@ -106,12 +106,14 @@ const ModalCategoria: FC<IModalCategoriaProps> = (props: IModalCategoriaProps) =
 									</MenuItem>
 								</Select>
 							</FormControl>
-							<Tooltip
-								title="Categorias Positivas categorizam entrada de valores, enquanto as Negativas indicam gastos"
-								placement="right"
-							>
-								<HelpOutlineIcon/>
-							</Tooltip>
+							<div className="dica-tipo">
+								<Tooltip
+									title="Categorias Positivas categorizam entrada de valores, enquanto as Negativas indicam gastos"
+									placement="right"
+								>
+									<HelpOutlineIcon/>
+								</Tooltip>
+							</div>
 						</div>
 						<div className="linha">
 							<FormControl
