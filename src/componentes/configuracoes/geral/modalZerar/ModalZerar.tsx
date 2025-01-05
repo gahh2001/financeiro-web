@@ -1,9 +1,9 @@
-import { AddCircleOutlineRounded } from "@mui/icons-material";
+import { ModeEdit } from "@mui/icons-material";
 import CheckIcon from '@mui/icons-material/Check';
-import { Box, LinearProgress } from "@mui/material";
+import { Box, LinearProgress, TextField } from "@mui/material";
 import { useAtom } from "jotai";
 import { FC, Fragment, useEffect, useState } from "react";
-import { googleIdAtom } from "../../../../atoms/atom";
+import { googleIdAtom, saldo } from "../../../../atoms/atom";
 import back from "../../../../http";
 import { IModalCategoriaProps } from "../../../../interfaces/IModalCategoriaProps";
 import { ContaService } from "../../../../services/ContaService";
@@ -14,9 +14,20 @@ const ModalZerar: FC<Partial<IModalCategoriaProps>> = (props: Partial<IModalCate
 	const [success, setSuccess] = useState(false);
 	const contaService = new ContaService(back);
 	const [googleId] = useAtom(googleIdAtom);
+	const [saldoAtual] = useAtom(saldo);
+	const [emptyValor, setEmptyValor] = useState(false);
+	const [valor, setValor] = useState("");
+
+	const convertInputValor = (event: any) => {
+		let value = event.target.value;
+		value = value.replace(/[^0-9]/g, "");
+		let numberValue = parseFloat(value) / 100;
+		setValor(numberValue.toFixed(2));
+	};
 
 	useEffect(() => {
 		setSuccess(false);
+		setValor("");
 	}, [props.closeModal]);
 
 	return (
@@ -24,29 +35,39 @@ const ModalZerar: FC<Partial<IModalCategoriaProps>> = (props: Partial<IModalCate
 			{ props.isOpen && ( 
 				<div className="modal-overlay-zerar">
 					<div className="modal-zerar">
-						<div className="titulo">
-							Zerar saldo
+						<div className="titulo-zerar">
+							Editar saldo
 						</div>
 						<div className="linha">
-							Se você continuar, o seu saldo será zerado, sem afetar nenhuma movimentação.
+							Se você continuar, o seu saldo será editado, sem afetar nenhuma movimentação.
 						</div>
-						<br /><br />
 						<div className="linha">
-							Deseja continuar?
+							Saldo atual: {saldoAtual.toFixed(2).replace('.', ',')}
+						</div>
+						<div className="linha">
+							<TextField
+								required
+								error={emptyValor}
+								value={valor}
+								onChange={convertInputValor}
+								inputProps={{ type: 'number', step: "0.5"}}
+								sx={{width: "200px" }}
+								label= "Novo saldo"
+							/>
 						</div>
 						<div className="linha">
 							<button onClick={props.closeModal}>
 								{success ? "Fechar" : "Cancelar"}
 							</button>
 							<button
-								onClick={() => zerarSaldo()}
+								onClick={() => editarSaldo()}
 								disabled={success}
 							>
 								{success
 									? <CheckIcon sx={{color: "green"}}/>
-									: <AddCircleOutlineRounded sx={{ color: "#44A81D" }} />
+									: <ModeEdit/>
 								}
-								{success ? "Zerado" : "Zerar"}
+								{success ? "Pronto!" : "Editar"}
 							</button>
 						</div>
 						<div className='progress'>
@@ -62,11 +83,10 @@ const ModalZerar: FC<Partial<IModalCategoriaProps>> = (props: Partial<IModalCate
 		</Fragment>
 	)
 
-	async function zerarSaldo() {
-		let response = undefined;
+	async function editarSaldo() {
 		setLoading(true);
 		setSuccess(false);
-		response = await contaService.zeraSaldo(googleId);
+		await contaService.editarSaldo(googleId, valor);
 		setLoading(false);
 		setSuccess(true);
 	}

@@ -1,7 +1,6 @@
 @import '../../../VariaveisSCSS.scss';
 
 .categorias {
-	height: 70vh;
 	width: 100%;
 	display: flex;
 	flex-direction: column;
@@ -10,41 +9,68 @@
 	justify-items: center;
 	vertical-align: middle;
 	align-items: center;
-	gap: 2vh;
+
+	@media screen and (min-width: 768px) {
+		gap: 2vh;
+	}
+	
+	@media screen and (max-width: 768px) {
+		gap: 1vh;
+	}
 
 	.list {
-		height: 65%;
-		width: 90%;
+		@media screen and (min-width: 768px) {
+			height: 92%;
+			width: 90%;
+		}
+		
+		@media screen and (max-width: 768px) {
+			height: 92%;
+			width: 100%;
+		}
 
 		.headers {
-			width: 87%;
 			height: 5%;
 			display: flex;
 			justify-content: space-around;
 			color: $color-in-linhas;
 			font-size: 2vh;
 			align-items: center;
-			margin-left: 9vh;
-			margin-right: 1vh;
+			padding-inline: 2vh;
+			
+			@media screen and (min-width: 768px) {
+				width: 100%;
+			}
+			
+			@media screen and (max-width: 768px) {
+				width: 100%;
+			}
 		}
 
 		.listagem {
-			height: 50vh;
 			overflow-y: auto;
+			border-radius: 30px;
+
+			@media screen and (min-width: 768px) {
+				height: 48vh;
+			}
+			
+			@media screen and (max-width: 768px) {
+				height: 36vh;
+			}
 
 			.itens {
 				margin-top: 2%;
-				align-content: center;
 				text-align: center;
-				justify-content: center;
 				display: flex;
-				flex-wrap: wrap;
+				justify-content: center;
+				flex-direction: column;
+				align-items: center;
 
 				button {
 					display: flex;
-					width: 80%;
+					justify-content: space-around;
 					height: 5.5vh;
-					font-size: 2.2vh;
 					justify-content: space-between;
 					color: $color-in-linhas;
 					background-color: $fundo-components-light;
@@ -53,8 +79,17 @@
 					box-shadow: 2px 2px 7px 1px $sombras;
 					margin-bottom: 1.5vh;
 					align-items: center;
-					padding-left: 8vh;
-					padding-right: 8vh;
+					padding-inline: 4vh;
+					
+					@media screen and (min-width: 768px) {
+						width: 80%;
+						font-size: 2.2vh;
+					}
+					
+					@media screen and (max-width: 768px) {
+						width: 99%;
+						font-size: 1.7vh;
+					}
 
 					.NEGATIVO {
 						color: #e15734db;
@@ -67,12 +102,12 @@
 		}
 
 		.listagem::-webkit-scrollbar {
-			width: 6px;
+			width: 3px;
 		}
 	
 		.listagem::-webkit-scrollbar-thumb {
 			background: #b36931;
-			border-radius: 6px;
+			border-radius: 3px;
 		}
 	
 		.listagem::-webkit-scrollbar-thumb:hover {
@@ -92,24 +127,38 @@
 
 	.adicionar {
 		display: flex;
-		justify-content: center;
+		justify-content: space-between;
 		text-align: center;
-		width: 80%;
-		padding: 1vh;
 		background-color: transparent;
 		align-items: center;
+		
+		@media screen and (min-width: 768px) {
+			width: 80%;
+		}
+		
+		@media screen and (max-width: 768px) {
+			width: 100%;
+			flex-direction: column;
+		}
 
 		.text {
 			color: $color-in-linhas;
 			font-size: 2vh;
 			text-align: left;
-			width: 70%;
+			
+			@media screen and (min-width: 768px) {
+				width: 65%;
+			}
+			
+			@media screen and (max-width: 768px) {
+				width: 95%;
+			}
 		}
 
 		button {
 			svg {
 				background-color: transparent;
-				font-size: 45px;
+				font-size: 40px;
 			}
 
 			text-align: center;

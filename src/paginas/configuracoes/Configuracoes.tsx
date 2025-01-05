@@ -1,6 +1,9 @@
-import { Button, Divider } from "@mui/material";
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Accordion, AccordionDetails, AccordionSummary, Typography } from "@mui/material";
+import { useAtom } from "jotai";
 import { FC, Fragment, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { googleIdAtom } from "../../atoms/atom";
 import AppBar from "../../componentes/AppBar/AppBar";
 import Categorias from "../../componentes/configuracoes/categorias/Categorias";
 import useModalCategoria from "../../componentes/configuracoes/categorias/modalAdicionaCategoria/UseModalCategoria";
@@ -10,38 +13,34 @@ import { ICategoriaMovimentacao } from "../../interfaces/ICategoriaMovimentacao"
 import { IGoogleIdProps } from "../../interfaces/IGoogleIdProps";
 import { CategoriaMovimentacaoService } from "../../services/CategoriaMovimentacaoService";
 import "./Configuracoes.scss";
-import { useAtom } from "jotai";
-import { googleIdAtom } from "../../atoms/atom";
 
 const Configuracoes: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 	const categoriaMovimentacaoService = new CategoriaMovimentacaoService(back);
 	const [categorias, setCategorias] = useState<ICategoriaMovimentacao[]>([]);
 	const {isOpenModalAdd: isOpenModalAddCategoria, closeModalCategoria} = useModalCategoria();
-	const [aba, setAba] = useState<string>("CATEGORIAS");
+	const [aba, setAba] = useState<string | false>("CATEGORIAS");
 	const [googleId] = useAtom(googleIdAtom);
 	const isMounted = useRef(true);
 	const navigate = useNavigate();
-
-	const handleEditAba = (nome: string) => {
-		setAba(nome);
-	}
 
 	const handleAddCategoria = () => {
 		closeModalCategoria();
 	};
 
+	const handleChange =(panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+		setAba(isExpanded ? panel : false);
+	};
+
 	useEffect(() => {
 		const carregaCategorias = async () => {
-			if (aba === "CATEGORIAS") {
-				const categorias = await categoriaMovimentacaoService
-					.obtemCategoriasMovimentacaoPorConta(googleId);
-				if (categorias) {
-					setCategorias(categorias?.data);
-				}
+			const categorias = await categoriaMovimentacaoService
+				.obtemCategoriasMovimentacaoPorConta(googleId);
+			if (categorias) {
+				setCategorias(categorias?.data);
 			}
 		}
 		carregaCategorias();
-	},[aba, isOpenModalAddCategoria]);
+	},[]);
 
 	useEffect(() => {
 		return () => {
@@ -65,45 +64,41 @@ const Configuracoes: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 			/>
 			<div className="configuracoes">
 				<div className="card">
-					<div className="card-menus">
-						<Divider orientation="horizontal"/>
-						<Button
-							onClick={() => handleEditAba("CATEGORIAS")}
+					<Accordion
+						expanded={aba === 'CATEGORIAS'}
+						onChange={handleChange('CATEGORIAS')}
+					>
+						<AccordionSummary
+							expandIcon={<ExpandMoreIcon />}
+							aria-controls="CATEGORIAS"
+							id="CATEGORIAS"
+							sx={{display: "flex", justifyContent: "center"}}
 						>
-							Categorias de movimentação
-						</Button>
-						<Divider variant="fullWidth"/>
-						<Button
-							onClick={() => handleEditAba("GERAL")}
+							<Typography variant='h6'>Categorias de movimentação</Typography>
+						</AccordionSummary>
+						<AccordionDetails>
+							<Categorias
+								categorias={categorias}
+								handleAddCategoria={handleAddCategoria}
+							/>
+						</AccordionDetails>
+					</Accordion>
+					<Accordion expanded={aba === 'GERAL'} onChange={handleChange('GERAL')}>
+						<AccordionSummary
+							expandIcon={<ExpandMoreIcon />}
+							aria-controls="GERAL"
+							id="GERAL"
 						>
-							Geral
-						</Button>
-						<Divider variant="fullWidth"/>
-					</div>
-					<Divider orientation="vertical" variant="fullWidth"/>
-					<div className="config">
-						<div className="titulo">
-							{aba}
-						</div>
-						<Divider orientation="horizontal"/>
-						{escolheConfiguracao()}
-					</div>
+							<Typography variant='h6'>Configurações gerais</Typography>
+						</AccordionSummary>
+						<AccordionDetails>
+							<Geral/>
+						</AccordionDetails>
+					</Accordion>
 				</div>
 			</div>
 		</Fragment>
 	);
-
-	function escolheConfiguracao() {
-		switch (aba) {
-			case "GERAL":
-				return <Geral/>
-			default:
-				return <Categorias
-					categorias={categorias}
-					handleAddCategoria={handleAddCategoria}
-				/>
-		}
-	}
 }
 
 export default Configuracoes

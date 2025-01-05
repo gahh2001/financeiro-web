@@ -96,13 +96,13 @@ const ModalCategoria: FC<IModalCategoriaProps> = (props: IModalCategoriaProps) =
 										key={"positivo"}
 										value={"POSITIVO"}
 									>
-										Positiva
+										Rendimentos
 									</MenuItem>
 									<MenuItem
 										key={"negativo"}
 										value={"NEGATIVO"}
 									>
-										Negativa
+										Gastos
 									</MenuItem>
 								</Select>
 							</FormControl>

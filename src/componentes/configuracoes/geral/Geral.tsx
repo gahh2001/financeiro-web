@@ -17,7 +17,7 @@ const Geral: FC<Partial<IGoogleIdProps>> = (props: Partial<IGoogleIdProps>) => {
 			<div className="geral">
 				<div className="botao">
 					<Button onClick={() => handleEditCategoria()}>
-						Zerar saldo
+						Editar saldo
 					</Button>
 					<Divider/>
 				</div>

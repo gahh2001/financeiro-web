@@ -2,55 +2,46 @@
 
 .configuracoes  {
 	width: 100%;
+	height: 94vh;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	margin-top: 6.5vh;
+	margin-top: 4vh;
+	margin-bottom: 1vh;
 
 	.card {
 		display: flex;
+		flex-direction: column;
 		margin-top: 6vh;
 		background-color: $fundo-components;
 		box-shadow: 1px 1px 5px 3px $sombras;
 		border-radius: 3vh;
-		width: 60%;
-		height: 80vh;
-
-		.card-menus {
-			align-content: center;
-			text-align: center;
-			justify-items: center;
-			vertical-align: middle;
-			width: 20%;
-			height: 100%;
-
-			button {
-				background-color: $fundo-components;
-				color: $color-in-linhas;
-				height: 8%;
-				width: 100%;
-				font-size: 1.7vh;
-
-				&:hover {
-					background-color: $fundo-components-light;
-				}
-			}
+		padding-top: 2vh;
+		
+		@media screen and (min-width: 768px) {
+			width: 60%;
+			min-height: 90vh;
+		}
+		
+		@media screen and (max-width: 768px) {
+			width: 99%;
+			min-height: 90vh;
 		}
 
 		.config {
-			height: 100%;
-			width: 79%;
-
-			.titulo {
-				margin-top: 2vh;
-				width: 100%;
-				height: auto;
-				font-weight: bold;
-				font-size: 3vh;
-				text-align: center;
-				color: $color-in-linhas;
-				margin-bottom: 2.5vh;
+			@media screen and (min-width: 768px) {
+				height: 100%;
+				width: 79%;
 			}
+			
+			@media screen and (max-width: 768px) {
+				height: 90%;
+				width: 100%;
+			}
+		}
+
+		.MuiAccordionSummary-content {
+			justify-content: center;
 		}
 	}
 }

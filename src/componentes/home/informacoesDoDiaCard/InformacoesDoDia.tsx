@@ -15,7 +15,7 @@ import { IconButton } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
 import { useAtom } from 'jotai';
 import { FC, Fragment, useEffect, useState } from 'react';
-import { googleIdAtom } from '../../../atoms/atom';
+import { googleIdAtom, saldo } from '../../../atoms/atom';
 import { TipoMovimentacaoEnum } from '../../../enums/TipoMovimentacaoEnum';
 import back from '../../../http';
 import { IInformacoesDoDiaProps } from '../../../interfaces/IInformacoesDoDiaProps';
@@ -27,7 +27,7 @@ import './InformacoesDoDia.scss';
 const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaProps) => {
 	const [googleId] = useAtom(googleIdAtom);
 	const [movimentacoesDoDia, setMovimentacoesDoDia] = useState<IMovimentacao[]>([]);
-	const [saldo, setSaldo] = useState<number>(0);
+	const [saldoAtual, setSaldo] = useAtom(saldo);
 
 	useEffect(() => {
 		const buscaMovimentacoesDoDia = async () => {
@@ -70,7 +70,7 @@ const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaPr
 						fontSize="large"
 					/> 
 					<div className="saldo">
-						Saldo atual: ${props.visivel ? saldo.toFixed(2).replace('.', ',') : "***"}
+						Saldo atual: ${props.visivel ? saldoAtual.toFixed(2).replace('.', ',') : "***"}
 					</div>
 					<Tooltip
 						title={props.visivel ? "Ocultar valores" : "Mostrar valores"}

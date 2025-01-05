@@ -19,18 +19,34 @@
 		padding: 1rem;
 		border: 1px solid $sombras;
 		box-shadow: 5px 4px 7px 1px $sombras;
-		height: 380px;
-		width: 70vh;
+		width: 55vh;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		gap: 3vh;
+
+		@media screen and (min-max: 768px) {
+			height: 300px;
+		}
+
+		@media screen and (min-width: 768px) {
+			height: 350;
+		}
+
+		.titulo-zerar {
+			font-size: 3vh;
+			text-align: center;
+		}
 
 		.linha{
 			font-size: 2.5vh;
 			display: flex;
 			justify-content: center;
 			text-align: center;
+			gap: 4vh;
 		}
 
 		button {
-			margin-top: 4vh;
 			font-size: 2.5vh;
 			display: flex;
 			justify-content: center;
@@ -44,8 +60,6 @@
 			border-radius: 7px;
 			cursor: pointer;
 			color: $color-in-linhas;
-			margin-left: 4%;
-			margin-right: 4%;
 
 			svg {
 				margin-right: 1vh;
