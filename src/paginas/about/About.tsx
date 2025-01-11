@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import './About.scss';
 import email from './email.png';
 import git from './github.png';
@@ -38,8 +38,7 @@ const About: FC = () => {
 				meus conhecimentos em tecnologias de desenvolvimento. Com o desenvolver da ferramenta,
 				percebi que disponibilizá-la ao público seria muito interessante, e assim o projeto
 				evoluiu de uma simples API para uma ferramenta completa com diversos recursos bacanas.
-				<br /> <br /> Por enquanto a ferramenta tem acesso liberado para todos, e não possui
-				nenhuma espécie de monetização, todos os custos para mantê-la são encarados como um
+				<br /> <br /> A ferramenta tem acesso liberado a todos, e todos os custos para mantê-la são encarados como um
 				investimento em minhas próprias habilidades e também na minha carreira como programador.
 				Se você tiver alguma sugestão de melhoria ou correção para esta aplicação, sinta-se
 				a vontade para sugerir através dos contatos abaixo.
@@ -48,10 +47,10 @@ const About: FC = () => {
 				<div className="titulo-card">
 					Contato 📍
 				</div>
-				<img src={email} alt="" /> <Link to="gabrielgoulart2001@gmail.com" target="_blank"/> gabrielgoulart2001@gmail.com <br />
-				<img src={git} alt="" /> <Link to="https://github.com/gahh2001" target="_blank">github.com/gahh2001</Link> <br />
-				<img src={linkedin} alt="" /> <Link to="https://www.linkedin.com/in/gabriel-oliveira-goulart-48641319b/" target="_blank">linkedin.com/in/gabriel-oliveira-goulart</Link> <br />
-				<img src={instagram} alt="" /> <Link to="https://www.instagram.com/gabriel_o_goulart/" target="_blank">instagram.com/gabriel_o_goulart/</Link>
+				<img src={email} alt="" /> <a href="gabrielgoulart2001@gmail.com" target="_blank"/> gabrielgoulart2001@gmail.com <br />
+				<img src={git} alt="" /> <a href="https://github.com/gahh2001" target="_blank">github.com/gahh2001</a> <br />
+				<img src={linkedin} alt="" /> <a href="https://www.linkedin.com/in/gabriel-oliveira-goulart-48641319b/" target="_blank">linkedin.com/in/gabriel-oliveira-goulart</a> <br />
+				<img src={instagram} alt="" /> <a href="https://www.instagram.com/gabriel_o_goulart/" target="_blank">instagram.com/gabriel_o_goulart/</a>
 			</div>
 			<div className="card">
 				<div className="titulo-card">
