@@ -4,8 +4,8 @@ import { FC, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { googleIdAtom } from "../../atoms/atom";
 import CategoriasComparacao from "../../componentes/analitico/CategoriasComparacao";
+import CategoriasDesempenho from "../../componentes/analitico/CategoriasDesempenho";
 import CategoriasEvolucao from "../../componentes/analitico/CategoriasEvolucao";
-import CategoriasInformacoesGerais from "../../componentes/analitico/CategoriasInformacoesGerais";
 import CategoriasPorcentagem from "../../componentes/analitico/CategoriasPorcentagem";
 import CategoriasVisaoGeral from "../../componentes/analitico/CategoriasVisaoGeral";
 import FiltroComparacoes from "../../componentes/analitico/filtros/FiltroComparacoes";
@@ -187,7 +187,7 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 						evolucao={evolucao}
 						comparacoes={null}
 					/>
-					<CategoriasInformacoesGerais
+					<CategoriasDesempenho
 						medias={mediasGerais}
 					/>
 				</div>

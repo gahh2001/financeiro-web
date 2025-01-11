@@ -1,12 +1,12 @@
-import { ChangeEvent, FC } from 'react';
+import { FC } from 'react';
 import { ICategoriasInformacoesGeraisProps } from '../../interfaces/ICategoriasInformacoesGeraisProps';
 
-const CategoriasInformacoesGerais: FC<ICategoriasInformacoesGeraisProps> = (props: ICategoriasInformacoesGeraisProps) => {
+const CategoriasDesempenho: FC<ICategoriasInformacoesGeraisProps> = (props: ICategoriasInformacoesGeraisProps) => {
 	
 	return (
 		<div className='card-categorias-informacoes-gerais'>
 			<div className="titulo">
-				Informações gerais
+				Desempenho
 			</div>
 			{props.medias ?
 				<>
@@ -35,4 +35,4 @@ const CategoriasInformacoesGerais: FC<ICategoriasInformacoesGeraisProps> = (prop
 	)
 }
 
-export default CategoriasInformacoesGerais;
+export default CategoriasDesempenho;
