@@ -5,8 +5,8 @@ import { FC, useEffect, useState } from 'react';
 import { googleIdAtom } from '../../../../atoms/atom';
 import back from '../../../../http';
 import { InformacoesDoMesProps } from '../../../../interfaces/IInformacoesDoMesProps';
-import { ISomaCategoriasPorMes } from '../../../../interfaces/ISomaCategoriasPorMes';
 import { CategoriaMovimentacaoService } from '../../../../services/CategoriaMovimentacaoService';
+import { SomaCategoriasPorMes } from '../../../../types/SomaCategoriasPorMes';
 import './GraficosMensais.scss';
 
 const GraficosMensais: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProps) => {
@@ -52,7 +52,7 @@ const GraficosMensais: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProps
 		</div>
 	);
 
-	function extractSomaCategoriasPositivas(somaCategorias: ISomaCategoriasPorMes[]) {
+	function extractSomaCategoriasPositivas(somaCategorias: SomaCategoriasPorMes[]) {
 		const nomesPositivos: string[] = [];
 		const somasPositivas: number[] = [];
 		somaCategorias.forEach((result) => {
@@ -63,7 +63,7 @@ const GraficosMensais: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProps
 		setSomaCategoriasPositivas(somasPositivas);
 	}
 
-	function extractSomaCategoriasNegativas(somaCategorias: ISomaCategoriasPorMes[]) {
+	function extractSomaCategoriasNegativas(somaCategorias: SomaCategoriasPorMes[]) {
 		const nomesNegativos: string[] = [];
 		const somasNegativas: number[] = [];
 		somaCategorias.forEach((result) => {

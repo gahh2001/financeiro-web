@@ -6,9 +6,9 @@ import { useAtom } from "jotai";
 import { FC, Fragment, useEffect, useState } from "react";
 import { googleIdAtom } from "../../../../atoms/atom";
 import back from "../../../../http";
-import { ICategoriaMovimentacao } from "../../../../interfaces/ICategoriaMovimentacao";
 import { IModalCategoriaProps } from "../../../../interfaces/IModalCategoriaProps";
 import { CategoriaMovimentacaoService } from "../../../../services/CategoriaMovimentacaoService";
+import { CategoriaMovimentacao } from "../../../../types/CategoriaMovimentacao";
 import listaSelectCores from "./ListaSelectsCores";
 import listaSelectIcones from "./ListaSelectsIcones";
 import "./ModalCategoria.scss";
@@ -194,7 +194,7 @@ const ModalCategoria: FC<IModalCategoriaProps> = (props: IModalCategoriaProps) =
 		if (inputsValidados) {
 			setLoading(true);
 			setSuccess(false);
-			const novaCategoria: Partial<ICategoriaMovimentacao> = {
+			const novaCategoria: Partial<CategoriaMovimentacao> = {
 				nomeCategoria: nome,
 				tipoMovimentacao: tipo,
 				icone: icone,

@@ -19,14 +19,14 @@ import { googleIdAtom, saldo } from '../../../atoms/atom';
 import { TipoMovimentacaoEnum } from '../../../enums/TipoMovimentacaoEnum';
 import back from '../../../http';
 import { IInformacoesDoDiaProps } from '../../../interfaces/IInformacoesDoDiaProps';
-import { IMovimentacao } from '../../../interfaces/IMovimentacao';
 import { ContaService } from '../../../services/ContaService';
+import { Movimentacao } from '../../../types/Movimentacao';
 import ConverteIcone from '../../configuracoes/categorias/ConverteIcones';
 import './InformacoesDoDia.scss';
 
 const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaProps) => {
 	const [googleId] = useAtom(googleIdAtom);
-	const [movimentacoesDoDia, setMovimentacoesDoDia] = useState<IMovimentacao[]>([]);
+	const [movimentacoesDoDia, setMovimentacoesDoDia] = useState<Movimentacao[]>([]);
 	const [saldoAtual, setSaldo] = useAtom(saldo);
 
 	useEffect(() => {
@@ -138,7 +138,7 @@ const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaPr
 		</div>
 	);
 
-	function somaDia(movimentacoes: IMovimentacao[], tipoMovimentacao: TipoMovimentacaoEnum) {
+	function somaDia(movimentacoes: Movimentacao[], tipoMovimentacao: TipoMovimentacaoEnum) {
 		let soma = 0;
 		for (const movimentacao of movimentacoes) {
 			if (movimentacao.tipoMovimentacao.toUpperCase() === tipoMovimentacao.toString()) {
@@ -148,7 +148,7 @@ const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaPr
 		return props.visivel ? soma.toFixed(2).replace('.', ',') : "***"
 	}
 
-	function listaMovimentacoesDoDia(movimentacoes: IMovimentacao[]) {
+	function listaMovimentacoesDoDia(movimentacoes: Movimentacao[]) {
 		return (
 				<div className='card-movimentacoes'>
 					<div className="titulo">Movimentações</div>

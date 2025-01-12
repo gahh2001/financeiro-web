@@ -1,11 +1,11 @@
 import { ReactNode } from "react";
 import { TipoMovimentacaoEnum } from "../enums/TipoMovimentacaoEnum";
-import { IMovimentacao } from "./IMovimentacao";
+import { Movimentacao } from "../types/Movimentacao";
 
 export type IModalApagar = {
 	children?: ReactNode;
 	isOpen: boolean;
 	tipo: TipoMovimentacaoEnum;
 	closeModalRemove: () => void;
-	movimentacao: IMovimentacao | null;
+	movimentacao: Movimentacao | null;
 }

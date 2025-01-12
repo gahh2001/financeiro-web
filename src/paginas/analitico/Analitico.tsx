@@ -19,8 +19,8 @@ import { IMediasAnalitico } from "../../interfaces/IMediasAnalitico";
 import { ISeriesChart } from "../../interfaces/ISeriesChart";
 import { ISeriesComparacao } from "../../interfaces/ISeriesComparacao";
 import { ISeriesEvolucao } from "../../interfaces/ISeriesEvolucao";
-import { ISomaCategoriasPorMes } from "../../interfaces/ISomaCategoriasPorMes";
 import { CategoriaMovimentacaoService } from "../../services/CategoriaMovimentacaoService";
+import { SomaCategoriasPorMes } from "../../types/SomaCategoriasPorMes";
 import './Analitico.scss';
 
 const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
@@ -263,7 +263,7 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 		return fimMes.getTime();
 	}
 
-	function extraiSomas(lista: ISomaCategoriasPorMes[]) {
+	function extraiSomas(lista: SomaCategoriasPorMes[]) {
 		const categorias: string[] = [];
 		const somas: number[] = [];
 		lista.forEach((soma) => {
@@ -274,7 +274,7 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 		setSomaCategorias(somas);
 	}
 
-	function extraiPorcentagens(lista: ISomaCategoriasPorMes[]) {
+	function extraiPorcentagens(lista: SomaCategoriasPorMes[]) {
 		const porcentagens: ISeriesChart[] = [];
 		let id = 0
 		lista.forEach((soma) => {
@@ -290,7 +290,7 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 		setPorcentagens(porcentagens);
 	}
 
-	function extraiSomaComparacoes(lista: ISomaCategoriasPorMes[]) {
+	function extraiSomaComparacoes(lista: SomaCategoriasPorMes[]) {
 		const categoriasSet: Set<string> = new Set();
 		lista.forEach(soma => {
 			categoriasSet.add(soma.nomeCategoria);
@@ -334,7 +334,7 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 		setComparacoes(graficosProntos);
 	}
 
-	function extraiEvolucoes(lista: ISomaCategoriasPorMes[]) {
+	function extraiEvolucoes(lista: SomaCategoriasPorMes[]) {
 		const categoriasSet: Set<string> = new Set();
 		lista.forEach(soma => {
 			categoriasSet.add(soma.nomeCategoria);

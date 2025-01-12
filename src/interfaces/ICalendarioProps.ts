@@ -1,9 +1,9 @@
-import { IMovimentacao } from "./IMovimentacao";
+import { Movimentacao } from "../types/Movimentacao";
 
 export type  ICalendarioProps = {
-	movimentacoesMes: IMovimentacao[];
+	movimentacoesMes: Movimentacao[];
 	isOpenModalAdd: boolean;
 	isOpenModalRemove: boolean;
 	onDayClick: (selectedDate: Date) => void;
-	atualizaMovimentacoesMes: (movimentacoes: IMovimentacao[]) => void;
+	atualizaMovimentacoesMes: (movimentacoes: Movimentacao[]) => void;
 }

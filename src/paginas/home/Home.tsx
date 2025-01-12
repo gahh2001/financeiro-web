@@ -13,7 +13,7 @@ import ModalApagaMovimentacao from "../../componentes/home/modalRemoveMovimentac
 import useModalRemoveMovimentacao from "../../componentes/home/modalRemoveMovimentacao/UseModalRemoveMovimentacao";
 import { TipoMovimentacaoEnum } from '../../enums/TipoMovimentacaoEnum';
 import { IGoogleIdProps } from "../../interfaces/IGoogleIdProps";
-import { IMovimentacao } from "../../interfaces/IMovimentacao";
+import { Movimentacao } from "../../types/Movimentacao";
 import './Home.scss';
 
 const Home: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
@@ -23,13 +23,13 @@ const Home: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 	const [categoria, setCategoria] = useState("");
 	const [valor, setValor] = useState("");
 	const [descricao, setDescricao] = useState("");
-	const [movimentacoesDoMes, setMovimentacoesDoMes] = useState<IMovimentacao[]>([]);
+	const [movimentacoesDoMes, setMovimentacoesDoMes] = useState<Movimentacao[]>([]);
 	const [edit, setEdit] = useState(false);
 	const {isOpenModalAdd, closeModalAdd} = useModalAddMovimentacao();
 	const {isOpenModalRemove, closeModalRemove} = useModalRemoveMovimentacao();
 	const [isOpenDialogDescricao, setIsOpenDialogDescricao] = useState(false);
 	const [tipo, setTipo] = useState(TipoMovimentacaoEnum.POSITIVO);
-	const [movimentacaoApagar, setMovimentacaoApagar] = useState<IMovimentacao | null>(null);
+	const [movimentacaoApagar, setMovimentacaoApagar] = useState<Movimentacao | null>(null);
 	const [visivel, setVisivel] = useState(false);
 	const isMounted = useRef(true);
 	const navigate = useNavigate();
@@ -47,7 +47,7 @@ const Home: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 		}
 	}, [googleId]);
 
-	const propsMovimentcoesMes = (movimentacoes: IMovimentacao[]) => {
+	const propsMovimentcoesMes = (movimentacoes: Movimentacao[]) => {
 		setMovimentacoesDoMes(movimentacoes)
 	}
 	const propsCalendario = (date: Date) => {
@@ -66,7 +66,7 @@ const Home: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 	const setVisible = () => {
 		setVisivel(!visivel);
 	}
-	const propsModalApagaRendimento = (movimentacaoApagar: IMovimentacao) => {
+	const propsModalApagaRendimento = (movimentacaoApagar: Movimentacao) => {
 		movimentacaoApagar.tipoMovimentacao.toUpperCase() === TipoMovimentacaoEnum.POSITIVO
 			? setTipo(TipoMovimentacaoEnum.POSITIVO)
 			: setTipo(TipoMovimentacaoEnum.NEGATIVO);

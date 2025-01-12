@@ -1,5 +1,5 @@
 import { AxiosInstance } from "axios";
-import { IConta } from "../interfaces/IConta";
+import { Conta } from "../types/Conta";
 
 export class ContaService {
 	constructor(private readonly axiosInstance: AxiosInstance){}
@@ -9,7 +9,7 @@ export class ContaService {
 			googleId: googleId,
 		}
 		try {
-			const response = await this.axiosInstance.get<IConta>('/conta', {params});
+			const response = await this.axiosInstance.get<Conta>('/conta', {params});
 			return { ...response };
 		} catch (error) {
 			console.log(`Não foi possível obter a conta`, error);

@@ -8,12 +8,12 @@ import { googleIdAtom } from "../../atoms/atom";
 import { TipoMovimentacaoEnum } from "../../enums/TipoMovimentacaoEnum";
 import back from "../../http";
 import { FiltrosMovimentacoesProps } from "../../interfaces/FiltrosMovimentacoesProps";
-import { ICategoriaMovimentacao } from "../../interfaces/ICategoriaMovimentacao";
 import { CategoriaMovimentacaoService } from "../../services/CategoriaMovimentacaoService";
+import { CategoriaMovimentacao } from "../../types/CategoriaMovimentacao";
 
 const FiltrosMovimentacoes: FC<FiltrosMovimentacoesProps> = (props: FiltrosMovimentacoesProps) => {
-	const [categoriasIniciais, setCategoriasIniciais] = useState<ICategoriaMovimentacao[]>([]);
-	const [categorias, setCategorias] = useState<ICategoriaMovimentacao[]>([]);
+	const [categoriasIniciais, setCategoriasIniciais] = useState<CategoriaMovimentacao[]>([]);
+	const [categorias, setCategorias] = useState<CategoriaMovimentacao[]>([]);
 	const categoriaMovimentacaoService = new CategoriaMovimentacaoService(back);
 	const [googleId] = useAtom(googleIdAtom);
 	const theme = useTheme();
@@ -174,7 +174,7 @@ const FiltrosMovimentacoes: FC<FiltrosMovimentacoesProps> = (props: FiltrosMovim
 		</div>
 	);
 
-	function obtemSelectCategorias(categoriasReceived: ICategoriaMovimentacao[]) {
+	function obtemSelectCategorias(categoriasReceived: CategoriaMovimentacao[]) {
 		return categoriasReceived.map((categ, index) => (
 			<MenuItem
 				key={index}

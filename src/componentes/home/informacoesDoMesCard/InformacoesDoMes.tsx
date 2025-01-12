@@ -6,7 +6,7 @@ import {
 import { FC } from 'react';
 import { TipoMovimentacaoEnum } from '../../../enums/TipoMovimentacaoEnum';
 import { InformacoesDoMesProps } from '../../../interfaces/IInformacoesDoMesProps';
-import { IMovimentacao } from '../../../interfaces/IMovimentacao';
+import { Movimentacao } from '../../../types/Movimentacao';
 import './InformacoesDoMes.scss';
 import GraficosMensais from './graficosMensais/GraficosMensais';
 
@@ -59,7 +59,7 @@ const InformacoesDoMes: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProp
 		</div>
 	);
 
-	function somaTotalMes(movimentacoes: IMovimentacao[], tipo: TipoMovimentacaoEnum) {
+	function somaTotalMes(movimentacoes: Movimentacao[], tipo: TipoMovimentacaoEnum) {
 		let soma = 0;
 		for (const movimentacao of movimentacoes) {
 			if (movimentacao.tipoMovimentacao.toUpperCase() === tipo.toString()) {
@@ -69,7 +69,7 @@ const InformacoesDoMes: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProp
 		return soma;
 	}
 
-	function calculaPorcentagemTotal(movimentacoes: IMovimentacao[]) {
+	function calculaPorcentagemTotal(movimentacoes: Movimentacao[]) {
 		const ganhos = somaTotalMes(movimentacoes, TipoMovimentacaoEnum.POSITIVO);
 		const gastos = somaTotalMes(movimentacoes, TipoMovimentacaoEnum.NEGATIVO);
 		const porcentagemGasto = (gastos * 100) / ganhos;

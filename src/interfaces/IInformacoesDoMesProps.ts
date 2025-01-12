@@ -1,10 +1,10 @@
-import { IMovimentacao } from "./IMovimentacao";
+import { Movimentacao } from "../types/Movimentacao";
 
 export type InformacoesDoMesProps = {
 	selectedDate: Date;
-	movimentacoesMes: IMovimentacao[];
+	movimentacoesMes: Movimentacao[];
 	visivel: boolean;
 	modalAddRendimento: () => void;
 	modalAddDespesa: () => void;
-	modalApagaMovimentacao: (movimentacaoApagar: IMovimentacao) => void;
+	modalApagaMovimentacao: (movimentacaoApagar: Movimentacao) => void;
 }

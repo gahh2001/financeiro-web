@@ -9,14 +9,14 @@ import Categorias from "../../componentes/configuracoes/categorias/Categorias";
 import useModalCategoria from "../../componentes/configuracoes/categorias/modalAdicionaCategoria/UseModalCategoria";
 import Geral from "../../componentes/configuracoes/geral/Geral";
 import back from '../../http';
-import { ICategoriaMovimentacao } from "../../interfaces/ICategoriaMovimentacao";
 import { IGoogleIdProps } from "../../interfaces/IGoogleIdProps";
 import { CategoriaMovimentacaoService } from "../../services/CategoriaMovimentacaoService";
+import { CategoriaMovimentacao } from "../../types/CategoriaMovimentacao";
 import "./Configuracoes.scss";
 
 const Configuracoes: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 	const categoriaMovimentacaoService = new CategoriaMovimentacaoService(back);
-	const [categorias, setCategorias] = useState<ICategoriaMovimentacao[]>([]);
+	const [categorias, setCategorias] = useState<CategoriaMovimentacao[]>([]);
 	const {isOpenModalAdd: isOpenModalAddCategoria, closeModalCategoria} = useModalCategoria();
 	const [aba, setAba] = useState<string | false>("CATEGORIAS");
 	const [googleId] = useAtom(googleIdAtom);

@@ -1,4 +1,4 @@
-export type ICategoriaMovimentacao = {
+export type CategoriaMovimentacao = {
 	id: number | null;
 	tipoMovimentacao: string; //POSITIVO ou NEGATIVO
 	nomeCategoria: string;

@@ -1,14 +1,14 @@
 import { AxiosInstance } from "axios";
 import { TipoMovimentacaoEnum } from "../enums/TipoMovimentacaoEnum";
-import { ICategoriaMovimentacao } from "../interfaces/ICategoriaMovimentacao";
 import { IMediasAnalitico } from "../interfaces/IMediasAnalitico";
-import { ISomaCategoriasPorMes } from "../interfaces/ISomaCategoriasPorMes";
+import { CategoriaMovimentacao } from "../types/CategoriaMovimentacao";
+import { SomaCategoriasPorMes } from "../types/SomaCategoriasPorMes";
 
 export class CategoriaMovimentacaoService {
 	constructor(private readonly axiosInstance: AxiosInstance) {}
 	urlDefault = "/categoria-movimentacao"
 
-	async adicionaCategoria(googleId : string | null, categoria: Partial<ICategoriaMovimentacao>) {
+	async adicionaCategoria(googleId : string | null, categoria: Partial<CategoriaMovimentacao>) {
 		try {
 			const response = await this.axiosInstance
 				.post(this.urlDefault, categoria)
@@ -19,7 +19,7 @@ export class CategoriaMovimentacaoService {
 		}
 	}
 
-	async atualizaCategoria(googleId : string | null, categoria: Partial<ICategoriaMovimentacao>) {
+	async atualizaCategoria(googleId : string | null, categoria: Partial<CategoriaMovimentacao>) {
 		try {
 			const response = await this.axiosInstance
 				.patch(this.urlDefault, categoria)
@@ -36,7 +36,7 @@ export class CategoriaMovimentacaoService {
 		};
 		try {
 			const response = await this.axiosInstance
-				.get<ICategoriaMovimentacao[]>(this.urlDefault, { params });
+				.get<CategoriaMovimentacao[]>(this.urlDefault, { params });
 			return { ...response };
 		} catch (error) {
 			console.log(`Não foi possível obter as categorias de movimentações`, error);
@@ -51,7 +51,7 @@ export class CategoriaMovimentacaoService {
 		}
 		try {
 			const response = await this.axiosInstance
-				.get<ICategoriaMovimentacao>(url, {params})
+				.get<CategoriaMovimentacao>(url, {params})
 			return {...response.data}
 		} catch (error) {
 			console.log(`Não foi possível obter a categoria de movimentação`, error);
@@ -67,7 +67,7 @@ export class CategoriaMovimentacaoService {
 		};
 		try {
 			const response = await this.axiosInstance
-				.get<ICategoriaMovimentacao[]>(`${this.urlDefault}/tipo`, {params});
+				.get<CategoriaMovimentacao[]>(`${this.urlDefault}/tipo`, {params});
 			return {...response};
 		} catch (error) {
 			console.log(`Não foi possível obter as movimentações`, error);
@@ -85,7 +85,7 @@ export class CategoriaMovimentacaoService {
 		};
 		try {
 			const response = await this.axiosInstance
-				.get<ISomaCategoriasPorMes[]>(`${this.urlDefault}/soma-categorias`, {params});
+				.get<SomaCategoriasPorMes[]>(`${this.urlDefault}/soma-categorias`, {params});
 			return {...response};
 		} catch (error) {
 			console.log(`Não foi possível obter a soma de movimentações de categorias`, error);
@@ -103,7 +103,7 @@ export class CategoriaMovimentacaoService {
 		};
 		try {
 			const response = await this.axiosInstance
-				.get<ISomaCategoriasPorMes[]>(`${this.urlDefault}/soma-categorias-meses`, {params});
+				.get<SomaCategoriasPorMes[]>(`${this.urlDefault}/soma-categorias-meses`, {params});
 			return {...response};
 		} catch (error) {
 			console.log(`Não foi possível obter a comparação da soma de categorias`, error);
@@ -119,7 +119,7 @@ export class CategoriaMovimentacaoService {
 		};
 		try {
 			const response = await this.axiosInstance
-				.get<ISomaCategoriasPorMes[]>(`${this.urlDefault}/soma-tipos-meses`, {params});
+				.get<SomaCategoriasPorMes[]>(`${this.urlDefault}/soma-tipos-meses`, {params});
 			return {...response};
 		} catch (error) {
 			console.log(`Não foi possível obter a soma de categorias para a evolução`, error);

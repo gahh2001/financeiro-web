@@ -16,11 +16,11 @@ import { ChangeEvent, FC, useEffect, useState } from "react";
 import { googleIdAtom } from '../../../atoms/atom';
 import { TipoMovimentacaoEnum } from '../../../enums/TipoMovimentacaoEnum';
 import back from '../../../http';
-import { ICategoriaMovimentacao } from '../../../interfaces/ICategoriaMovimentacao';
 import { IModalAddMovimentacao } from '../../../interfaces/IModalAddMovimentacao';
-import { IMovimentacao } from '../../../interfaces/IMovimentacao';
 import { CategoriaMovimentacaoService } from '../../../services/CategoriaMovimentacaoService';
 import { MovimentacaoService } from '../../../services/MovimentacaoService';
+import { CategoriaMovimentacao } from '../../../types/CategoriaMovimentacao';
+import { Movimentacao } from '../../../types/Movimentacao';
 import "./ModalAddMovimentacao.scss";
 
 const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimentacao)  => {
@@ -31,7 +31,7 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 		? "Editar " : "Adicionar "
 	const tipoMovimentacao = props.tipo === TipoMovimentacaoEnum.POSITIVO
 		? 'rendimento' : 'despesa'
-	const [categoriasCarregadas, setCategoriasCarregadas] = useState<ICategoriaMovimentacao[]>([]);
+	const [categoriasCarregadas, setCategoriasCarregadas] = useState<CategoriaMovimentacao[]>([]);
 	const [data, setData] = useState<Dayjs | null>(dayjs());
 	const [categoria, setCategoria] = useState("");
 	const [valor, setValor] = useState("");
@@ -200,7 +200,7 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 		if (inputsValidados) {
 			setLoading(true);
 			setSuccess(false);
-			const novaMovimentacao: Partial<IMovimentacao> = {
+			const novaMovimentacao: Partial<Movimentacao> = {
 				googleId: googleId,
 				valor: parseFloat(valor),
 				dataMovimentacao: data?.toDate() ? data?.toDate() : new Date(),
@@ -227,7 +227,7 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 		return !emptyFieldCategoria && !emptyFieldValor;
 	}
 
-	function obtemSelectCategorias(categoriasReceived: ICategoriaMovimentacao[]) {
+	function obtemSelectCategorias(categoriasReceived: CategoriaMovimentacao[]) {
 		return categoriasReceived.map((categ, index) => (
 			<MenuItem
 				key={index}

@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { TipoMovimentacaoEnum } from "../enums/TipoMovimentacaoEnum";
-import { IMovimentacao } from "./IMovimentacao";
+import { Movimentacao } from "../types/Movimentacao";
 
 export type IModalAddMovimentacao = {
 	children?: ReactNode;
@@ -13,7 +13,7 @@ export type IModalAddMovimentacao = {
 	valor: string;
 	descricao: string;
 	selectedDate: Date;
-	movimentacoesMes: IMovimentacao[];
+	movimentacoesMes: Movimentacao[];
 	closeModal: () => void;
-	atualizaMovimentacoesMes: (movimentacoes: IMovimentacao[]) => void;
+	atualizaMovimentacoesMes: (movimentacoes: Movimentacao[]) => void;
 }

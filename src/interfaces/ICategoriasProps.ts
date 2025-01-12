@@ -1,6 +1,6 @@
-import { ICategoriaMovimentacao } from "./ICategoriaMovimentacao";
+import { CategoriaMovimentacao } from "../types/CategoriaMovimentacao";
 
 export type ICategoriasProps = {
-	categorias: ICategoriaMovimentacao[];
+	categorias: CategoriaMovimentacao[];
 	handleAddCategoria: () => void;
 }

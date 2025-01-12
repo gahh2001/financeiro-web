@@ -5,14 +5,14 @@ import { FC, useEffect, useState } from "react";
 import { googleIdAtom } from "../../atoms/atom";
 import back from "../../http";
 import { ListaMovimentacaoProps } from "../../interfaces/FiltrosMovimentacoesProps";
-import { IMovimentacao } from "../../interfaces/IMovimentacao";
 import { MovimentacaoService } from "../../services/MovimentacaoService";
+import { Movimentacao } from "../../types/Movimentacao";
 import ConverteIcone from "../configuracoes/categorias/ConverteIcones";
 
 const ListaMovimentacoes: FC<ListaMovimentacaoProps> = (props: ListaMovimentacaoProps) => {
 	const movimentacaoService = new MovimentacaoService(back);
-	const [movimentacoes, setMovimentacoes] = useState<IMovimentacao[]>([]);
-	const [movimentacoesIniciais, setMovimentacoesIniciais] = useState<IMovimentacao[]>([]);
+	const [movimentacoes, setMovimentacoes] = useState<Movimentacao[]>([]);
+	const [movimentacoesIniciais, setMovimentacoesIniciais] = useState<Movimentacao[]>([]);
 	const [campoOrdem, setCampoOrdem] = useState("data");
 	const [ordemAsc, setOrdemAsc] = useState(true);
 	const [googleId] = useAtom(googleIdAtom);
@@ -109,7 +109,7 @@ const ListaMovimentacoes: FC<ListaMovimentacaoProps> = (props: ListaMovimentacao
 		: <div className="nenhuma">Nenhuma movimentação para estes filtros...</div>
 	);
 
-	function montaMovimentacoes(movimentacoes: IMovimentacao[]) {
+	function montaMovimentacoes(movimentacoes: Movimentacao[]) {
 		return movimentacoes && movimentacoes.length && (
 			<div className="lista-movimentacoes">
 				{movimentacoes.map((movimentacao, index) => (

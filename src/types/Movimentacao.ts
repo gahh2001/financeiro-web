@@ -1,4 +1,4 @@
-export type IMovimentacao = {
+export type Movimentacao = {
 	id?: number;
 	googleId: string | null;
 	valor: number;

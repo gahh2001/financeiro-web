@@ -1,5 +1,5 @@
 import { AxiosInstance } from "axios";
-import { IMovimentacao } from "../interfaces/IMovimentacao";
+import { Movimentacao } from "../types/Movimentacao";
 
 export class MovimentacaoService {
 	constructor(private readonly axiosInstance: AxiosInstance){}
@@ -13,7 +13,7 @@ export class MovimentacaoService {
 		}
 		try {
 			const response = await this.axiosInstance
-				.get<IMovimentacao[]>('/movimentacao', {params});
+				.get<Movimentacao[]>('/movimentacao', {params});
 			return {...response };
 		} catch (error) {
 			console.log(`Não foi possível obter as movimentações`, error);
@@ -32,7 +32,7 @@ export class MovimentacaoService {
 		}
 		try {
 			const response = await this.axiosInstance
-				.get<IMovimentacao[]>('/movimentacao/parametros', {params});
+				.get<Movimentacao[]>('/movimentacao/parametros', {params});
 			return {...response };
 		} catch (error) {
 			console.log(`Não foi possível obter as movimentações`, error);
@@ -55,7 +55,7 @@ export class MovimentacaoService {
 		}
 	}
 
-	async adicionaMovimentacao(googleId : string | null, movimentacao: Partial<IMovimentacao>) {
+	async adicionaMovimentacao(googleId : string | null, movimentacao: Partial<Movimentacao>) {
 		const params = {
 			googleId: googleId,
 		}
@@ -69,7 +69,7 @@ export class MovimentacaoService {
 		}
 	}
 
-	async atualizaMovimentacao(googleId : string | null, movimentacao: Partial<IMovimentacao>) {
+	async atualizaMovimentacao(googleId : string | null, movimentacao: Partial<Movimentacao>) {
 		const params = {
 			googleId: googleId,
 		}
