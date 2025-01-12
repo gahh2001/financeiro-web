@@ -1,13 +1,40 @@
 import { AddCircleOutlineRounded, DoDisturbAlt, InfoOutlined, ModeEdit, ModeStandby } from "@mui/icons-material";
 import { Button, FormControlLabel, FormGroup, IconButton, Switch, Tooltip } from "@mui/material";
-import { ChangeEvent, FC } from "react";
+import { useAtom } from "jotai";
+import { ChangeEvent, FC, useEffect, useState } from "react";
+import { googleIdAtom } from "../../../atoms/atom";
+import back from "../../../http";
+import { PlanejamentoService } from "../../../services/PlanejamentoService";
+import { Planejamento } from "../../../types/Planejamento";
 import './Listagem.scss';
 
 const ListagemPlanejamentos: FC = () => {
-	
-	const handleChangeFullYear = (event: ChangeEvent<HTMLInputElement>) => {
-		//props.setFullYear(event.target.checked);
+	const [googleId] = useAtom(googleIdAtom);
+	const [planejamentos, setPlanejamentos] = useState<Planejamento[]>();
+	const [verInativos, setVerInativos] = useState(false);
+	const [selecionado, setSelecionado] = useState<number>(0);
+	const planejamentoService = new PlanejamentoService(back);
+
+	const verPlanejamentosInativos = (event: ChangeEvent<HTMLInputElement>) => {
+		setVerInativos(event.target.checked);
 	};
+
+	useEffect(() => {
+		const lista = async () => {
+			try {
+				if (googleId !== "") {
+					const retorno = await planejamentoService.listaPlanejamentos(googleId);
+					if (retorno?.data) {
+						setPlanejamentos(retorno.data);
+						setSelecionado(retorno.data[0].id || 0);
+					}
+				}
+			} catch (error) {
+				console.log("erro ao carregar planejamentos");
+			}
+		}
+		lista();
+	}, []);
 
 	return (
 		<div className="lista">
@@ -30,7 +57,7 @@ const ListagemPlanejamentos: FC = () => {
 						control={
 							<Switch
 								color='primary'
-								onChange={handleChangeFullYear}
+								onChange={verPlanejamentosInativos}
 							/>
 						}
 						label="Visualizar inativos"
@@ -42,127 +69,62 @@ const ListagemPlanejamentos: FC = () => {
 					<p>Início</p>
 					<p>Fim</p>
 				</div>
-				<div className="listagem-planejamentos">
-					<div className="item-planejamento">
-						<Button>
-							<div className="info-planejamento">
-								<Tooltip
-									title="Meta"
-									placement="right"
-								>
-									<ModeStandby color="success"/>
-								</Tooltip>
-							</div>
-							<div className="info-planejamento">
-								Nomezinho 1
-							</div>
-							<div className="info-planejamento">
-								01/01/2025
-							</div>
-							<div className="info-planejamento">
-								31/12/2025
-							</div>
-						</Button>
-						<div className="editar-planejamento">
-							<IconButton
-								color="inherit"
-								onClick={() => console.log()}
-							>
-								<ModeEdit />
-							</IconButton>
-						</div>
-					</div>
-					<div className="item-planejamento">
-						<Button>
-							<div className="info-planejamento">
-								<Tooltip
-									title="Limite"
-									placement="right"
-								>
-									<DoDisturbAlt color="error"/>
-								</Tooltip>
-							</div>
-							<div className="info-planejamento">
-								Nomezinho 2
-							</div>
-							<div className="info-planejamento">
-								01/01/2025
-							</div>
-							<div className="info-planejamento">
-								31/12/2025
-							</div>
-						</Button>
-						<div className="editar-planejamento">
-							<IconButton
-								color="inherit"
-								onClick={() => console.log()}
-							>
-								<ModeEdit />
-							</IconButton>
-						</div>
-					</div>
-					<div className="item-planejamento">
-						<Button>
-							<div className="info-planejamento">
-								<Tooltip
-									title="Meta"
-									placement="right"
-								>
-									<ModeStandby color="success"/>
-								</Tooltip>
-							</div>
-							<div className="info-planejamento">
-								Nomezinho 1
-							</div>
-							<div className="info-planejamento">
-								01/01/2025
-							</div>
-							<div className="info-planejamento">
-								31/12/2025
-							</div>
-						</Button>
-						<div className="editar-planejamento">
-							<IconButton
-								color="inherit"
-								onClick={() => console.log()}
-							>
-								<ModeEdit />
-							</IconButton>
-						</div>
-					</div>
-					<div className="item-planejamento">
-						<Button>
-							<div className="info-planejamento">
-								<Tooltip
-									title="Limite"
-									placement="right"
-								>
-									<DoDisturbAlt color="error"/>
-								</Tooltip>
-							</div>
-							<div className="info-planejamento">
-								Nomezinho 2
-							</div>
-							<div className="info-planejamento">
-								01/01/2025
-							</div>
-							<div className="info-planejamento">
-								31/12/2025
-							</div>
-						</Button>
-						<div className="editar-planejamento">
-							<IconButton
-								color="inherit"
-								onClick={() => console.log()}
-							>
-								<ModeEdit />
-							</IconButton>
-						</div>
-					</div>
-				</div>
+				{montaPlanejamentos()}
 			</div>
 		</div>
 	);
+
+	function montaPlanejamentos() {
+		return planejamentos && planejamentos.length ?
+		<div className="listagem-planejamentos">
+			{planejamentos
+				.filter(planejamento => verInativos || planejamento.ativo)
+				.map((planejamento, index) => (
+					<div className="item-planejamento">
+						<Button
+							className={planejamento.id === selecionado ? "selecionado" : ""}
+							onClick={() => setSelecionado(planejamento.id || 0)}
+						>
+							<div className={`info-planejamento ${!planejamento.ativo ? 'inativo' : ''}`}>
+								<Tooltip
+									title={planejamento.tipo}
+									placement="right"
+								>
+									{planejamento.tipo === 'META'
+										? <ModeStandby color={planejamento.ativo ? "success" : "disabled"}/>
+										: <DoDisturbAlt color={planejamento.ativo ? "error" : "disabled"}/>
+									}
+								</Tooltip>
+							</div>
+							<div className={`info-planejamento ${!planejamento.ativo ? 'inativo' : ''}`}>
+								{planejamento.nome}
+							</div>
+							<div className={`info-planejamento ${!planejamento.ativo ? 'inativo' : ''}`}>
+								{new Date(planejamento.dataInicio).getUTCDate().toString().padStart(2,"0")}
+								/{(new Date(planejamento.dataInicio).getUTCMonth() + 1).toString().padStart(2,"0")}
+								/{new Date(planejamento.dataInicio).getUTCFullYear()}
+							</div>
+							<div className={`info-planejamento ${!planejamento.ativo ? 'inativo' : ''}`}>
+							{new Date(planejamento.dataFim).getUTCDate().toString().padStart(2,"0")}
+								/{(new Date(planejamento.dataFim).getUTCMonth() + 1).toString().padStart(2,"0")}
+								/{new Date(planejamento.dataFim).getUTCFullYear()}
+							</div>
+						</Button>
+						<div className="editar-planejamento">
+							<IconButton
+								color="inherit"
+								onClick={() => console.log()}
+							>
+								<ModeEdit />
+							</IconButton>
+						</div>
+					</div>
+				))}
+		</div>
+		: <div className="sem-planejamentos">
+			nada!
+		</div>
+	}
 }
 
 export default ListagemPlanejamentos;

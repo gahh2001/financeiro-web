@@ -102,6 +102,10 @@
 				gap: 1vh;
 
 				button {
+					&.selecionado {
+						background-color: #59596b;
+					}
+
 					display: flex;
 					align-items: center;
 					width: 100%;
@@ -111,13 +115,16 @@
 					background-color: $fundo-components-light;
 					
 					.info-planejamento {
-						//color: #555; usar essa cor quando for inativo
 						width: 25%;
 						height: 4vh;
 						display: flex;
 						justify-content: center;
 						align-items: center;
 						font-size: 1.7vh;
+
+						&.inativo {
+							text-decoration: line-through;
+						}
 	
 						svg {
 							font-size: 3vh;

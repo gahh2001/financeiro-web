@@ -3,7 +3,7 @@ import { Movimentacao } from "../types/Movimentacao";
 
 export class MovimentacaoService {
 	constructor(private readonly axiosInstance: AxiosInstance){}
-	
+	urlDefault = "/movimentacao";
 
 	async getMovimentacao(googleId: string | null, dataInicio: number, dataFim: number) {
 		const params = {
@@ -13,7 +13,7 @@ export class MovimentacaoService {
 		}
 		try {
 			const response = await this.axiosInstance
-				.get<Movimentacao[]>('/movimentacao', {params});
+				.get<Movimentacao[]>(this.urlDefault, {params});
 			return {...response };
 		} catch (error) {
 			console.log(`Não foi possível obter as movimentações`, error);
@@ -32,7 +32,7 @@ export class MovimentacaoService {
 		}
 		try {
 			const response = await this.axiosInstance
-				.get<Movimentacao[]>('/movimentacao/parametros', {params});
+				.get<Movimentacao[]>(`${this.urlDefault}/parametros`, {params});
 			return {...response };
 		} catch (error) {
 			console.log(`Não foi possível obter as movimentações`, error);
@@ -41,7 +41,7 @@ export class MovimentacaoService {
 	}
 
 	async apagaMovimentacao(googleId: string | null, idMovimentacao: number) {
-		const url = `/movimentacao/${idMovimentacao}`;
+		const url = `${this.urlDefault}/${idMovimentacao}`;
 		const params = {
 			googleId: googleId,
 		}
@@ -61,7 +61,7 @@ export class MovimentacaoService {
 		}
 		try {
 			const response = await this.axiosInstance
-				.post('/movimentacao', movimentacao, {params})
+				.post(this.urlDefault, movimentacao, {params})
 			return {...response}
 		} catch (error) {
 			console.log("Erro ao salvar movimentação")
@@ -75,7 +75,7 @@ export class MovimentacaoService {
 		}
 		try {
 			const response = await this.axiosInstance
-				.patch('/movimentacao', movimentacao, {params})
+				.patch(this.urlDefault, movimentacao, {params})
 			return {...response}
 		} catch (error) {
 			console.log("Erro ao atualizar movimentação")

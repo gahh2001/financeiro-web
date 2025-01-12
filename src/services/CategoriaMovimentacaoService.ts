@@ -6,7 +6,7 @@ import { SomaCategoriasPorMes } from "../types/SomaCategoriasPorMes";
 
 export class CategoriaMovimentacaoService {
 	constructor(private readonly axiosInstance: AxiosInstance) {}
-	urlDefault = "/categoria-movimentacao"
+	urlDefault = "/categoria-movimentacao";
 
 	async adicionaCategoria(googleId : string | null, categoria: Partial<CategoriaMovimentacao>) {
 		try {
