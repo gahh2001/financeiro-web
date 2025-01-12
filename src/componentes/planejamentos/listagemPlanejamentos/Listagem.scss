@@ -15,28 +15,34 @@
 	
 	@media screen and (max-width: 768px) {
 		width: 100%;
+		flex-direction: column;
+		height: 45vh;
 	}
 
 	.adicionar-planejamento {
-		height: 100%;
-		width: 30%;
 		display: flex;
-		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		gap: 3vh;
+		
+		@media screen and (min-width: 768px) {
+			gap: 3vh;
+			flex-direction: column;
+			height: 100%;
+			width: 30%;
+		}
+		
+		@media screen and (max-width: 768px) {
+			height: 40%;
+			width: 100%;
+			gap: 1vh;
+		}
 
 		button {
-			svg {
-				background-color: transparent;
-				font-size: 4vh;
-			}
-
 			display: flex;
 			text-align: center;
 			font-size: 1.1vh;
 			background-color: $fundo-components-light;
-			width: 15vh;
+			
 			height: 9vh;
 			border: 2px solid $fundo-linhas;
 			box-shadow: 2px 2px 7px 1px $sombras;
@@ -45,8 +51,28 @@
 			color: $color-in-linhas;
 			align-items: center;
 
+			svg {
+				background-color: transparent;
+
+				@media screen and (min-width: 768px) {
+					font-size: 4vh;
+				}
+				
+				@media screen and (max-width: 768px) {
+					font-size: 3vh;
+				}
+			}
+
 			&:hover {
 				background-color: #3e3e3e;
+			}
+
+			@media screen and (min-width: 768px) {
+				width: 15vh;
+			}
+			
+			@media screen and (max-width: 768px) {
+				width: 18vh;
 			}
 		}
 
@@ -63,13 +89,21 @@
 	}
 
 	.lista-planejamentos {
-		height: 100%;
-		width: 70%;
 		align-items: center;
 		display: flex;
 		flex-direction: column;
 		color: $color-in-linhas;
 		overflow: hidden;
+
+		@media screen and (min-width: 768px) {
+			height: 100%;
+			width: 70%;
+		}
+		
+		@media screen and (max-width: 768px) {
+			height: 100%;
+			width: 100%;
+		}
 
 		.header-listagem {
 			width: 95%;
@@ -77,8 +111,15 @@
 			color: $color-in-linhas;
 			display: flex;
 			align-items: center;
-			margin-bottom: 1vh;
-			padding-right: 7vh;
+			
+			@media screen and (min-width: 768px) {
+				margin-bottom: 1vh;
+				padding-right: 7vh;
+			}
+			
+			@media screen and (max-width: 768px) {
+				padding-right: 5vh;
+			}
 
 			p {
 				width: 25%;
@@ -94,7 +135,10 @@
 			flex-direction: column;
 			gap: 1vh;
 			overflow-y: auto;
-			padding: 1vh;
+			
+			@media screen and (min-width: 768px) {
+				padding: 1vh;
+			}
 
 			.item-planejamento {
 				display: flex;
@@ -120,14 +164,27 @@
 						display: flex;
 						justify-content: center;
 						align-items: center;
-						font-size: 1.7vh;
+
+						@media screen and (min-width: 768px) {
+							font-size: 1.7vh;
+						}
+						
+						@media screen and (max-width: 768px) {
+							font-size: 1.4vh;
+						}
 
 						&.inativo {
 							text-decoration: line-through;
 						}
 	
 						svg {
-							font-size: 3vh;
+							@media screen and (min-width: 768px) {
+								font-size: 3vh;
+							}
+							
+							@media screen and (max-width: 768px) {
+								font-size: 2vh;
+							}
 						}
 					}
 				}

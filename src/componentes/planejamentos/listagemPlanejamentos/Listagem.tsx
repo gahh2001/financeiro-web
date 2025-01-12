@@ -102,12 +102,12 @@ const ListagemPlanejamentos: FC = () => {
 							<div className={`info-planejamento ${!planejamento.ativo ? 'inativo' : ''}`}>
 								{new Date(planejamento.dataInicio).getUTCDate().toString().padStart(2,"0")}
 								/{(new Date(planejamento.dataInicio).getUTCMonth() + 1).toString().padStart(2,"0")}
-								/{new Date(planejamento.dataInicio).getUTCFullYear()}
+								/{new Date(planejamento.dataInicio).getUTCFullYear().toString().substring(2)}
 							</div>
 							<div className={`info-planejamento ${!planejamento.ativo ? 'inativo' : ''}`}>
-							{new Date(planejamento.dataFim).getUTCDate().toString().padStart(2,"0")}
+								{new Date(planejamento.dataFim).getUTCDate().toString().padStart(2,"0")}
 								/{(new Date(planejamento.dataFim).getUTCMonth() + 1).toString().padStart(2,"0")}
-								/{new Date(planejamento.dataFim).getUTCFullYear()}
+								/{new Date(planejamento.dataFim).getUTCFullYear().toString().substring(2)}
 							</div>
 						</Button>
 						<div className="editar-planejamento">
