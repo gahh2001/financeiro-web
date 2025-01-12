@@ -19,9 +19,9 @@ const CategoriasEvolucao: FC<ICategoriasComparacaoProps> = (props: ICategoriasCo
 			<LineChart
 				xAxis={[
 					{
-					id: 'barCategories',
-					data: props.agrupamentosMes,
-					scaleType: 'band',
+						id: 'barCategories',
+						data: props.agrupamentosMes,
+						scaleType: 'band',
 					},
 				]}
 				series={props.evolucao}

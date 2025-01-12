@@ -1,0 +1,40 @@
+@import '../../../VariaveisSCSS.scss';
+
+.filtro-periodo-progresso {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+.card-progresso {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	@media screen and (min-width: 768px) {
+		width: 60%;
+		height: 65%;
+	}
+	
+	@media screen and (max-width: 768px) {
+		width: 90%;
+		height: 56%;
+	}
+
+}
+
+.dica-progresso {
+	width: 100%;
+	height: 3vh;
+	color: $color-in-linhas;
+	text-align: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	.MuiTypography-root {
+		display: flex;
+		align-items: center;
+		gap: 1vh;
+	}
+}

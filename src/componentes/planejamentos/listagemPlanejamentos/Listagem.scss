@@ -2,21 +2,21 @@
 
 .lista {
 	padding: 1vh;
-	height: 30vh;
 	display: flex;
 	background-color: $fundo-components;
 	box-shadow: $sombra-cards;
 	border-radius: 3vh;
 	margin-top: 6.5vh;
-
+	
 	@media screen and (min-width: 768px) {
+		height: 30vh;
 		width: 60%;
 	}
 	
 	@media screen and (max-width: 768px) {
 		width: 100%;
 		flex-direction: column;
-		height: 45vh;
+		height: 35vh;
 	}
 
 	.adicionar-planejamento {
@@ -135,10 +135,7 @@
 			flex-direction: column;
 			gap: 1vh;
 			overflow-y: auto;
-			
-			@media screen and (min-width: 768px) {
-				padding: 1vh;
-			}
+			padding: 1vh;
 
 			.item-planejamento {
 				display: flex;

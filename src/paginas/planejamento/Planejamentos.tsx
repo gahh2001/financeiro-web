@@ -3,6 +3,8 @@ import { FC, Fragment, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { googleIdAtom } from "../../atoms/atom";
 import AppBar from "../../componentes/AppBar/AppBar";
+import CardDesempenho from "../../componentes/planejamentos/cardDesempenho/CardDesempenho";
+import CardProgresso from "../../componentes/planejamentos/cardProgresso/CardProgresso";
 import ListagemPlanejamentos from "../../componentes/planejamentos/listagemPlanejamentos/Listagem";
 import { IGoogleIdProps } from "../../interfaces/IGoogleIdProps";
 import './Planejamentos.scss';
@@ -29,9 +31,11 @@ const Planejamentos: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 				<ListagemPlanejamentos/>
 				<div className="grafic">
 					<div className="titulo">Progresso</div>
+					<CardProgresso/>
 				</div>
 				<div className="grafic">
 					<div className="titulo">Desempenho</div>
+					<CardDesempenho/>
 				</div>
 				<div className="grafic">
 					<div className="titulo">Movimentações</div>
