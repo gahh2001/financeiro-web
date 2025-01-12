@@ -9,24 +9,6 @@
 	margin: 0 auto;
 	justify-content: center;
 	align-items: center;
-	
-	.lista {
-		padding: 1vh;
-		height: 30vh;
-		
-		background-color: $fundo-components;
-		box-shadow: $sombra-cards;
-		border-radius: 3%;
-		margin-top: 6.5vh;
-	
-		@media screen and (min-width: 768px) {
-			width: 60%;
-		}
-		
-		@media screen and (max-width: 768px) {
-			width: 100%;
-		}
-	}
 
 	.grafic {
 		padding: 1vh;

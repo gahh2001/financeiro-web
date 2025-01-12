@@ -3,6 +3,7 @@ import { FC, Fragment, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { googleIdAtom } from "../../atoms/atom";
 import AppBar from "../../componentes/AppBar/AppBar";
+import ListagemPlanejamentos from "../../componentes/planejamentos/listagemPlanejamentos/Listagem";
 import { IGoogleIdProps } from "../../interfaces/IGoogleIdProps";
 import './Planejamentos.scss';
 
@@ -25,8 +26,7 @@ const Planejamentos: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 				setPicture={props.setPicture}
 			/>
 			<div className="planejamentos">
-				<div className="lista">
-				</div>
+				<ListagemPlanejamentos/>
 				<div className="grafic">
 					<div className="titulo">Progresso</div>
 				</div>
