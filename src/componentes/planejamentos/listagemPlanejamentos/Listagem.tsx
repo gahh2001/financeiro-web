@@ -2,7 +2,7 @@ import { AddCircleOutlineRounded, DoDisturbAlt, InfoOutlined, ModeEdit, ModeStan
 import { Button, FormControlLabel, FormGroup, IconButton, Switch, Tooltip } from "@mui/material";
 import { useAtom } from "jotai";
 import { ChangeEvent, FC, useEffect, useState } from "react";
-import { googleIdAtom } from "../../../atoms/atom";
+import { googleIdAtom, modalPlanajamento } from "../../../atoms/atom";
 import back from "../../../http";
 import { PlanejamentoService } from "../../../services/PlanejamentoService";
 import { Planejamento } from "../../../types/Planejamento";
@@ -10,6 +10,7 @@ import './Listagem.scss';
 
 const ListagemPlanejamentos: FC = () => {
 	const [googleId] = useAtom(googleIdAtom);
+	const [, setIsOpenModalPlanejamento] = useAtom(modalPlanajamento);
 	const [planejamentos, setPlanejamentos] = useState<Planejamento[]>();
 	const [verInativos, setVerInativos] = useState(false);
 	const [selecionado, setSelecionado] = useState<number>(0);
@@ -39,7 +40,7 @@ const ListagemPlanejamentos: FC = () => {
 	return (
 		<div className="lista">
 			<div className="adicionar-planejamento">
-				<Button>
+				<Button onClick={() => setIsOpenModalPlanejamento(true)}>
 					<AddCircleOutlineRounded
 						sx={{ color: "#44A81D" }}
 						fontSize="large"

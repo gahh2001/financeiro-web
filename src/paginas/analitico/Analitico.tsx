@@ -76,7 +76,7 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 
 	useEffect(() => {
 		const atualizaVisaoGeral = async () => {
-			setMes(ano);
+			//setMes(ano);
 			try {
 				if (googleId !== "") {
 					const categoriaMovimentacaoService = new CategoriaMovimentacaoService(back);

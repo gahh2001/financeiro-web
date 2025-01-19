@@ -1,0 +1,68 @@
+@import '../../../VariaveisSCSS.scss';
+
+.modal-planejamento {
+	@media screen and (min-width: 768px) {
+		height: 37vh;
+		width: 55vh;
+		gap: 3vh;
+		padding: 1rem;
+	}
+	
+	@media screen and (max-width: 768px) {
+		height: 53vh;
+		gap: 1vh;
+	}
+
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	color: white;
+	display: flex;
+	
+
+	.linha-planejamento {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		width: 100%;
+		
+		@media screen and (min-width: 768px) {
+			height: 5vh;
+		}
+
+		@media screen and (max-width: 768px) {
+			flex-direction: column;
+			gap: 1vh;
+			height: auto;
+		}
+
+		#typo {
+			width: 50%;
+
+			@media screen and (max-width: 768px) {
+				display: none;
+			}
+		}
+
+		#soma {
+			@media screen and (min-width: 768px) {
+				font-size: 2vh !important;
+			}
+			
+			@media screen and (max-width: 768px) {
+				font-size: 2vh !important;
+				//width: 90% !important;
+			}
+		}
+	}
+}
+
+.MuiTypography-root {
+	display: flex;
+	justify-content: center;
+
+	@media screen and (min-width: 768px) {
+		font-size: 2.3vh !important;
+	}
+}
+
