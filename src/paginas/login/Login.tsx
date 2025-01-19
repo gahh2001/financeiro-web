@@ -21,7 +21,7 @@ const Login: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 
 	useEffect(() => {
 		const buttonDiv = document.getElementById('buttonDiv');
-		if (buttonDiv) {
+		if (buttonDiv && window.google && window.google.accounts) {
 			google.accounts.id.initialize({
 				client_id: "536894210778-998102hp7nml43ape8dtkpviiuvaj4ds.apps.googleusercontent.com",
 				callback: handleCredentialResponse
