@@ -1,0 +1,11 @@
+
+.MuiCollapse-root {
+	@media screen and (max-width: 768px) {
+		width: 100%;
+	}
+	
+	.MuiPaper-root {
+		background-color: #183245;
+		margin-bottom: 0px
+	}
+}
