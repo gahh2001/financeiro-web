@@ -26,12 +26,6 @@ const AppBar: FC<IAppBarProps> = (props: IAppBarProps) => {
 		props.setPicture("");
 		navigate("/login");
 	}
-	let urlPicture: string;
-	if (props.urlPicture !== null) {
-		urlPicture = props.urlPicture;
-	} else {
-		urlPicture = "";
-	}
 
 	return (
 		<div className='app-bar'>
@@ -51,7 +45,7 @@ const AppBar: FC<IAppBarProps> = (props: IAppBarProps) => {
 							aria-expanded={open ? 'true' : undefined}
 						>
 							<Avatar
-								src={urlPicture}
+								src={props.urlPicture || ''}
 								sx={{ width: "5.5vh", height: "5.5vh" }}
 							></Avatar>
 						</IconButton>
@@ -63,39 +57,37 @@ const AppBar: FC<IAppBarProps> = (props: IAppBarProps) => {
 					open={open}
 					onClose={handleClose}
 					onClick={handleClose}
-					PaperProps={{
-						elevation: 0,
-						sx: {
+					slotProps={{
+						paper: {
+						  elevation: 0,
+						  sx: {
 							overflow: 'visible',
 							filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
 							mt: 1.5,
 							'& .MuiAvatar-root': {
-								width: 32,
-								height: 32,
-								ml: -0.5,
-								mr: 1,
+							  width: 32,
+							  height: 32,
+							  ml: -0.5,
+							  mr: 1,
 							},
 							'&::before': {
-								content: '""',
-								display: 'block',
-								position: 'absolute',
-								top: 0,
-								right: 14,
-								width: 10,
-								height: 10,
-								bgcolor: 'background.paper',
-								transform: 'translateY(-50%) rotate(45deg)',
-								zIndex: 0,
+							  content: '""',
+							  display: 'block',
+							  position: 'absolute',
+							  top: 0,
+							  right: 14,
+							  width: 10,
+							  height: 10,
+							  bgcolor: 'background.paper',
+							  transform: 'translateY(-50%) rotate(45deg)',
+							  zIndex: 0,
 							},
+						  },
 						},
-					}}
+					  }}
 					transformOrigin={{ horizontal: 'right', vertical: 'top' }}
 					anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
 				>
-					{/* <MenuItem onClick={handleClose}>
-						<Avatar /> Meu perfil
-					</MenuItem>
-					<Divider /> FUTURO*/}
 					<MenuItem onClick={handleConfig}>
 						<ListItemIcon>
 							<Settings fontSize="small" />
