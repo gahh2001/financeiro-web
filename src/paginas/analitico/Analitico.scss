@@ -7,7 +7,6 @@
 	align-items: center;
 
 	.conteudo {
-		padding: 1vh;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
@@ -15,6 +14,10 @@
 		width: 100%;
 		height: 40%;
 		gap: 1vh;
+
+		@media screen and (max-width: 768px) {
+			padding: 1vh;
+		}
 
 		.section {
 			background-color: $fundo-components;

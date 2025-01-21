@@ -1,6 +1,6 @@
 import dayjs, { Dayjs } from "dayjs";
 import { useAtom } from "jotai";
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, Fragment, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { googleIdAtom } from "../../atoms/atom";
 import CategoriasComparacao from "../../componentes/analitico/CategoriasComparacao";
@@ -143,58 +143,60 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 	}, [tipoComparacao]);
 
 	return (
-		<div className="analitico">
-			<AppBar
-				modulo="Analítico"
-				urlPicture={props.urlPicture}
-				setId={props.setId}
-				setPicture={props.setPicture}
-			/>
-			<div className="conteudo">
-				<div className="section">
-					<FiltroData
-						ano={ano}
-						mes={mes}
-						tipoMovimentacao={tipoMovimentacaoTop}
-						fullYear={fullYear}
-						setAno={propsSetAno}
-						setMes={propsSetMes}
-						setFullYear={propsSetFullYear}
-						setTipoMovimentacao={propsSetTipoMovimentacaoTop}
-					/>
-					<CategoriasVisaoGeral
-						nomeCategorias={nomeCategorias}
-						somaCategorias={somaCategorias}
-						tipoMovimentacao={tipoMovimentacaoTop}
-					/>
-					<CategoriasPorcentagem
-						fatias={porcentagens}
-					/>
+		<Fragment>
+			<div className="analitico">
+				<AppBar
+					modulo="Analítico"
+					urlPicture={props.urlPicture}
+					setId={props.setId}
+					setPicture={props.setPicture}
+				/>
+				<div className="conteudo">
+					<div className="section">
+						<FiltroData
+							ano={ano}
+							mes={mes}
+							tipoMovimentacao={tipoMovimentacaoTop}
+							fullYear={fullYear}
+							setAno={propsSetAno}
+							setMes={propsSetMes}
+							setFullYear={propsSetFullYear}
+							setTipoMovimentacao={propsSetTipoMovimentacaoTop}
+						/>
+						<CategoriasVisaoGeral
+							nomeCategorias={nomeCategorias}
+							somaCategorias={somaCategorias}
+							tipoMovimentacao={tipoMovimentacaoTop}
+						/>
+						<CategoriasPorcentagem
+							fatias={porcentagens}
+						/>
+					</div>
+					<div className="section">
+						<FiltroComparacoes
+							tipoComparacao={tipoComparacao}
+							tipoMovimentacao={tipoMovimentacaoDown}
+							setTipoComparacao={propsSetTipoComparacao}
+							setTipoMovimentacao={propsSetTipoMovimentacaoDown}
+						/>
+						<CategoriasComparacao
+							comparacoes={comparacoes}
+							agrupamentosMes={agrupamentoMesAnoComparacao}
+							evolucao={null}
+						/>
+						<CategoriasEvolucao
+							agrupamentosMes={agrupamentoMesAnoEvolucao}
+							evolucao={evolucao}
+							comparacoes={null}
+						/>
+						<CategoriasDesempenho
+							medias={mediasGerais}
+						/>
+					</div>
 				</div>
-				<div className="section">
-					<FiltroComparacoes
-						tipoComparacao={tipoComparacao}
-						tipoMovimentacao={tipoMovimentacaoDown}
-						setTipoComparacao={propsSetTipoComparacao}
-						setTipoMovimentacao={propsSetTipoMovimentacaoDown}
-					/>
-					<CategoriasComparacao
-						comparacoes={comparacoes}
-						agrupamentosMes={agrupamentoMesAnoComparacao}
-						evolucao={null}
-					/>
-					<CategoriasEvolucao
-						agrupamentosMes={agrupamentoMesAnoEvolucao}
-						evolucao={evolucao}
-						comparacoes={null}
-					/>
-					<CategoriasDesempenho
-						medias={mediasGerais}
-					/>
-				</div>
-				<Footer/>
 			</div>
-		</div>
+			<Footer/>
+		</Fragment>
 	);
 
 	function obtemDataInicial() {
