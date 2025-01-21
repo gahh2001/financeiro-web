@@ -9,6 +9,10 @@
 	align-items: center;
 	background: linear-gradient(180deg, rgba(2,0,36,1) 0%, rgb(0, 55, 26) 35%, rgb(0, 69, 83) 100%);
 
+	@media screen and (max-width: 768px) {
+		height: 88vh;
+	}
+
 	.nome-site {
 		width: 100%;
 		font-size: 5vh;

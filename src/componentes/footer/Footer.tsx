@@ -6,7 +6,8 @@ const Footer: FC = () => {
 	return (
 		<div className="footer">
 			<Typography variant="h5"> Carteira Online</Typography>
-			<Link href="/about-me" variant="subtitle1">Sobre o desenvolvedor</Link>
+			<Link href="/about-me" variant="subtitle2">Sobre o desenvolvedor</Link>
+			<Link href="/politica-e-privacidade" variant="subtitle2">Política e privacidade</Link>
 		</div>
 	);
 }
