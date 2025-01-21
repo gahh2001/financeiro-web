@@ -1,12 +1,15 @@
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
+import AppBar from "../../componentes/AppBar/AppBar";
+import Footer from "../../componentes/footer/Footer";
+import { IGoogleIdProps } from "../../interfaces/IGoogleIdProps";
 import './About.scss';
 import email from './email.png';
 import git from './github.png';
 import instagram from './instagram.png';
 import linkedin from './linkedin.png';
 
-const About: FC = () => {
+const About: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 	const navigate = useNavigate();
 	const voltar = () => {
 		navigate("/home");
@@ -14,6 +17,12 @@ const About: FC = () => {
 
 	return (
 		<div className="about">
+			<AppBar
+				modulo="Sobre"
+				urlPicture={props.urlPicture}
+				setId={props.setId}
+				setPicture={props.setPicture}
+			/>
 			<div className="header">
 				<div className="voltar-header">
 					<button
@@ -71,6 +80,7 @@ const About: FC = () => {
 				- React/TS<br/>
 				- Material UI<br/>
 			</div>
+			<Footer/>
 		</div>
 	)
 }

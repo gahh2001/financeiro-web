@@ -11,6 +11,7 @@ import Home from './paginas/home/Home';
 import Login from './paginas/login/Login';
 import Movimentacoes from './paginas/movimentacoes/Movimentacoes';
 import Planejamentos from './paginas/planejamento/Planejamentos';
+import Politica from './paginas/politica/Politica';
 
 function App() {
 	const [googleId, setGoogleId] = useAtom(googleIdAtom);
@@ -45,8 +46,9 @@ function App() {
 				<Route path="/analitico" element={<Analitico {...props} />}/>
 				<Route path="/movimentacoes" element={<Movimentacoes {...props} />}/>
 				<Route path="/configuracoes" element={<Configuracoes {...props} />}/>
-				<Route path="/about-me" element={<About/>}/>
+				<Route path="/about-me" element={<About {...props} />}/>
 				<Route path="/planejamentos" element={<Planejamentos {...props}/>}/>
+				<Route path="/politica-de-privacidade" element={<Politica {...props} />}/>
 				<Route path="*" element={<Navigate to="/home" replace />} />
 			</Routes>
 		</ThemeProvider>

@@ -7,7 +7,7 @@ const Footer: FC = () => {
 		<div className="footer">
 			<Typography variant="h5"> Carteira Online</Typography>
 			<Link href="/about-me" variant="subtitle2">Sobre o desenvolvedor</Link>
-			<Link href="/politica-e-privacidade" variant="subtitle2">Política e privacidade</Link>
+			<Link href="/politica-de-privacidade" variant="subtitle2">Política de privacidade</Link>
 		</div>
 	);
 }
