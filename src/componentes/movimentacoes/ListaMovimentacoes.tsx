@@ -118,9 +118,9 @@ const ListaMovimentacoes: FC<ListaMovimentacaoProps> = (props: ListaMovimentacao
 							<ConverteIcone icone={movimentacao.icone} corIcone={movimentacao.corIcone} />
 						</div>
 						<p>
-							{new Date(movimentacao.dataMovimentacao).getDate().toString().padStart(2,"0")}
-							/{new Date(movimentacao.dataMovimentacao).getMonth() + 1}
-							/{new Date(movimentacao.dataMovimentacao).getFullYear()}
+							{new Date(movimentacao.dataMovimentacao).getUTCDate().toString().padStart(2,"0")}
+							/{new Date(movimentacao.dataMovimentacao).getUTCMonth() + 1}
+							/{new Date(movimentacao.dataMovimentacao).getUTCFullYear()}
 						</p>
 						<p className="variavel">{movimentacao.nomeCategoriaMovimentacao}</p>
 						<p className="variavel">{movimentacao.valor.toFixed(2).replace('.', ',')}</p>
