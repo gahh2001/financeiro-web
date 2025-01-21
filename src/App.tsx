@@ -3,6 +3,7 @@ import { useAtom } from 'jotai';
 import { useState } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { googleIdAtom } from './atoms/atom';
+import AlertPolitica from './componentes/alertPolitica/AlertPolitica';
 import { IGoogleIdProps } from './interfaces/IGoogleIdProps';
 import About from './paginas/about/About';
 import Analitico from './paginas/analitico/Analitico';
@@ -14,8 +15,7 @@ import Planejamentos from './paginas/planejamento/Planejamentos';
 import Politica from './paginas/politica/Politica';
 
 function App() {
-	const [googleId, setGoogleId] = useAtom(googleIdAtom);
-
+	const [, setGoogleId] = useAtom(googleIdAtom);
 	const darkTheme = createTheme({
 		palette: {
 			mode: 'dark',
@@ -51,6 +51,7 @@ function App() {
 				<Route path="/politica-de-privacidade" element={<Politica {...props} />}/>
 				<Route path="*" element={<Navigate to="/home" replace />} />
 			</Routes>
+			<AlertPolitica/>
 		</ThemeProvider>
 	);
 }

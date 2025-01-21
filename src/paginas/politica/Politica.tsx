@@ -1,19 +1,25 @@
 import { Typography } from "@mui/material";
+import { useAtom } from "jotai";
 import { FC, Fragment } from "react";
+import { googleIdAtom } from "../../atoms/atom";
 import AppBar from "../../componentes/AppBar/AppBar";
 import Footer from "../../componentes/footer/Footer";
 import { IGoogleIdProps } from "../../interfaces/IGoogleIdProps";
 import './Politica.scss';
 
 const Politica: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
+	const [googleId] = useAtom(googleIdAtom);
+
 	return (
 		<Fragment>
-			<AppBar
-				modulo="Política de privacidade"
-				urlPicture={props.urlPicture}
-				setId={props.setId}
-				setPicture={props.setPicture}
-			/>
+			{googleId && googleId !== "" &&
+				<AppBar
+					modulo="Política de privacidade"
+					urlPicture={props.urlPicture}
+					setId={props.setId}
+					setPicture={props.setPicture}
+				/>
+			}
 			<div className="politica">
 				<div className="card-politica">
 					<Typography variant="h5">Proteção e Privacidade dos Seus Dados</Typography>
