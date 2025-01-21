@@ -4,6 +4,7 @@ import { FC, Fragment, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { googleIdAtom } from "../../atoms/atom";
 import AppBar from "../../componentes/AppBar/AppBar";
+import Footer from "../../componentes/footer/Footer";
 import CardDesempenho from "../../componentes/planejamentos/cardDesempenho/CardDesempenho";
 import CardProgresso from "../../componentes/planejamentos/cardProgresso/CardProgresso";
 import ListagemPlanejamentos from "../../componentes/planejamentos/listagemPlanejamentos/Listagem";
@@ -74,6 +75,7 @@ const Planejamentos: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 					<div className="titulo">Movimentações</div>
 				</div>
 			</div>
+			<Footer/>
 			<ModalPlanejamento
 				nome={nome}
 				tipo={tipoPlanejamento}

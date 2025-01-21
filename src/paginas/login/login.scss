@@ -1,12 +1,12 @@
 @import '../../VariaveisSCSS.scss';
 
 .login {
-	height: 100vh;
+	height: 90vh;
+	width: 100%;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	padding: 2vh;
 	background: linear-gradient(180deg, rgba(2,0,36,1) 0%, rgb(0, 55, 26) 35%, rgb(0, 69, 83) 100%);
 
 	.nome-site {

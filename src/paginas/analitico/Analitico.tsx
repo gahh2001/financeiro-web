@@ -11,6 +11,7 @@ import CategoriasVisaoGeral from "../../componentes/analitico/CategoriasVisaoGer
 import FiltroComparacoes from "../../componentes/analitico/filtros/FiltroComparacoes";
 import FiltroData from "../../componentes/analitico/filtros/FiltroData";
 import AppBar from "../../componentes/AppBar/AppBar";
+import Footer from "../../componentes/footer/Footer";
 import { obtemNumeroEnum, TipoComparacaoEnum } from "../../enums/TipoComparacaoEnum";
 import { TipoMovimentacaoEnum } from "../../enums/TipoMovimentacaoEnum";
 import back from "../../http";
@@ -191,6 +192,7 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 						medias={mediasGerais}
 					/>
 				</div>
+				<Footer/>
 			</div>
 		</div>
 	);

@@ -1,0 +1,15 @@
+@import '../../VariaveisSCSS.scss';
+
+.footer {
+	width: 100%;
+	height: 10vh;
+	background-color: $fundo-components;
+	color: $color-in-linhas;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	padding: 1vh;
+
+	
+
+}

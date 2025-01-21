@@ -4,6 +4,7 @@ import { FC, Fragment, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { googleIdAtom } from "../../atoms/atom";
 import AppBar from "../../componentes/AppBar/AppBar";
+import Footer from "../../componentes/footer/Footer";
 import DialogDescricaoMovimentacao from "../../componentes/home/informacoesDoDiaCard/dialogDescricaoMovimentacao/DialogDescricaoMovimentacao";
 import FiltrosMovimentacoes from "../../componentes/movimentacoes/FiltrosMovimentacoes";
 import ListaMovimentacoes from "../../componentes/movimentacoes/ListaMovimentacoes";
@@ -87,6 +88,7 @@ const Movimentacoes: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 					/>
 				</div>
 			</div>
+			<Footer/>
 			<DialogDescricaoMovimentacao
 				openDialog={isOpenDialogDescricao}
 				description={descricao}

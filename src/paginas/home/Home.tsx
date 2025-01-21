@@ -3,6 +3,7 @@ import { FC, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { googleIdAtom } from "../../atoms/atom";
 import AppBar from "../../componentes/AppBar/AppBar";
+import Footer from "../../componentes/footer/Footer";
 import Calendario from "../../componentes/home/calendario/Calendario";
 import InformacoesDoDia from "../../componentes/home/informacoesDoDiaCard/InformacoesDoDia";
 import DialogDescricaoMovimentacao from "../../componentes/home/informacoesDoDiaCard/dialogDescricaoMovimentacao/DialogDescricaoMovimentacao";
@@ -133,6 +134,7 @@ const Home: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 					visivel={visivel}
 				/>
 			</div>
+			<Footer/>
 			<ModalAddMovimentacao
 				isOpen={isOpenModalAdd}
 				tipo= {tipo}

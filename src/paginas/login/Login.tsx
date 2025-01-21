@@ -3,9 +3,10 @@ import './login.scss';
 
 import { Divider } from '@mui/material';
 import { useAtom } from 'jotai';
-import { FC, useEffect } from "react";
+import { FC, Fragment, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { googleIdAtom } from '../../atoms/atom';
+import Footer from '../../componentes/footer/Footer';
 import { IGoogleIdProps } from '../../interfaces/IGoogleIdProps';
 import { LoginService } from '../../services/LoginService';
 
@@ -45,24 +46,27 @@ const Login: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 	}
 	
 	return (
-		<div className='login'>
-			<div className="nome-site">
-				Carteira Online
+		<Fragment>
+			<div className='login'>
+				<div className="nome-site">
+					Carteira Online
+				</div>
+				<div className='card-login'>
+					<div className="titulo">Login</div>
+					<Divider variant="middle" />
+					<div className="texto">
+						Entre com sua conta do Google para acessar a Carteira Digital.
+					</div>
+					<div className="google">
+						<div id="buttonDiv"></div>
+					</div>
+					<div className="texto">
+						Se você já possui cadastro, é só continuar com a conta Google também. Prático, não? 🙂
+					</div>
+				</div>
 			</div>
-			<div className='card-login'>
-				<div className="titulo">Login</div>
-				<Divider variant="middle" />
-				<div className="texto">
-					Entre com sua conta do Google para acessar a Carteira Digital.
-				</div>
-				<div className="google">
-					<div id="buttonDiv"></div>
-				</div>
-				<div className="texto">
-					Se você já possui cadastro, é só continuar com a conta Google também. Prático, não? 🙂
-				</div>
-			</div>
-		</div>
+			<Footer/>
+		</Fragment>
 	);
 }
 
