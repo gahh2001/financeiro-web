@@ -11,6 +11,7 @@ import CategoriasVisaoGeral from "../../componentes/analitico/CategoriasVisaoGer
 import FiltroComparacoes from "../../componentes/analitico/filtros/FiltroComparacoes";
 import FiltroData from "../../componentes/analitico/filtros/FiltroData";
 import AppBar from "../../componentes/AppBar/AppBar";
+import Dica from "../../componentes/dicas/Dica";
 import Footer from "../../componentes/footer/Footer";
 import { obtemNumeroEnum, TipoComparacaoEnum } from "../../enums/TipoComparacaoEnum";
 import { TipoMovimentacaoEnum } from "../../enums/TipoMovimentacaoEnum";
@@ -29,7 +30,9 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 	const [mes, setMes] = useState<Dayjs | null>(ano);
 	const [tipoMovimentacaoTop, setTipoMovimentacaoTop] = useState(TipoMovimentacaoEnum.POSITIVO.toString());
 	const [tipoMovimentacaoDown, setTipoMovimentacaoDown] = useState(TipoMovimentacaoEnum.POSITIVO.toString());
-	const [tipoComparacao, setTipoComparacao] = useState(TipoComparacaoEnum.TRESMESES.toString())
+	const [tipoComparacao, setTipoComparacao] = useState(TipoComparacaoEnum.TRESMESES.toString());
+	const [openDicaGeral, setOpenDicaGeral] = useState(localStorage.getItem('dicaGeral') !== "ok");
+	const [openDicaComparacao, setOpenDicaComparacao] = useState(localStorage.getItem('dicaComparacao') !== "ok");
 	const [fullYear, setFullYear] = useState(false);
 	const [nomeCategorias, setNomeCategorias] = useState<string[]>([]);
 	const [somaCategorias, setSomaCategorias] = useState<number[]>([]);
@@ -151,6 +154,12 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 					setId={props.setId}
 					setPicture={props.setPicture}
 				/>
+				<Dica
+					frase='Selecione um período e um tipo de movimentação para visualizar o desempenho'
+					codigo="dicaGeral"
+					open={openDicaGeral}
+					setOpen={setOpenDicaGeral}
+				/>
 				<div className="conteudo">
 					<div className="section">
 						<FiltroData
@@ -172,6 +181,12 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 							fatias={porcentagens}
 						/>
 					</div>
+					<Dica
+						frase='Nesta seção, você pode ver como tem sido a evolução ds suas movimentações nos últimos meses'
+						codigo="dicaComparacao"
+						open={openDicaComparacao}
+						setOpen={setOpenDicaComparacao}
+					/>
 					<div className="section">
 						<FiltroComparacoes
 							tipoComparacao={tipoComparacao}
@@ -194,8 +209,8 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 						/>
 					</div>
 				</div>
+				<Footer/>
 			</div>
-			<Footer/>
 		</Fragment>
 	);
 

@@ -6,7 +6,7 @@ import './Dica.scss';
 
 const Dica: FC<IDicasProps> = (props: IDicasProps) => {
 	return (
-		<Collapse id={props.open ? '' : 'dicaFechada' + props.codigo} in={props.open} sx={{width: "60%"}}>
+		<Collapse style={{ display: props.open ? "block" : "none" }} in={props.open}>
 			<Alert
 				action={
 					<IconButton
