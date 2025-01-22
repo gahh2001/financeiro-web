@@ -3,6 +3,7 @@ import { FC, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { googleIdAtom } from "../../atoms/atom";
 import AppBar from "../../componentes/AppBar/AppBar";
+import Dica from '../../componentes/dicas/Dica';
 import Footer from "../../componentes/footer/Footer";
 import Calendario from "../../componentes/home/calendario/Calendario";
 import InformacoesDoDia from "../../componentes/home/informacoesDoDiaCard/InformacoesDoDia";
@@ -35,6 +36,9 @@ const Home: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 	const isMounted = useRef(true);
 	const navigate = useNavigate();
 	const [googleId] = useAtom(googleIdAtom);
+	const [openDicaInformacoesdia, setOpenDicaInformacoesdia] = useState(localStorage.getItem('dicaDia') !== "ok");
+	const [openDicaCalendario, setOpenDicaCalendario] = useState(localStorage.getItem('dicaCalendario') !== "ok");
+	const [openDicaMes, setOpenDicaMes] = useState(localStorage.getItem('dicaMes') !== "ok");
 
 	useEffect(() => {
 		return () => {
@@ -105,6 +109,12 @@ const Home: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 				setPicture={props.setPicture}
 			/>
 			<div className="conteudo-home">
+				<Dica
+					frase='Aqui você fica no controle sobre todas as movimentaçõe diárias'
+					codigo="dicaDia"
+					open={openDicaInformacoesdia}
+					setOpen={setOpenDicaInformacoesdia}
+				/>
 				<InformacoesDoDia
 					selectedDate={selectedDate}
 					movimentacoesMes={movimentacoesDoMes}
@@ -118,12 +128,24 @@ const Home: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 					setVisible={setVisible}
 					visivel={visivel}
 				/>
+				<Dica
+					frase='Aqui você visualiza o seu calendário financeiro. Selecione um dia para ver as movimentações dele'
+					codigo="dicaCalendario"
+					open={openDicaCalendario}
+					setOpen={setOpenDicaCalendario}
+				/>
 				<Calendario
 					isOpenModalAdd={isOpenModalAdd}
 					isOpenModalRemove={isOpenModalRemove}
 					onDayClick={propsCalendario}
 					atualizaMovimentacoesMes={propsMovimentcoesMes}
 					movimentacoesMes={movimentacoesDoMes}
+				/>
+				<Dica
+					frase='Nestes gráficos você acompanha uma visão geral do mês selecionado no calendário'
+					codigo="dicaMes"
+					open={openDicaMes}
+					setOpen={setOpenDicaMes}
 				/>
 				<InformacoesDoMes
 					selectedDate={selectedDate}

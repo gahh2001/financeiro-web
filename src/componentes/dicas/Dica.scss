@@ -3,6 +3,10 @@
 	@media screen and (max-width: 768px) {
 		width: 100%;
 	}
+
+	#dicaFechada {
+		display: none;
+	}
 	
 	.MuiPaper-root {
 		background-color: #183245;

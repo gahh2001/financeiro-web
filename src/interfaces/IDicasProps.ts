@@ -1,5 +1,6 @@
 export type IDicasProps = {
 	frase: string;
+	codigo: string;
 	open: boolean;
-	setOpenDicaInformacoesdia: (valor: boolean) => void;
+	setOpen: (valor: boolean) => void;
 }

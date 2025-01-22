@@ -6,7 +6,7 @@ import './Dica.scss';
 
 const Dica: FC<IDicasProps> = (props: IDicasProps) => {
 	return (
-		<Collapse in={props.open} sx={{width: "60%"}}>
+		<Collapse id={props.open ? '' : 'dicaFechada' + props.codigo} in={props.open} sx={{width: "60%"}}>
 			<Alert
 				action={
 					<IconButton
@@ -14,8 +14,8 @@ const Dica: FC<IDicasProps> = (props: IDicasProps) => {
 					color="inherit"
 					size="small"
 					onClick={() => {
-						localStorage.setItem('openDicaInformacoesdia', "ok");
-						props.setOpenDicaInformacoesdia(false);
+						localStorage.setItem(props.codigo, "ok");
+						props.setOpen(false);
 					}}
 					>
 					<CloseIcon fontSize="inherit" />
@@ -25,7 +25,7 @@ const Dica: FC<IDicasProps> = (props: IDicasProps) => {
 				severity="info"
 			>
 				<AlertTitle>Dica</AlertTitle>
-				Aqui você fica no controle sobre todas as movimentaçõe diárias
+				{props.frase} 👇
 			</Alert>
 		</Collapse>
 	);
