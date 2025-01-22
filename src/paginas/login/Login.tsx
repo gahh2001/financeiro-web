@@ -49,13 +49,13 @@ const Login: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 		<Fragment>
 			<div className='login'>
 				<div className="nome-site">
-					Carteira Online
+					MyWallet Pro
 				</div>
 				<div className='card-login'>
 					<div className="titulo">Login</div>
 					<Divider variant="middle" />
 					<div className="texto">
-						Entre com sua conta do Google para acessar a Carteira Digital.
+						Entre com sua conta do Google para acessar o MyWallet Pro.
 					</div>
 					<div className="google">
 						<div id="buttonDiv"></div>
