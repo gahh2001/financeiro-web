@@ -4,6 +4,7 @@ import { FC, Fragment, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { googleIdAtom } from "../../atoms/atom";
 import AppBar from "../../componentes/AppBar/AppBar";
+import Dica from "../../componentes/dicas/Dica";
 import Footer from "../../componentes/footer/Footer";
 import DialogDescricaoMovimentacao from "../../componentes/home/informacoesDoDiaCard/dialogDescricaoMovimentacao/DialogDescricaoMovimentacao";
 import FiltrosMovimentacoes from "../../componentes/movimentacoes/FiltrosMovimentacoes";
@@ -24,6 +25,7 @@ const Movimentacoes: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 		fimMes.setDate(0);
 		return dayjs(fimMes);
 	});
+	const [openDicaMovimentacao, setOpenDicaMovimentacao] = useState(localStorage.getItem('dicaMovimentacao') !== "ok");
 	const [isOpenDialogDescricao, setIsOpenDialogDescricao] = useState(false);
 	const [descricao, setDescricao] = useState("");
 	const [tipo, setTipo] = useState<string>(TipoMovimentacaoEnum.TODOS.toString());
@@ -67,6 +69,12 @@ const Movimentacoes: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 				setPicture={props.setPicture}
 			/>
 			<div className="movimentacoes">
+				<Dica
+					frase='Aqui você pode visualizar todas as suas movimentações, filtrando por períodos, tipo e categoria'
+					codigo="dicaMovimentacao"
+					open={openDicaMovimentacao}
+					setOpen={setOpenDicaMovimentacao}
+				/>
 				<div className="card">
 					<FiltrosMovimentacoes
 						categorias={categorias}
