@@ -41,7 +41,7 @@ function App() {
 	return (
 		<ThemeProvider theme={darkTheme}>
 			<Routes>
-				<Route path="/login" element={ <Login {...props} />} />
+				{/* <Route path="/login" element={ <Login {...props} />} /> */}
 				<Route path="/home" element={<Home {...props} />}/>
 				<Route path="/analitico" element={<Analitico {...props} />}/>
 				<Route path="/movimentacoes" element={<Movimentacoes {...props} />}/>

@@ -34,7 +34,7 @@ const Planejamentos: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 
 	useEffect(() => {
 		if (!googleId && isMounted.current) {
-			navigate("/login")
+			//navigate("/login")
 		}
 	}, [googleId]);
 
