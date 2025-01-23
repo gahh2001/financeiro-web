@@ -104,9 +104,9 @@ const Planejamentos: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 					open={openDicaMoviemtacaoPlano}
 					setOpen={setOpenDicaMoviemtacaoPlano}
 				/>
-				<div className="grafic">
+				{/* <div className="grafic">
 					<div className="titulo">Movimentações</div>
-				</div>
+				</div> */}
 			</div>
 			<Footer/>
 			<ModalPlanejamento
