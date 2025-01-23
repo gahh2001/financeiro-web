@@ -82,7 +82,6 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 		const atualizaVisaoGeral = async () => {
 			//setMes(ano);
 			try {
-				if (googleId !== "") {
 					const categoriaMovimentacaoService = new CategoriaMovimentacaoService(back);
 					const soma = await categoriaMovimentacaoService
 						.obtemSomaCategoriasEValores(googleId, obtemDataInicial(), obtemDataFinal(), tipoMovimentacaoTop);
@@ -90,7 +89,6 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 						extraiSomas(soma.data);
 						extraiPorcentagens(soma.data);
 					}
-				}
 			} catch (error) {
 				console.log("erro ao obter a soma por categorias ", error);
 			}

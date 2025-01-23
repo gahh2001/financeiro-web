@@ -14,11 +14,11 @@ const Login: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 	const [googleId] = useAtom(googleIdAtom);
 	const navigate = useNavigate();
 
-	useEffect(() => {
-		if (googleId && googleId !== "") {
-			navigate("/home");
-		}
-	}, [googleId]);
+	// useEffect(() => {
+	// 	if (googleId && googleId !== "") {
+	// 		navigate("/home");
+	// 	}
+	// }, [googleId]);
 
 	useEffect(() => {
 		const buttonDiv = document.getElementById('buttonDiv');

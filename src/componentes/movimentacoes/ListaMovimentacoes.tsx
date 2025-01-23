@@ -25,7 +25,6 @@ const ListaMovimentacoes: FC<ListaMovimentacaoProps> = (props: ListaMovimentacao
 	useEffect(() => {
 		const buscaCategorias = async () => {
 			try {
-				if (googleId !== "") {
 					const categorias = await movimentacaoService
 						.obtemPorParametros(googleId, props.dataInicio?.valueOf(), props.dataFim?.valueOf(),
 							props.tipo, props.categorias);
@@ -33,7 +32,6 @@ const ListaMovimentacoes: FC<ListaMovimentacaoProps> = (props: ListaMovimentacao
 						setMovimentacoesIniciais(categorias.data);
 						setMovimentacoes(categorias.data);
 					}
-				}
 			} catch (error) {
 				console.log("erro ao carregar movimentações");
 			}

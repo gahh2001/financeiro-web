@@ -48,13 +48,11 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 		const buscaCategorias = async () => {
 			if ( props.isOpen ) {
 				try {
-					if (googleId !== "") {
 						const categorias = await categoriaMovimentacaoService
 							.obtemCategoriasPorTipoMovimentacaoEConta(googleId, props.tipo);
 						if (categorias?.data) {
 							setCategoriasCarregadas(categorias.data);
 						}
-					}
 				} catch (error) {
 					console.log("erro ao carregar categorias do tipo ", props.tipo);
 				}

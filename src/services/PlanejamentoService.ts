@@ -8,7 +8,7 @@ export class PlanejamentoService {
 
 	async listaPlanejamentos(googleId: string | null) {
 		const params = {
-			googleId: googleId
+			googleId: "102519029829209703887"
 		}
 		try {
 			const response = await this.axiosInstance

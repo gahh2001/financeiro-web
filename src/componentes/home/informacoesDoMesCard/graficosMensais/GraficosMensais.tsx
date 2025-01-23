@@ -19,7 +19,6 @@ const GraficosMensais: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProps
 	useEffect(() => {
 		const buscaSomaCategorias = async () => {
 			try {
-				if (googleId !== "") {
 					const categoriaMovimentacaoService = new CategoriaMovimentacaoService(back);
 					const dataInicio = new Date(props.selectedDate);
 					dataInicio.setDate(1);
@@ -36,7 +35,6 @@ const GraficosMensais: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProps
 					if (somaNegativas?.data) {
 						extractSomaCategoriasNegativas(somaNegativas.data)
 					}
-				}
 			} catch (error) {
 				console.log("Erro ao atualizar soma das categorias")
 			}

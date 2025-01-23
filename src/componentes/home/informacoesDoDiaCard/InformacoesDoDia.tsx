@@ -47,13 +47,11 @@ const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaPr
 	useEffect(() => {
 		const atualizaSaldoConta = async () => {
 			try {
-				if (googleId !== "") {
 					const contaService = new ContaService(back);
 					const response = await contaService.listaContaPorGoogleId(googleId);
 					if (response?.data) {
 						setSaldo(response.data.saldoConta);
 					}
-				}
 			} catch (error) {
 				console.error('Erro ao buscar saldo:', error);
 			}

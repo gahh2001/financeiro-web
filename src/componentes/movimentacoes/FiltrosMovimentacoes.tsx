@@ -55,13 +55,11 @@ const FiltrosMovimentacoes: FC<FiltrosMovimentacoesProps> = (props: FiltrosMovim
 	useEffect(() => {
 		const buscaCategorias = async () => {
 			try {
-				if (googleId !== "") {
 					const categorias = await categoriaMovimentacaoService
 						.obtemCategoriasPorTipoMovimentacaoEConta(googleId, TipoMovimentacaoEnum.TODOS);
 					if (categorias?.data) {
 						setCategoriasIniciais(categorias.data);
 					}
-				}
 			} catch (error) {
 				console.log("erro ao carregar categorias");
 			}

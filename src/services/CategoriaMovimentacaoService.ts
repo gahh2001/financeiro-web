@@ -32,7 +32,7 @@ export class CategoriaMovimentacaoService {
 
 	async obtemCategoriasMovimentacaoPorConta(googleId: string | null) {
 		const params = {
-			googleId: googleId,
+			googleId: "102519029829209703887",
 		};
 		try {
 			const response = await this.axiosInstance
@@ -47,7 +47,7 @@ export class CategoriaMovimentacaoService {
 	async obtemCategoriaMovimentacaoPorId(googleId : string | null, id: number) {
 		const url = `${this.urlDefault}/${id}`;
 		const params = {
-			googleId: googleId,
+			googleId: "102519029829209703887",
 		}
 		try {
 			const response = await this.axiosInstance
@@ -62,7 +62,7 @@ export class CategoriaMovimentacaoService {
 	async obtemCategoriasPorTipoMovimentacaoEConta(googleId : string | null,
 			tipoMovimentacao: TipoMovimentacaoEnum | null) {
 		const params = {
-			googleId: googleId,
+			googleId: "102519029829209703887",
 			tipoMovimentacao: tipoMovimentacao?.toString(),
 		};
 		try {
@@ -78,7 +78,7 @@ export class CategoriaMovimentacaoService {
 	async obtemSomaCategoriasEValores(googleId : string | null, dataInicio: number,
 			dataFim: number, tipoMovimentacao: string) {
 		const params = {
-			googleId: googleId,
+			googleId: "102519029829209703887",
 			dataInicio: dataInicio,
 			dataFim: dataFim,
 			tipoMovimentacao: tipoMovimentacao
@@ -96,7 +96,7 @@ export class CategoriaMovimentacaoService {
 	async obtemSomaCategoriasEValoresPorMeses(googleId : string | null, dataInicio: number,
 			dataFim: number, tipoMovimentacao: string) {
 		const params = {
-			googleId: googleId,
+			googleId: "102519029829209703887",
 			dataInicio: dataInicio,
 			dataFim: dataFim,
 			tipoMovimentacao: tipoMovimentacao
@@ -113,7 +113,7 @@ export class CategoriaMovimentacaoService {
 
 	async obtemSomaCategoriasEvolucao(googleId : string | null, dataInicio: number, dataFim: number) {
 		const params = {
-			googleId: googleId,
+			googleId: "102519029829209703887",
 			dataInicio: dataInicio,
 			dataFim: dataFim,
 		};
@@ -129,7 +129,7 @@ export class CategoriaMovimentacaoService {
 
 	async obtemInformacoesgerais(googleId : string | null, dataInicio: number, dataFim: number) {
 		const params = {
-			googleId: googleId,
+			googleId: "102519029829209703887",
 			dataInicio: dataInicio,
 			dataFim: dataFim,
 		};

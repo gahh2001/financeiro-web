@@ -7,7 +7,7 @@ export class MovimentacaoService {
 
 	async getMovimentacao(googleId: string | null, dataInicio: number, dataFim: number) {
 		const params = {
-			googleId: googleId,
+			googleId: "102519029829209703887",
 			dataInicio: dataInicio,
 			dataFim: dataFim
 		}
@@ -24,7 +24,7 @@ export class MovimentacaoService {
 	async obtemPorParametros(googleId: string | null | undefined, dataInicio: number | undefined,
 			dataFim: number | undefined, tipo: string | undefined, categorias: string[] | undefined) {
 		const params = {
-			googleId: googleId,
+			googleId: "102519029829209703887",
 			dataInicio: dataInicio,
 			dataFim: dataFim,
 			tipoMovimentacao: tipo,
@@ -43,7 +43,7 @@ export class MovimentacaoService {
 	async apagaMovimentacao(googleId: string | null, idMovimentacao: number) {
 		const url = `${this.urlDefault}/${idMovimentacao}`;
 		const params = {
-			googleId: googleId,
+			googleId: "102519029829209703887",
 		}
 		try {
 			const response = await this.axiosInstance
@@ -57,7 +57,7 @@ export class MovimentacaoService {
 
 	async adicionaMovimentacao(googleId : string | null, movimentacao: Partial<Movimentacao>) {
 		const params = {
-			googleId: googleId,
+			googleId: "102519029829209703887",
 		}
 		try {
 			const response = await this.axiosInstance
@@ -71,7 +71,7 @@ export class MovimentacaoService {
 
 	async atualizaMovimentacao(googleId : string | null, movimentacao: Partial<Movimentacao>) {
 		const params = {
-			googleId: googleId,
+			googleId: "102519029829209703887",
 		}
 		try {
 			const response = await this.axiosInstance

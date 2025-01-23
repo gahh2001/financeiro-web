@@ -31,7 +31,6 @@ const Calendario: FC<ICalendarioProps> = (props: ICalendarioProps) => {
 	useEffect(() => {
 		const buscaMovimentacoesDoMes = async () => {
 			try {
-				if (googleId !== "") {
 					const movimentacaoService = new MovimentacaoService(back);
 					const primeiroDiaMes : Date = currentMonth.clone().toDate();
 					primeiroDiaMes.setDate(1);
@@ -45,7 +44,6 @@ const Calendario: FC<ICalendarioProps> = (props: ICalendarioProps) => {
 						props.atualizaMovimentacoesMes(response.data);
 						setCarregado(true);
 					}
-				}
 			} catch (error) {
 				console.error('Erro ao buscar movimentações:', error);
 			}

@@ -23,13 +23,11 @@ const ListagemPlanejamentos: FC = () => {
 	useEffect(() => {
 		const lista = async () => {
 			try {
-				if (googleId !== "") {
 					const retorno = await planejamentoService.listaPlanejamentos(googleId);
 					if (retorno?.data) {
 						setPlanejamentos(retorno.data);
 						setSelecionado(retorno.data[0].id || 0);
 					}
-				}
 			} catch (error) {
 				console.log("erro ao carregar planejamentos");
 			}
