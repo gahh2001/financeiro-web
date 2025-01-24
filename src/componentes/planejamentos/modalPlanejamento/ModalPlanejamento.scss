@@ -18,19 +18,19 @@
 	flex-direction: column;
 	color: white;
 	display: flex;
-	
 
 	.linha-planejamento {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		width: 100%;
 		
 		@media screen and (min-width: 768px) {
 			height: 5vh;
+			width: 52vh;
 		}
-
+		
 		@media screen and (max-width: 768px) {
+			width: 28vh;
 			flex-direction: column;
 			gap: 1vh;
 			height: auto;
@@ -45,14 +45,7 @@
 		}
 
 		#soma {
-			@media screen and (min-width: 768px) {
-				font-size: 2vh !important;
-			}
-			
-			@media screen and (max-width: 768px) {
-				font-size: 2vh !important;
-				//width: 90% !important;
-			}
+			font-size: 2vh !important;
 		}
 	}
 

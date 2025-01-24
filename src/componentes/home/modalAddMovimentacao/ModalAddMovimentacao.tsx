@@ -21,6 +21,7 @@ import { CategoriaMovimentacaoService } from '../../../services/CategoriaMovimen
 import { MovimentacaoService } from '../../../services/MovimentacaoService';
 import { CategoriaMovimentacao } from '../../../types/CategoriaMovimentacao';
 import { Movimentacao } from '../../../types/Movimentacao';
+import Dica from '../../dicas/Dica';
 import "./ModalAddMovimentacao.scss";
 
 const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimentacao)  => {
@@ -43,6 +44,7 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 	const [loading, setLoading] = useState(false);
 	const corBotaoAdd = props.tipo === TipoMovimentacaoEnum.POSITIVO
 		? "#44A81D" : "#B82121";
+	const [openDicaModalAdd, setOpenDicaModalAdd] = useState(localStorage.getItem('dicaModalAdd') !== "ok");
 
 	useEffect(() => {
 		const buscaCategorias = async () => {
@@ -112,6 +114,12 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 				<div className="modal-overlay-adiciona" onKeyDown={handleKeyDown}>
 					<div className="modal-adiciona">
 						<div className="titulo">{verboTitulo} {tipoMovimentacao}</div>
+							<Dica
+								frase="Você pode criar novas categorias para as suas movimentações em 'Configurações'"
+								codigo="dicaModalAdd"
+								open={openDicaModalAdd}
+								setOpen={setOpenDicaModalAdd}
+							/>
 							<div className='inputs'>
 								<LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="pt-br">
 									<DemoContainer components={['DatePicker']}>

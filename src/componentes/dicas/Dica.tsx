@@ -25,7 +25,7 @@ const Dica: FC<IDicasProps> = (props: IDicasProps) => {
 				severity="info"
 			>
 				<AlertTitle>Dica</AlertTitle>
-				{props.frase} 👇
+				{props.frase}
 			</Alert>
 		</Collapse>
 	);
