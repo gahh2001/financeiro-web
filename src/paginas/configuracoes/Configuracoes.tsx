@@ -41,7 +41,7 @@ const Configuracoes: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 			}
 		}
 		carregaCategorias();
-	},[]);
+	},[isOpenModalAddCategoria]);
 
 	useEffect(() => {
 		return () => {
