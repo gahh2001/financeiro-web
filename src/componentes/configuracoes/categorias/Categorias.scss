@@ -69,7 +69,6 @@
 
 				button {
 					display: flex;
-					justify-content: space-around;
 					height: 5.5vh;
 					justify-content: space-between;
 					color: $color-in-linhas;
@@ -89,6 +88,12 @@
 					@media screen and (max-width: 768px) {
 						width: 99%;
 						font-size: 1.7vh;
+					}
+
+					p {
+						width: 33%;
+						display: flex;
+						//align-items: baseline;
 					}
 
 					.NEGATIVO {

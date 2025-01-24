@@ -85,8 +85,8 @@ const Categorias: FC<ICategoriasProps> = (props: ICategoriasProps) => {
 								onClick={() => handleEditCategoria(categoria.id, categoria.nomeCategoria,
 									categoria.icone, categoria.corIcone)}
 							>
-								<p className={categoria.tipoMovimentacao}>
-									{categoria.tipoMovimentacao === "POSITIVO" ? "Positiva" : "Negativa"}
+								<p className={categoria.tipoMovimentacao} id="nome-categoria">
+									{categoria.tipoMovimentacao === "POSITIVO" ? "Rendimentos" : "Gastos"}
 								</p>
 								<p>{categoria.nomeCategoria}</p>
 								<ConverteIcone icone={categoria.icone} corIcone={categoria.corIcone}/>
