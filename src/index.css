@@ -16,3 +16,9 @@ code {
 	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
 		monospace;
 }
+
+.MuiPaper-root {
+	background-color: #1f1f1f !important;
+	background-image: none !important;
+	border-radius: 20px !important;
+}

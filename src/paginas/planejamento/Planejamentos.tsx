@@ -23,6 +23,7 @@ const Planejamentos: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 	const [nome, setNomePlanejamento] = useState<string>('');
 	const [dataInicio, setDataInicioPlanejamento] = useState<Dayjs | null>(null);
 	const [dataFim, setDataFimPlanejamento] = useState<Dayjs | null>(null);
+	const [categorias, setCategoriasPlanejamento] = useState<number[]>([]);
 	const [openDicaPlanejamento, setOpenDicaPlanejamento] =
 		useState(localStorage.getItem('dicaPlanejamento') !== "ok");
 	const [openDicaAndamento, setOpenDicaAndamento] =
@@ -60,6 +61,10 @@ const Planejamentos: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 
 	function setDataFim(data: Dayjs | null) {
 		setDataFimPlanejamento(data);
+	}
+
+	function setCategorias(valores: number[]) {
+		setCategoriasPlanejamento(valores);
 	}
 
 	return (
@@ -116,12 +121,14 @@ const Planejamentos: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 				valor={valor}
 				dataInicio={dataInicio}
 				dataFim={dataFim}
+				categorias={categorias}
 				setTipo={setTipo}
 				setRecorrencia={setRecorrencia}
 				setValor={setValor}
 				setNome={setNome}
 				setDataInicio={setDataInicio}
 				setDataFim={setDataFim}
+				setCategorias={setCategorias}
 			/>
 		</Fragment>
 	);

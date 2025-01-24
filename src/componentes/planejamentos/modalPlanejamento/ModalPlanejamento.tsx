@@ -1,19 +1,25 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField, Typography } from "@mui/material";
+import { Button, Checkbox, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField, Theme, Typography, useTheme } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { useAtom } from "jotai";
-import { FC, Fragment, useState } from "react";
-import { modalPlanajamento } from "../../../atoms/atom";
+import { FC, Fragment, useEffect, useState } from "react";
+import { googleIdAtom, modalPlanajamento } from "../../../atoms/atom";
 import { TipoPlanejamentoEnum } from "../../../enums/TipoPlanejamentoEnum";
 import { TipoRecorrenciaEnum } from "../../../enums/TipoRecorrenciaEnum";
+import back from "../../../http";
 import { IModalPlanejamento } from "../../../interfaces/IModalPlanejamentoProps";
+import { CategoriaMovimentacaoService } from "../../../services/CategoriaMovimentacaoService";
+import { CategoriaMovimentacao } from "../../../types/CategoriaMovimentacao";
 import './ModalPlanejamento.scss';
 
 const ModalPlanejamento: FC<IModalPlanejamento> = (props: IModalPlanejamento) => {
+	const categoriaMovimentacaoService = new CategoriaMovimentacaoService(back);
 	const [isOpen, setIsOpenModalPlanejamento] = useAtom(modalPlanajamento);
 	const [emptyValor, setEmptyValor] = useState(false);
 	const [emptyNome, setEmptyNome] = useState(false);
+	const [googleId] = useAtom(googleIdAtom);
+	const [categorias, setCategorias] = useState<CategoriaMovimentacao[]>([]);
 	let fraseValor = 'O valor será:';
 	let fraseRecorrencia = 'Valor';
 	let fraseSoma = '';
@@ -44,13 +50,37 @@ const ModalPlanejamento: FC<IModalPlanejamento> = (props: IModalPlanejamento) =>
 		default:
 			break;
 	}
-	
+
+	const theme = useTheme();
+	const ITEM_HEIGHT = 48;
+	const ITEM_PADDING_TOP = 8;
+	const MenuProps = {
+		PaperProps: {
+			style: {
+			maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+			width: 250,
+			},
+		},
+	};
+
+	function getStyles(name: number, value: readonly number[], theme: Theme) {
+		return {
+		fontWeight: value.includes(name)
+			? theme.typography.fontWeightMedium
+			: theme.typography.fontWeightRegular,
+		};
+	}
+
 	const handleChangetipo = (event: SelectChangeEvent) => {
 		props.setTipo(event.target.value);
 	};
 
 	const handleChangeRecorrencia = (event: SelectChangeEvent) => {
 		props.setRecorrencia(event.target.value);
+	};
+
+	const handleChangeCategorias = (event: SelectChangeEvent<typeof props.categorias>) => {
+		props.setCategorias(event.target.value as number[]);
 	};
 
 	const convertInputValor = (event: any) => {
@@ -68,6 +98,7 @@ const ModalPlanejamento: FC<IModalPlanejamento> = (props: IModalPlanejamento) =>
 		props.setValor('');
 		props.setDataInicio(null);
 		props.setDataFim(null);
+		props.setCategorias([])
 	}
 
 	function calculaSoma(): number {
@@ -78,6 +109,17 @@ const ModalPlanejamento: FC<IModalPlanejamento> = (props: IModalPlanejamento) =>
 		}
 		return 0;
 	}
+
+	useEffect(() => {
+		const carregaCategorias = async () => {
+			const categorias = await categoriaMovimentacaoService
+				.obtemCategoriasMovimentacaoPorConta(googleId);
+			if (categorias) {
+				setCategorias(categorias?.data);
+			}
+		}
+		carregaCategorias();
+	},[]);
 
 	return (
 		<Fragment>
@@ -94,7 +136,6 @@ const ModalPlanejamento: FC<IModalPlanejamento> = (props: IModalPlanejamento) =>
 								error={emptyNome}
 								value={props.nome}
 								onChange={(value) => props.setNome(value.target.value)}
-								//inputProps={{ type: 'number', step: "0.5"}}
 								sx={{width: "100%" }}
 								label="Nome"
 							/>
@@ -197,6 +238,44 @@ const ModalPlanejamento: FC<IModalPlanejamento> = (props: IModalPlanejamento) =>
 								</DemoContainer>
 							</LocalizationProvider>
 						</div>
+						<div className="linha-planejamento">
+							<Typography id="quais-categorias" variant="subtitle1">Quais categorias farão parte? </Typography>
+							<FormControl
+								sx={{width: '250px'}}
+								size="medium"
+							>
+								<InputLabel
+									id="input-categoria-planejamento"
+								>
+									Categorias
+								</InputLabel>
+								<Select
+									id="select-categoria-planejamento"
+									value={props.categorias}
+									onChange={handleChangeCategorias}
+									MenuProps={MenuProps}
+									multiple
+								>
+									<MenuItem
+										key={"TODOSRENDIMENTOS"}
+										value= {-1}
+										style={getStyles( -1, props.categorias, theme)}
+									>
+										<Checkbox checked={props.categorias.includes(-1)} />
+										Todos os rendimentos
+									</MenuItem>
+									<MenuItem
+										key={"TODOSGASTOS"}
+										value={-2}
+										style={getStyles( -2, props.categorias, theme)}
+									>
+										<Checkbox checked={props.categorias.includes(-2)} />
+										Todos os gastos
+									</MenuItem>
+									{obtemSelectCategorias()}
+								</Select>
+							</FormControl>
+						</div>
 						{props.tipo !== '' && props.recorrencia !== '' && props.valor !== '' && props.dataInicio !== null && props.dataFim !== null && (
 							<div className="linha-planejamento">
 								<Typography id="soma">{fraseSoma}{calculaSoma().toFixed(2).replace('.', ',')}</Typography>
@@ -204,13 +283,26 @@ const ModalPlanejamento: FC<IModalPlanejamento> = (props: IModalPlanejamento) =>
 						)}
 					</div>
 				</DialogContent>
-				<DialogActions>
-				<Button onClick={fechaModal}>Cancel</Button>
-				<Button type="submit">Subscribe</Button>
+				<DialogActions className="modal-planejamento-butons">
+					<Button onClick={fechaModal}>Cancelar</Button>
+					<Button type="submit">Salvar</Button>
 				</DialogActions>
 			</Dialog>
 		</Fragment>
 	);
+
+	function obtemSelectCategorias() {
+		return categorias.map((categ, index) => (
+			<MenuItem
+				key={index}
+				value={categ.id || 0}
+				style={getStyles( categ.id || 0, props.categorias, theme)}
+			>
+				<Checkbox checked={props.categorias.includes(categ.id || 0)} />
+				{categ.nomeCategoria}
+			</MenuItem>
+		))
+	}
 }
 
 export default ModalPlanejamento;

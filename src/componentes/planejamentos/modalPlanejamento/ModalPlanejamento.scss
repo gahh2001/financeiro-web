@@ -2,14 +2,14 @@
 
 .modal-planejamento {
 	@media screen and (min-width: 768px) {
-		height: 37vh;
+		height: auto;
 		width: 55vh;
 		gap: 3vh;
 		padding: 1rem;
 	}
 	
 	@media screen and (max-width: 768px) {
-		height: 53vh;
+		height: auto;
 		gap: 1vh;
 	}
 
@@ -54,7 +54,19 @@
 		justify-content: center;
 	
 		@media screen and (min-width: 768px) {
-			font-size: 2.3vh !important;
+			font-size: 1.8vh !important;
 		}
+	}
+}
+
+.modal-planejamento-butons {
+	display: flex !important;
+	justify-content: space-between !important;
+	height: 7vh !important;
+
+	button {
+		width: 50%;
+		font-size: 1.8vh;
+		height: 100%;
 	}
 }
