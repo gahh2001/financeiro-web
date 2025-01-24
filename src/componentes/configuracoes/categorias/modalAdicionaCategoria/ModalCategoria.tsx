@@ -199,13 +199,13 @@ const ModalCategoria: FC<IModalCategoriaProps> = (props: IModalCategoriaProps) =
 				tipoMovimentacao: tipo,
 				icone: icone,
 				corIcone: cor,
-				googleId: googleId
+				googleId: "102519029829209703887"
 			}
 			if (props.edit) {
 				novaCategoria.id = props.idCategoria;
-				response = await categoriaService.atualizaCategoria(googleId, novaCategoria);
+				response = await categoriaService.atualizaCategoria("102519029829209703887", novaCategoria);
 			} else {
-				response = await categoriaService.adicionaCategoria(googleId, novaCategoria);
+				response = await categoriaService.adicionaCategoria("102519029829209703887", novaCategoria);
 			}
 			setLoading(false);
 			setSuccess(true);
