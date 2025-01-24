@@ -17,11 +17,7 @@
 		width: 100%;
 		height: auto;
 		gap: 1vh;
-		
-		@media screen and (max-width: 768px) {
-			gap: 0.5vh;
-			padding: 1vh;
-		}
+		padding: 1vh;
 
 		.section {
 			background-color: $fundo-components;
