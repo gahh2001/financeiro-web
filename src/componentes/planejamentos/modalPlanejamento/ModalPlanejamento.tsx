@@ -2,6 +2,7 @@ import { Button, Checkbox, Dialog, DialogActions, DialogContent, DialogTitle, Fo
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import { Dayjs } from "dayjs";
 import { useAtom } from "jotai";
 import { FC, Fragment, useEffect, useState } from "react";
 import { googleIdAtom, modalPlanajamento } from "../../../atoms/atom";
@@ -16,8 +17,16 @@ import './ModalPlanejamento.scss';
 const ModalPlanejamento: FC<IModalPlanejamento> = (props: IModalPlanejamento) => {
 	const categoriaMovimentacaoService = new CategoriaMovimentacaoService(back);
 	const [isOpen, setIsOpenModalPlanejamento] = useAtom(modalPlanajamento);
-	const [emptyValor, setEmptyValor] = useState(false);
-	const [emptyNome, setEmptyNome] = useState(false);
+	const [emptyNome, setEmptyNome] = useState(props.nome === '');
+	const [emptyTipo, setEmptyTipo] = useState(props.tipo === '');
+	const [emptyRecorrencia, setEmptyRecorrencia] = useState(props.recorrencia === '');
+	const [emptyValor, setEmptyValor] = useState(props.valor === '');
+	const [emptyInicio, setEmptyInicio] = useState(props.dataInicio === null);
+	const [emptyFim, setEmptyFim] = useState(props.dataFim === null);
+	const [emptyCategorias, setEmptyCategorias] = useState(props.categorias.length < 1);
+	const [primeiroClique, setPrimeiroClique] = useState(false);
+	const camposInvalidos = emptyNome || emptyTipo || emptyRecorrencia || emptyValor || emptyInicio
+		|| emptyFim || emptyCategorias;
 	const [googleId] = useAtom(googleIdAtom);
 	const [categorias, setCategorias] = useState<CategoriaMovimentacao[]>([]);
 	let fraseValor = 'O valor será:';
@@ -71,24 +80,43 @@ const ModalPlanejamento: FC<IModalPlanejamento> = (props: IModalPlanejamento) =>
 		};
 	}
 
+	const handleChangeNome = (value: string) => {
+		setEmptyNome(value === '');
+		props.setNome(value);
+	}
+
 	const handleChangetipo = (event: SelectChangeEvent) => {
 		props.setTipo(event.target.value);
+		setEmptyTipo(event.target.value === '');
 	};
 
 	const handleChangeRecorrencia = (event: SelectChangeEvent) => {
 		props.setRecorrencia(event.target.value);
+		setEmptyRecorrencia(event.target.value === '');
 	};
 
 	const handleChangeCategorias = (event: SelectChangeEvent<typeof props.categorias>) => {
 		props.setCategorias(event.target.value as number[]);
+		setEmptyCategorias(event.target.value.length < 1)
 	};
 
 	const convertInputValor = (event: any) => {
 		let value = event.target.value;
 		value = value.replace(/[^0-9]/g, "");
 		let numberValue = parseFloat(value) / 100;
+		setEmptyValor(event.target.value === '');
 		props.setValor(numberValue.toFixed(2));
 	};
+
+	const handleChangeInicio = (newValue: Dayjs | null) => {
+		setEmptyInicio(newValue === null);
+		props.setDataInicio(newValue);
+	}
+
+	const handleChangeFim = (newValue: Dayjs | null) => {
+		setEmptyFim(newValue === null);
+		props.setDataFim(newValue);
+	}
 
 	const fechaModal = () => {
 		setIsOpenModalPlanejamento(false);
@@ -98,11 +126,19 @@ const ModalPlanejamento: FC<IModalPlanejamento> = (props: IModalPlanejamento) =>
 		props.setValor('');
 		props.setDataInicio(null);
 		props.setDataFim(null);
-		props.setCategorias([])
+		props.setCategorias([]);
+		setEmptyNome(false);
+		setEmptyTipo(false);
+		setEmptyRecorrencia(false);
+		setEmptyValor(false);
+		setEmptyInicio(false);
+		setEmptyFim(false);
+		setEmptyCategorias(false);
 	}
 
 	function calculaSoma(): number {
-		const unidade = props.recorrencia === 'SEMANAL' ? "week" : props.recorrencia === "MENSAL" ? "month" : "year"
+		const unidade = props.recorrencia === 'SEMANAL'
+			? "week" : props.recorrencia === "MENSAL" ? "month" : "year"
 		const quantidade = props.dataFim?.diff(props.dataInicio, unidade);
 		if (quantidade !== undefined) {
 			return (Number(quantidade) + 1) * Number(props.valor) ;
@@ -133,9 +169,9 @@ const ModalPlanejamento: FC<IModalPlanejamento> = (props: IModalPlanejamento) =>
 						<div className="linha-planejamento">
 						<TextField
 								required
-								error={emptyNome}
+								error={primeiroClique && emptyNome}
 								value={props.nome}
-								onChange={(value) => props.setNome(value.target.value)}
+								onChange={(value) => handleChangeNome(value.target.value)}
 								sx={{width: "100%" }}
 								label="Nome"
 							/>
@@ -155,6 +191,7 @@ const ModalPlanejamento: FC<IModalPlanejamento> = (props: IModalPlanejamento) =>
 									value={props.tipo}
 									onChange={handleChangetipo}
 									defaultValue={TipoPlanejamentoEnum.META.toString()}
+									error={primeiroClique && emptyTipo}
 								>
 									<MenuItem
 										key={"META"}
@@ -184,6 +221,7 @@ const ModalPlanejamento: FC<IModalPlanejamento> = (props: IModalPlanejamento) =>
 									value={props.recorrencia}
 									onChange={handleChangeRecorrencia}
 									defaultValue={TipoRecorrenciaEnum.MENSAL.toString()}
+									error={primeiroClique && emptyRecorrencia}
 								>
 									<MenuItem
 										key={"SEMANAL"}
@@ -210,7 +248,7 @@ const ModalPlanejamento: FC<IModalPlanejamento> = (props: IModalPlanejamento) =>
 							<Typography id="typo">{fraseValor}</Typography>
 							<TextField
 								required
-								error={emptyValor}
+								error={primeiroClique && emptyValor}
 								value={props.valor}
 								onChange={convertInputValor}
 								inputProps={{ type: 'number', step: "0.5"}}
@@ -219,13 +257,16 @@ const ModalPlanejamento: FC<IModalPlanejamento> = (props: IModalPlanejamento) =>
 							/>
 						</div>
 						<div className="linha-planejamento">
-							<LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="pt-br">
+							<LocalizationProvider
+								dateAdapter={AdapterDayjs}
+								adapterLocale="pt-br"
+							>
 								<DemoContainer components={['DatePicker']}>
 									<DatePicker
 										sx={{width: "250px" }}
 										label="Data de início"
 										value={props.dataInicio}
-										onChange={(newValue) => props.setDataInicio(newValue)}
+										onChange={(newValue) => handleChangeInicio(newValue)}
 									/>
 								</DemoContainer>
 								<DemoContainer components={['DatePicker']}>
@@ -233,7 +274,7 @@ const ModalPlanejamento: FC<IModalPlanejamento> = (props: IModalPlanejamento) =>
 										sx={{width: "250px" }}
 										label="Data do fim"
 										value={props.dataFim}
-										onChange={(newValue) => props.setDataFim(newValue)}
+										onChange={(newValue) => handleChangeFim(newValue)}
 									/>
 								</DemoContainer>
 							</LocalizationProvider>
@@ -254,6 +295,7 @@ const ModalPlanejamento: FC<IModalPlanejamento> = (props: IModalPlanejamento) =>
 									value={props.categorias}
 									onChange={handleChangeCategorias}
 									MenuProps={MenuProps}
+									error={primeiroClique && emptyCategorias}
 									multiple
 								>
 									<MenuItem
@@ -285,7 +327,7 @@ const ModalPlanejamento: FC<IModalPlanejamento> = (props: IModalPlanejamento) =>
 				</DialogContent>
 				<DialogActions className="modal-planejamento-butons">
 					<Button onClick={fechaModal}>Cancelar</Button>
-					<Button type="submit">Salvar</Button>
+					<Button onClick={salvarPlanejamento} disabled={camposInvalidos}>Salvar</Button>
 				</DialogActions>
 			</Dialog>
 		</Fragment>
@@ -302,6 +344,10 @@ const ModalPlanejamento: FC<IModalPlanejamento> = (props: IModalPlanejamento) =>
 				{categ.nomeCategoria}
 			</MenuItem>
 		))
+	}
+
+	function salvarPlanejamento() {
+		
 	}
 }
 

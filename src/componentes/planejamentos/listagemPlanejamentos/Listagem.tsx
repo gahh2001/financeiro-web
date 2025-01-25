@@ -27,7 +27,9 @@ const ListagemPlanejamentos: FC = () => {
 					const retorno = await planejamentoService.listaPlanejamentos(googleId);
 					if (retorno?.data) {
 						setPlanejamentos(retorno.data);
-						setSelecionado(retorno.data[0].id || 0);
+						if (retorno.data.length) {
+							setSelecionado(retorno.data[0].id || 0);
+						}
 					}
 				}
 			} catch (error) {
