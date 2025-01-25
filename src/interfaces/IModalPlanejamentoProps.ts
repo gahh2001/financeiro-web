@@ -1,6 +1,8 @@
 import { Dayjs } from "dayjs";
 
 export type IModalPlanejamento = {
+	edit: boolean;
+	id: number;
 	nome:string;
 	tipo: string;
 	recorrencia: string;
@@ -8,6 +10,8 @@ export type IModalPlanejamento = {
 	dataInicio: Dayjs | null;
 	dataFim: Dayjs | null;
 	categorias: number[];
+	setEdit: (value: boolean) => void;
+	setId: (value: number) => void;
 	setNome: (nome: string) => void;
 	setTipo: (tipo: string) => void;
 	setRecorrencia: (tipo: string) => void;

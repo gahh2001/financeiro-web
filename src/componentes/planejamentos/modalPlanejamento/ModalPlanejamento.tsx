@@ -11,11 +11,14 @@ import { TipoRecorrenciaEnum } from "../../../enums/TipoRecorrenciaEnum";
 import back from "../../../http";
 import { IModalPlanejamento } from "../../../interfaces/IModalPlanejamentoProps";
 import { CategoriaMovimentacaoService } from "../../../services/CategoriaMovimentacaoService";
+import { PlanejamentoService } from "../../../services/PlanejamentoService";
 import { CategoriaMovimentacao } from "../../../types/CategoriaMovimentacao";
+import { Planejamento } from "../../../types/Planejamento";
 import './ModalPlanejamento.scss';
 
 const ModalPlanejamento: FC<IModalPlanejamento> = (props: IModalPlanejamento) => {
 	const categoriaMovimentacaoService = new CategoriaMovimentacaoService(back);
+	const planejamentoService = new PlanejamentoService(back);
 	const [isOpen, setIsOpenModalPlanejamento] = useAtom(modalPlanajamento);
 	const [emptyNome, setEmptyNome] = useState(props.nome === '');
 	const [emptyTipo, setEmptyTipo] = useState(props.tipo === '');
@@ -147,15 +150,17 @@ const ModalPlanejamento: FC<IModalPlanejamento> = (props: IModalPlanejamento) =>
 	}
 
 	useEffect(() => {
-		const carregaCategorias = async () => {
-			const categorias = await categoriaMovimentacaoService
-				.obtemCategoriasMovimentacaoPorConta(googleId);
-			if (categorias) {
-				setCategorias(categorias?.data);
+		if (isOpen) {
+			const carregaCategorias = async () => {
+				const categorias = await categoriaMovimentacaoService
+					.obtemCategoriasMovimentacaoPorConta(googleId);
+				if (categorias) {
+					setCategorias(categorias?.data);
+				}
 			}
+			carregaCategorias();
 		}
-		carregaCategorias();
-	},[]);
+	},[isOpen]);
 
 	return (
 		<Fragment>
@@ -346,8 +351,25 @@ const ModalPlanejamento: FC<IModalPlanejamento> = (props: IModalPlanejamento) =>
 		))
 	}
 
-	function salvarPlanejamento() {
-		
+	async function salvarPlanejamento() {
+		const novo: Partial<Planejamento> = {
+			id: props.id === 0 ? undefined : props.id,
+			nome: props.nome,
+			tipo: props.tipo,
+			recorrencia: props.recorrencia,
+			valor: Number(props.valor),
+			dataInicio: props.dataInicio?.toDate() || new Date(),
+			dataFim: props.dataFim?.toDate() || new Date(),
+			categorias: props.categorias,
+			ativo: true,
+			googleId: googleId
+		};
+		if (novo.id) {
+			await planejamentoService.atualizaPlanejamento(novo);
+		} else {
+			await planejamentoService.criaPlanejamento(novo);
+		}
+		setIsOpenModalPlanejamento(false);
 	}
 }
 

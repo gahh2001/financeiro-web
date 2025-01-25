@@ -18,8 +18,10 @@ const Planejamentos: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 	const isMounted = useRef(true);
 	const navigate = useNavigate();
 	const [tipoPlanejamento, setTipoPlanejamento] = useState<string>('');
+	const [edit, setEditPlanejamento] = useState(false);
 	const [recorrencia, setRecorrenciaPlanejamento] = useState<string>('');
 	const [valor, setValorPlanejamento] = useState<string>('');
+	const [id, setIdPlanejamento] = useState(0);
 	const [nome, setNomePlanejamento] = useState<string>('');
 	const [dataInicio, setDataInicioPlanejamento] = useState<Dayjs | null>(null);
 	const [dataFim, setDataFimPlanejamento] = useState<Dayjs | null>(null);
@@ -82,7 +84,17 @@ const Planejamentos: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 					open={openDicaPlanejamento}
 					setOpen={setOpenDicaPlanejamento}
 				/>
-				<ListagemPlanejamentos/>
+				<ListagemPlanejamentos
+					setEdit={setEditPlanejamento}
+					setTipo={setTipo}
+					setRecorrencia={setRecorrencia}
+					setValor={setValor}
+					setId={setIdPlanejamento}
+					setNome={setNome}
+					setDataInicio={setDataInicio}
+					setDataFim={setDataFim}
+					setCategorias={setCategoriasPlanejamento}
+				/>
 				<Dica
 					frase='Selecione um planejamento para ver o andamento dele.'
 					codigo="dicaAndamento"
@@ -115,6 +127,8 @@ const Planejamentos: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 			</div>
 			<Footer/>
 			<ModalPlanejamento
+				edit={edit}
+				id={id}
 				nome={nome}
 				tipo={tipoPlanejamento}
 				recorrencia={recorrencia}
@@ -122,13 +136,15 @@ const Planejamentos: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 				dataInicio={dataInicio}
 				dataFim={dataFim}
 				categorias={categorias}
+				setId={setIdPlanejamento}
+				setEdit={setEditPlanejamento}
 				setTipo={setTipo}
 				setRecorrencia={setRecorrencia}
 				setValor={setValor}
 				setNome={setNome}
 				setDataInicio={setDataInicio}
 				setDataFim={setDataFim}
-				setCategorias={setCategorias}
+				setCategorias={setCategoriasPlanejamento}
 			/>
 		</Fragment>
 	);

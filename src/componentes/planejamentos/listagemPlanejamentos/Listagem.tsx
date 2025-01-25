@@ -1,16 +1,18 @@
 import { AddCircleOutlineRounded, DoDisturbAlt, InfoOutlined, ModeEdit, ModeStandby } from "@mui/icons-material";
 import { Button, FormControlLabel, FormGroup, IconButton, Switch, Tooltip } from "@mui/material";
+import dayjs from "dayjs";
 import { useAtom } from "jotai";
 import { ChangeEvent, FC, Fragment, useEffect, useState } from "react";
 import { googleIdAtom, modalPlanajamento } from "../../../atoms/atom";
 import back from "../../../http";
+import { IModalPlanejamento } from "../../../interfaces/IModalPlanejamentoProps";
 import { PlanejamentoService } from "../../../services/PlanejamentoService";
 import { Planejamento } from "../../../types/Planejamento";
 import './Listagem.scss';
 
-const ListagemPlanejamentos: FC = () => {
+const ListagemPlanejamentos: FC<Partial<IModalPlanejamento>> = (props: Partial<IModalPlanejamento>) => {
 	const [googleId] = useAtom(googleIdAtom);
-	const [, setIsOpenModalPlanejamento] = useAtom(modalPlanajamento);
+	const [isOpen, setIsOpenModalPlanejamento] = useAtom(modalPlanajamento);
 	const [planejamentos, setPlanejamentos] = useState<Planejamento[]>();
 	const [verInativos, setVerInativos] = useState(false);
 	const [selecionado, setSelecionado] = useState<number>(0);
@@ -21,23 +23,25 @@ const ListagemPlanejamentos: FC = () => {
 	};
 
 	useEffect(() => {
-		const lista = async () => {
-			try {
-				if (googleId !== "") {
-					const retorno = await planejamentoService.listaPlanejamentos(googleId);
-					if (retorno?.data) {
-						setPlanejamentos(retorno.data);
-						if (retorno.data.length) {
-							setSelecionado(retorno.data[0].id || 0);
+		if (!isOpen) {
+			const lista = async () => {
+				try {
+					if (googleId !== "") {
+						const retorno = await planejamentoService.listaPlanejamentos(googleId);
+						if (retorno?.data) {
+							setPlanejamentos(retorno.data);
+							if (retorno.data.length) {
+								setSelecionado(retorno.data[0].id || 0);
+							}
 						}
 					}
+				} catch (error) {
+					console.log("erro ao carregar planejamentos");
 				}
-			} catch (error) {
-				console.log("erro ao carregar planejamentos");
 			}
+			lista();
 		}
-		lista();
-	}, []);
+	}, [isOpen]);
 
 	return (
 		<div className="lista">
@@ -117,7 +121,7 @@ const ListagemPlanejamentos: FC = () => {
 							<div className="editar-planejamento">
 								<IconButton
 									color="inherit"
-									onClick={() => console.log()}
+									onClick={() => editPlanejamento(planejamento)}
 								>
 									<ModeEdit />
 								</IconButton>
@@ -129,6 +133,22 @@ const ListagemPlanejamentos: FC = () => {
 		: <div className="sem-planejamentos">
 			Parece que você não possui nenhum planejamento! Comece criando um.
 		</div>
+	}
+
+	function editPlanejamento(planejamento: Planejamento) {
+		if (props.setEdit && props.setNome && props.setTipo && props.setRecorrencia && props.setValor
+				&& props.setDataInicio && props.setDataFim && props.setCategorias && props.setId) {
+			props.setEdit(true);
+			props.setId(planejamento.id || 0);
+			props.setNome(planejamento.nome);
+			props.setTipo(planejamento.tipo);
+			props.setRecorrencia(planejamento.recorrencia);
+			props.setValor(planejamento.valor.toString());
+			props.setDataInicio(dayjs(planejamento.dataInicio));
+			props.setDataFim(dayjs(planejamento.dataFim));
+			props.setCategorias(planejamento.categorias);
+			setIsOpenModalPlanejamento(true);
+		}
 	}
 }
 
