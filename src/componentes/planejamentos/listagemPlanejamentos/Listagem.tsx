@@ -3,7 +3,7 @@ import { Button, FormControlLabel, FormGroup, IconButton, Switch, Tooltip } from
 import dayjs from "dayjs";
 import { useAtom } from "jotai";
 import { ChangeEvent, FC, Fragment, useEffect, useState } from "react";
-import { googleIdAtom, modalPlanajamento } from "../../../atoms/atom";
+import { googleIdAtom, modalPlanajamento, planejamento } from "../../../atoms/atom";
 import back from "../../../http";
 import { IModalPlanejamento } from "../../../interfaces/IModalPlanejamentoProps";
 import { PlanejamentoService } from "../../../services/PlanejamentoService";
@@ -12,10 +12,10 @@ import './Listagem.scss';
 
 const ListagemPlanejamentos: FC<Partial<IModalPlanejamento>> = (props: Partial<IModalPlanejamento>) => {
 	const [googleId] = useAtom(googleIdAtom);
+	const [selecionado, setSelecionado] = useAtom(planejamento);
 	const [isOpen, setIsOpenModalPlanejamento] = useAtom(modalPlanajamento);
 	const [planejamentos, setPlanejamentos] = useState<Planejamento[]>();
 	const [verInativos, setVerInativos] = useState(false);
-	const [selecionado, setSelecionado] = useState<number>(0);
 	const planejamentoService = new PlanejamentoService(back);
 
 	const verPlanejamentosInativos = (event: ChangeEvent<HTMLInputElement>) => {
@@ -31,7 +31,7 @@ const ListagemPlanejamentos: FC<Partial<IModalPlanejamento>> = (props: Partial<I
 						if (retorno?.data) {
 							setPlanejamentos(retorno.data);
 							if (retorno.data.length) {
-								setSelecionado(retorno.data[0].id || 0);
+								setSelecionado(retorno.data[0]);
 							}
 						}
 					}
@@ -90,8 +90,8 @@ const ListagemPlanejamentos: FC<Partial<IModalPlanejamento>> = (props: Partial<I
 					.map((planejamento, index) => (
 						<div className="item-planejamento">
 							<Button
-								className={planejamento.id === selecionado ? "selecionado" : ""}
-								onClick={() => setSelecionado(planejamento.id || 0)}
+								className={planejamento.id === selecionado.id ? "selecionado" : ""}
+								onClick={() => setSelecionado(planejamento)}
 							>
 								<div className={`info-planejamento ${!planejamento.ativo ? 'inativo' : ''}`}>
 									<Tooltip

@@ -1,12 +1,22 @@
 import { InfoOutlined } from '@mui/icons-material';
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Typography } from '@mui/material';
 import { Gauge, gaugeClasses } from '@mui/x-charts/Gauge';
-import { FC, Fragment, useState } from "react";
+import { useAtom } from 'jotai';
+import { FC, Fragment, useEffect, useState } from "react";
+import { planejamento } from '../../../atoms/atom';
 import { TipoMovimentacaoEnum } from '../../../enums/TipoMovimentacaoEnum';
 import './CardProgresso.scss';
 
 const CardProgresso: FC = () => {
-	const [periodo, setPeriodo] = useState<string>("MES");
+	const [selecionado, setSelecionado] = useAtom(planejamento);
+	let [periodo, setPeriodo] = useState<string>("");
+
+	useEffect(() => {
+		setPeriodo(
+			selecionado.recorrencia === "SEMANAL" ? "SEMANA" :
+			selecionado.recorrencia === "MENSAL" ? "MES" : "ANO"
+		);
+	});
 
 	const mudarPeriodo = (event: SelectChangeEvent) => {
 		const newValue = event.target.value;
@@ -31,6 +41,14 @@ const CardProgresso: FC = () => {
 						onChange={mudarPeriodo}
 						defaultValue={TipoMovimentacaoEnum.POSITIVO.toString()}
 					>
+						{selecionado.recorrencia === "SEMANAL" &&
+							<MenuItem
+								key={"SEMANA"}
+								value={"SEMANA"}
+							>
+								Na semana
+							</MenuItem>
+						}
 						<MenuItem
 							key={"MES"}
 							value={"MES"}
