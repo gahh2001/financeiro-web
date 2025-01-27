@@ -8,7 +8,7 @@ import { TipoMovimentacaoEnum } from '../../../enums/TipoMovimentacaoEnum';
 import './CardProgresso.scss';
 
 const CardProgresso: FC = () => {
-	const [selecionado, setSelecionado] = useAtom(planejamento);
+	const [selecionado] = useAtom(planejamento);
 	let [periodo, setPeriodo] = useState<string>("");
 
 	useEffect(() => {
