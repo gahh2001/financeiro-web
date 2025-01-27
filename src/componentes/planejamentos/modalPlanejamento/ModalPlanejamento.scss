@@ -5,14 +5,14 @@
 		height: auto;
 		width: 55vh;
 		gap: 3vh;
-		padding: 1rem;
 	}
 	
 	@media screen and (max-width: 768px) {
 		height: auto;
 		gap: 1vh;
 	}
-
+	
+	padding: 1rem;
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
@@ -68,5 +68,9 @@
 		width: 50%;
 		font-size: 1.8vh;
 		height: 100%;
+
+		svg {
+			font-size: 4vh;
+		}
 	}
 }

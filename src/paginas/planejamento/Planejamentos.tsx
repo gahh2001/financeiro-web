@@ -18,6 +18,7 @@ const Planejamentos: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 	const isMounted = useRef(true);
 	const navigate = useNavigate();
 	const [tipoPlanejamento, setTipoPlanejamento] = useState<string>('');
+	const [ativo, setAtivo] = useState(false);
 	const [edit, setEditPlanejamento] = useState(false);
 	const [recorrencia, setRecorrenciaPlanejamento] = useState<string>('');
 	const [valor, setValorPlanejamento] = useState<string>('');
@@ -41,34 +42,6 @@ const Planejamentos: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 		}
 	}, [googleId]);
 
-	function setTipo(tipo: string) {
-		setTipoPlanejamento(tipo);
-	}
-
-	function setRecorrencia(recorrencia: string) {
-		setRecorrenciaPlanejamento(recorrencia);
-	}
-
-	function setValor(valor: string) {
-		setValorPlanejamento(valor);
-	}
-
-	function setNome(nome: string) {
-		setNomePlanejamento(nome);
-	}
-
-	function setDataInicio(data: Dayjs | null) {
-		setDataInicioPlanejamento(data);
-	}
-
-	function setDataFim(data: Dayjs | null) {
-		setDataFimPlanejamento(data);
-	}
-
-	function setCategorias(valores: number[]) {
-		setCategoriasPlanejamento(valores);
-	}
-
 	return (
 		<Fragment>
 			<AppBar
@@ -85,14 +58,15 @@ const Planejamentos: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 					setOpen={setOpenDicaPlanejamento}
 				/>
 				<ListagemPlanejamentos
+					setAtivo={setAtivo}
 					setEdit={setEditPlanejamento}
-					setTipo={setTipo}
-					setRecorrencia={setRecorrencia}
-					setValor={setValor}
+					setTipo={setTipoPlanejamento}
+					setRecorrencia={setRecorrenciaPlanejamento}
+					setValor={setValorPlanejamento}
 					setId={setIdPlanejamento}
-					setNome={setNome}
-					setDataInicio={setDataInicio}
-					setDataFim={setDataFim}
+					setNome={setNomePlanejamento}
+					setDataInicio={setDataInicioPlanejamento}
+					setDataFim={setDataFimPlanejamento}
 					setCategorias={setCategoriasPlanejamento}
 				/>
 				<Dica
@@ -128,6 +102,7 @@ const Planejamentos: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 			<Footer/>
 			<ModalPlanejamento
 				edit={edit}
+				ativo={ativo}
 				id={id}
 				nome={nome}
 				tipo={tipoPlanejamento}
@@ -136,14 +111,15 @@ const Planejamentos: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 				dataInicio={dataInicio}
 				dataFim={dataFim}
 				categorias={categorias}
+				setAtivo={setAtivo}
 				setId={setIdPlanejamento}
 				setEdit={setEditPlanejamento}
-				setTipo={setTipo}
-				setRecorrencia={setRecorrencia}
-				setValor={setValor}
-				setNome={setNome}
-				setDataInicio={setDataInicio}
-				setDataFim={setDataFim}
+				setTipo={setTipoPlanejamento}
+				setRecorrencia={setRecorrenciaPlanejamento}
+				setValor={setValorPlanejamento}
+				setNome={setNomePlanejamento}
+				setDataInicio={setDataInicioPlanejamento}
+				setDataFim={setDataFimPlanejamento}
 				setCategorias={setCategoriasPlanejamento}
 			/>
 		</Fragment>

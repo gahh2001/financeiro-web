@@ -18,10 +18,10 @@ const AlertPolitica: FC = () => {
 	return (
 		<Snackbar open={open} onClose={handleClose}>
 			<Alert
-			onClose={handleClose}
-			severity="info"
-			variant="filled"
-			sx={{ width: '100%' }}
+				onClose={handleClose}
+				severity="info"
+				variant="filled"
+				sx={{ width: '100%' }}
 			>
 			<Typography>
 				Ao utilizar este site, você concorda com a {frasePolitica()}

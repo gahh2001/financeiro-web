@@ -1,4 +1,5 @@
-import { Button, Checkbox, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField, Theme, Typography, useTheme } from "@mui/material";
+import CheckIcon from '@mui/icons-material/Check';
+import { Button, Checkbox, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, FormControlLabel, FormGroup, InputLabel, MenuItem, Select, SelectChangeEvent, Switch, TextField, Theme, Typography, useTheme } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
@@ -27,7 +28,7 @@ const ModalPlanejamento: FC<IModalPlanejamento> = (props: IModalPlanejamento) =>
 	const [emptyInicio, setEmptyInicio] = useState(props.dataInicio === null);
 	const [emptyFim, setEmptyFim] = useState(props.dataFim === null);
 	const [emptyCategorias, setEmptyCategorias] = useState(props.categorias.length < 1);
-	const [primeiroClique, setPrimeiroClique] = useState(false);
+	const [success, setSuccess] = useState(false);
 	const camposInvalidos = emptyNome || emptyTipo || emptyRecorrencia || emptyValor || emptyInicio
 		|| emptyFim || emptyCategorias;
 	const [googleId] = useAtom(googleIdAtom);
@@ -121,6 +122,10 @@ const ModalPlanejamento: FC<IModalPlanejamento> = (props: IModalPlanejamento) =>
 		props.setDataFim(newValue);
 	}
 
+	const handleChangeInativar = () => {
+		props.setAtivo(!props.ativo);
+	}
+
 	const fechaModal = () => {
 		setIsOpenModalPlanejamento(false);
 		props.setNome('');
@@ -130,6 +135,7 @@ const ModalPlanejamento: FC<IModalPlanejamento> = (props: IModalPlanejamento) =>
 		props.setDataInicio(null);
 		props.setDataFim(null);
 		props.setCategorias([]);
+		props.setEdit(false);
 		setEmptyNome(false);
 		setEmptyTipo(false);
 		setEmptyRecorrencia(false);
@@ -137,6 +143,7 @@ const ModalPlanejamento: FC<IModalPlanejamento> = (props: IModalPlanejamento) =>
 		setEmptyInicio(false);
 		setEmptyFim(false);
 		setEmptyCategorias(false);
+		setSuccess(false);
 	}
 
 	function calculaSoma(): number {
@@ -158,6 +165,13 @@ const ModalPlanejamento: FC<IModalPlanejamento> = (props: IModalPlanejamento) =>
 					setCategorias(categorias?.data);
 				}
 			}
+			setEmptyNome(props.nome === '');
+			setEmptyTipo(props.tipo === '');
+			setEmptyRecorrencia(props.recorrencia === '');
+			setEmptyValor(props.valor === '');
+			setEmptyInicio(props.dataInicio === null);
+			setEmptyFim(props.dataFim === null);
+			setEmptyCategorias(props.categorias.length < 1);
 			carregaCategorias();
 		}
 	},[isOpen]);
@@ -167,6 +181,7 @@ const ModalPlanejamento: FC<IModalPlanejamento> = (props: IModalPlanejamento) =>
 			<Dialog
 				open={isOpen}
 				onClose={fechaModal}
+				id='modais'
 			>
 				<DialogTitle>Adicionar planejamento</DialogTitle>
 				<DialogContent>
@@ -174,7 +189,6 @@ const ModalPlanejamento: FC<IModalPlanejamento> = (props: IModalPlanejamento) =>
 						<div className="linha-planejamento">
 						<TextField
 								required
-								error={primeiroClique && emptyNome}
 								value={props.nome}
 								onChange={(value) => handleChangeNome(value.target.value)}
 								sx={{width: "100%" }}
@@ -196,7 +210,6 @@ const ModalPlanejamento: FC<IModalPlanejamento> = (props: IModalPlanejamento) =>
 									value={props.tipo}
 									onChange={handleChangetipo}
 									defaultValue={TipoPlanejamentoEnum.META.toString()}
-									error={primeiroClique && emptyTipo}
 								>
 									<MenuItem
 										key={"META"}
@@ -226,7 +239,6 @@ const ModalPlanejamento: FC<IModalPlanejamento> = (props: IModalPlanejamento) =>
 									value={props.recorrencia}
 									onChange={handleChangeRecorrencia}
 									defaultValue={TipoRecorrenciaEnum.MENSAL.toString()}
-									error={primeiroClique && emptyRecorrencia}
 								>
 									<MenuItem
 										key={"SEMANAL"}
@@ -253,7 +265,6 @@ const ModalPlanejamento: FC<IModalPlanejamento> = (props: IModalPlanejamento) =>
 							<Typography id="typo">{fraseValor}</Typography>
 							<TextField
 								required
-								error={primeiroClique && emptyValor}
 								value={props.valor}
 								onChange={convertInputValor}
 								inputProps={{ type: 'number', step: "0.5"}}
@@ -300,7 +311,6 @@ const ModalPlanejamento: FC<IModalPlanejamento> = (props: IModalPlanejamento) =>
 									value={props.categorias}
 									onChange={handleChangeCategorias}
 									MenuProps={MenuProps}
-									error={primeiroClique && emptyCategorias}
 									multiple
 								>
 									<MenuItem
@@ -328,11 +338,30 @@ const ModalPlanejamento: FC<IModalPlanejamento> = (props: IModalPlanejamento) =>
 								<Typography id="soma">{fraseSoma}{calculaSoma().toFixed(2).replace('.', ',')}</Typography>
 							</div>
 						)}
+						{props.edit && <div className="inativar-planejamento">
+							<FormGroup>
+								<FormControlLabel
+									control={
+										<Switch
+											checked={!props.ativo}
+											color='primary'
+											onChange={handleChangeInativar}
+										/>
+									}
+									label="Inativar planejamento"
+								/>
+							</FormGroup>
+						</div>}
 					</div>
 				</DialogContent>
 				<DialogActions className="modal-planejamento-butons">
-					<Button onClick={fechaModal}>Cancelar</Button>
-					<Button onClick={salvarPlanejamento} disabled={camposInvalidos}>Salvar</Button>
+					<Button onClick={fechaModal}>Fechar</Button>
+					<Button
+						onClick={salvarPlanejamento}
+						disabled={camposInvalidos || success}
+					>
+						{success ? <CheckIcon sx={{color: "green"}}/> : "Salvar"}
+					</Button>
 				</DialogActions>
 			</Dialog>
 		</Fragment>
@@ -365,11 +394,12 @@ const ModalPlanejamento: FC<IModalPlanejamento> = (props: IModalPlanejamento) =>
 			googleId: googleId
 		};
 		if (novo.id) {
+			novo.ativo = props.ativo
 			await planejamentoService.atualizaPlanejamento(novo);
 		} else {
 			await planejamentoService.criaPlanejamento(novo);
 		}
-		setIsOpenModalPlanejamento(false);
+		setSuccess(true);
 	}
 }
 

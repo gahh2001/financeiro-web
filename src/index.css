@@ -18,7 +18,5 @@ code {
 }
 
 .MuiPaper-root {
-	background-color: #1f1f1f !important;
-	background-image: none !important;
 	border-radius: 20px !important;
 }

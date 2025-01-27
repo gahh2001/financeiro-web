@@ -2,6 +2,7 @@ import { Dayjs } from "dayjs";
 
 export type IModalPlanejamento = {
 	edit: boolean;
+	ativo: boolean
 	id: number;
 	nome:string;
 	tipo: string;
@@ -10,6 +11,7 @@ export type IModalPlanejamento = {
 	dataInicio: Dayjs | null;
 	dataFim: Dayjs | null;
 	categorias: number[];
+	setAtivo: (value: boolean) => void;
 	setEdit: (value: boolean) => void;
 	setId: (value: number) => void;
 	setNome: (nome: string) => void;

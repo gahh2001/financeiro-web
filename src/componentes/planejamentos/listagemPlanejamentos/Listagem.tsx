@@ -137,8 +137,9 @@ const ListagemPlanejamentos: FC<Partial<IModalPlanejamento>> = (props: Partial<I
 
 	function editPlanejamento(planejamento: Planejamento) {
 		if (props.setEdit && props.setNome && props.setTipo && props.setRecorrencia && props.setValor
-				&& props.setDataInicio && props.setDataFim && props.setCategorias && props.setId) {
+				&& props.setDataInicio && props.setDataFim && props.setCategorias && props.setId  && props.setAtivo) {
 			props.setEdit(true);
+			props.setAtivo(planejamento.ativo)
 			props.setId(planejamento.id || 0);
 			props.setNome(planejamento.nome);
 			props.setTipo(planejamento.tipo);
