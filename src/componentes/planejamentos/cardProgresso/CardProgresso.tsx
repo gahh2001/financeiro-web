@@ -16,7 +16,7 @@ const CardProgresso: FC = () => {
 			selecionado.recorrencia === "SEMANAL" ? "SEMANA" :
 			selecionado.recorrencia === "MENSAL" ? "MES" : "ANO"
 		);
-	});
+	}, [selecionado.recorrencia]);
 
 	const mudarPeriodo = (event: SelectChangeEvent) => {
 		const newValue = event.target.value;
