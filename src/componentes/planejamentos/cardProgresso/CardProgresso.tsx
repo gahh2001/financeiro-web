@@ -13,7 +13,6 @@ const CardProgresso: FC = () => {
 
 	useEffect(() => {
 		setPeriodo(
-			selecionado.recorrencia === "SEMANAL" ? "SEMANA" :
 			selecionado.recorrencia === "MENSAL" ? "MES" : "ANO"
 		);
 		const buscaProgresso = async () => {
@@ -47,14 +46,6 @@ const CardProgresso: FC = () => {
 						onChange={mudarPeriodo}
 						defaultValue={TipoMovimentacaoEnum.POSITIVO.toString()}
 					>
-						{selecionado.recorrencia === "SEMANAL" &&
-							<MenuItem
-								key={"SEMANA"}
-								value={"SEMANA"}
-							>
-								Na semana
-							</MenuItem>
-						}
 						<MenuItem
 							key={"MES"}
 							value={"MES"}
