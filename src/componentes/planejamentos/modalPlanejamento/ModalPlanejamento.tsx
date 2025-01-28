@@ -145,10 +145,10 @@ const ModalPlanejamento: FC<IModalPlanejamento> = (props: IModalPlanejamento) =>
 	}
 
 	function calculaSoma(): number {
-		const unidade = props.recorrencia === "MENSAL" ? "month" : "year"
+		const unidade = props.recorrencia === "MENSAL" ? "month" : "year";
 		const quantidade = props.dataFim?.diff(props.dataInicio, unidade);
 		if (quantidade !== undefined) {
-			return (Number(quantidade) + 1) * Number(props.valor) ;
+			return (Number(quantidade) + 1) * Number(props.valor);
 		}
 		return 0;
 	}
