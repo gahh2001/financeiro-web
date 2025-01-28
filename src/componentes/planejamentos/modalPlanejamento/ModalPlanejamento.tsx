@@ -51,9 +51,6 @@ const ModalPlanejamento: FC<IModalPlanejamento> = (props: IModalPlanejamento) =>
 	}
 
 	switch (props.recorrencia) {
-		case 'SEMANAL':
-			fraseRecorrencia = "$ por semana";
-			break;
 		case 'MENSAL':
 			fraseRecorrencia = "$ por mes";
 			break;
@@ -128,6 +125,7 @@ const ModalPlanejamento: FC<IModalPlanejamento> = (props: IModalPlanejamento) =>
 
 	const fechaModal = () => {
 		setIsOpenModalPlanejamento(false);
+		props.setId(0);
 		props.setNome('');
 		props.setTipo('');
 		props.setRecorrencia('');
@@ -147,8 +145,7 @@ const ModalPlanejamento: FC<IModalPlanejamento> = (props: IModalPlanejamento) =>
 	}
 
 	function calculaSoma(): number {
-		const unidade = props.recorrencia === 'SEMANAL'
-			? "week" : props.recorrencia === "MENSAL" ? "month" : "year"
+		const unidade = props.recorrencia === "MENSAL" ? "month" : "year"
 		const quantidade = props.dataFim?.diff(props.dataInicio, unidade);
 		if (quantidade !== undefined) {
 			return (Number(quantidade) + 1) * Number(props.valor) ;
@@ -240,12 +237,6 @@ const ModalPlanejamento: FC<IModalPlanejamento> = (props: IModalPlanejamento) =>
 									onChange={handleChangeRecorrencia}
 									defaultValue={TipoRecorrenciaEnum.MENSAL.toString()}
 								>
-									<MenuItem
-										key={"SEMANAL"}
-										value={TipoRecorrenciaEnum.SEMANAL.toString()}
-									>
-										Semanal
-									</MenuItem>
 									<MenuItem
 										key={"MENSAL"}
 										value={TipoRecorrenciaEnum.MENSAL.toString()}
@@ -393,7 +384,7 @@ const ModalPlanejamento: FC<IModalPlanejamento> = (props: IModalPlanejamento) =>
 			ativo: true,
 			googleId: googleId
 		};
-		if (novo.id) {
+		if (novo.id && novo.id !== 0) {
 			novo.ativo = props.ativo
 			await planejamentoService.atualizaPlanejamento(novo);
 		} else {
