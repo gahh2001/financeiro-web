@@ -50,7 +50,7 @@ const CardProgresso: FC = () => {
 			default:
 				break;
 		}
-	}, [periodo, selecionado]);
+	}, [periodo, selecionado, progressos]);
 
 	const mudarPeriodo = (event: SelectChangeEvent) => {
 		const newValue = event.target.value;
@@ -122,7 +122,7 @@ const CardProgresso: FC = () => {
 						}
 					}}
 					text={
-						({ value, valueMax }) => `${value} / ${valueMax}`
+						({ value, valueMax }) => `${value?.toLocaleString('pt-BR')} / ${valueMax.toLocaleString('pt-BR')}`
 					}
 				/>
 			</div>

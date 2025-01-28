@@ -31,7 +31,7 @@ const ListagemPlanejamentos: FC<Partial<IModalPlanejamento>> = (props: Partial<I
 						if (retorno?.data) {
 							setPlanejamentos(retorno.data);
 							if (retorno.data.length) {
-								setSelecionado(retorno.data[0]);
+								setSelecionado(retorno.data.filter(data => data.ativo)[0]);
 							}
 						}
 					}
