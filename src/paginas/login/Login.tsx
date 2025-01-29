@@ -1,49 +1,27 @@
-import back from '../../http';
 import './login.scss';
 
-import { Divider } from '@mui/material';
+import { Button } from '@mui/material';
 import { useAtom } from 'jotai';
 import { FC, Fragment, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
-import { googleIdAtom } from '../../atoms/atom';
+import { googleIdAtom, modalLogin } from '../../atoms/atom';
 import Footer from '../../componentes/footer/Footer';
+import imgAnalitico from '../../images/analitico.png';
+import imgHome from '../../images/home.png';
+import imgPlanos from '../../images/planejamentos.png';
 import { IGoogleIdProps } from '../../interfaces/IGoogleIdProps';
-import { LoginService } from '../../services/LoginService';
+import ModalLogin from './ModalLogin';
 
 const Login: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 	const [googleId] = useAtom(googleIdAtom);
 	const navigate = useNavigate();
+	const [, setOpen] = useAtom(modalLogin);
 
 	useEffect(() => {
 		if (googleId && googleId !== "") {
 			navigate("/home");
 		}
 	}, [googleId]);
-
-	useEffect(() => {
-		const buttonDiv = document.getElementById('buttonDiv');
-		if (buttonDiv && window.google && window.google.accounts) {
-			google.accounts.id.initialize({
-				client_id: "536894210778-998102hp7nml43ape8dtkpviiuvaj4ds.apps.googleusercontent.com",
-				callback: handleCredentialResponse
-			});
-			google.accounts.id.renderButton(buttonDiv,
-				{ type: 'standard', theme: 'filled_black', size: 'large', shape: 'circle' });
-			google.accounts.id.prompt();
-		}
-	}, []);
-
-	async function handleCredentialResponse(response: any) {
-		const service = new LoginService(back);
-		const resposta = await service.autentica(response.credential);
-		if (resposta && resposta.data && resposta.data.credential && resposta.data.picture) {
-			localStorage.setItem('googleId', resposta.data.credential);
-			localStorage.setItem('urlPicture', resposta.data.picture);
-			props.setId(resposta.data.credential);
-			props.setPicture(resposta.data.picture);
-			navigate("/home");
-		}
-	}
 	
 	return (
 		<Fragment>
@@ -51,20 +29,52 @@ const Login: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 				<div className="nome-site">
 					MyWallet Pro
 				</div>
-				<div className='card-login'>
-					<div className="titulo">Login</div>
-					<Divider variant="middle" />
-					<div className="texto">
-						Entre com sua conta do Google para acessar o MyWallet Pro.
+				<div className="imagens">
+					<div className="card-imagem">
+						<div className="titulo-imagem">Fique no controle</div>
+						<div className="text-imagem">
+							Registre suas movimentações financeiras, crie categorias,
+							visualize seu calendário, acompanhe o seu saldo e muito mais!
+						</div>
+						<img
+							src={imgHome}
+							alt="Página Home"
+						/>
+						<Button onClick={() => setOpen(true)}>
+							Começar
+						</Button>
 					</div>
-					<div className="google">
-						<div id="buttonDiv"></div>
+					<div className="card-imagem">
+						<img
+							src={imgPlanos}
+							alt="Página Home"
+							/>
+						<div className="titulo-imagem">Crie planejamentos</div>
+						<div className="text-imagem">
+							Defina metas, limites, acompanhe o seu progresso e veja
+							como você se sai nos seus planejamentos.
+						</div>
+						<Button onClick={() => setOpen(true)}>
+							Planejar
+						</Button>
 					</div>
-					<div className="texto">
-						Se você já possui cadastro, é só continuar com a conta Google também. Prático, não? 🙂
+					<div className="card-imagem">
+						<div className="titulo-imagem">De olho nos gráficos</div>
+						<div className="text-imagem">
+							Acompanhe o andamento das suas movimentações, veja
+							comparações, evoluções, fique por dentro do desempenho da sua otina financeira.
+						</div>
+						<img
+							src={imgAnalitico}
+							alt="Página Home"
+						/>
+						<Button onClick={() => setOpen(true)}>
+							Começar
+						</Button>
 					</div>
 				</div>
 			</div>
+			<ModalLogin/>
 			<Footer/>
 		</Fragment>
 	);
