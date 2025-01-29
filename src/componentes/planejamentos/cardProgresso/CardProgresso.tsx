@@ -18,6 +18,8 @@ const CardProgresso: FC = () => {
 	const [progressos, setProgressos] = useState<Progressos>();
 	const [valorAtual, setValorAtual] = useState<number>(0);
 	const [valorMaximo, setValorMaximo] = useState<number>(0);
+	const [corProgresso, setCorProgresso] = useState("");
+	const [fraseProgresso, setFraseProgresso] = useState("");
 
 	useEffect(() => {
 		setPeriodo(
@@ -56,6 +58,31 @@ const CardProgresso: FC = () => {
 		const newValue = event.target.value;
 		setPeriodo(newValue);
 	};
+
+	useEffect(() => {
+		const porcentagem = (valorAtual * 100) / valorMaximo;
+		const meta = selecionado.tipo === "META";
+		const limite = selecionado.tipo === "LIMITE";
+		if ((meta && porcentagem < 20) || (limite && porcentagem > 80)) {
+			setCorProgresso("#c24141");
+			setFraseProgresso(meta ? "Sua meta está baixa, bora impulsionar? 🚀" : "Atenção! você está chegando no seu limite! 🚨");
+		} else if ((meta && porcentagem > 20 && porcentagem < 40) || (limite && porcentagem < 80 && porcentagem > 60)) {
+			setCorProgresso("#c37c28");
+			setFraseProgresso(meta ? " Você está no caminho, siga firme! 💪" : "Cuidado! Está se aproximando do limite. ⏳");
+		} else if ((meta && porcentagem > 40 && porcentagem < 60) || (limite && porcentagem < 60 && porcentagem > 40)) {
+			setCorProgresso("#bfb621");
+			setFraseProgresso(meta ? " Ótimo progresso! Quase lá! 🎯" : "Fique atento, já usou boa parte. ⚠️");
+		} else if ((meta && porcentagem > 60 && porcentagem < 80) || (limite && porcentagem < 40 && porcentagem > 20)) {
+			setCorProgresso("#9cca41");
+			setFraseProgresso(meta ? "Meta quase alcançada, continue assim! 🔥" : "Ainda tranquilo, continue assim! 😊");
+		} else if ((meta && porcentagem > 80) || (limite && porcentagem < 20)) {
+			setCorProgresso("#52b202");
+			setFraseProgresso(meta ? "Ei..., estamos quase lá! 🏆" : "Muito bem! Você está longe do limite! ✅");
+		} else if ((meta && porcentagem > 100) || (limite && porcentagem > 100)) {
+			setCorProgresso("#52b202");
+			setFraseProgresso(meta ? "Parabéns! Meta concluída com sucesso! 🏆👏👏" : "Hmmm... parece que você excedeu seu limite 😳");
+		}
+	}, [valorAtual, valorMaximo, selecionado]);
 
 	function calculaSoma(): number {
 		const dayInicio = dayjs(selecionado.dataInicio);
@@ -118,7 +145,7 @@ const CardProgresso: FC = () => {
 							transform: 'translate(0px, 0px)',
 						},
 						[`& .${gaugeClasses.valueArc}`]: {
-							fill: '#52b202', //aqui eu tenho que mudar a cor conforme o valor
+							fill: corProgresso,
 						}
 					}}
 					text={
@@ -128,7 +155,7 @@ const CardProgresso: FC = () => {
 			</div>
 			<div className="dica-progresso">
 				<Typography>
-					<InfoOutlined fontSize="small"/> Seu progresso este mês está relativamente bem encaminhado
+					<InfoOutlined fontSize="small"/> {fraseProgresso}
 				</Typography>
 			</div>
 		</Fragment>
