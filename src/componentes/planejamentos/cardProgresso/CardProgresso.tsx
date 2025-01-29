@@ -16,8 +16,8 @@ const CardProgresso: FC = () => {
 	const [selecionado] = useAtom(planejamento);
 	const planejamentoService = new PlanejamentoService(back);
 	const [progressos, setProgressos] = useState<Progressos>();
-	const [valorAtual, setValorAtual] = useState<number>();
-	const [valorMaximo, setValorMaximo] = useState<number>();
+	const [valorAtual, setValorAtual] = useState<number>(0);
+	const [valorMaximo, setValorMaximo] = useState<number>(0);
 
 	useEffect(() => {
 		setPeriodo(
@@ -67,7 +67,7 @@ const CardProgresso: FC = () => {
 		return 0;
 	}
 
-	return (
+	return valorAtual !== 0 && valorMaximo !== 0 ?
 		<Fragment>
 			<div className="filtro-periodo-progresso">
 				<FormControl
@@ -122,7 +122,7 @@ const CardProgresso: FC = () => {
 						}
 					}}
 					text={
-						({ value, valueMax }) => `${value?.toLocaleString('pt-BR')} / ${valueMax.toLocaleString('pt-BR')}`
+						({ value, valueMax }) => `${value?.toLocaleString('pt-BR')} / ${valueMax?.toLocaleString('pt-BR')}`
 					}
 				/>
 			</div>
@@ -132,7 +132,11 @@ const CardProgresso: FC = () => {
 				</Typography>
 			</div>
 		</Fragment>
-	);
+		: <Fragment>
+			<div className="nenhum-conteudo">
+				Nada por aqui... Comece criando um planejamneto para acompanhar o progresso dele.
+			</div>
+		</Fragment>;
 }
 
 export default CardProgresso;

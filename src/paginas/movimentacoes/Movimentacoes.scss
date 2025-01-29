@@ -136,16 +136,6 @@
 				}
 			}
 		}
-
-		.nenhuma {
-			width: 100%;
-			height: 100%;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			color: $color-in-linhas;
-			font-size: 2vh;
-		}
 	}
 
 	@media screen and (min-width: 768px) {

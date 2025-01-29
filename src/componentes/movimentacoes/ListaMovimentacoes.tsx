@@ -106,7 +106,7 @@ const ListaMovimentacoes: FC<ListaMovimentacaoProps> = (props: ListaMovimentacao
 			</div>
 			{montaMovimentacoes(movimentacoes)}
 		</div>
-		: <div className="nenhuma">Nenhuma movimentação para estes filtros...</div>
+		: <div className="nenhum-conteudo">Nenhuma movimentação para estes filtros...</div>
 	);
 
 	function montaMovimentacoes(movimentacoes: Movimentacao[]) {

@@ -106,7 +106,7 @@ const GraficosMensais: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProps
 		: 
 			<div className="card-graficos" style={{ marginRight: "0.5%" }}>
 				<div className="titulo">Gráfico de rendimentos</div>
-				<div className='mensagem'>
+				<div className='nenhum-conteudo'>
 					Nenhum registro de rendimento para este mês!
 				</div>
 			</div>
@@ -147,7 +147,7 @@ const GraficosMensais: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProps
 	)
 	:<div className="card-graficos">
 		<div className="titulo">Gráfico de gastos</div>
-		<div className='mensagem'>
+		<div className='nenhum-conteudo'>
 			Nenhum registro de despesa para este mês!
 		</div>
 	</div>;
