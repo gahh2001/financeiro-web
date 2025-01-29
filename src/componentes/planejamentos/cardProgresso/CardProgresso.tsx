@@ -75,7 +75,7 @@ const CardProgresso: FC = () => {
 		} else if ((meta && porcentagem > 60 && porcentagem < 80) || (limite && porcentagem < 40 && porcentagem > 20)) {
 			setCorProgresso("#9cca41");
 			setFraseProgresso(meta ? "Meta quase alcançada, continue assim! 🔥" : "Ainda tranquilo, continue assim! 😊");
-		} else if ((meta && porcentagem > 80) || (limite && porcentagem < 20)) {
+		} else if ((meta && porcentagem > 80 && porcentagem < 100) || (limite && porcentagem < 20)) {
 			setCorProgresso("#52b202");
 			setFraseProgresso(meta ? "Ei..., estamos quase lá! 🏆" : "Muito bem! Você está longe do limite! ✅");
 		} else if ((meta && porcentagem > 100) || (limite && porcentagem > 100)) {
@@ -94,7 +94,7 @@ const CardProgresso: FC = () => {
 		return 0;
 	}
 
-	return valorAtual !== 0 && valorMaximo !== 0 ?
+	return selecionado ?
 		<Fragment>
 			<div className="filtro-periodo-progresso">
 				<FormControl
