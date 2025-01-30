@@ -12,7 +12,7 @@ import imgHome from '../../images/home.png';
 import imgPlanos from '../../images/planejamentos.png';
 import { IGoogleIdProps } from '../../interfaces/IGoogleIdProps';
 
-const Login: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
+const Login: FC = () => {
 	const [googleId] = useAtom(googleIdAtom);
 	const navigate = useNavigate();
 	const [, setOpen] = useAtom(modalLogin);

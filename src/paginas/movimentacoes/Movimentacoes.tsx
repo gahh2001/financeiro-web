@@ -13,7 +13,7 @@ import { TipoMovimentacaoEnum } from "../../enums/TipoMovimentacaoEnum";
 import { IGoogleIdProps } from "../../interfaces/IGoogleIdProps";
 import './Movimentacoes.scss';
 
-const Movimentacoes: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
+const Movimentacoes: FC = () => {
 	const [dataInicio, setDataInicio] = useState<Dayjs | null>(() => {
 		const inicioMes = new Date();
 		inicioMes.setDate(1);
@@ -64,7 +64,6 @@ const Movimentacoes: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 		<Fragment>
 			<AppBar
 				modulo="Movimentações"
-				setId={props.setId}
 			/>
 			<div className="movimentacoes">
 				<Dica

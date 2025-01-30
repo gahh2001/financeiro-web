@@ -18,7 +18,7 @@ import { IGoogleIdProps } from "../../interfaces/IGoogleIdProps";
 import { Movimentacao } from "../../types/Movimentacao";
 import './Home.scss';
 
-const Home: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
+const Home: FC = () => {
 	const [selectedDate, setSelectedDate] = useState(new Date());
 	const [idMovimentacao, setIdMovimentacao] = useState<number | undefined>(undefined);
 	const [data, setData] = useState(new Date());
@@ -104,7 +104,6 @@ const Home: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 		<div className="home">
 			<AppBar
 				modulo="Home"
-				setId={props.setId}
 			/>
 			<div className="conteudo-home">
 				<Dica

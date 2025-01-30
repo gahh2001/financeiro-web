@@ -3,7 +3,7 @@ import { Avatar, Box, IconButton, ListItemIcon, Menu, MenuItem, Tooltip } from '
 import { useAtom } from 'jotai';
 import { FC, Fragment, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { pictureAtom } from '../../atoms/atom';
+import { googleIdAtom, pictureAtom } from '../../atoms/atom';
 import { IAppBarProps } from '../../interfaces/IAppBarProps';
 import DrawerPages from '../menu/Menu';
 import "./AppBarStyle.scss";
@@ -12,7 +12,9 @@ const AppBar: FC<IAppBarProps> = (props: IAppBarProps) => {
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 	const open = Boolean(anchorEl);
 	const [picture, setPicture] = useAtom(pictureAtom);
+	const [, setGoogleId] = useAtom(googleIdAtom);
 	const navigate = useNavigate();
+
 	const handleClick = (event: React.MouseEvent<HTMLElement>) => {
 		setAnchorEl(event.currentTarget);
 	};
@@ -21,14 +23,14 @@ const AppBar: FC<IAppBarProps> = (props: IAppBarProps) => {
 	};
 	const handleConfig = () => {
 		navigate("/configuracoes");
-	}
+	};
 	const logout = () => {
+		navigate("/login");
 		localStorage.removeItem('googleId');
 		localStorage.removeItem('urlPicture');
-		props.setId("");
+		setGoogleId("");
 		setPicture("");
-		navigate("/login");
-	}
+	};
 
 	return (
 		<div className='app-bar'>

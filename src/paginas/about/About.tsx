@@ -2,14 +2,13 @@ import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import AppBar from "../../componentes/AppBar/AppBar";
 import Footer from "../../componentes/footer/Footer";
-import { IGoogleIdProps } from "../../interfaces/IGoogleIdProps";
 import './About.scss';
 import email from './email.png';
 import git from './github.png';
 import instagram from './instagram.png';
 import linkedin from './linkedin.png';
 
-const About: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
+const About: FC = () => {
 	const navigate = useNavigate();
 	const voltar = () => {
 		navigate("/home");
@@ -19,7 +18,6 @@ const About: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 		<div className="about">
 			<AppBar
 				modulo="Sobre"
-				setId={props.setId}
 			/>
 			<div className="header">
 				<div className="voltar-header">

@@ -25,7 +25,7 @@ import { CategoriaMovimentacaoService } from "../../services/CategoriaMovimentac
 import { SomaCategoriasPorMes } from "../../types/SomaCategoriasPorMes";
 import './Analitico.scss';
 
-const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
+const Analitico: FC = () => {
 	const [ano, setAno] = useState<Dayjs | null>(dayjs(new Date().getTime()));
 	const [mes, setMes] = useState<Dayjs | null>(ano);
 	const [tipoMovimentacaoTop, setTipoMovimentacaoTop] = useState(TipoMovimentacaoEnum.POSITIVO.toString());
@@ -150,7 +150,6 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 			<div className="analitico">
 				<AppBar
 					modulo="Analítico"
-					setId={props.setId}
 				/>
 				<Dica
 					frase='Selecione um período e um tipo de movimentação para visualizar o desempenho'

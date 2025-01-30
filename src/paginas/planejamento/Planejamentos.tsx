@@ -13,7 +13,7 @@ import ModalPlanejamento from "../../componentes/planejamentos/modalPlanejamento
 import { IGoogleIdProps } from "../../interfaces/IGoogleIdProps";
 import './Planejamentos.scss';
 
-const Planejamentos: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
+const Planejamentos: FC = () => {
 	const [googleId] = useAtom(googleIdAtom);	
 	const isMounted = useRef(true);
 	const navigate = useNavigate();
@@ -46,7 +46,6 @@ const Planejamentos: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 		<Fragment>
 			<AppBar
 				modulo="Planejamentos"
-				setId={props.setId}
 			/>
 			<div className="planejamentos">
 				<Dica

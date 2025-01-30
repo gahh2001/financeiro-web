@@ -7,7 +7,7 @@ import Footer from "../../componentes/footer/Footer";
 import { IGoogleIdProps } from "../../interfaces/IGoogleIdProps";
 import './Politica.scss';
 
-const Politica: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
+const Politica: FC = () => {
 	const [googleId] = useAtom(googleIdAtom);
 
 	return (
@@ -15,7 +15,6 @@ const Politica: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 			{googleId && googleId !== "" &&
 				<AppBar
 					modulo="Política de privacidade"
-					setId={props.setId}
 				/>
 			}
 			<div className="politica">

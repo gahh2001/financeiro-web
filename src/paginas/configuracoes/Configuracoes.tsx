@@ -15,7 +15,7 @@ import { CategoriaMovimentacaoService } from "../../services/CategoriaMovimentac
 import { CategoriaMovimentacao } from "../../types/CategoriaMovimentacao";
 import "./Configuracoes.scss";
 
-const Configuracoes: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
+const Configuracoes: FC = () => {
 	const categoriaMovimentacaoService = new CategoriaMovimentacaoService(back);
 	const [categorias, setCategorias] = useState<CategoriaMovimentacao[]>([]);
 	const {isOpenModalAdd: isOpenModalAddCategoria, closeModalCategoria} = useModalCategoria();
@@ -59,7 +59,6 @@ const Configuracoes: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 		<Fragment>
 			<AppBar
 				modulo="Configurações"
-				setId={props.setId}
 			/>
 			<div className="configuracoes">
 				<div className="card">
