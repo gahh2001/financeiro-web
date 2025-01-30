@@ -16,7 +16,6 @@ import Footer from "../../componentes/footer/Footer";
 import { obtemNumeroEnum, TipoComparacaoEnum } from "../../enums/TipoComparacaoEnum";
 import { TipoMovimentacaoEnum } from "../../enums/TipoMovimentacaoEnum";
 import back from "../../http";
-import { IGoogleIdProps } from "../../interfaces/IGoogleIdProps";
 import { IMediasAnalitico } from "../../interfaces/IMediasAnalitico";
 import { ISeriesChart } from "../../interfaces/ISeriesChart";
 import { ISeriesComparacao } from "../../interfaces/ISeriesComparacao";
@@ -201,9 +200,11 @@ const Analitico: FC = () => {
 							evolucao={evolucao}
 							comparacoes={null}
 						/>
-						<CategoriasDesempenho
-							medias={mediasGerais}
-						/>
+						{mediasGerais?.ganhoMedia &&mediasGerais.ganhoMedia > 0 && mediasGerais?.gastomedia > 0
+							? <CategoriasDesempenho
+								medias={mediasGerais}
+							/>
+							: <></>}
 					</div>
 				</div>
 				<Footer/>
