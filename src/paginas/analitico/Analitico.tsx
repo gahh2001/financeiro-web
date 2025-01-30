@@ -1,21 +1,25 @@
+import { Box, Link } from "@mui/material";
 import dayjs, { Dayjs } from "dayjs";
 import { useAtom } from "jotai";
 import { FC, Fragment, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { googleIdAtom } from "../../atoms/atom";
-import CategoriasComparacao from "../../componentes/analitico/CategoriasComparacao";
-import CategoriasDesempenho from "../../componentes/analitico/CategoriasDesempenho";
 import CategoriasEvolucao from "../../componentes/analitico/CategoriasEvolucao";
 import CategoriasPorcentagem from "../../componentes/analitico/CategoriasPorcentagem";
 import CategoriasVisaoGeral from "../../componentes/analitico/CategoriasVisaoGeral";
-import FiltroComparacoes from "../../componentes/analitico/filtros/FiltroComparacoes";
-import FiltroData from "../../componentes/analitico/filtros/FiltroData";
 import AppBar from "../../componentes/AppBar/AppBar";
 import Dica from "../../componentes/dicas/Dica";
 import Footer from "../../componentes/footer/Footer";
+import Textos from "../../componentes/Textos";
 import { obtemNumeroEnum, TipoComparacaoEnum } from "../../enums/TipoComparacaoEnum";
 import { TipoMovimentacaoEnum } from "../../enums/TipoMovimentacaoEnum";
 import back from "../../http";
+import image1 from '../../imagensGoogle/1.png';
+import image10 from '../../imagensGoogle/10.jpg';
+import image3 from '../../imagensGoogle/3.jpg';
+import image5 from '../../imagensGoogle/5.png';
+import image7 from '../../imagensGoogle/7.jpg';
+import image8 from '../../imagensGoogle/8.jpg';
 import { IGoogleIdProps } from "../../interfaces/IGoogleIdProps";
 import { IMediasAnalitico } from "../../interfaces/IMediasAnalitico";
 import { ISeriesChart } from "../../interfaces/ISeriesChart";
@@ -147,7 +151,7 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 		<Fragment>
 			<div className="analitico">
 				<AppBar
-					modulo="Analítico"
+					modulo="Investimentos"
 					urlPicture={props.urlPicture}
 					setId={props.setId}
 					setPicture={props.setPicture}
@@ -158,18 +162,24 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 					open={openDicaGeral}
 					setOpen={setOpenDicaGeral}
 				/>
+				<Textos
+					titulo="A Importância dos Investimentos"
+					texto="Investir vai além de simplesmente guardar dinheiro. Trata-se de colocar o seu dinheiro para
+					trabalhar por você. Com o aumento da inflação e a desvalorização da moeda, simplesmente deixar o
+					dinheiro parado não é suficiente para manter seu poder de compra ao longo do tempo. Os investimentos
+					têm o potencial de gerar rendimentos que não apenas acompanham, mas superam a inflação, garantindo
+					que seu patrimônio cresça ao longo dos anos. Além disso, os investimentos são uma ferramenta poderosa
+					para alcançar objetivos financeiros de médio e longo prazo. Seja para comprar uma casa, financiar
+					a educação dos filhos, montar um fundo de aposentadoria ou até mesmo realizar aquele sonho de viagem,
+					investir adequadamente pode acelerar esse processo e tornar esses objetivos mais tangíveis."
+				/>
+				<img src={image3} style={{width: "30%"}} alt="" />
+				<Textos
+					titulo=""
+					texto="Nos gráficos abaixo, veja a relação de investidores pessoa física VS  empresas na bolsa no ano de 2024:"
+				/>
 				<div className="conteudo">
 					<div className="section">
-						<FiltroData
-							ano={ano}
-							mes={mes}
-							tipoMovimentacao={tipoMovimentacaoTop}
-							fullYear={fullYear}
-							setAno={propsSetAno}
-							setMes={propsSetMes}
-							setFullYear={propsSetFullYear}
-							setTipoMovimentacao={propsSetTipoMovimentacaoTop}
-						/>
 						<CategoriasVisaoGeral
 							nomeCategorias={nomeCategorias}
 							somaCategorias={somaCategorias}
@@ -185,27 +195,64 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 						open={openDicaComparacao}
 						setOpen={setOpenDicaComparacao}
 					/>
+					<Textos
+						titulo="Os Tipos de Investimentos"
+						texto="Existem diversas opções de investimentos no mercado, e escolher o mais adequado vai depender
+						do seu perfil de risco, dos seus objetivos financeiros e do prazo que você tem para atingir suas metas.
+						Conhecer os tipos de investimentos é o primeiro passo para fazer uma escolha informada: Renda Fixa
+						Os investimentos de renda fixa são mais previsíveis e seguros, com uma rentabilidade conhecida ou atrelada
+						a um índice econômico, como a Selic ou o IPCA. Alguns exemplos de investimentos de renda fixa são:
+						CDB (Certificado de Depósito Bancário): Oferece rentabilidade geralmente superior à poupança, com o risco de
+						crédito do banco emissor. Tesouro Direto: São títulos públicos emitidos pelo governo, com diferentes tipos
+						de rentabilidade, como pré-fixada ou atrelada à inflação. LCI/LCAs (Letra de Crédito Imobiliário e do Agronegócio): Têm isenção de Imposto de Renda para pessoas físicas e geralmente oferecem um bom retorno para investidores conservadores.
+						Renda Variável
+						Já os investimentos em renda variável apresentam maiores riscos, mas com o potencial de oferecer retornos mais altos. Os principais investimentos de renda variável são:
+						Fundos de Investimento
+						Os fundos de investimento são compostos por diversos ativos, como ações, títulos de renda fixa e imóveis. Ao investir em um fundo, você delega a gestão do seu dinheiro a um profissional que toma as decisões de investimento por você. Existem fundos para todos os perfis de risco, desde os mais conservadores até os mais agressivos.
+						Investimentos Alternativos
+						Além dos tradicionais, também existem alternativas como o crowdfunding de investimentos (onde você investe em projetos empresariais), o bitcoin e outras criptomoedas, além de commodities como ouro e petróleo. Embora possam oferecer altos retornos, são opções de maior risco e volatilidade, sendo indicados para investidores mais experientes e com maior tolerância ao risco."
+					/>
+					<img src={image7} style={{width: "60%"}} alt="" />
+					<Textos
+						titulo=""
+						texto="Ações: Comprar ações de empresas significa adquirir uma parte delas. A rentabilidade depende do desempenho da empresa no mercado e da valorização de suas ações."
+					/>
+					<Textos
+						titulo=""
+						texto="ETFs (Exchange Traded Funds): São fundos que replicam índices de ações, proporcionando uma forma de investir em um conjunto de ativos com um único produto."
+					/>
+					<Textos
+						titulo=""
+						texto="Fundos Imobiliários (FIIs): Permitem investir no setor imobiliário sem precisar comprar imóveis diretamente. Os FIIs pagam dividendos regularmente, tornando-se uma boa opção para quem busca renda passiva."
+					/>
+					<img src={image5} style={{width: "40%"}} alt="" />
+					<Textos
+						titulo=""
+						texto="Veja o gráfico abaixo, a evolução da taxa  Selic nos ultimos 3 meses:"
+					/>
 					<div className="section">
-						<FiltroComparacoes
-							tipoComparacao={tipoComparacao}
-							tipoMovimentacao={tipoMovimentacaoDown}
-							setTipoComparacao={propsSetTipoComparacao}
-							setTipoMovimentacao={propsSetTipoMovimentacaoDown}
-						/>
-						<CategoriasComparacao
-							comparacoes={comparacoes}
-							agrupamentosMes={agrupamentoMesAnoComparacao}
-							evolucao={null}
-						/>
 						<CategoriasEvolucao
 							agrupamentosMes={agrupamentoMesAnoEvolucao}
 							evolucao={evolucao}
 							comparacoes={null}
 						/>
-						<CategoriasDesempenho
-							medias={mediasGerais}
-						/>
 					</div>
+					<Textos
+						titulo="Investimentos para o Futuro"
+						texto="Investir é uma maneira inteligente de garantir que você tenha mais liberdade financeira no futuro. Com o tempo, os rendimentos podem crescer exponencialmente, permitindo que você conquiste seus objetivos sem depender apenas do salário. Além disso, investir ajuda a proteger seu patrimônio contra a inflação e outros fatores econômicos que podem diminuir o valor do seu dinheiro ao longo dos anos.Começar a investir pode parecer um desafio no início, mas com a educação financeira adequada e a escolha de investimentos alinhados aos seus objetivos, você pode construir um futuro financeiro sólido e tranquilo. Lembre-se de que a chave é começar e, com o tempo, você aprenderá e adaptará suas estratégias para maximizar seus resultados."
+					/>
+					<Box sx={{width: "60%", height: "20vh", display: "flex", justifyContent: "left", gap: "1vh", alignItems: "end"}}>
+						<img src={image1} style={{width: "25%"}} alt="" />
+						<Link sx={{fontSize: "3vh"}} href="/home">Acesse o conteúdo sobre organização financeira, para entender como alcançar o equilíbrio na vida financeira</Link>
+					</Box>
+					<Box sx={{width: "60%", height: "20vh", display: "flex", justifyContent: "left", gap: "1vh", alignItems: "end"}}>
+						<img src={image8} style={{width: "25%"}} alt="" />
+						<Link sx={{fontSize: "3vh"}} href="/movimentacoes">Veja como estão os indicadores do mercado financeiro e o que esperar do cenário de finanças no ano de 2025</Link>
+					</Box>
+					<Box sx={{width: "60%", height: "20vh", display: "flex", justifyContent: "left", gap: "1vh", alignItems: "end"}}>
+						<img src={image10} style={{width: "25%"}} alt="" />
+						<Link sx={{fontSize: "3vh"}} href="/planejamentos">Veja como estão os indicadores do mercado financeiro e o que esperar do cenário de finanças no ano de 2025</Link>
+					</Box>
 				</div>
 				<Footer/>
 			</div>

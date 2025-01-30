@@ -15,6 +15,7 @@ import { IconButton } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
 import { useAtom } from 'jotai';
 import { FC, Fragment, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { googleIdAtom, saldo } from '../../../atoms/atom';
 import { TipoMovimentacaoEnum } from '../../../enums/TipoMovimentacaoEnum';
 import back from '../../../http';
@@ -28,6 +29,7 @@ const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaPr
 	const [googleId] = useAtom(googleIdAtom);
 	const [movimentacoesDoDia, setMovimentacoesDoDia] = useState<Movimentacao[]>([]);
 	const [saldoAtual, setSaldo] = useAtom(saldo);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		const buscaMovimentacoesDoDia = async () => {
@@ -116,18 +118,18 @@ const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaPr
 				<div className="buttons">
 					<button
 						
-						onClick={props.modalAddRendimento}
+						onClick={() => navigate("/analitico")}
 					>
 						<AddTaskOutlined
 							sx={{ color: "#44A81D" }}
 						/> <br/>
-						Adicionar rendimento
+						Ver analíticos
 					</button>
-					<button onClick={props.modalAddDespesa}>
+					<button onClick={() => navigate("/planejamentos")}>
 						<PlaylistRemove
 							sx={{ color: "#e15734db" }}
 						/> <br />
-						Adicionar despesa
+						Ver Planejamentos
 					</button>
 				</div>
 			</div>

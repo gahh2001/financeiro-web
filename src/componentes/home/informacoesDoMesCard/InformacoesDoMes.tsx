@@ -1,8 +1,3 @@
-import {
-	AddCircleOutlineRounded,
-	AssessmentOutlined,
-	RemoveCircleOutlineRounded
-} from '@mui/icons-material';
 import { FC } from 'react';
 import { TipoMovimentacaoEnum } from '../../../enums/TipoMovimentacaoEnum';
 import { InformacoesDoMesProps } from '../../../interfaces/IInformacoesDoMesProps';
@@ -15,10 +10,7 @@ const InformacoesDoMes: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProp
 	return (
 		<div className="informacoes-do-mes">
 			<div className="card-resumo-mes">
-				<div className="titulo">
-					Resumo de {obtemNomeMes(props.selectedDate.getMonth())}
-				</div>
-				<div className="infos">
+				{/* <div className="infos">
 					<div className="info-mes">
 						<div className='simbol'>
 							<AddCircleOutlineRounded
@@ -51,7 +43,7 @@ const InformacoesDoMes: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProp
 						</div>
 						Você gastou: {calculaPorcentagemTotal(props.movimentacoesMes)}% dos rendimentos.
 					</div>
-				</div>
+				</div> */}
 			</div>
 			<GraficosMensais
 				{...props}

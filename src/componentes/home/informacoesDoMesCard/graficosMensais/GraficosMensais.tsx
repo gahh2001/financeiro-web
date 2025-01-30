@@ -76,19 +76,19 @@ const GraficosMensais: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProps
 		return nomeCategoriasPositivas.length > 0
 			&& somaCategoriasPositivas.length > 0
 		? <div className="card-graficos" style={{ marginRight: "0.5%" }}>
-				<div className="titulo">Rendimentos</div>
+				<div className="titulo">Principais Investimentos</div>
 				<div className='grafic'>
 					<BarChart
 						xAxis={[
 							{
 							id: 'barCategories',
-							data: nomeCategoriasPositivas,
+							data: ["Taxa Selic", "Poupança", "FIIs", "Ações"],
 							scaleType: 'band',
 							},
 						]}
 						series={[
 							{
-							data: somaCategoriasPositivas,
+							data: [80, 39, 25, 10],
 							color: "#42B84A"
 							},
 						]}
@@ -116,19 +116,19 @@ const GraficosMensais: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProps
 	? (
 		<>
 			<div className="card-graficos">
-				<div className="titulo">Gastos</div>
+				<div className="titulo">Principais Gastos no Brasil</div>
 				<div className='grafic'>
 					<BarChart
 						xAxis={[
 							{
 							id: 'barCategories',
-							data: nomeCategoriasNegativas,
+							data: ["Moradia", "Condução", "Alimentação", "Medicamentos"],
 							scaleType: 'band',
 							},
 						]}
 						series={[
 							{
-							data: somaCategoriasNegativas,
+							data: [40, 37, 21, 18],
 							color: "#AD4331"
 							},
 						]}

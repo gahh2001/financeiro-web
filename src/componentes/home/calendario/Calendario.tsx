@@ -60,7 +60,7 @@ const Calendario: FC<ICalendarioProps> = (props: ICalendarioProps) => {
 			<div
 				key={day + currentMonth.format('YYYYMM')}
 				className={dayClass}
-				onClick={() => handleDayClick(day, currentMonth.month(), currentMonth.year())}
+				//onClick={() => handleDayClick(day, currentMonth.month(), currentMonth.year())}
 			>
 				{verificaDiaComMovimentação(day, currentMonth.month(), TipoMovimentacaoEnum.NEGATIVO)}
 				{day}

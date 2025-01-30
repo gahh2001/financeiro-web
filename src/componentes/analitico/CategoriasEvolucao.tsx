@@ -6,25 +6,23 @@ const CategoriasEvolucao: FC<ICategoriasComparacaoProps> = (props: ICategoriasCo
 	return (
 		<div className='card'>
 			<div className="titulo">
-				Evolução
+				Evolução taxa Selic
 			</div>
 			{montaGrafico()}
 		</div>
 	);
 
 	function montaGrafico() {
-		return props.evolucao && props.evolucao.length && props.agrupamentosMes
-			&& props.agrupamentosMes.length && props.agrupamentosMes.length === props.evolucao[0].data.length
-		? <div className="grafic">
+		return <div className="grafic">
 			<LineChart
 				xAxis={[
 					{
 						id: 'barCategories',
-						data: props.agrupamentosMes,
+						data: ["11/2024", "12/2024", "01/2025"],
 						scaleType: 'band',
 					},
 				]}
-				series={props.evolucao}
+				series={[{ data: [11, 11.5, 13], label: 'Selic' }]}
 				margin={{
 					left: 50,
 					right: 10,
@@ -32,9 +30,6 @@ const CategoriasEvolucao: FC<ICategoriasComparacaoProps> = (props: ICategoriasCo
 					bottom: 25,
 				}}
 			/>
-		</div>
-		: <div className='mensagem'>
-			Nenhum registro para este período!
 		</div>
 	}
 }

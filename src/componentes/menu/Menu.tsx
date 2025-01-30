@@ -68,7 +68,7 @@ export default function TemporaryDrawer() {
 									<ListItemIcon>
 										<AssessmentOutlined/>
 									</ListItemIcon>
-									<ListItemText primary={"Analítico"}/>
+									<ListItemText primary={"Investimentos"}/>
 								</ListItemButton>
 							</ListItem>
 							<Divider/>
@@ -77,7 +77,7 @@ export default function TemporaryDrawer() {
 									<ListItemIcon>
 										<ListAlt/>
 									</ListItemIcon>
-									<ListItemText primary={"Movimentações"}/>
+									<ListItemText primary={"Indicadores"}/>
 								</ListItemButton>
 							</ListItem>
 							<Divider/>
@@ -87,7 +87,7 @@ export default function TemporaryDrawer() {
 									<ListItemIcon>
 										<Speed/>
 									</ListItemIcon>
-									<ListItemText primary={"Planejamentos"}/>
+									<ListItemText primary={"Cripto"}/>
 								</ListItemButton>
 							</ListItem>
 							<Divider/>

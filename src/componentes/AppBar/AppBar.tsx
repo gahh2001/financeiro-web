@@ -1,4 +1,4 @@
-import { Logout, Settings } from '@mui/icons-material';
+import { Logout } from '@mui/icons-material';
 import { Avatar, Box, IconButton, ListItemIcon, Menu, MenuItem, Tooltip } from '@mui/material';
 import { FC, Fragment, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -88,12 +88,6 @@ const AppBar: FC<IAppBarProps> = (props: IAppBarProps) => {
 					transformOrigin={{ horizontal: 'right', vertical: 'top' }}
 					anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
 				>
-					<MenuItem onClick={handleConfig}>
-						<ListItemIcon>
-							<Settings fontSize="small" />
-						</ListItemIcon>
-						Configurações
-					</MenuItem>
 					<MenuItem onClick={logout}>
 						<ListItemIcon>
 							<Logout fontSize="small" />
