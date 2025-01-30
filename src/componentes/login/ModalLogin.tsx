@@ -52,7 +52,7 @@ const ModalLogin: FC = () => {
 				onClose={() => setOpen(false)}
 				id='modal-login-dialog'
 			>
-				<DialogTitle>Login</DialogTitle>
+				<DialogTitle id="titulo-modal-paper-root" >Login</DialogTitle>
 				<DialogContent>
 					<div className='card-login'>
 						<div className="texto">

@@ -15,9 +15,7 @@ const Politica: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 			{googleId && googleId !== "" &&
 				<AppBar
 					modulo="Política de privacidade"
-					urlPicture={props.urlPicture}
 					setId={props.setId}
-					setPicture={props.setPicture}
 				/>
 			}
 			<div className="politica">

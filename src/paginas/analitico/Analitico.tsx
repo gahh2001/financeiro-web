@@ -150,9 +150,7 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 			<div className="analitico">
 				<AppBar
 					modulo="Analítico"
-					urlPicture={props.urlPicture}
 					setId={props.setId}
-					setPicture={props.setPicture}
 				/>
 				<Dica
 					frase='Selecione um período e um tipo de movimentação para visualizar o desempenho'

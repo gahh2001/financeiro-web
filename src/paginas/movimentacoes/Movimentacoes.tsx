@@ -64,9 +64,7 @@ const Movimentacoes: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 		<Fragment>
 			<AppBar
 				modulo="Movimentações"
-				urlPicture={props.urlPicture}
 				setId={props.setId}
-				setPicture={props.setPicture}
 			/>
 			<div className="movimentacoes">
 				<Dica

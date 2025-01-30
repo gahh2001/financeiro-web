@@ -30,3 +30,9 @@ code {
 	color: #e5e5e5;
 	font-size: 2vh;
 }
+
+#titulo-modal-paper-root {
+	display: flex !important;
+	justify-content: center !important;
+	font-size: 3.5vh !important;
+}

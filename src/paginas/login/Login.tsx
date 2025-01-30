@@ -6,11 +6,11 @@ import { FC, Fragment, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { googleIdAtom, modalLogin } from '../../atoms/atom';
 import Footer from '../../componentes/footer/Footer';
+import ModalLogin from '../../componentes/login/ModalLogin';
 import imgAnalitico from '../../images/analitico.png';
 import imgHome from '../../images/home.png';
 import imgPlanos from '../../images/planejamentos.png';
 import { IGoogleIdProps } from '../../interfaces/IGoogleIdProps';
-import ModalLogin from './ModalLogin';
 
 const Login: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 	const [googleId] = useAtom(googleIdAtom);
@@ -62,7 +62,7 @@ const Login: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 						<div className="titulo-imagem">De olho nos gráficos</div>
 						<div className="text-imagem">
 							Acompanhe o andamento das suas movimentações, veja
-							comparações, evoluções, fique por dentro do desempenho da sua otina financeira.
+							comparações, evoluções, fique por dentro do desempenho da sua rotina financeira.
 						</div>
 						<img
 							src={imgAnalitico}
@@ -73,8 +73,8 @@ const Login: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 						</Button>
 					</div>
 				</div>
+				<ModalLogin/>
 			</div>
-			<ModalLogin/>
 			<Footer/>
 		</Fragment>
 	);

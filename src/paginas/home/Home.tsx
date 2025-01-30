@@ -104,9 +104,7 @@ const Home: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 		<div className="home">
 			<AppBar
 				modulo="Home"
-				urlPicture={props.urlPicture}
 				setId={props.setId}
-				setPicture={props.setPicture}
 			/>
 			<div className="conteudo-home">
 				<Dica

@@ -19,9 +19,7 @@ const About: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 		<div className="about">
 			<AppBar
 				modulo="Sobre"
-				urlPicture={props.urlPicture}
 				setId={props.setId}
-				setPicture={props.setPicture}
 			/>
 			<div className="header">
 				<div className="voltar-header">

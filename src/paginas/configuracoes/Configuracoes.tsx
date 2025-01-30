@@ -59,9 +59,7 @@ const Configuracoes: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 		<Fragment>
 			<AppBar
 				modulo="Configurações"
-				urlPicture={props.urlPicture}
 				setId={props.setId}
-				setPicture={props.setPicture}
 			/>
 			<div className="configuracoes">
 				<div className="card">

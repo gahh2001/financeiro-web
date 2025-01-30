@@ -1,7 +1,9 @@
 import { Logout, Settings } from '@mui/icons-material';
 import { Avatar, Box, IconButton, ListItemIcon, Menu, MenuItem, Tooltip } from '@mui/material';
+import { useAtom } from 'jotai';
 import { FC, Fragment, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { pictureAtom } from '../../atoms/atom';
 import { IAppBarProps } from '../../interfaces/IAppBarProps';
 import DrawerPages from '../menu/Menu';
 import "./AppBarStyle.scss";
@@ -9,6 +11,7 @@ import "./AppBarStyle.scss";
 const AppBar: FC<IAppBarProps> = (props: IAppBarProps) => {
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 	const open = Boolean(anchorEl);
+	const [picture, setPicture] = useAtom(pictureAtom);
 	const navigate = useNavigate();
 	const handleClick = (event: React.MouseEvent<HTMLElement>) => {
 		setAnchorEl(event.currentTarget);
@@ -23,7 +26,7 @@ const AppBar: FC<IAppBarProps> = (props: IAppBarProps) => {
 		localStorage.removeItem('googleId');
 		localStorage.removeItem('urlPicture');
 		props.setId("");
-		props.setPicture("");
+		setPicture("");
 		navigate("/login");
 	}
 
@@ -45,7 +48,7 @@ const AppBar: FC<IAppBarProps> = (props: IAppBarProps) => {
 							aria-expanded={open ? 'true' : undefined}
 						>
 							<Avatar
-								src={props.urlPicture || ''}
+								src={picture || ''}
 								sx={{ width: "5.5vh", height: "5.5vh" }}
 							></Avatar>
 						</IconButton>
