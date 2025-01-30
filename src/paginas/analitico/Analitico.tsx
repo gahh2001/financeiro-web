@@ -260,20 +260,20 @@ const Analitico: FC = () => {
 		dataInicial.setMinutes(0);
 		switch (tipoComparacao) {
 			case TipoComparacaoEnum.TRESMESES:
-				dataInicial.setMonth(dataInicial.getMonth() - 2)
+				dataInicial.setMonth(dataInicial.getUTCMonth() - 2)
 				break;
 			case TipoComparacaoEnum.SEISMESES:
-				dataInicial.setMonth(dataInicial.getMonth() - 5)
+				dataInicial.setMonth(dataInicial.getUTCMonth() - 5)
 			break;
 			default:
-				dataInicial.setMonth(dataInicial.getMonth() - 11)
+				dataInicial.setMonth(dataInicial.getUTCMonth() - 11)
 		}
 		return dataInicial.getTime();
 	}
 
 	function obtemDataFinalComparacao() {
 		const fimMes = new Date();
-		fimMes.setMonth(fimMes.getMonth() + 1);
+		fimMes.setMonth(fimMes.getUTCMonth() + 1);
 		fimMes.setDate(0);
 		fimMes.setHours(23);
 		fimMes.setMinutes(59);
@@ -318,8 +318,8 @@ const Analitico: FC = () => {
 		const totalMeses = obtemNumeroEnum(tipoComparacao);
 		for (const categoria of categoriasUnicas ) {
 			const mesVerificadoData = new Date(obtemDataInicialComparacao());
-			let mesVerificado = mesVerificadoData.getMonth();
-			let anoVerificado = mesVerificadoData.getFullYear();
+			let mesVerificado = mesVerificadoData.getUTCMonth();
+			let anoVerificado = mesVerificadoData.getUTCFullYear();
 			let contagemMes = 1;
 			let somasNoMes = [];
 			while (contagemMes <= totalMeses) {
@@ -372,8 +372,8 @@ const Analitico: FC = () => {
 			while (contagemMes <= totalMeses) {
 				let somaNesteMes = lista.find((dado) =>
 					dado.nomeCategoria === categoria
-					&& ( new Date(dado.data).getMonth() + 1 === mesVerificado
-					|| ( new Date(dado.data).getMonth() + 1 === 12 && mesVerificado === 0 ) )
+					&& ( new Date(dado.data).getMonth() === mesVerificado
+					|| ( new Date(dado.data).getMonth() === 12 && mesVerificado === 0 ) )
 				)?.somaMovimentacao;
 				if (!somaNesteMes) {
 					somaNesteMes = 0;
