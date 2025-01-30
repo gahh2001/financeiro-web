@@ -39,15 +39,15 @@ const CardProgresso: FC = () => {
 		switch (periodo) {
 			case "MES":
 				setValorAtual(Math.floor(progressos?.mensal || 0));
-				setValorMaximo(Math.floor(selecionado.valor));
+				setValorMaximo(Math.floor(selecionado.valor) || 0);
 				break;
 			case "ANO":
 				setValorAtual(Math.floor(progressos?.anual || 0));
-				setValorMaximo(calculaSoma());
+				setValorMaximo(calculaSoma() || 0);
 				break;
 			case "TODO":
 				setValorAtual(Math.floor(progressos?.todo || 0));
-				setValorMaximo(calculaSoma());
+				setValorMaximo(calculaSoma() || 0);
 			break;
 			default:
 				break;
@@ -153,11 +153,11 @@ const CardProgresso: FC = () => {
 					}
 				/>
 			</div>
-			<div className="dica-progresso">
+			{fraseProgresso !== "" ? <div className="dica-progresso">
 				<Typography>
 					<InfoOutlined fontSize="small"/> {fraseProgresso}
 				</Typography>
-			</div>
+			</div> : <></>}
 		</Fragment>
 		: <Fragment>
 			<div className="nenhum-conteudo">
