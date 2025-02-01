@@ -23,6 +23,7 @@ code {
 
 .nenhum-conteudo {
 	height: 100%;
+	min-height: 7vh;
 	width: 100%;
 	display: flex;
 	justify-content: center;

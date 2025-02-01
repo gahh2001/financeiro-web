@@ -39,6 +39,7 @@ const CardMovimentacoesPlanejamento: FC = () => {
 
 	return (
 		<Fragment>
+			{movimentacoes.length ?
 			<div className="lista-movimentacoes">
 				{movimentacoes.map((movimentacao, index) => (
 					<div key={index} className="movimentacao">
@@ -69,6 +70,9 @@ const CardMovimentacoesPlanejamento: FC = () => {
 					</div>
 				))}
 			</div>
+			: <div className="nenhum-conteudo">
+				Não há nenhuma movimentaçãoa ser exibida...
+			</div> }
 			<DialogDescricaoMovimentacao
 				openDialog={isOpenDialogDescricao}
 				description={descricao}
