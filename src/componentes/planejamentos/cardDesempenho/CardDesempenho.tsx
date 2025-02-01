@@ -1,27 +1,48 @@
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import { LineChart } from '@mui/x-charts/LineChart';
-import { FC, Fragment, useState } from "react";
+import { useAtom } from 'jotai';
+import { FC, Fragment, useEffect, useState } from "react";
+import { planejamento } from '../../../atoms/atom';
+import { obtemNumeroEnum } from '../../../enums/TipoComparacaoEnum';
 import { TipoMovimentacaoEnum } from '../../../enums/TipoMovimentacaoEnum';
+import back from '../../../http';
+import { PlanejamentoService } from '../../../services/PlanejamentoService';
+import { Desempenho } from '../../../types/Desempenho';
 import './CardDesempenho.scss';
 
 const CardDesempenho: FC = () => {
-	const [periodo, setPeriodo] = useState<string>("TRES")
-	const uData = [null, null, 5000, 4700, 6000, 5100, 4000]; //se os meses anteriores não tiverem dados, null não quebra
-	const pData = [5000, 5000, 5000, 5000, 5000, 5000, 5000];
-	const xLabels = [
-		'Page A',
-		'Page B',
-		'Page C',
-		'Page D',
-		'Page E',
-		'Page F',
-		'Page G',
-	];
+	const planejamentoService = new PlanejamentoService(back);
+	const [selecionado] = useAtom(planejamento);
+	const [periodo, setPeriodo] = useState<string>("TRESMESES")
+	const [meses, setMeses] = useState<string[]>([]);
+	const [limite, setLimite] = useState(Array(obtemNumeroEnum(periodo)).fill(selecionado.valor));
+	const [desempenhos, setDesempenhos] = useState<(number | null)[]>([]);
+	const [retorno, setRetorno] = useState<Desempenho[]>([]);
 
 	const mudarPeriodo = (event: SelectChangeEvent) => {
-			const newValue = event.target.value;
-			setPeriodo(newValue);
+		const newValue = event.target.value;
+		setPeriodo(newValue);
+		
+	};
+
+	useEffect(() => {
+		const atualizaDesempenho = async () => {
+			if (selecionado && selecionado.id) {
+				const retorno = await planejamentoService.listaDesempenho(selecionado.id);
+				if (retorno) {
+					setRetorno(retorno.data);
+					processaDesempenhos(retorno.data);
+				}
+			}
 		};
+		atualizaDesempenho();
+		setLimite(Array(obtemNumeroEnum(periodo)).fill(selecionado.valor));
+	}, [selecionado]);
+
+	useEffect(() => {
+		processaDesempenhos(retorno);
+		setLimite(Array(obtemNumeroEnum(periodo)).fill(selecionado.valor));
+	}, [periodo]);
 
 	return (
 		<Fragment>
@@ -42,34 +63,39 @@ const CardDesempenho: FC = () => {
 						defaultValue={TipoMovimentacaoEnum.POSITIVO.toString()}
 					>
 						<MenuItem
-							key={"TRES"}
-							value={"TRES"}
+							key={"TRESMESES"}
+							value={"TRESMESES"}
 						>
 							3 meses
 						</MenuItem>
 						<MenuItem
-							key={"SEIS"}
-							value={"SEIS"}
+							key={"SEISMESES"}
+							value={"SEISMESES"}
 						>
 							6 meses
 						</MenuItem>
 						<MenuItem
-							key={"DOZE"}
-							value={"DOZE"}
+							key={"DOZEMESES"}
+							value={"DOZEMESES"}
 						>
 							12 meses
 						</MenuItem>
 					</Select>
 				</FormControl>
 			</div>
+			{meses.length && meses.length === limite.length ?
 			<div className="card-desempenho">
 				<LineChart
 					xAxis={[
-						{ scaleType: 'band', data: xLabels, id: 'barCategories', }
+						{ scaleType: 'band', data: meses, id: 'barCategories', }
 					]}
 					series={[
-						{ data: pData, label: 'pv' },
-						{ data: uData, label: 'uv' },
+						{
+							data: limite,
+							label: selecionado.tipo === 'META' ? "Meta" : "Limite",
+							color: selecionado.tipo === 'META' ? "#42B84A" : "#AD4331"
+						},
+						{ data: desempenhos, label: 'Alcançado' },
 					]}
 					margin={{
 						left: 50,
@@ -79,8 +105,28 @@ const CardDesempenho: FC = () => {
 					}}
 				/>
 			</div>
-		</Fragment>
-	);
+			: <></> }
+		</Fragment>);
+
+	function processaDesempenhos(lista: Desempenho[]) {
+		let contatdorMeses = obtemNumeroEnum(periodo) - 1;
+		let valores = [];
+		let meses = [];
+		while (contatdorMeses >= 0) {
+			let mesverificado = new Date();
+			mesverificado.setMonth(mesverificado.getUTCMonth() - contatdorMeses);
+			meses.push(mesverificado.getUTCMonth() + 1 + "/" + mesverificado.getUTCFullYear())
+			let valorDoMesEncontrado = lista.find(desempenho =>
+				new Date(desempenho.data).getUTCMonth() === mesverificado.getUTCMonth() &&
+				new Date(desempenho.data).getUTCFullYear() === mesverificado.getUTCFullYear()
+			)
+			let valorEncontrado = valorDoMesEncontrado ? valorDoMesEncontrado.valor : null;
+			valores.push(valorEncontrado);
+			contatdorMeses--;
+		}
+		setDesempenhos(valores);
+		setMeses(meses);
+	}
 }
 
 export default CardDesempenho;

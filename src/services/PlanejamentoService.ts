@@ -1,4 +1,5 @@
 import { AxiosInstance } from "axios";
+import { Desempenho } from "../types/Desempenho";
 import { Planejamento } from "../types/Planejamento";
 import { Progressos } from "../types/Progressos";
 
@@ -53,6 +54,20 @@ export class PlanejamentoService {
 			return {...response };
 		} catch (error) {
 			console.log(`Não foi possível obter os progressos`, error);
+			return undefined;
+		}
+	}
+
+	async listaDesempenho(id: number | undefined) {
+		if (!id) {
+			return undefined;
+		}
+		try {
+			const response = await this.axiosInstance
+				.get<Desempenho[]>(`${this.urlDefault}/${id}/desempenho`);
+			return {...response };
+		} catch (error) {
+			console.log(`Não foi possível obter o desempenho do planejamento`, error);
 			return undefined;
 		}
 	}

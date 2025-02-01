@@ -29,7 +29,6 @@ const CardProgresso: FC = () => {
 			const retorno = await planejamentoService.listaProgressos(selecionado.id);
 			if (retorno) {
 				setProgressos(retorno.data);
-				console.log(retorno.data);
 			}
 		};
 		buscaProgresso();
