@@ -2,6 +2,7 @@ import { AxiosInstance } from "axios";
 import { Desempenho } from "../types/Desempenho";
 import { Planejamento } from "../types/Planejamento";
 import { Progressos } from "../types/Progressos";
+import { Movimentacao } from "../types/Movimentacao";
 
 export class PlanejamentoService {
 
@@ -68,6 +69,20 @@ export class PlanejamentoService {
 			return {...response };
 		} catch (error) {
 			console.log(`Não foi possível obter o desempenho do planejamento`, error);
+			return undefined;
+		}
+	}
+
+	async listaMovimentacoes(id: number | undefined) {
+		if (!id) {
+			return undefined;
+		}
+		try {
+			const response = await this.axiosInstance
+				.get<Movimentacao[]>(`${this.urlDefault}/${id}/movimentacoes`);
+			return {...response };
+		} catch (error) {
+			console.log(`Não foi possível obter as movimentações do planejamento`, error);
 			return undefined;
 		}
 	}

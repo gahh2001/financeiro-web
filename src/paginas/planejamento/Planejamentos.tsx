@@ -12,6 +12,7 @@ import ListagemPlanejamentos from "../../componentes/planejamentos/listagemPlane
 import ModalPlanejamento from "../../componentes/planejamentos/modalPlanejamento/ModalPlanejamento";
 import { IGoogleIdProps } from "../../interfaces/IGoogleIdProps";
 import './Planejamentos.scss';
+import CardMovimentacoesPlanejamento from "../../componentes/planejamentos/cardmovimentacoes/CardMovimentacoesPlanejamento";
 
 const Planejamentos: FC = () => {
 	const [googleId] = useAtom(googleIdAtom);	
@@ -94,6 +95,7 @@ const Planejamentos: FC = () => {
 				/>
 				<div className="grafic">
 					<div className="titulo">Movimentações</div>
+					<CardMovimentacoesPlanejamento/>
 				</div>
 			</div>
 			<Footer/>
