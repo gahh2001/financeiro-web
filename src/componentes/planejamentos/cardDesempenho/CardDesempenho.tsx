@@ -66,19 +66,19 @@ const CardDesempenho: FC = () => {
 							key={"TRESMESES"}
 							value={"TRESMESES"}
 						>
-							3 meses
+							Últimos 3 meses
 						</MenuItem>
 						<MenuItem
 							key={"SEISMESES"}
 							value={"SEISMESES"}
 						>
-							6 meses
+							Últimos 6 meses
 						</MenuItem>
 						<MenuItem
 							key={"DOZEMESES"}
 							value={"DOZEMESES"}
 						>
-							12 meses
+							Últimos 12 meses
 						</MenuItem>
 					</Select>
 				</FormControl>
@@ -95,7 +95,7 @@ const CardDesempenho: FC = () => {
 							label: selecionado.tipo === 'META' ? "Meta" : "Limite",
 							color: selecionado.tipo === 'META' ? "#42B84A" : "#AD4331"
 						},
-						{ data: desempenhos, label: 'Alcançado' },
+						{ data: desempenhos, label: 'Atingido' },
 					]}
 					margin={{
 						left: 50,
