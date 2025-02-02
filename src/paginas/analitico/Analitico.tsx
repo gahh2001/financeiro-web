@@ -365,15 +365,15 @@ const Analitico: FC = () => {
 		const totalMeses = obtemNumeroEnum(tipoComparacao);
 		for (const categoria of categoriasUnicas ) {
 			const mesVerificadoData = new Date(obtemDataInicialComparacao());
-			let mesVerificado = mesVerificadoData.getMonth();
-			let anoVerificado = mesVerificadoData.getFullYear();
+			let mesVerificado = mesVerificadoData.getUTCMonth();
+			let anoVerificado = mesVerificadoData.getUTCFullYear();
 			let contagemMes = 1;
 			let somasNoMes = [];
 			while (contagemMes <= totalMeses) {
 				let somaNesteMes = lista.find((dado) =>
 					dado.nomeCategoria === categoria
-					&& ( new Date(dado.data).getMonth() === mesVerificado
-					|| ( new Date(dado.data).getMonth() === 12 && mesVerificado === 0 ) )
+					&& ( new Date(dado.data).getUTCMonth() === mesVerificado
+					|| ( new Date(dado.data).getUTCMonth() === 12 && mesVerificado === 0 ) )
 				)?.somaMovimentacao;
 				if (!somaNesteMes) {
 					somaNesteMes = 0;
