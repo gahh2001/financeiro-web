@@ -13,7 +13,6 @@ import EducacaoFinanceira from './paginas/educação financeira/Movimentacoes';
 import Empreendedores from './paginas/empreendedores/Movimentacoes';
 import FonteRenda from './paginas/fonterenda/Movimentacoes';
 import Home from './paginas/home/Home';
-import Impostos from './paginas/impostos/Movimentacoes';
 import Inflacao from './paginas/inflação/Movimentacoes';
 import MercadoImobiliario from './paginas/mercadoimobiliario/Movimentacoes';
 import Movimentacoes from './paginas/movimentacoes/Movimentacoes';
@@ -55,7 +54,6 @@ function App() {
 				<Route path="/home" element={<Home {...props} />}/>
 				<Route path="/analitico" element={<Analitico {...props} />}/>
 				<Route path="/movimentacoes" element={<Movimentacoes {...props} />}/>
-				<Route path="/impostos" element={<Impostos {...props} />}/>
 				<Route path="/dividas" element={<Dividas {...props} />}/>
 				<Route path="/educacao-financeira" element={<EducacaoFinanceira {...props} />}/>
 				<Route path="/empreendedores" element={<Empreendedores {...props} />}/>
