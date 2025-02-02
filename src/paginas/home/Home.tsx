@@ -122,7 +122,7 @@ const Home: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 					Um dos principais benefícios de uma boa gestão financeira é a prevenção de endividamentos.
 					Muitas pessoas acabam contraindo dívidas porque não acompanham seus gastos e acabam gastando
 					mais do que ganham. Com planejamento, é possível evitar esse problema e reduzir custos com juros,
-					que podem comprometer o orçamento."
+					que podem comprometer o orçamento.O planejamento financeiro é um dos pilares fundamentais para uma vida tranquila e segura. Muitas pessoas enfrentam dificuldades financeiras não por falta de renda, mas por não saberem administrá-la corretamente. Sem um plano bem estruturado, fica fácil cair em dívidas, perder oportunidades de investimento e comprometer a qualidade de vida.Por outro lado, quem adota hábitos financeiros saudáveis consegue conquistar estabilidade, acumular patrimônio e realizar seus sonhos de maneira sustentável. Este texto abordará em detalhes a importância do planejamento financeiro, seus benefícios e os passos essenciais para colocá-lo em prática."
 				/>
 				<img src={image1} style={{width: "30%"}} alt="" />
 				<Textos
@@ -133,7 +133,7 @@ const Home: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 					esses objetivos sem comprometer outras áreas da vida. Imprevistos acontecem, e estar financeiramente
 					preparado para eles faz toda a diferença. Ter uma reserva de emergência garante mais segurança
 					em situações inesperadas, como problemas de saúde, perda de emprego ou qualquer
-					outro evento que possa impactar sua renda."
+					outro evento que possa impactar sua renda.O planejamento financeiro é uma ferramenta essencial para garantir estabilidade, segurança e realização de objetivos. Independentemente da renda ou da fase da vida em que a pessoa se encontra, organizar as finanças é fundamental para evitar dívidas desnecessárias, alcançar metas e construir um patrimônio sustentável."
 				/>
 				<Textos
 					titulo="Dicas para Melhorar sua Organização Financeira"
@@ -141,7 +141,7 @@ const Home: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 						Estabeleça um orçamento: Defina limites para cada categoria de despesa e evite gastar além do planejado.
 						Priorize o pagamento de dívidas: Caso tenha dívidas, tente quitá-las o quanto antes para evitar juros acumulados.
 						Invista no seu futuro: Considere fazer investimentos para garantir uma renda extra no longo prazo.
-						Revise seu planejamento regularmente: Acompanhe sua evolução e ajuste seu planejamento sempre que necessário."
+						Revise seu planejamento regularmente: Acompanhe sua evolução e ajuste seu planejamento sempre que necessário.O planejamento financeiro é um hábito poderoso que pode transformar a vida de qualquer pessoa. Com disciplina e organização, é possível alcançar estabilidade financeira, reduzir preocupações e conquistar objetivos de forma consciente e sustentável. Quanto antes você começar, melhores serão os resultados no futuro! "
 				/>
 				<img src={image2} style={{width: "30%"}} alt="" />
 				<Textos
@@ -169,7 +169,7 @@ const Home: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 					titulo="O Impacto da Falta de Organização Financeira"
 					texto="Pesquisas indicam que cerca de 70% das pessoas que não possuem um planejamento financeiro estruturado enfrentam dificuldades para pagar contas básicas no fim do mês. Isso ocorre porque a falta de controle sobre os gastos leva ao endividamento e à dependência de crédito, resultando em altos juros e dificuldades financeiras constantes.
 					Além disso, estudos apontam que mais de 60% das pessoas que não fazem uma reserva de emergência recorrem a empréstimos quando enfrentam imprevistos, como uma despesa médica inesperada ou a perda do emprego. Esse comportamento pode levar a um ciclo de endividamento difícil de quebrar.
-					Outro dado preocupante é que aproximadamente 80% das pessoas que não acompanham suas finanças pessoais não conseguem economizar dinheiro de forma consistente, o que compromete seus planos de longo prazo, como a compra da casa própria, viagens ou aposentadoria."
+					Outro dado preocupante é que aproximadamente 80% das pessoas que não acompanham suas finanças pessoais não conseguem economizar dinheiro de forma consistente, o que compromete seus planos de longo prazo, como a compra da casa própria, viagens ou aposentadoria. Planejamento financeiro é o processo de organizar sua renda, despesas, investimentos e objetivos financeiros de forma estratégica. Ele envolve tomar decisões conscientes sobre como gastar, poupar e investir o dinheiro, garantindo que você esteja sempre no controle da sua vida financeira.Diferente do que muitos pensam, planejamento financeiro não é algo exclusivo para pessoas ricas. Qualquer pessoa, independentemente da renda, pode (e deve) adotar esse hábito para evitar problemas financeiros e construir um futuro sólido."
 				/>
 				<img src={image6} style={{width: "30%"}} alt="" />
 				<Textos

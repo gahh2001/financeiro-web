@@ -171,7 +171,7 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 					que seu patrimônio cresça ao longo dos anos. Além disso, os investimentos são uma ferramenta poderosa
 					para alcançar objetivos financeiros de médio e longo prazo. Seja para comprar uma casa, financiar
 					a educação dos filhos, montar um fundo de aposentadoria ou até mesmo realizar aquele sonho de viagem,
-					investir adequadamente pode acelerar esse processo e tornar esses objetivos mais tangíveis."
+					investir adequadamente pode acelerar esse processo e tornar esses objetivos mais tangíveis.Investir é uma das maneiras mais eficazes de construir riqueza e garantir um futuro financeiramente estável. No entanto, muitas pessoas ainda têm receio de dar os primeiros passos no mundo dos investimentos, seja por falta de conhecimento ou pelo medo de perder dinheiro. A verdade é que, com planejamento e estratégia, investir pode transformar vidas, proporcionando segurança, crescimento e liberdade financeira.Neste guia completo, vamos explorar tudo o que você precisa saber sobre investimentos, desde os conceitos básicos até estratégias mais avançadas para maximizar seus ganhos e minimizar riscos."
 				/>
 				<img src={image3} style={{width: "30%"}} alt="" />
 				<Textos
@@ -189,12 +189,6 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 							fatias={porcentagens}
 						/>
 					</div>
-					<Dica
-						frase='Nesta seção, você pode ver como tem sido a evolução ds suas movimentações nos últimos meses'
-						codigo="dicaComparacao"
-						open={openDicaComparacao}
-						setOpen={setOpenDicaComparacao}
-					/>
 					<Textos
 						titulo="Os Tipos de Investimentos"
 						texto="Existem diversas opções de investimentos no mercado, e escolher o mais adequado vai depender
@@ -213,6 +207,10 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 						Além dos tradicionais, também existem alternativas como o crowdfunding de investimentos (onde você investe em projetos empresariais), o bitcoin e outras criptomoedas, além de commodities como ouro e petróleo. Embora possam oferecer altos retornos, são opções de maior risco e volatilidade, sendo indicados para investidores mais experientes e com maior tolerância ao risco."
 					/>
 					<img src={image7} style={{width: "60%"}} alt="" />
+					<Textos
+						titulo="Proteger o Dinheiro da Inflação"
+						texto="A inflação reduz o poder de compra do dinheiro ao longo do tempo. Se você deixar seu dinheiro parado na conta corrente ou na poupança, ele perderá valor. Investindo, você pode fazer com que seu patrimônio cresça mais do que a inflação. Investir é essencial para quem deseja acumular riqueza e melhorar a qualidade de vida. Se você sonha em comprar uma casa, um carro, viajar pelo mundo ou se aposentar cedo, os investimentos podem acelerar esse processo. O sistema de previdência pública pode não ser suficiente para garantir um futuro confortável. Construir uma carteira de investimentos permite que você tenha independência financeira na aposentadoria. Com os investimentos certos, você pode gerar renda passiva – ou seja, dinheiro entrando na sua conta sem precisar trabalhar ativamente por ele. Dividendos de ações, aluguéis de imóveis e juros de renda fixa são exemplos disso."
+					/>
 					<Textos
 						titulo=""
 						texto="Ações: Comprar ações de empresas significa adquirir uma parte delas. A rentabilidade depende do desempenho da empresa no mercado e da valorização de suas ações."
@@ -239,7 +237,7 @@ const Analitico: FC<IGoogleIdProps> = (props: IGoogleIdProps) => {
 					</div>
 					<Textos
 						titulo="Investimentos para o Futuro"
-						texto="Investir é uma maneira inteligente de garantir que você tenha mais liberdade financeira no futuro. Com o tempo, os rendimentos podem crescer exponencialmente, permitindo que você conquiste seus objetivos sem depender apenas do salário. Além disso, investir ajuda a proteger seu patrimônio contra a inflação e outros fatores econômicos que podem diminuir o valor do seu dinheiro ao longo dos anos.Começar a investir pode parecer um desafio no início, mas com a educação financeira adequada e a escolha de investimentos alinhados aos seus objetivos, você pode construir um futuro financeiro sólido e tranquilo. Lembre-se de que a chave é começar e, com o tempo, você aprenderá e adaptará suas estratégias para maximizar seus resultados."
+						texto="Investir é uma maneira inteligente de garantir que você tenha mais liberdade financeira no futuro. Com o tempo, os rendimentos podem crescer exponencialmente, permitindo que você conquiste seus objetivos sem depender apenas do salário. Além disso, investir ajuda a proteger seu patrimônio contra a inflação e outros fatores econômicos que podem diminuir o valor do seu dinheiro ao longo dos anos.Começar a investir pode parecer um desafio no início, mas com a educação financeira adequada e a escolha de investimentos alinhados aos seus objetivos, você pode construir um futuro financeiro sólido e tranquilo. Lembre-se de que a chave é começar e, com o tempo, você aprenderá e adaptará suas estratégias para maximizar seus resultados. Investimentos são aplicações de dinheiro com o objetivo de obter retornos futuros. Em outras palavras, ao investir, você coloca seu capital em ativos financeiros ou reais esperando que ele se valorize com o tempo.Diferente da poupança, onde o dinheiro simplesmente fica parado e perde valor devido à inflação, os investimentos fazem o dinheiro trabalhar para você. Investir é essencial para quem deseja acumular riqueza e melhorar a qualidade de vida. Se você sonha em comprar uma casa, um carro, viajar pelo mundo ou se aposentar cedo, os investimentos podem acelerar esse processo."
 					/>
 					<Box sx={{width: "60%", height: "20vh", display: "flex", justifyContent: "left", gap: "1vh", alignItems: "end"}}>
 						<img src={image1} style={{width: "25%"}} alt="" />
