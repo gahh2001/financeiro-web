@@ -81,13 +81,102 @@ export default function TemporaryDrawer() {
 								</ListItemButton>
 							</ListItem>
 							<Divider/>
-							<Divider/>
 							<ListItem key={"planejamentos"} >
 								<ListItemButton onClick={() => handleNavigate("/planejamentos")}>
 									<ListItemIcon>
 										<Speed/>
 									</ListItemIcon>
 									<ListItemText primary={"Cripto"}/>
+								</ListItemButton>
+							</ListItem>
+							<Divider/>
+							<ListItem key={"planejamentos"} >
+								<ListItemButton onClick={() => handleNavigate("/dividas")}>
+									<ListItemIcon>
+										<CalendarMonth/>
+									</ListItemIcon>
+									<ListItemText primary={"Dividas"}/>
+								</ListItemButton>
+							</ListItem>
+							<Divider/>
+							<ListItem key={"planejamentos"} >
+								<ListItemButton onClick={() => handleNavigate("/educacao-financeira")}>
+									<ListItemIcon>
+										<AssessmentOutlined/>
+									</ListItemIcon>
+									<ListItemText primary={"Educação Financeira"}/>
+								</ListItemButton>
+							</ListItem>
+							<Divider/>
+							<ListItem key={"planejamentos"} >
+								<ListItemButton onClick={() => handleNavigate("/empreendedores")}>
+									<ListItemIcon>
+										<ListAlt/>
+									</ListItemIcon>
+									<ListItemText primary={"Empreendedores"}/>
+								</ListItemButton>
+							</ListItem>
+							<Divider/>
+							<ListItem key={"planejamentos"} >
+								<ListItemButton onClick={() => handleNavigate("/fonte-renda")}>
+									<ListItemIcon>
+										<Speed/>
+									</ListItemIcon>
+									<ListItemText primary={"Fontes de renda"}/>
+								</ListItemButton>
+							</ListItem>
+							<Divider/>
+							<ListItem key={"planejamentos"} >
+								<ListItemButton onClick={() => handleNavigate("/inflacao")}>
+									<ListItemIcon>
+										<CalendarMonth/>
+									</ListItemIcon>
+									<ListItemText primary={"Inflação"}/>
+								</ListItemButton>
+							</ListItem>
+							<Divider/>
+							<ListItem key={"planejamentos"} >
+								<ListItemButton onClick={() => handleNavigate("/mercado-imobiliario")}>
+									<ListItemIcon>
+										<AssessmentOutlined/>
+									</ListItemIcon>
+									<ListItemText primary={"Mercado Imobiliário"}/>
+								</ListItemButton>
+							</ListItem>
+							<Divider/>
+							<ListItem key={"planejamentos"} >
+								<ListItemButton onClick={() => handleNavigate("/planejamento-pessoal")}>
+									<ListItemIcon>
+										<ListAlt/>
+									</ListItemIcon>
+									<ListItemText primary={"Planejamento Pessoal"}/>
+								</ListItemButton>
+							</ListItem>
+							<Divider/>
+							<ListItem key={"planejamentos"} >
+								<ListItemButton onClick={() => handleNavigate("/previdencia")}>
+									<ListItemIcon>
+										<Speed/>
+									</ListItemIcon>
+									<ListItemText primary={"Previdencia"}/>
+								</ListItemButton>
+							</ListItem>
+							<Divider/>
+							<ListItem key={"planejamentos"} >
+								<ListItemButton onClick={() => handleNavigate("/psicologia-financeira")}>
+									<ListItemIcon>
+										<CalendarMonth/>
+									</ListItemIcon>
+									<ListItemText primary={"Psicologia Financeira"}/>
+								</ListItemButton>
+							</ListItem>
+							<Divider/>
+							<ListItem key={"planejamentos"} >
+								<ListItemButton onClick={() => handleNavigate("/tecnologia-financeira")}>
+									<ListItemIcon>
+										<AssessmentOutlined/>
+									</ListItemIcon>
+									<ListItemText primary={"Tecnologia Financeira"}/>
 								</ListItemButton>
 							</ListItem>
 							<Divider/>
