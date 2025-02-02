@@ -41,4 +41,13 @@
 		display: flex !important;
 		justify-content: space-between !important;
 	}
+
+	.MuiTypography-root {
+		display: flex;
+		justify-content: center;
+	
+		@media screen and (min-width: 768px) {
+			font-size: 3vh !important;
+		}
+	}
 }

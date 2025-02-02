@@ -18,7 +18,7 @@ const Dica: FC<IDicasProps> = (props: IDicasProps) => {
 						props.setOpen(false);
 					}}
 					>
-					<CloseIcon fontSize="inherit" />
+						<CloseIcon fontSize="inherit" />
 					</IconButton>
 				}
 				sx={{ mb: 2 }}

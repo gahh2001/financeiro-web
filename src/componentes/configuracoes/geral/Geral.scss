@@ -3,6 +3,12 @@
 	width: 90%;
 	height: 65vh;
 
+	.botoes {
+		display: flex;
+		flex-direction: column;
+		gap: 1.5vh;
+	}
+
 	button {
 		width: 100%;
 		font-size: 2vh;
