@@ -1,17 +1,15 @@
-import { ModeEdit } from "@mui/icons-material";
-import CheckIcon from '@mui/icons-material/Check';
-import { Box, LinearProgress, TextField } from "@mui/material";
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, LinearProgress, TextField } from "@mui/material";
 import { useAtom } from "jotai";
 import { FC, Fragment, useEffect, useState } from "react";
-import { googleIdAtom, saldo } from "../../../../atoms/atom";
+import { googleIdAtom, modalEditSaldo, saldo } from "../../../../atoms/atom";
 import back from "../../../../http";
-import { IModalCategoriaProps } from "../../../../interfaces/IModalCategoriaProps";
 import { ContaService } from "../../../../services/ContaService";
 import "./ModalZerar.scss";
 
-const ModalZerar: FC<Partial<IModalCategoriaProps>> = (props: Partial<IModalCategoriaProps>) => {
+const ModalZerar: FC = () => {
 	const [loading, setLoading] = useState(false);
 	const [success, setSuccess] = useState(false);
+	const [open, setOpen] = useAtom(modalEditSaldo);
 	const contaService = new ContaService(back);
 	const [googleId] = useAtom(googleIdAtom);
 	const [saldoAtual, setSaldoAtual] = useAtom(saldo);
@@ -38,16 +36,18 @@ const ModalZerar: FC<Partial<IModalCategoriaProps>> = (props: Partial<IModalCate
 			}
 		}
 		atualizarSaldo();
-	}, [props.closeModal]);
+	}, [open]);
 
 	return (
 		<Fragment>
-			{ props.isOpen && ( 
-				<div className="modal-overlay-zerar">
+			<Dialog
+				open={open}
+				onClose={() => setOpen(false)}
+				id='modal-saldo'
+			>
+				<DialogTitle>Editar saldo</DialogTitle>
+				<DialogContent>
 					<div className="modal-zerar">
-						<div className="titulo-zerar">
-							Editar saldo
-						</div>
 						<div className="linha">
 							Se você continuar, o seu saldo será editado, sem afetar nenhuma movimentação.
 						</div>
@@ -65,31 +65,27 @@ const ModalZerar: FC<Partial<IModalCategoriaProps>> = (props: Partial<IModalCate
 								label= "Novo saldo"
 							/>
 						</div>
-						<div className="linha">
-							<button onClick={props.closeModal}>
-								{success ? "Fechar" : "Cancelar"}
-							</button>
-							<button
-								onClick={() => editarSaldo()}
-								disabled={success}
-							>
-								{success
-									? <CheckIcon sx={{color: "green"}}/>
-									: <ModeEdit/>
-								}
-								{success ? "Pronto!" : "Editar"}
-							</button>
-						</div>
-						<div className='progress'>
-							{loading && (
-								<Box sx={{ width: '100%' }}>
-									<LinearProgress />
-								</Box>
-							)}
-						</div>
 					</div>
-				</div>
-			)}
+				</DialogContent>
+				<DialogActions className="modal-editar-saldo">
+					<Button onClick={() => setOpen(false)}>
+						{success ? "Fechar" : "Cancelar"}
+					</Button>
+					<Button
+						onClick={() => editarSaldo()}
+						disabled={success}
+					>
+						{success ? "Pronto!" : "Editar"}
+					</Button>
+					<div className='progress'>
+						{loading && (
+							<Box sx={{ width: '100%' }}>
+								<LinearProgress />
+							</Box>
+						)}
+					</div>
+				</DialogActions>
+			</Dialog>
 		</Fragment>
 	)
 
