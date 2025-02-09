@@ -13,7 +13,7 @@
 	@media screen and (min-width: 768px) {
 		gap: 2vh;
 	}
-	
+
 	@media screen and (max-width: 768px) {
 		gap: 1vh;
 	}
@@ -109,12 +109,12 @@
 		.listagem::-webkit-scrollbar {
 			width: 3px;
 		}
-	
+
 		.listagem::-webkit-scrollbar-thumb {
 			background: #b36931;
 			border-radius: 3px;
 		}
-	
+
 		.listagem::-webkit-scrollbar-thumb:hover {
 			background: #555;
 		}

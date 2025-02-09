@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { ICategoriasInformacoesGeraisProps } from '../../interfaces/ICategoriasInformacoesGeraisProps';
 
 const CategoriasDesempenho: FC<ICategoriasInformacoesGeraisProps> = (props: ICategoriasInformacoesGeraisProps) => {
-	
+
 	return (
 		<div className='card-categorias-informacoes-gerais'>
 			<div className="titulo">

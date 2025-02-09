@@ -11,7 +11,7 @@
 		height: 30vh;
 		width: 60%;
 	}
-	
+
 	@media screen and (max-width: 768px) {
 		width: 100%;
 		flex-direction: column;
@@ -172,7 +172,7 @@
 						&.inativo {
 							text-decoration: line-through;
 						}
-	
+
 						svg {
 							@media screen and (min-width: 768px) {
 								font-size: 3vh;

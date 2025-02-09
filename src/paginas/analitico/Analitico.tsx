@@ -94,7 +94,7 @@ const Analitico: FC = () => {
 		};
 		atualizaVisaoGeral();
 	}, [ano, mes, tipoMovimentacaoTop, fullYear]);
-	
+
 	useEffect(() => {
 		const atualizaComparacoes = async () => {
 			try {

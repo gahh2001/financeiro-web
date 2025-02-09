@@ -21,11 +21,11 @@
 	border: 1px solid $sombras;
 	box-shadow: 5px 4px 7px 1px $sombras;
 	height: 380px;
-	
+
 	@media screen and (min-width: 768px) {
 		width: 70vh;
 	}
-	
+
 	@media screen and (max-width: 768px) {
 		width: 45vh;
 	}

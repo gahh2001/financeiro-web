@@ -9,15 +9,15 @@
 		flex-direction: column;
 		justify-content: center;
 		gap: 3vh;
-	
+
 		@media screen and (min-max: 768px) {
 			height: 300px;
 		}
-	
+
 		@media screen and (min-width: 768px) {
 			height: 350;
 		}
-	
+
 	}
 	.linha{
 		font-size: 2.5vh;
@@ -26,7 +26,7 @@
 		text-align: center;
 		gap: 4vh;
 	}
-	
+
 	button {
 		width: 50%;
 		font-size: 1.8vh;
@@ -36,7 +36,7 @@
 			font-size: 4vh;
 		}
 	}
-	
+
 	.modal-editar-saldo {
 		display: flex !important;
 		justify-content: space-between !important;
@@ -45,7 +45,7 @@
 	.MuiTypography-root {
 		display: flex;
 		justify-content: center;
-	
+
 		@media screen and (min-width: 768px) {
 			font-size: 3vh !important;
 		}

@@ -21,7 +21,7 @@ const Login: FC = () => {
 			navigate("/home");
 		}
 	}, [accessTokenAtom]);
-	
+
 	return (
 		<Fragment>
 			<div className='login'>

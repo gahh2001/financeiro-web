@@ -6,12 +6,12 @@
 		width: 55vh;
 		gap: 3vh;
 	}
-	
+
 	@media screen and (max-width: 768px) {
 		height: auto;
 		gap: 1vh;
 	}
-	
+
 	padding: 1rem;
 	justify-content: center;
 	align-items: center;
@@ -52,7 +52,7 @@
 	.MuiTypography-root {
 		display: flex;
 		justify-content: center;
-	
+
 		@media screen and (min-width: 768px) {
 			font-size: 1.8vh !important;
 		}

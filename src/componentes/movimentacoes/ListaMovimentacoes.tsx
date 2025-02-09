@@ -48,7 +48,7 @@ const ListaMovimentacoes: FC<ListaMovimentacaoProps> = (props: ListaMovimentacao
 			));
 		}
 	},[props.tipo]);
-	
+
 	useEffect(()=> {
 		let sortedMovimentacoes = [...movimentacoes];
 		switch (campoOrdem) {
