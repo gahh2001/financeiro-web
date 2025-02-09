@@ -211,7 +211,7 @@ const Analitico: FC = () => {
 	);
 
 	function obtemDataInicial() {
-		if (fullYear &&  ano) {
+		if (fullYear && ano) {
 			const primeiroDiaAno = ano.toDate();
 			primeiroDiaAno.setDate(1);
 			primeiroDiaAno.setMonth(0);

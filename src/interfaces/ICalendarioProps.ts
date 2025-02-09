@@ -1,6 +1,6 @@
 import { Movimentacao } from "../types/Movimentacao";
 
-export type  ICalendarioProps = {
+export type ICalendarioProps = {
 	movimentacoesMes: Movimentacao[];
 	isOpenModalAdd: boolean;
 	isOpenModalRemove: boolean;

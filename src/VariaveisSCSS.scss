@@ -9,10 +9,10 @@ $sombra-cards: 1px 1px 5px 3px $sombras;
 
 @mixin responsivo-width {
 	@media screen and (min-width: 768px) {
-	  width: 60%;
+	 width: 60%;
 	}
-  
+ 
 	@media screen and (max-width: 768px) {
-	  width: 100%;
+	 width: 100%;
 	}
-  }
+ }

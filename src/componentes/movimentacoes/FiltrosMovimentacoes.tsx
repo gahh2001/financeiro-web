@@ -30,7 +30,7 @@ const FiltrosMovimentacoes: FC<FiltrosMovimentacoesProps> = (props: FiltrosMovim
 
 	function getStyles(name: string, personName: readonly string[], theme: Theme) {
 		return {
-		  fontWeight: personName.includes(name)
+		 fontWeight: personName.includes(name)
 			? theme.typography.fontWeightMedium
 			: theme.typography.fontWeightRegular,
 		};
@@ -92,7 +92,7 @@ const FiltrosMovimentacoes: FC<FiltrosMovimentacoesProps> = (props: FiltrosMovim
 							label="De"
 							value={props.dataInicio}
 							defaultValue={props.dataInicio}
-							onChange={(newValue) =>  props.setDataInicio(newValue)}
+							onChange={(newValue) => props.setDataInicio(newValue)}
 						/>
 					</DemoContainer>
 				</LocalizationProvider>
@@ -105,7 +105,7 @@ const FiltrosMovimentacoes: FC<FiltrosMovimentacoesProps> = (props: FiltrosMovim
 							label="Até"
 							value={props.dataFim}
 							defaultValue={props.dataFim}
-							onChange={(newValue) =>  props.setDataFim(newValue)}
+							onChange={(newValue) => props.setDataFim(newValue)}
 						/>
 					</DemoContainer>
 				</LocalizationProvider>

@@ -24,7 +24,7 @@ import { Movimentacao } from '../../../types/Movimentacao';
 import Dica from '../../dicas/Dica';
 import "./ModalAddMovimentacao.scss";
 
-const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimentacao)  => {
+const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimentacao) => {
 	const [accessTokenAtom] = useAtom(accessToken);
 	const categoriaMovimentacaoService = new CategoriaMovimentacaoService(useBack());
 	const movimentacaoService = new MovimentacaoService(useBack());
