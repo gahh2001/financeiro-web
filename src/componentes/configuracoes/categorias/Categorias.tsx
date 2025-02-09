@@ -31,7 +31,7 @@ const Categorias: FC<ICategoriasProps> = (props: ICategoriasProps) => {
 	};
 
 	useEffect(() => {
-		if ( !isOpenModalAdd ) {
+		if (!isOpenModalAdd) {
 			props.handleAddCategoria();
 		}
 	}, [isOpenModalAdd]);
@@ -71,7 +71,7 @@ const Categorias: FC<ICategoriasProps> = (props: ICategoriasProps) => {
 
 	function montaCategoriasMovimentacao() {
 		return props.categorias && props.categorias.length > 0
-			? ( <div className="list">
+			? (<div className="list">
 				<div className="headers">
 					<p>Tipo</p>
 					<p>Nome</p>

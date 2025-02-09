@@ -78,7 +78,7 @@ const ListaMovimentacoes: FC<ListaMovimentacaoProps> = (props: ListaMovimentacao
 	useEffect(() => {
 		if (!props.categorias.includes("Todas")) {
 			setMovimentacoes(movimentacoesIniciais.filter(movimentacao =>
-				props.categorias.includes( movimentacao.nomeCategoriaMovimentacao || "")
+				props.categorias.includes(movimentacao.nomeCategoriaMovimentacao || "")
 			));
 			return;
 		}

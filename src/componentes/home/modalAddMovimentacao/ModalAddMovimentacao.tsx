@@ -48,7 +48,7 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 
 	useEffect(() => {
 		const buscaCategorias = async () => {
-			if ( props.isOpen ) {
+			if (props.isOpen) {
 				try {
 					if (accessTokenAtom !== "") {
 						const categorias = await categoriaMovimentacaoService

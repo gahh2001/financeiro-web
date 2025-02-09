@@ -306,7 +306,7 @@ const ModalPlanejamento: FC<IModalPlanejamento> = (props: IModalPlanejamento) =>
 									<MenuItem
 										key={"TODOSRENDIMENTOS"}
 										value= {-1}
-										style={getStyles( -1, props.categorias, theme)}
+										style={getStyles(-1, props.categorias, theme)}
 									>
 										<Checkbox checked={props.categorias.includes(-1)} />
 										Todos os rendimentos
@@ -314,7 +314,7 @@ const ModalPlanejamento: FC<IModalPlanejamento> = (props: IModalPlanejamento) =>
 									<MenuItem
 										key={"TODOSGASTOS"}
 										value={-2}
-										style={getStyles( -2, props.categorias, theme)}
+										style={getStyles(-2, props.categorias, theme)}
 									>
 										<Checkbox checked={props.categorias.includes(-2)} />
 										Todos os gastos
@@ -362,7 +362,7 @@ const ModalPlanejamento: FC<IModalPlanejamento> = (props: IModalPlanejamento) =>
 			<MenuItem
 				key={index}
 				value={categ.id || 0}
-				style={getStyles( categ.id || 0, props.categorias, theme)}
+				style={getStyles(categ.id || 0, props.categorias, theme)}
 			>
 				<Checkbox checked={props.categorias.includes(categ.id || 0)} />
 				{categ.nomeCategoria}

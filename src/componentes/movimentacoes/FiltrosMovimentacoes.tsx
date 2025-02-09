@@ -46,7 +46,7 @@ const FiltrosMovimentacoes: FC<FiltrosMovimentacoesProps> = (props: FiltrosMovim
 		let updatedCategorias = newValue.includes("Todas") && newValue.length > 1 
 			? newValue.filter((categoria) => categoria !== "Todas") 
 			: newValue;
-		if ( !newValue.length ) {
+		if (!newValue.length) {
 			updatedCategorias = ["Todas"];
 		}
 		props.setCategorias(updatedCategorias);
@@ -179,7 +179,7 @@ const FiltrosMovimentacoes: FC<FiltrosMovimentacoesProps> = (props: FiltrosMovim
 			<MenuItem
 				key={index}
 				value={categ.nomeCategoria.toString()}
-				style={getStyles( categ.nomeCategoria, props.categorias, theme)}
+				style={getStyles(categ.nomeCategoria, props.categorias, theme)}
 			>
 				<Checkbox checked={props.categorias.includes(categ.nomeCategoria)} />
 				{categ.nomeCategoria}

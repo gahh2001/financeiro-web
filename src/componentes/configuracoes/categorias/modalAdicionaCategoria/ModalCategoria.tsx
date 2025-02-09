@@ -53,7 +53,7 @@ const ModalCategoria: FC<IModalCategoriaProps> = (props: IModalCategoriaProps) =
 
 	return (
 		<Fragment>
-			{ props.isOpen && ( 
+			{ props.isOpen && (
 				<div className="modal-overlay">
 					<div className="modal">
 						<div className="titulo-add-categoria">
