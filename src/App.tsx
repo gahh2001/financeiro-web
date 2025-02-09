@@ -1,7 +1,7 @@
 import { ThemeProvider, createTheme } from '@mui/material';
 import { useAtom } from 'jotai';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { googleIdAtom } from './atoms/atom';
+import { accessToken } from './atoms/atom';
 import AlertPolitica from './componentes/alertPolitica/AlertPolitica';
 import About from './paginas/about/About';
 import Analitico from './paginas/analitico/Analitico';
@@ -13,14 +13,14 @@ import Planejamentos from './paginas/planejamento/Planejamentos';
 import Politica from './paginas/politica/Politica';
 
 function App() {
-	const [, setGoogleId] = useAtom(googleIdAtom);
+	const [, setAccessToken] = useAtom(accessToken);
 	const darkTheme = createTheme({
 		palette: {
 			mode: 'dark',
 		},
 	});
 
-	setGoogleId(localStorage.getItem('googleId'));
+	setAccessToken(localStorage.getItem('accessToken'));
 
 	return (
 		<ThemeProvider theme={darkTheme}>

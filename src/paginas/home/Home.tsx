@@ -1,7 +1,7 @@
 import { useAtom } from "jotai";
 import { FC, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { googleIdAtom } from "../../atoms/atom";
+import { accessToken } from "../../atoms/atom";
 import AppBar from "../../componentes/AppBar/AppBar";
 import Dica from '../../componentes/dicas/Dica';
 import Footer from "../../componentes/footer/Footer";
@@ -14,7 +14,6 @@ import useModalAddMovimentacao from "../../componentes/home/modalAddMovimentacao
 import ModalApagaMovimentacao from "../../componentes/home/modalRemoveMovimentacao/ModalApagaMovimentacao";
 import useModalRemoveMovimentacao from "../../componentes/home/modalRemoveMovimentacao/UseModalRemoveMovimentacao";
 import { TipoMovimentacaoEnum } from '../../enums/TipoMovimentacaoEnum';
-import { IGoogleIdProps } from "../../interfaces/IGoogleIdProps";
 import { Movimentacao } from "../../types/Movimentacao";
 import './Home.scss';
 
@@ -35,7 +34,7 @@ const Home: FC = () => {
 	const [visivel, setVisivel] = useState(false);
 	const isMounted = useRef(true);
 	const navigate = useNavigate();
-	const [googleId] = useAtom(googleIdAtom);
+	const [accessTokenAtom] = useAtom(accessToken);
 	const [openDicaInformacoesdia, setOpenDicaInformacoesdia] = useState(localStorage.getItem('dicaDia') !== "ok");
 	const [openDicaCalendario, setOpenDicaCalendario] = useState(localStorage.getItem('dicaCalendario') !== "ok");
 	const [openDicaMes, setOpenDicaMes] = useState(localStorage.getItem('dicaMes') !== "ok");
@@ -47,10 +46,10 @@ const Home: FC = () => {
 	}, []);
 
 	useEffect(() => {
-		if (!googleId && isMounted.current) {
+		if (!accessTokenAtom && isMounted.current) {
 			navigate("/login")
 		}
-	}, [googleId]);
+	}, [accessTokenAtom]);
 
 	const propsMovimentcoesMes = (movimentacoes: Movimentacao[]) => {
 		setMovimentacoesDoMes(movimentacoes)

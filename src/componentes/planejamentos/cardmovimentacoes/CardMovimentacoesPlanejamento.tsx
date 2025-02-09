@@ -3,7 +3,7 @@ import { IconButton, Tooltip } from "@mui/material";
 import { useAtom } from "jotai";
 import { FC, Fragment, useEffect, useState } from "react";
 import { planejamento } from "../../../atoms/atom";
-import back from "../../../http";
+import { useBack } from "../../../http";
 import '../../../paginas/movimentacoes/Movimentacoes.scss';
 import { PlanejamentoService } from "../../../services/PlanejamentoService";
 import { Movimentacao } from "../../../types/Movimentacao";
@@ -11,7 +11,7 @@ import ConverteIcone from "../../configuracoes/categorias/ConverteIcones";
 import DialogDescricaoMovimentacao from "../../home/informacoesDoDiaCard/dialogDescricaoMovimentacao/DialogDescricaoMovimentacao";
 
 const CardMovimentacoesPlanejamento: FC = () => {
-	const service = new PlanejamentoService(back);
+	const service = new PlanejamentoService(useBack());
 	const [selecionado] = useAtom(planejamento);
 	const [movimentacoes, setMovimentacoes] = useState<Movimentacao[]>([]);
 	const [isOpenDialogDescricao, setIsOpenDialogDescricao] = useState(false);

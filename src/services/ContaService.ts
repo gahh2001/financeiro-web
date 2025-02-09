@@ -4,12 +4,9 @@ import { Conta } from "../types/Conta";
 export class ContaService {
 	constructor(private readonly axiosInstance: AxiosInstance){}
 
-	async listaContaPorGoogleId(googleId: string | null) {
-		const params = {
-			googleId: googleId,
-		}
+	async obtemConta() {
 		try {
-			const response = await this.axiosInstance.get<Conta>('/conta', {params});
+			const response = await this.axiosInstance.get<Conta>('/conta');
 			return { ...response };
 		} catch (error) {
 			console.log(`Não foi possível obter a conta`, error);
@@ -18,16 +15,13 @@ export class ContaService {
 		
 	}
 
-	async editarSaldo(googleId: string | null | undefined, valor: string) {
-		const params = {
-			googleId: googleId,
-		}
+	async editarSaldo(valor: string) {
 		const body = {
 			saldoConta: valor
 		}
 		try {
 			const response = await this.axiosInstance
-				.post('/conta/editar-saldo', body, {params});
+				.post('/conta/editar-saldo', body);
 			return { ...response };
 		} catch (error) {
 			console.log(`Não foi possível zerar o saldo`, error);

@@ -8,7 +8,7 @@ export class CategoriaMovimentacaoService {
 	constructor(private readonly axiosInstance: AxiosInstance) {}
 	urlDefault = "/categoria-movimentacao";
 
-	async adicionaCategoria(googleId : string | null, categoria: Partial<CategoriaMovimentacao>) {
+	async adicionaCategoria(categoria: Partial<CategoriaMovimentacao>) {
 		try {
 			const response = await this.axiosInstance
 				.post(this.urlDefault, categoria)
@@ -19,7 +19,7 @@ export class CategoriaMovimentacaoService {
 		}
 	}
 
-	async atualizaCategoria(googleId : string | null, categoria: Partial<CategoriaMovimentacao>) {
+	async atualizaCategoria(categoria: Partial<CategoriaMovimentacao>) {
 		try {
 			const response = await this.axiosInstance
 				.patch(this.urlDefault, categoria)
@@ -30,13 +30,10 @@ export class CategoriaMovimentacaoService {
 		}
 	}
 
-	async obtemCategoriasMovimentacaoPorConta(googleId: string | null) {
-		const params = {
-			googleId: googleId,
-		};
+	async obtemCategoriasMovimentacaoPorConta() {
 		try {
 			const response = await this.axiosInstance
-				.get<CategoriaMovimentacao[]>(this.urlDefault, { params });
+				.get<CategoriaMovimentacao[]>(this.urlDefault);
 			return { ...response };
 		} catch (error) {
 			console.log(`Não foi possível obter as categorias de movimentações`, error);
@@ -44,14 +41,11 @@ export class CategoriaMovimentacaoService {
 		}
 	}
 
-	async obtemCategoriaMovimentacaoPorId(googleId : string | null, id: number) {
+	async obtemCategoriaMovimentacaoPorId(id: number) {
 		const url = `${this.urlDefault}/${id}`;
-		const params = {
-			googleId: googleId,
-		}
 		try {
 			const response = await this.axiosInstance
-				.get<CategoriaMovimentacao>(url, {params})
+				.get<CategoriaMovimentacao>(url)
 			return {...response.data}
 		} catch (error) {
 			console.log(`Não foi possível obter a categoria de movimentação`, error);
@@ -59,10 +53,8 @@ export class CategoriaMovimentacaoService {
 		}
 	}
 
-	async obtemCategoriasPorTipoMovimentacaoEConta(googleId : string | null,
-			tipoMovimentacao: TipoMovimentacaoEnum | null) {
+	async obtemCategoriasPorTipoMovimentacaoEConta(tipoMovimentacao: TipoMovimentacaoEnum | null) {
 		const params = {
-			googleId: googleId,
 			tipoMovimentacao: tipoMovimentacao?.toString(),
 		};
 		try {
@@ -75,10 +67,9 @@ export class CategoriaMovimentacaoService {
 		}
 	}
 
-	async obtemSomaCategoriasEValores(googleId : string | null, dataInicio: number,
+	async obtemSomaCategoriasEValores(dataInicio: number,
 			dataFim: number, tipoMovimentacao: string) {
 		const params = {
-			googleId: googleId,
 			dataInicio: dataInicio,
 			dataFim: dataFim,
 			tipoMovimentacao: tipoMovimentacao
@@ -93,10 +84,9 @@ export class CategoriaMovimentacaoService {
 		}
 	}
 
-	async obtemSomaCategoriasEValoresPorMeses(googleId : string | null, dataInicio: number,
+	async obtemSomaCategoriasEValoresPorMeses(dataInicio: number,
 			dataFim: number, tipoMovimentacao: string) {
 		const params = {
-			googleId: googleId,
 			dataInicio: dataInicio,
 			dataFim: dataFim,
 			tipoMovimentacao: tipoMovimentacao
@@ -111,9 +101,8 @@ export class CategoriaMovimentacaoService {
 		}
 	}
 
-	async obtemSomaCategoriasEvolucao(googleId : string | null, dataInicio: number, dataFim: number) {
+	async obtemSomaCategoriasEvolucao(dataInicio: number, dataFim: number) {
 		const params = {
-			googleId: googleId,
 			dataInicio: dataInicio,
 			dataFim: dataFim,
 		};
@@ -127,9 +116,8 @@ export class CategoriaMovimentacaoService {
 		}
 	}
 
-	async obtemInformacoesgerais(googleId : string | null, dataInicio: number, dataFim: number) {
+	async obtemInformacoesgerais(dataInicio: number, dataFim: number) {
 		const params = {
-			googleId: googleId,
 			dataInicio: dataInicio,
 			dataFim: dataFim,
 		};

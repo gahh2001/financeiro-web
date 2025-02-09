@@ -2,8 +2,8 @@ import { Divider } from '@mui/material';
 import { BarChart } from '@mui/x-charts/BarChart';
 import { useAtom } from 'jotai';
 import { FC, useEffect, useState } from 'react';
-import { googleIdAtom } from '../../../../atoms/atom';
-import back from '../../../../http';
+import { accessToken } from '../../../../atoms/atom';
+import { useBack } from '../../../../http';
 import { InformacoesDoMesProps } from '../../../../interfaces/IInformacoesDoMesProps';
 import { CategoriaMovimentacaoService } from '../../../../services/CategoriaMovimentacaoService';
 import { SomaCategoriasPorMes } from '../../../../types/SomaCategoriasPorMes';
@@ -14,22 +14,22 @@ const GraficosMensais: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProps
 	const [somaCategoriasPositivas, setSomaCategoriasPositivas] = useState<number[]>([]);
 	const [nomeCategoriasNegativas, setNomeCategoriasNegativas] = useState<string[]>([]);
 	const [somaCategoriasNegativas, setSomaCategoriasNegativas] = useState<number[]>([]);
-	const [googleId] = useAtom(googleIdAtom);
+	const categoriaMovimentacaoService = new CategoriaMovimentacaoService(useBack());
+	const [accessTokenAtom] = useAtom(accessToken);
 
 	useEffect(() => {
 		const buscaSomaCategorias = async () => {
 			try {
-				if (googleId !== "") {
-					const categoriaMovimentacaoService = new CategoriaMovimentacaoService(back);
+				if (accessTokenAtom !== "") {
 					const dataInicio = new Date(props.selectedDate);
 					dataInicio.setDate(1);
 					const dataFim = new Date(props.selectedDate);
 					dataFim.setMonth(dataFim.getMonth() + 1);
 					dataFim.setDate(0);
 					const somaPositivas = await categoriaMovimentacaoService
-						.obtemSomaCategoriasEValores(googleId, dataInicio.getTime(), dataFim.getTime(), "POSITIVO");
+						.obtemSomaCategoriasEValores(dataInicio.getTime(), dataFim.getTime(), "POSITIVO");
 					const somaNegativas = await categoriaMovimentacaoService
-						.obtemSomaCategoriasEValores(googleId, dataInicio.getTime(), dataFim.getTime(), "NEGATIVO");
+						.obtemSomaCategoriasEValores(dataInicio.getTime(), dataFim.getTime(), "NEGATIVO");
 					if (somaPositivas?.data) {
 						extractSomaCategoriasPositivas(somaPositivas.data)
 					}

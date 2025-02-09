@@ -1,17 +1,16 @@
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, LinearProgress, TextField } from "@mui/material";
 import { useAtom } from "jotai";
 import { FC, Fragment, useEffect, useState } from "react";
-import { googleIdAtom, modalEditSaldo, saldo } from "../../../../atoms/atom";
-import back from "../../../../http";
+import { modalEditSaldo, saldo } from "../../../../atoms/atom";
 import { ContaService } from "../../../../services/ContaService";
 import "./ModalZerar.scss";
+import { useBack } from "../../../../http";
 
 const ModalZerar: FC = () => {
 	const [loading, setLoading] = useState(false);
 	const [success, setSuccess] = useState(false);
 	const [open, setOpen] = useAtom(modalEditSaldo);
-	const contaService = new ContaService(back);
-	const [googleId] = useAtom(googleIdAtom);
+	const contaService = new ContaService(useBack());
 	const [saldoAtual, setSaldoAtual] = useAtom(saldo);
 	const [emptyValor, setEmptyValor] = useState(false);
 	const [valor, setValor] = useState("");
@@ -29,7 +28,7 @@ const ModalZerar: FC = () => {
 		setValor("");
 		const atualizarSaldo = async () => {
 			if (saldoAtual === 0) {
-				const response = await contaService.listaContaPorGoogleId(googleId);
+				const response = await contaService.obtemConta();
 				if (response?.data) {
 					setSaldoAtual(response.data.saldoConta);
 				}
@@ -97,7 +96,7 @@ const ModalZerar: FC = () => {
 		}
 		setLoading(true);
 		setSuccess(false);
-		await contaService.editarSaldo(googleId, valor);
+		await contaService.editarSaldo(valor);
 		setLoading(false);
 		setSuccess(true);
 		setSaldoAtual(Number(valor));

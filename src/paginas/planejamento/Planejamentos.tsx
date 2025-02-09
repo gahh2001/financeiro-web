@@ -2,20 +2,19 @@ import { Dayjs } from "dayjs";
 import { useAtom } from "jotai";
 import { FC, Fragment, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { googleIdAtom } from "../../atoms/atom";
+import { accessToken } from "../../atoms/atom";
 import AppBar from "../../componentes/AppBar/AppBar";
 import Dica from "../../componentes/dicas/Dica";
 import Footer from "../../componentes/footer/Footer";
 import CardDesempenho from "../../componentes/planejamentos/cardDesempenho/CardDesempenho";
+import CardMovimentacoesPlanejamento from "../../componentes/planejamentos/cardmovimentacoes/CardMovimentacoesPlanejamento";
 import CardProgresso from "../../componentes/planejamentos/cardProgresso/CardProgresso";
 import ListagemPlanejamentos from "../../componentes/planejamentos/listagemPlanejamentos/Listagem";
 import ModalPlanejamento from "../../componentes/planejamentos/modalPlanejamento/ModalPlanejamento";
-import { IGoogleIdProps } from "../../interfaces/IGoogleIdProps";
 import './Planejamentos.scss';
-import CardMovimentacoesPlanejamento from "../../componentes/planejamentos/cardmovimentacoes/CardMovimentacoesPlanejamento";
 
 const Planejamentos: FC = () => {
-	const [googleId] = useAtom(googleIdAtom);	
+	const [accessTokenAtom] = useAtom(accessToken);	
 	const isMounted = useRef(true);
 	const navigate = useNavigate();
 	const [tipoPlanejamento, setTipoPlanejamento] = useState<string>('');
@@ -38,10 +37,10 @@ const Planejamentos: FC = () => {
 		useState(localStorage.getItem('dicaMoviemtacaoPlano') !== "ok");
 
 	useEffect(() => {
-		if (!googleId && isMounted.current) {
+		if (!accessTokenAtom && isMounted.current) {
 			navigate("/login")
 		}
-	}, [googleId]);
+	}, [accessTokenAtom]);
 
 	return (
 		<Fragment>

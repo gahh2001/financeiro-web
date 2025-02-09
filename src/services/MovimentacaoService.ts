@@ -5,9 +5,8 @@ export class MovimentacaoService {
 	constructor(private readonly axiosInstance: AxiosInstance){}
 	urlDefault = "/movimentacao";
 
-	async getMovimentacao(googleId: string | null, dataInicio: number, dataFim: number) {
+	async getMovimentacao(dataInicio: number, dataFim: number) {
 		const params = {
-			googleId: googleId,
 			dataInicio: dataInicio,
 			dataFim: dataFim
 		}
@@ -21,10 +20,9 @@ export class MovimentacaoService {
 		}
 	}
 
-	async obtemPorParametros(googleId: string | null | undefined, dataInicio: number | undefined,
+	async obtemPorParametros(dataInicio: number | undefined,
 			dataFim: number | undefined, tipo: string | undefined, categorias: string[] | undefined) {
 		const params = {
-			googleId: googleId,
 			dataInicio: dataInicio,
 			dataFim: dataFim,
 			tipoMovimentacao: tipo,
@@ -40,14 +38,11 @@ export class MovimentacaoService {
 		}
 	}
 
-	async apagaMovimentacao(googleId: string | null, idMovimentacao: number) {
+	async apagaMovimentacao(idMovimentacao: number) {
 		const url = `${this.urlDefault}/${idMovimentacao}`;
-		const params = {
-			googleId: googleId,
-		}
 		try {
 			const response = await this.axiosInstance
-				.delete(url, {params});
+				.delete(url);
 			return response;
 		} catch (error) {
 			console.log(`Não foi possível obter as movimentações`, error);
@@ -55,13 +50,10 @@ export class MovimentacaoService {
 		}
 	}
 
-	async adicionaMovimentacao(googleId : string | null, movimentacao: Partial<Movimentacao>) {
-		const params = {
-			googleId: googleId,
-		}
+	async adicionaMovimentacao(movimentacao: Partial<Movimentacao>) {
 		try {
 			const response = await this.axiosInstance
-				.post(this.urlDefault, movimentacao, {params})
+				.post(this.urlDefault, movimentacao)
 			return {...response}
 		} catch (error) {
 			console.log("Erro ao salvar movimentação")
@@ -69,13 +61,10 @@ export class MovimentacaoService {
 		}
 	}
 
-	async atualizaMovimentacao(googleId : string | null, movimentacao: Partial<Movimentacao>) {
-		const params = {
-			googleId: googleId,
-		}
+	async atualizaMovimentacao(movimentacao: Partial<Movimentacao>) {
 		try {
 			const response = await this.axiosInstance
-				.patch(this.urlDefault, movimentacao, {params})
+				.patch(this.urlDefault, movimentacao)
 			return {...response}
 		} catch (error) {
 			console.log("Erro ao atualizar movimentação")

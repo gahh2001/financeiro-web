@@ -15,9 +15,9 @@ import { IconButton } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
 import { useAtom } from 'jotai';
 import { FC, Fragment, useEffect, useState } from 'react';
-import { googleIdAtom, saldo } from '../../../atoms/atom';
+import { accessToken, saldo } from '../../../atoms/atom';
 import { TipoMovimentacaoEnum } from '../../../enums/TipoMovimentacaoEnum';
-import back from '../../../http';
+import { useBack } from '../../../http';
 import { IInformacoesDoDiaProps } from '../../../interfaces/IInformacoesDoDiaProps';
 import { ContaService } from '../../../services/ContaService';
 import { Movimentacao } from '../../../types/Movimentacao';
@@ -25,9 +25,10 @@ import ConverteIcone from '../../configuracoes/categorias/ConverteIcones';
 import './InformacoesDoDia.scss';
 
 const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaProps) => {
-	const [googleId] = useAtom(googleIdAtom);
+	const [accessTokenAtom] = useAtom(accessToken);
 	const [movimentacoesDoDia, setMovimentacoesDoDia] = useState<Movimentacao[]>([]);
 	const [saldoAtual, setSaldo] = useAtom(saldo);
+	const contaService = new ContaService(useBack());
 
 	useEffect(() => {
 		const buscaMovimentacoesDoDia = async () => {
@@ -47,9 +48,8 @@ const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaPr
 	useEffect(() => {
 		const atualizaSaldoConta = async () => {
 			try {
-				if (googleId !== "") {
-					const contaService = new ContaService(back);
-					const response = await contaService.listaContaPorGoogleId(googleId);
+				if (accessTokenAtom !== "") {
+					const response = await contaService.obtemConta();
 					if (response?.data) {
 						setSaldo(response.data.saldoConta);
 					}

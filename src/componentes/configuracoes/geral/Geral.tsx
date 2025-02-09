@@ -2,12 +2,12 @@ import { Button, Divider } from "@mui/material";
 import { useAtom } from "jotai";
 import { FC, Fragment } from "react";
 import { modalEditSaldo, modalTutoriais } from "../../../atoms/atom";
-import { IGoogleIdProps } from "../../../interfaces/IGoogleIdProps";
+import { ILoginProps } from "../../../interfaces/ILoginProps";
 import "./Geral.scss";
-import ModalZerar from "./modalZerar/ModalZerar";
 import ModalTutoriais from "./modalTutoriais/ModalTutoriais";
+import ModalZerar from "./modalZerar/ModalZerar";
 
-const Geral: FC<Partial<IGoogleIdProps>> = (props: Partial<IGoogleIdProps>) => {
+const Geral: FC<Partial<ILoginProps>> = (props: Partial<ILoginProps>) => {
 	const [, setOpenSaldo] = useAtom(modalEditSaldo);
 	const [, setOpenTutoriais] = useAtom(modalTutoriais);
 

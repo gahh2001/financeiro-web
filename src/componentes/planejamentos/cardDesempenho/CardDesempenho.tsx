@@ -5,13 +5,13 @@ import { FC, Fragment, useEffect, useState } from "react";
 import { planejamento } from '../../../atoms/atom';
 import { obtemNumeroEnum } from '../../../enums/TipoComparacaoEnum';
 import { TipoMovimentacaoEnum } from '../../../enums/TipoMovimentacaoEnum';
-import back from '../../../http';
+import { useBack } from '../../../http';
 import { PlanejamentoService } from '../../../services/PlanejamentoService';
 import { Desempenho } from '../../../types/Desempenho';
 import './CardDesempenho.scss';
 
 const CardDesempenho: FC = () => {
-	const planejamentoService = new PlanejamentoService(back);
+	const planejamentoService = new PlanejamentoService(useBack());
 	const [selecionado] = useAtom(planejamento);
 	const [periodo, setPeriodo] = useState<string>("TRESMESES")
 	const [meses, setMeses] = useState<string[]>([]);

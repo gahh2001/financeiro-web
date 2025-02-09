@@ -1,6 +1,5 @@
 export type Movimentacao = {
 	id?: number;
-	googleId: string | null;
 	valor: number;
 	dataMovimentacao: Date;
 	tipoMovimentacao: string;

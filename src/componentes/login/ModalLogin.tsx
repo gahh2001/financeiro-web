@@ -2,16 +2,17 @@ import { Dialog, DialogContent, DialogTitle } from "@mui/material";
 import { useAtom } from "jotai";
 import { FC, Fragment, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { googleIdAtom, modalLogin, pictureAtom } from "../../atoms/atom";
-import back from "../../http";
+import { accessToken, modalLogin, pictureAtom } from "../../atoms/atom";
+import { useBack } from "../../http";
 import { LoginService } from "../../services/LoginService";
 import './ModalLogin.scss';
 
 const ModalLogin: FC = () => {
 	const navigate = useNavigate();
 	const [open, setOpen] = useAtom(modalLogin);
-	const [, setGoogleId] = useAtom(googleIdAtom);
+	const [, setAccessToken] = useAtom(accessToken);
 	const [, setPicture] = useAtom(pictureAtom);
+	const service = new LoginService(useBack());
 
 	useEffect(() => {
 		if (!open) return;
@@ -34,14 +35,13 @@ const ModalLogin: FC = () => {
 	}, [open]);
 
 	async function handleCredentialResponse(response: any) {
-		const service = new LoginService(back);
 		const resposta = await service.autentica(response.credential);
-		if (resposta && resposta.data && resposta.data.credential && resposta.data.picture) {
-			localStorage.setItem('googleId', resposta.data.credential);
-			localStorage.setItem('urlPicture', resposta.data.picture);
-			setGoogleId(resposta.data.credential);
+		if (resposta && resposta.data && resposta.data.accessToken && resposta.data.picture) {
+			setAccessToken(resposta.data.credential);
 			setPicture(resposta.data.picture);
-			navigate("/home");
+			localStorage.setItem('accessToken', resposta.data.accessToken);
+			localStorage.setItem('urlPicture', resposta.data.picture);
+			window.location.reload(); //isso não tá legal. tive que fazer isso pq a home não renderiza a tempo, ou algo do tipo
 		}
 	}
 

@@ -2,20 +2,17 @@ import { DeleteForever } from '@mui/icons-material';
 import CheckIcon from '@mui/icons-material/Check';
 import { LinearProgress } from '@mui/material';
 import Box from '@mui/material/Box';
-import { useAtom } from 'jotai';
 import { FC, useEffect, useState } from "react";
-import { googleIdAtom } from '../../../atoms/atom';
 import { TipoMovimentacaoEnum } from '../../../enums/TipoMovimentacaoEnum';
-import back from '../../../http';
+import { useBack } from '../../../http';
 import { IModalApagar } from '../../../interfaces/IModalApagar';
 import { MovimentacaoService } from '../../../services/MovimentacaoService';
 import "./ModalApagaMovimentacao.scss";
 
 const ModalApagaMovimentacao: FC<IModalApagar> = (props: IModalApagar) => {
-	const movimentacaoService = new MovimentacaoService(back);
+	const movimentacaoService = new MovimentacaoService(useBack());
 	const [success, setSuccess] = useState(false);
 	const [loading, setLoading] = useState(false);
-	const [googleId] = useAtom(googleIdAtom);
 	const tipoMovimentacao = props.tipo === TipoMovimentacaoEnum.POSITIVO ? 'rendimento' : 'despesa';
 	const possuiMovimentacaoEData = props?.movimentacao !== undefined
 		&& props.movimentacao?.dataMovimentacao !== undefined;
@@ -104,7 +101,7 @@ const ModalApagaMovimentacao: FC<IModalApagar> = (props: IModalApagar) => {
 	async function apagaMovimentacao(id: number) {
 		setLoading(true);
 		setSuccess(false);
-		const response = await movimentacaoService.apagaMovimentacao(googleId, id);
+		const response = await movimentacaoService.apagaMovimentacao(id);
 		if (response?.status && response.status === 200) {
 			setLoading(false);
 			setSuccess(true);

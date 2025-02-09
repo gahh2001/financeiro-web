@@ -6,10 +6,10 @@ import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { Dayjs } from "dayjs";
 import { useAtom } from "jotai";
 import { FC, Fragment, useEffect, useState } from "react";
-import { googleIdAtom, modalPlanajamento } from "../../../atoms/atom";
+import { modalPlanajamento } from "../../../atoms/atom";
 import { TipoPlanejamentoEnum } from "../../../enums/TipoPlanejamentoEnum";
 import { TipoRecorrenciaEnum } from "../../../enums/TipoRecorrenciaEnum";
-import back from "../../../http";
+import { useBack } from '../../../http';
 import { IModalPlanejamento } from "../../../interfaces/IModalPlanejamentoProps";
 import { CategoriaMovimentacaoService } from "../../../services/CategoriaMovimentacaoService";
 import { PlanejamentoService } from "../../../services/PlanejamentoService";
@@ -18,8 +18,8 @@ import { Planejamento } from "../../../types/Planejamento";
 import './ModalPlanejamento.scss';
 
 const ModalPlanejamento: FC<IModalPlanejamento> = (props: IModalPlanejamento) => {
-	const categoriaMovimentacaoService = new CategoriaMovimentacaoService(back);
-	const planejamentoService = new PlanejamentoService(back);
+	const categoriaMovimentacaoService = new CategoriaMovimentacaoService(useBack());
+	const planejamentoService = new PlanejamentoService(useBack());
 	const [isOpen, setIsOpenModalPlanejamento] = useAtom(modalPlanajamento);
 	const [emptyNome, setEmptyNome] = useState(props.nome === '');
 	const [emptyTipo, setEmptyTipo] = useState(props.tipo === '');
@@ -31,7 +31,6 @@ const ModalPlanejamento: FC<IModalPlanejamento> = (props: IModalPlanejamento) =>
 	const [success, setSuccess] = useState(false);
 	const camposInvalidos = emptyNome || emptyTipo || emptyRecorrencia || emptyValor || emptyInicio
 		|| emptyFim || emptyCategorias;
-	const [googleId] = useAtom(googleIdAtom);
 	const [categorias, setCategorias] = useState<CategoriaMovimentacao[]>([]);
 	let fraseValor = 'O valor será:';
 	let fraseRecorrencia = 'Valor';
@@ -157,7 +156,7 @@ const ModalPlanejamento: FC<IModalPlanejamento> = (props: IModalPlanejamento) =>
 		if (isOpen) {
 			const carregaCategorias = async () => {
 				const categorias = await categoriaMovimentacaoService
-					.obtemCategoriasMovimentacaoPorConta(googleId);
+					.obtemCategoriasMovimentacaoPorConta();
 				if (categorias) {
 					setCategorias(categorias?.data);
 				}
@@ -382,7 +381,6 @@ const ModalPlanejamento: FC<IModalPlanejamento> = (props: IModalPlanejamento) =>
 			dataFim: props.dataFim?.toDate() || new Date(),
 			categorias: props.categorias,
 			ativo: true,
-			googleId: googleId
 		};
 		if (novo.id && novo.id !== 0) {
 			novo.ativo = props.ativo

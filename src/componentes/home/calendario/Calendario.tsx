@@ -5,9 +5,9 @@ import { useAtom } from "jotai";
 import moment from "moment";
 import "moment/locale/pt-br";
 import { FC, useEffect, useState } from "react";
-import { googleIdAtom } from "../../../atoms/atom";
+import { accessToken } from "../../../atoms/atom";
 import { TipoMovimentacaoEnum } from "../../../enums/TipoMovimentacaoEnum";
-import back from "../../../http";
+import { useBack } from "../../../http";
 import { ICalendarioProps } from "../../../interfaces/ICalendarioProps";
 import { MovimentacaoService } from "../../../services/MovimentacaoService";
 import "./CalendarioStyle.scss";
@@ -21,7 +21,8 @@ const Calendario: FC<ICalendarioProps> = (props: ICalendarioProps) => {
 	const daysInMonth = currentMonth.daysInMonth();
 	const startingDay = parseInt(firstDayOfMonth.format("d"), 10);
 	const [carregado, setCarregado] = useState(false);
-	const [googleId] = useAtom(googleIdAtom);
+	const [accessTokenAtom] = useAtom(accessToken);
+	const movimentacaoService = new MovimentacaoService(useBack());
 
 	const days = [];
 	for (let i = 0; i < startingDay; i++) {
@@ -31,15 +32,14 @@ const Calendario: FC<ICalendarioProps> = (props: ICalendarioProps) => {
 	useEffect(() => {
 		const buscaMovimentacoesDoMes = async () => {
 			try {
-				if (googleId !== "") {
-					const movimentacaoService = new MovimentacaoService(back);
+				if (accessTokenAtom !== "") {
 					const primeiroDiaMes : Date = currentMonth.clone().toDate();
 					primeiroDiaMes.setDate(1);
 					const ultimoDiaMes : Date = currentMonth.clone().toDate();
 					ultimoDiaMes.setDate(15)
 					ultimoDiaMes.setMonth(primeiroDiaMes.getMonth() + 1);
 					ultimoDiaMes.setDate(0);
-					const response = await movimentacaoService.getMovimentacao(googleId,
+					const response = await movimentacaoService.getMovimentacao(
 						primeiroDiaMes.getTime(), ultimoDiaMes.getTime());
 					if (response?.data) {
 						props.atualizaMovimentacoesMes(response.data);

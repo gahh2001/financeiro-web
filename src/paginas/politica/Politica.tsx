@@ -1,18 +1,17 @@
 import { Typography } from "@mui/material";
 import { useAtom } from "jotai";
 import { FC, Fragment } from "react";
-import { googleIdAtom } from "../../atoms/atom";
+import { accessToken } from "../../atoms/atom";
 import AppBar from "../../componentes/AppBar/AppBar";
 import Footer from "../../componentes/footer/Footer";
-import { IGoogleIdProps } from "../../interfaces/IGoogleIdProps";
 import './Politica.scss';
 
 const Politica: FC = () => {
-	const [googleId] = useAtom(googleIdAtom);
+	const [accessTokenAtom] = useAtom(accessToken);
 
 	return (
 		<Fragment>
-			{googleId && googleId !== "" &&
+			{accessTokenAtom && accessTokenAtom !== "" &&
 				<AppBar
 					modulo="Política de privacidade"
 				/>

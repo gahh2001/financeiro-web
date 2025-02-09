@@ -4,7 +4,6 @@ export type Planejamento = {
 	categorias: number[];
 	dataFim: Date;
 	dataInicio: Date;
-	googleId: string | null;
 	nome: string;
 	recorrencia: string;
 	tipo: string;

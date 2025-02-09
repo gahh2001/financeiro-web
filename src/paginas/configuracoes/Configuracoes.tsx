@@ -3,24 +3,23 @@ import { Accordion, AccordionDetails, AccordionSummary, Typography } from "@mui/
 import { useAtom } from "jotai";
 import { FC, Fragment, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { googleIdAtom } from "../../atoms/atom";
+import { accessToken } from "../../atoms/atom";
 import AppBar from "../../componentes/AppBar/AppBar";
 import Categorias from "../../componentes/configuracoes/categorias/Categorias";
 import useModalCategoria from "../../componentes/configuracoes/categorias/modalAdicionaCategoria/UseModalCategoria";
 import Geral from "../../componentes/configuracoes/geral/Geral";
 import Footer from '../../componentes/footer/Footer';
-import back from '../../http';
-import { IGoogleIdProps } from "../../interfaces/IGoogleIdProps";
 import { CategoriaMovimentacaoService } from "../../services/CategoriaMovimentacaoService";
 import { CategoriaMovimentacao } from "../../types/CategoriaMovimentacao";
 import "./Configuracoes.scss";
+import { useBack } from '../../http';
 
 const Configuracoes: FC = () => {
-	const categoriaMovimentacaoService = new CategoriaMovimentacaoService(back);
+	const categoriaMovimentacaoService = new CategoriaMovimentacaoService(useBack());
 	const [categorias, setCategorias] = useState<CategoriaMovimentacao[]>([]);
 	const {isOpenModalAdd: isOpenModalAddCategoria, closeModalCategoria} = useModalCategoria();
 	const [aba, setAba] = useState<string | false>("CATEGORIAS");
-	const [googleId] = useAtom(googleIdAtom);
+	const [accessTokenAtom] = useAtom(accessToken);
 	const isMounted = useRef(true);
 	const navigate = useNavigate();
 
@@ -28,14 +27,14 @@ const Configuracoes: FC = () => {
 		closeModalCategoria();
 	};
 
-	const handleChange =(panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+	const handleChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
 		setAba(isExpanded ? panel : false);
 	};
 
 	useEffect(() => {
 		const carregaCategorias = async () => {
 			const categorias = await categoriaMovimentacaoService
-				.obtemCategoriasMovimentacaoPorConta(googleId);
+				.obtemCategoriasMovimentacaoPorConta();
 			if (categorias) {
 				setCategorias(categorias?.data);
 			}
@@ -50,10 +49,10 @@ const Configuracoes: FC = () => {
 	}, []);
 
 	useEffect(() => {
-		if (!googleId && isMounted.current) {
+		if (!accessTokenAtom && isMounted.current) {
 			navigate("/login")
 		}
-	}, [googleId]);
+	}, [accessTokenAtom]);
 
 	return (
 		<Fragment>

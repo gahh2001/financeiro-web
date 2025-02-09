@@ -9,13 +9,10 @@ export class PlanejamentoService {
 	constructor(private readonly axiosInstance: AxiosInstance){}
 	urlDefault = "/planejamento";
 
-	async listaPlanejamentos(googleId: string | null) {
-		const params = {
-			googleId: googleId
-		}
+	async listaPlanejamentos() {
 		try {
 			const response = await this.axiosInstance
-				.get<Planejamento[]>(this.urlDefault, {params});
+				.get<Planejamento[]>(this.urlDefault);
 			return {...response };
 		} catch (error) {
 			console.log(`Não foi possível obter os planejamentos`, error);

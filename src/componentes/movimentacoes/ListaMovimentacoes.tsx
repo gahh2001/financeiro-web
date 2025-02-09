@@ -2,20 +2,20 @@ import { ArrowDownward, ArrowUpward, InfoOutlined } from "@mui/icons-material";
 import { Button, IconButton, Tooltip } from "@mui/material";
 import { useAtom } from "jotai";
 import { FC, useEffect, useState } from "react";
-import { googleIdAtom } from "../../atoms/atom";
-import back from "../../http";
+import { accessToken } from "../../atoms/atom";
+import { useBack } from "../../http";
 import { ListaMovimentacaoProps } from "../../interfaces/FiltrosMovimentacoesProps";
 import { MovimentacaoService } from "../../services/MovimentacaoService";
 import { Movimentacao } from "../../types/Movimentacao";
 import ConverteIcone from "../configuracoes/categorias/ConverteIcones";
 
 const ListaMovimentacoes: FC<ListaMovimentacaoProps> = (props: ListaMovimentacaoProps) => {
-	const movimentacaoService = new MovimentacaoService(back);
+	const movimentacaoService = new MovimentacaoService(useBack());
 	const [movimentacoes, setMovimentacoes] = useState<Movimentacao[]>([]);
 	const [movimentacoesIniciais, setMovimentacoesIniciais] = useState<Movimentacao[]>([]);
 	const [campoOrdem, setCampoOrdem] = useState("data");
 	const [ordemAsc, setOrdemAsc] = useState(true);
-	const [googleId] = useAtom(googleIdAtom);
+	const [accessTokenAtom] = useAtom(accessToken);
 
 	function mudaOrdem(campo: string) {
 		setCampoOrdem(campo);
@@ -25,9 +25,9 @@ const ListaMovimentacoes: FC<ListaMovimentacaoProps> = (props: ListaMovimentacao
 	useEffect(() => {
 		const buscaCategorias = async () => {
 			try {
-				if (googleId !== "") {
+				if (accessTokenAtom !== "") {
 					const categorias = await movimentacaoService
-						.obtemPorParametros(googleId, props.dataInicio?.valueOf(), props.dataFim?.valueOf(),
+						.obtemPorParametros(props.dataInicio?.valueOf(), props.dataFim?.valueOf(),
 							props.tipo, props.categorias);
 					if (categorias?.data) {
 						setMovimentacoesIniciais(categorias.data);

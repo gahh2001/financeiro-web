@@ -6,7 +6,7 @@ import { useAtom } from 'jotai';
 import { FC, Fragment, useEffect, useState } from "react";
 import { planejamento } from '../../../atoms/atom';
 import { TipoMovimentacaoEnum } from '../../../enums/TipoMovimentacaoEnum';
-import back from '../../../http';
+import { useBack } from '../../../http';
 import { PlanejamentoService } from '../../../services/PlanejamentoService';
 import { Progressos } from '../../../types/Progressos';
 import './CardProgresso.scss';
@@ -14,7 +14,7 @@ import './CardProgresso.scss';
 const CardProgresso: FC = () => {
 	let [periodo, setPeriodo] = useState<string>("");
 	const [selecionado] = useAtom(planejamento);
-	const planejamentoService = new PlanejamentoService(back);
+	const planejamentoService = new PlanejamentoService(useBack());
 	const [progressos, setProgressos] = useState<Progressos>();
 	const [valorAtual, setValorAtual] = useState<number>(0);
 	const [valorMaximo, setValorMaximo] = useState<number>(0);

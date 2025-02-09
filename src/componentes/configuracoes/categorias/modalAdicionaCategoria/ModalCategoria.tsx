@@ -2,10 +2,8 @@ import { AddCircleOutlineRounded } from "@mui/icons-material";
 import CheckIcon from '@mui/icons-material/Check';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import { Box, FormControl, InputLabel, LinearProgress, MenuItem, Select, TextField, Tooltip } from "@mui/material";
-import { useAtom } from "jotai";
 import { FC, Fragment, useEffect, useState } from "react";
-import { googleIdAtom } from "../../../../atoms/atom";
-import back from "../../../../http";
+import { useBack } from "../../../../http";
 import { IModalCategoriaProps } from "../../../../interfaces/IModalCategoriaProps";
 import { CategoriaMovimentacaoService } from "../../../../services/CategoriaMovimentacaoService";
 import { CategoriaMovimentacao } from "../../../../types/CategoriaMovimentacao";
@@ -25,8 +23,7 @@ const ModalCategoria: FC<IModalCategoriaProps> = (props: IModalCategoriaProps) =
 	const [loading, setLoading] = useState(false);
 	const [success, setSuccess] = useState(false);
 	const [primeiroClique, setPrimeiroClique] = useState(false);
-	const categoriaService = new CategoriaMovimentacaoService(back);
-	const [googleId] = useAtom(googleIdAtom);
+	const categoriaService = new CategoriaMovimentacaoService(useBack());
 	const labelTipo = props.edit ? "Você não pode editar o tipo de uma categoria 😬" : "Tipo";
 
 	useEffect(() => {
@@ -199,13 +196,12 @@ const ModalCategoria: FC<IModalCategoriaProps> = (props: IModalCategoriaProps) =
 				tipoMovimentacao: tipo,
 				icone: icone,
 				corIcone: cor,
-				googleId: googleId
 			}
 			if (props.edit) {
 				novaCategoria.id = props.idCategoria;
-				response = await categoriaService.atualizaCategoria(googleId, novaCategoria);
+				response = await categoriaService.atualizaCategoria(novaCategoria);
 			} else {
-				response = await categoriaService.adicionaCategoria(googleId, novaCategoria);
+				response = await categoriaService.adicionaCategoria(novaCategoria);
 			}
 			setLoading(false);
 			setSuccess(true);

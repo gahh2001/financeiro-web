@@ -4,9 +4,9 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { useAtom } from "jotai";
 import { FC, useEffect, useState } from "react";
-import { googleIdAtom } from "../../atoms/atom";
+import { accessToken } from "../../atoms/atom";
 import { TipoMovimentacaoEnum } from "../../enums/TipoMovimentacaoEnum";
-import back from "../../http";
+import { useBack } from "../../http";
 import { FiltrosMovimentacoesProps } from "../../interfaces/FiltrosMovimentacoesProps";
 import { CategoriaMovimentacaoService } from "../../services/CategoriaMovimentacaoService";
 import { CategoriaMovimentacao } from "../../types/CategoriaMovimentacao";
@@ -14,8 +14,8 @@ import { CategoriaMovimentacao } from "../../types/CategoriaMovimentacao";
 const FiltrosMovimentacoes: FC<FiltrosMovimentacoesProps> = (props: FiltrosMovimentacoesProps) => {
 	const [categoriasIniciais, setCategoriasIniciais] = useState<CategoriaMovimentacao[]>([]);
 	const [categorias, setCategorias] = useState<CategoriaMovimentacao[]>([]);
-	const categoriaMovimentacaoService = new CategoriaMovimentacaoService(back);
-	const [googleId] = useAtom(googleIdAtom);
+	const categoriaMovimentacaoService = new CategoriaMovimentacaoService(useBack());
+	const [accessTokenAtom] = useAtom(accessToken);
 	const theme = useTheme();
 	const ITEM_HEIGHT = 48;
 	const ITEM_PADDING_TOP = 8;
@@ -55,9 +55,9 @@ const FiltrosMovimentacoes: FC<FiltrosMovimentacoesProps> = (props: FiltrosMovim
 	useEffect(() => {
 		const buscaCategorias = async () => {
 			try {
-				if (googleId !== "") {
+				if (accessTokenAtom !== "") {
 					const categorias = await categoriaMovimentacaoService
-						.obtemCategoriasPorTipoMovimentacaoEConta(googleId, TipoMovimentacaoEnum.TODOS);
+						.obtemCategoriasPorTipoMovimentacaoEConta(TipoMovimentacaoEnum.TODOS);
 					if (categorias?.data) {
 						setCategoriasIniciais(categorias.data);
 					}

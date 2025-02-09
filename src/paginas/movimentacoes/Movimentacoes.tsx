@@ -2,7 +2,7 @@ import dayjs, { Dayjs } from "dayjs";
 import { useAtom } from "jotai";
 import { FC, Fragment, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { googleIdAtom } from "../../atoms/atom";
+import { accessToken } from "../../atoms/atom";
 import AppBar from "../../componentes/AppBar/AppBar";
 import Dica from "../../componentes/dicas/Dica";
 import Footer from "../../componentes/footer/Footer";
@@ -10,7 +10,6 @@ import DialogDescricaoMovimentacao from "../../componentes/home/informacoesDoDia
 import FiltrosMovimentacoes from "../../componentes/movimentacoes/FiltrosMovimentacoes";
 import ListaMovimentacoes from "../../componentes/movimentacoes/ListaMovimentacoes";
 import { TipoMovimentacaoEnum } from "../../enums/TipoMovimentacaoEnum";
-import { IGoogleIdProps } from "../../interfaces/IGoogleIdProps";
 import './Movimentacoes.scss';
 
 const Movimentacoes: FC = () => {
@@ -30,7 +29,7 @@ const Movimentacoes: FC = () => {
 	const [descricao, setDescricao] = useState("");
 	const [tipo, setTipo] = useState<string>(TipoMovimentacaoEnum.TODOS.toString());
 	const [categorias, setCategorias] = useState(["Todas"]);
-	const [googleId] = useAtom(googleIdAtom);
+	const [accessTokenAtom] = useAtom(accessToken);
 	const isMounted = useRef(true);
 	const navigate = useNavigate();
 
@@ -55,10 +54,10 @@ const Movimentacoes: FC = () => {
 	}
 
 	useEffect(() => {
-		if (!googleId && isMounted.current) {
+		if (!accessTokenAtom && isMounted.current) {
 			navigate("/login")
 		}
-	}, [googleId]);
+	}, [accessTokenAtom]);
 
 	return (
 		<Fragment>

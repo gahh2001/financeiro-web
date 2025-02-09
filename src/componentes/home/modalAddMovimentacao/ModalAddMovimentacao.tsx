@@ -13,9 +13,9 @@ import dayjs, { Dayjs } from 'dayjs';
 import 'dayjs/locale/pt-br';
 import { useAtom } from 'jotai';
 import { ChangeEvent, FC, useEffect, useState } from "react";
-import { googleIdAtom } from '../../../atoms/atom';
+import { accessToken } from '../../../atoms/atom';
 import { TipoMovimentacaoEnum } from '../../../enums/TipoMovimentacaoEnum';
-import back from '../../../http';
+import { useBack } from '../../../http';
 import { IModalAddMovimentacao } from '../../../interfaces/IModalAddMovimentacao';
 import { CategoriaMovimentacaoService } from '../../../services/CategoriaMovimentacaoService';
 import { MovimentacaoService } from '../../../services/MovimentacaoService';
@@ -25,9 +25,9 @@ import Dica from '../../dicas/Dica';
 import "./ModalAddMovimentacao.scss";
 
 const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimentacao)  => {
-	const [googleId] = useAtom(googleIdAtom);
-	const categoriaMovimentacaoService = new CategoriaMovimentacaoService(back);
-	const movimentacaoService = new MovimentacaoService(back);
+	const [accessTokenAtom] = useAtom(accessToken);
+	const categoriaMovimentacaoService = new CategoriaMovimentacaoService(useBack());
+	const movimentacaoService = new MovimentacaoService(useBack());
 	const verboTitulo = props.edit
 		? "Editar " : "Adicionar "
 	const tipoMovimentacao = props.tipo === TipoMovimentacaoEnum.POSITIVO
@@ -50,9 +50,9 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 		const buscaCategorias = async () => {
 			if ( props.isOpen ) {
 				try {
-					if (googleId !== "") {
+					if (accessTokenAtom !== "") {
 						const categorias = await categoriaMovimentacaoService
-							.obtemCategoriasPorTipoMovimentacaoEConta(googleId, props.tipo);
+							.obtemCategoriasPorTipoMovimentacaoEConta(props.tipo);
 						if (categorias?.data) {
 							setCategoriasCarregadas(categorias.data);
 						}
@@ -209,7 +209,6 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 			setLoading(true);
 			setSuccess(false);
 			const novaMovimentacao: Partial<Movimentacao> = {
-				googleId: googleId,
 				valor: parseFloat(valor),
 				dataMovimentacao: data?.toDate() ? data?.toDate() : new Date(),
 				tipoMovimentacao: props.tipo.toString(),
@@ -218,9 +217,9 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 			}
 			if (props.edit) {
 				novaMovimentacao.id = props.idMovimentacao;
-				await movimentacaoService.atualizaMovimentacao(googleId, novaMovimentacao);
+				await movimentacaoService.atualizaMovimentacao(novaMovimentacao);
 			} else {
-				await movimentacaoService.adicionaMovimentacao(googleId, novaMovimentacao);
+				await movimentacaoService.adicionaMovimentacao(novaMovimentacao);
 			}
 			setLoading(false);
 			setSuccess(true);

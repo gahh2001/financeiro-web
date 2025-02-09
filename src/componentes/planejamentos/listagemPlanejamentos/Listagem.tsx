@@ -3,20 +3,20 @@ import { Button, FormControlLabel, FormGroup, IconButton, Switch, Tooltip } from
 import dayjs from "dayjs";
 import { useAtom } from "jotai";
 import { ChangeEvent, FC, Fragment, useEffect, useState } from "react";
-import { googleIdAtom, modalPlanajamento, planejamento } from "../../../atoms/atom";
-import back from "../../../http";
+import { accessToken, modalPlanajamento, planejamento } from "../../../atoms/atom";
+import { useBack } from "../../../http";
 import { IModalPlanejamento } from "../../../interfaces/IModalPlanejamentoProps";
 import { PlanejamentoService } from "../../../services/PlanejamentoService";
 import { Planejamento } from "../../../types/Planejamento";
 import './Listagem.scss';
 
 const ListagemPlanejamentos: FC<Partial<IModalPlanejamento>> = (props: Partial<IModalPlanejamento>) => {
-	const [googleId] = useAtom(googleIdAtom);
+	const [accessTokenAtom] = useAtom(accessToken);
 	const [selecionado, setSelecionado] = useAtom(planejamento);
 	const [isOpen, setIsOpenModalPlanejamento] = useAtom(modalPlanajamento);
 	const [planejamentos, setPlanejamentos] = useState<Planejamento[]>();
 	const [verInativos, setVerInativos] = useState(false);
-	const planejamentoService = new PlanejamentoService(back);
+	const planejamentoService = new PlanejamentoService(useBack());
 
 	const verPlanejamentosInativos = (event: ChangeEvent<HTMLInputElement>) => {
 		setVerInativos(event.target.checked);
@@ -26,8 +26,8 @@ const ListagemPlanejamentos: FC<Partial<IModalPlanejamento>> = (props: Partial<I
 		if (!isOpen) {
 			const lista = async () => {
 				try {
-					if (googleId !== "") {
-						const retorno = await planejamentoService.listaPlanejamentos(googleId);
+					if (accessTokenAtom !== "") {
+						const retorno = await planejamentoService.listaPlanejamentos();
 						if (retorno?.data) {
 							setPlanejamentos(retorno.data);
 							if (retorno.data.length) {

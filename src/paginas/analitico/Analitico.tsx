@@ -2,7 +2,7 @@ import dayjs, { Dayjs } from "dayjs";
 import { useAtom } from "jotai";
 import { FC, Fragment, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { googleIdAtom } from "../../atoms/atom";
+import { accessToken } from "../../atoms/atom";
 import CategoriasComparacao from "../../componentes/analitico/CategoriasComparacao";
 import CategoriasDesempenho from "../../componentes/analitico/CategoriasDesempenho";
 import CategoriasEvolucao from "../../componentes/analitico/CategoriasEvolucao";
@@ -15,7 +15,7 @@ import Dica from "../../componentes/dicas/Dica";
 import Footer from "../../componentes/footer/Footer";
 import { obtemNumeroEnum, TipoComparacaoEnum } from "../../enums/TipoComparacaoEnum";
 import { TipoMovimentacaoEnum } from "../../enums/TipoMovimentacaoEnum";
-import back from "../../http";
+import { useBack } from '../../http';
 import { IMediasAnalitico } from "../../interfaces/IMediasAnalitico";
 import { ISeriesChart } from "../../interfaces/ISeriesChart";
 import { ISeriesComparacao } from "../../interfaces/ISeriesComparacao";
@@ -41,8 +41,8 @@ const Analitico: FC = () => {
 	const [agrupamentoMesAnoEvolucao, setAgrupamentoMesAnoEvolucao] = useState<string[]>([]);
 	const [agrupamentoMesAnoComparacao, setAgrupamentoMesAnoComparacao] = useState<string[]>([]);
 	const [mediasGerais, setMediasgerais] = useState<IMediasAnalitico>();
-	const categoriaService = new CategoriaMovimentacaoService(back);
-	const [googleId] = useAtom(googleIdAtom);
+	const categoriaService = new CategoriaMovimentacaoService(useBack());
+	const [accessTokenAtom] = useAtom(accessToken);
 	const isMounted = useRef(true);
 	const navigate = useNavigate();
 
@@ -72,19 +72,17 @@ const Analitico: FC = () => {
 	}, []);
 
 	useEffect(() => {
-		if (!googleId && isMounted.current) {
+		if (!accessTokenAtom && isMounted.current) {
 			navigate("/login")
 		}
-	}, [googleId])
+	}, [accessTokenAtom])
 
 	useEffect(() => {
 		const atualizaVisaoGeral = async () => {
-			//setMes(ano);
 			try {
-				if (googleId !== "") {
-					const categoriaMovimentacaoService = new CategoriaMovimentacaoService(back);
-					const soma = await categoriaMovimentacaoService
-						.obtemSomaCategoriasEValores(googleId, obtemDataInicial(), obtemDataFinal(), tipoMovimentacaoTop);
+				if (accessTokenAtom !== "") {
+					const soma = await categoriaService
+						.obtemSomaCategoriasEValores(obtemDataInicial(), obtemDataFinal(), tipoMovimentacaoTop);
 					if (soma?.data) {
 						extraiSomas(soma.data);
 						extraiPorcentagens(soma.data);
@@ -101,7 +99,7 @@ const Analitico: FC = () => {
 		const atualizaComparacoes = async () => {
 			try {
 				const somaComparacoes = await categoriaService
-					.obtemSomaCategoriasEValoresPorMeses(googleId, obtemDataInicialComparacao(),
+					.obtemSomaCategoriasEValoresPorMeses(obtemDataInicialComparacao(),
 						obtemDataFinalComparacao(), tipoMovimentacaoDown);
 				if (somaComparacoes?.data) {
 					extraiSomaComparacoes(somaComparacoes.data);
@@ -117,7 +115,7 @@ const Analitico: FC = () => {
 		const atualizaEvolucao = async () => {
 			try {
 				const evolucoes = await categoriaService
-					.obtemSomaCategoriasEvolucao(googleId, obtemDataInicialComparacao(),
+					.obtemSomaCategoriasEvolucao(obtemDataInicialComparacao(),
 						obtemDataFinalComparacao());
 				if (evolucoes?.data) {
 					extraiEvolucoes(evolucoes.data);
@@ -136,7 +134,7 @@ const Analitico: FC = () => {
 		dataFim = obtemDataFinalComparacao();
 		const atualizaMedias = async () => {
 			const medias = await categoriaService
-				.obtemInformacoesgerais(googleId, dataInicio, dataFim);
+				.obtemInformacoesgerais(dataInicio, dataFim);
 			if (medias?.data) {
 				extraiMedias(medias.data);
 			}

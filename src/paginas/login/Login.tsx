@@ -4,24 +4,23 @@ import { Button } from '@mui/material';
 import { useAtom } from 'jotai';
 import { FC, Fragment, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
-import { googleIdAtom, modalLogin } from '../../atoms/atom';
+import { accessToken, modalLogin } from '../../atoms/atom';
 import Footer from '../../componentes/footer/Footer';
 import ModalLogin from '../../componentes/login/ModalLogin';
 import imgAnalitico from '../../images/analitico.png';
 import imgHome from '../../images/home.png';
 import imgPlanos from '../../images/planejamentos.png';
-import { IGoogleIdProps } from '../../interfaces/IGoogleIdProps';
 
 const Login: FC = () => {
-	const [googleId] = useAtom(googleIdAtom);
+	const [accessTokenAtom] = useAtom(accessToken);
 	const navigate = useNavigate();
 	const [, setOpen] = useAtom(modalLogin);
 
 	useEffect(() => {
-		if (googleId && googleId !== "") {
+		if (accessTokenAtom && accessTokenAtom !== "") {
 			navigate("/home");
 		}
-	}, [googleId]);
+	}, [accessTokenAtom]);
 	
 	return (
 		<Fragment>

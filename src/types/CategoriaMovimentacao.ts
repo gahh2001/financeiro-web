@@ -4,5 +4,4 @@ export type CategoriaMovimentacao = {
 	nomeCategoria: string;
 	icone: string;
 	corIcone: string;
-	googleId: string | null;
 }
