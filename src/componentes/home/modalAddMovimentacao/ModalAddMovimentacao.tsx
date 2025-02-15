@@ -13,7 +13,7 @@ import dayjs, { Dayjs } from 'dayjs';
 import 'dayjs/locale/pt-br';
 import { useAtom } from 'jotai';
 import { ChangeEvent, FC, useEffect, useState } from "react";
-import { accessToken } from '../../../atoms/atom';
+import { accessToken, alertMovimentacao } from '../../../atoms/atom';
 import { TipoMovimentacaoEnum } from '../../../enums/TipoMovimentacaoEnum';
 import { useBack } from '../../../http';
 import { IModalAddMovimentacao } from '../../../interfaces/IModalAddMovimentacao';
@@ -26,6 +26,7 @@ import "./ModalAddMovimentacao.scss";
 
 const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimentacao) => {
 	const [accessTokenAtom] = useAtom(accessToken);
+	const [, setAlert] = useAtom(alertMovimentacao);
 	const categoriaMovimentacaoService = new CategoriaMovimentacaoService(useBack());
 	const movimentacaoService = new MovimentacaoService(useBack());
 	const verboTitulo = props.edit
@@ -223,6 +224,8 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 			}
 			setLoading(false);
 			setSuccess(true);
+			props.closeModal();
+			setAlert(true);
 		}
 	}
 

@@ -8,4 +8,5 @@ export const modalPlanajamento = atom(false as boolean);
 export const modalLogin = atom(false as boolean);
 export const modalEditSaldo = atom(false as boolean);
 export const modalTutoriais = atom(false as boolean);
+export const alertMovimentacao = atom(false as boolean);
 export const planejamento = atom({} as Planejamento);
