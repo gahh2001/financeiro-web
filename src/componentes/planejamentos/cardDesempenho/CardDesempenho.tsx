@@ -15,7 +15,7 @@ const CardDesempenho: FC = () => {
 	const [selecionado] = useAtom(planejamento);
 	const [periodo, setPeriodo] = useState<string>("TRESMESES")
 	const [meses, setMeses] = useState<string[]>([]);
-	const [limite, setLimite] = useState(Array(obtemNumeroEnum(periodo)).fill(selecionado.valor));
+	const [limite, setLimite] = useState(Array(obtemNumeroEnum(periodo)).fill(selecionado?.valor));
 	const [desempenhos, setDesempenhos] = useState<(number | null)[]>([]);
 	const [retorno, setRetorno] = useState<Desempenho[]>([]);
 
@@ -36,12 +36,12 @@ const CardDesempenho: FC = () => {
 			}
 		};
 		atualizaDesempenho();
-		setLimite(Array(obtemNumeroEnum(periodo)).fill(selecionado.valor));
+		setLimite(Array(obtemNumeroEnum(periodo)).fill(selecionado?.valor));
 	}, [selecionado]);
 
 	useEffect(() => {
 		processaDesempenhos(retorno);
-		setLimite(Array(obtemNumeroEnum(periodo)).fill(selecionado.valor));
+		setLimite(Array(obtemNumeroEnum(periodo)).fill(selecionado?.valor));
 	}, [periodo]);
 
 	return (
@@ -92,8 +92,8 @@ const CardDesempenho: FC = () => {
 					series={[
 						{
 							data: limite,
-							label: selecionado.tipo === 'META' ? "Meta" : "Limite",
-							color: selecionado.tipo === 'META' ? "#42B84A" : "#AD4331"
+							label: selecionado?.tipo === 'META' ? "Meta" : "Limite",
+							color: selecionado?.tipo === 'META' ? "#42B84A" : "#AD4331"
 						},
 						{ data: desempenhos, label: 'Atingido' },
 					]}

@@ -90,7 +90,7 @@ const ListagemPlanejamentos: FC<Partial<IModalPlanejamento>> = (props: Partial<I
 					.map((planejamento, index) => (
 						<div className="item-planejamento">
 							<Button
-								className={planejamento.id === selecionado.id ? "selecionado" : ""}
+								className={planejamento.id === selecionado?.id ? "selecionado" : ""}
 								onClick={() => setSelecionado(planejamento)}
 							>
 								<div className={`info-planejamento ${!planejamento.ativo ? 'inativo' : ''}`}>

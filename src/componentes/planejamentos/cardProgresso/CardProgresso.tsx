@@ -23,10 +23,10 @@ const CardProgresso: FC = () => {
 
 	useEffect(() => {
 		setPeriodo(
-			selecionado.recorrencia === "MENSAL" ? "MES" : "ANO"
+			selecionado?.recorrencia === "MENSAL" ? "MES" : "ANO"
 		);
 		const buscaProgresso = async () => {
-			const retorno = await planejamentoService.listaProgressos(selecionado.id);
+			const retorno = await planejamentoService.listaProgressos(selecionado?.id);
 			if (retorno) {
 				setProgressos(retorno.data);
 			}
@@ -60,8 +60,8 @@ const CardProgresso: FC = () => {
 
 	useEffect(() => {
 		const porcentagem = (valorAtual * 100) / valorMaximo;
-		const meta = selecionado.tipo === "META";
-		const limite = selecionado.tipo === "LIMITE";
+		const meta = selecionado?.tipo === "META";
+		const limite = selecionado?.tipo === "LIMITE";
 		if ((meta && porcentagem < 20) || (limite && porcentagem > 80)) {
 			setCorProgresso("#c24141");
 			setFraseProgresso(meta ? "Sua meta está baixa, bora impulsionar? 🚀" : "Atenção! você está chegando no seu limite! 🚨");
@@ -84,11 +84,11 @@ const CardProgresso: FC = () => {
 	}, [valorAtual, valorMaximo, selecionado]);
 
 	function calculaSoma(): number {
-		const dayInicio = dayjs(selecionado.dataInicio);
-		const dayFim = dayjs(selecionado.dataFim);
+		const dayInicio = dayjs(selecionado?.dataInicio);
+		const dayFim = dayjs(selecionado?.dataFim);
 		const quantidade = dayFim.diff(dayInicio, 'month');
 		if (quantidade !== undefined) {
-			return Math.floor(Number(quantidade) + 1) * Number(selecionado.valor) ;
+			return Math.floor(Number(quantidade) + 1) * Number(selecionado?.valor) ;
 		}
 		return 0;
 	}
