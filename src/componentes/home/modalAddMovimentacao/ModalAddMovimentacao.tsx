@@ -1,6 +1,6 @@
-import { AddCircleOutlineRounded } from '@mui/icons-material';
+import { AddCircleOutlineRounded, InfoOutlined } from '@mui/icons-material';
 import CheckIcon from '@mui/icons-material/Check';
-import { Box, LinearProgress, TextField } from '@mui/material';
+import { Box, Checkbox, FormControlLabel, IconButton, LinearProgress, TextField } from '@mui/material';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -39,6 +39,7 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 	const [categoria, setCategoria] = useState("");
 	const [valor, setValor] = useState("");
 	const [descricao, setDescricao] = useState("");
+	const [alterarSaldo, setAlteraSaldo] = useState(true);
 	const [emptyCategoria, setEmptyCategoria] = useState(false);
 	const [emptyValor, setEmptyValor] = useState(false);
 	const [primeiroClique, setPrimeiroClique] = useState(false);
@@ -75,6 +76,7 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 			setCategoria("");
 			setData(dayjs(props.selectedDate));
 			setDescricao("");
+			setAlteraSaldo(true);
 			setEmptyCategoria(false);
 			setEmptyValor(false);
 			setPrimeiroClique(false);
@@ -102,6 +104,10 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 			event.preventDefault();
 			salvarMovimentacao();
 		}
+	};
+
+	const handleChangeAlteraSaldo = () => {
+		setAlteraSaldo(!alterarSaldo);
 	};
 
 	useEffect(() => {
@@ -175,6 +181,19 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 									/>
 								</Box>
 							</div>
+							<div className="altera-saldo">
+								<FormControlLabel
+									control={<Checkbox checked={alterarSaldo} onChange={handleChangeAlteraSaldo}/>}
+									label="Alterar o saldo da conta"
+								/>
+								<IconButton
+									onClick={() => console.log}
+								>
+									<InfoOutlined
+										sx={{ color: "#0085FF" }}
+									/>
+								</IconButton>
+							</div>
 						<div className="buttons">
 							<button onClick={props.closeModal}>
 								{success ? "Fechar" : "Cancelar"}
@@ -215,7 +234,8 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 				dataMovimentacao: data?.toDate() ? data?.toDate() : new Date(),
 				tipoMovimentacao: props.tipo.toString(),
 				idCategoriaMovimentacao: parseInt(categoria),
-				descricaoMovimentacao: descricao
+				descricaoMovimentacao: descricao,
+				alteraSaldo: alterarSaldo
 			}
 			let response;
 			if (props.edit) {

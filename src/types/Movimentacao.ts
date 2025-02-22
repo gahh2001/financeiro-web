@@ -8,4 +8,5 @@ export type Movimentacao = {
 	descricaoMovimentacao: string;
 	icone: string;
 	corIcone: string;
+	alteraSaldo: boolean;
 }

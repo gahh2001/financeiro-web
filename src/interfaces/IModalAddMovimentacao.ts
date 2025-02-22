@@ -12,6 +12,7 @@ export type IModalAddMovimentacao = {
 	categoria: string;
 	valor: string;
 	descricao: string;
+	alteraSaldo: boolean;
 	selectedDate: Date;
 	movimentacoesMes: Movimentacao[];
 	closeModal: () => void;

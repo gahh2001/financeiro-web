@@ -114,7 +114,6 @@ const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaPr
 						${somaDia(movimentacoesDoDia, TipoMovimentacaoEnum.NEGATIVO)}
 					</div>
 				</div>
-				
 				<div className="buttons">
 					<button
 						
@@ -196,12 +195,14 @@ const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaPr
 									>
 										<IconButton
 											color="inherit"
-											onClick={() => props.handleEditMovimentacao(movimentacao.id, props.selectedDate,
+											onClick={() => props.handleEditMovimentacao(
+												movimentacao.id, props.selectedDate,
 												movimentacao.valor.toString(), movimentacao.idCategoriaMovimentacao
 												? movimentacao.idCategoriaMovimentacao.toString() : "",
 												movimentacao.descricaoMovimentacao,
 												movimentacao.tipoMovimentacao === TipoMovimentacaoEnum.POSITIVO.toString()
-												? TipoMovimentacaoEnum.POSITIVO : TipoMovimentacaoEnum.NEGATIVO)}
+												? TipoMovimentacaoEnum.POSITIVO : TipoMovimentacaoEnum.NEGATIVO, movimentacao.alteraSaldo
+											)}
 										>
 											<ModeEdit />
 										</IconButton>

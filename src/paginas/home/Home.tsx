@@ -24,6 +24,7 @@ const Home: FC = () => {
 	const [categoria, setCategoria] = useState("");
 	const [valor, setValor] = useState("");
 	const [descricao, setDescricao] = useState("");
+	const [alterarSaldo, setAlteraSaldo] = useState(true);
 	const [movimentacoesDoMes, setMovimentacoesDoMes] = useState<Movimentacao[]>([]);
 	const [edit, setEdit] = useState(false);
 	const {isOpenModalAdd, closeModalAdd} = useModalAddMovimentacao();
@@ -162,6 +163,7 @@ const Home: FC = () => {
 				categoria={categoria}
 				valor={valor}
 				descricao={descricao}
+				alteraSaldo={alterarSaldo}
 				selectedDate={selectedDate}
 				movimentacoesMes={movimentacoesDoMes}
 				closeModal={closeModalAdd}
