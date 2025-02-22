@@ -11,6 +11,7 @@ import Login from './paginas/login/Login';
 import Movimentacoes from './paginas/movimentacoes/Movimentacoes';
 import Planejamentos from './paginas/planejamento/Planejamentos';
 import Politica from './paginas/politica/Politica';
+import { DialogProvider } from './componentes/contextProviders/DialogContext';
 
 function App() {
 	const [, setAccessToken] = useAtom(accessToken);
@@ -24,18 +25,20 @@ function App() {
 
 	return (
 		<ThemeProvider theme={darkTheme}>
-			<Routes>
-				<Route path="/login" element={ <Login/>} />
-				<Route path="/home" element={<Home/>}/>
-				<Route path="/analitico" element={<Analitico/>}/>
-				<Route path="/movimentacoes" element={<Movimentacoes/>}/>
-				<Route path="/configuracoes" element={<Configuracoes/>}/>
-				<Route path="/about-me" element={<About/>}/>
-				<Route path="/planejamentos" element={<Planejamentos/>}/>
-				<Route path="/politica-de-privacidade" element={<Politica/>}/>
-				<Route path="*" element={<Navigate to="/home" replace />} />
-			</Routes>
-			<AlertPolitica/>
+			<DialogProvider>
+				<Routes>
+					<Route path="/login" element={ <Login/>} />
+					<Route path="/home" element={<Home/>}/>
+					<Route path="/analitico" element={<Analitico/>}/>
+					<Route path="/movimentacoes" element={<Movimentacoes/>}/>
+					<Route path="/configuracoes" element={<Configuracoes/>}/>
+					<Route path="/about-me" element={<About/>}/>
+					<Route path="/planejamentos" element={<Planejamentos/>}/>
+					<Route path="/politica-de-privacidade" element={<Politica/>}/>
+					<Route path="*" element={<Navigate to="/home" replace />} />
+				</Routes>
+				<AlertPolitica/>
+			</DialogProvider>
 		</ThemeProvider>
 	);
 }

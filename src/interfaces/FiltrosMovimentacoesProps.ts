@@ -12,5 +12,4 @@ export interface ListaMovimentacaoProps {
 	dataInicio: Dayjs | null;
 	dataFim: Dayjs | null;
 	tipo: string;
-	dialogDescricao: (description: string) => void
 }

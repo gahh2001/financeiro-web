@@ -11,7 +11,6 @@ export type IInformacoesDoDiaProps = {
 	modalAddDespesa: () => void;
 	setVisible: () => void;
 	modalApagaMovimentacao: (movimentacaoApagar: Movimentacao) => void;
-	dialogDescricao: (description: string) => void;
 	handleEditMovimentacao: (idMovimentacao: number | undefined, data: Date, valor: string, categoria: string,
 		descricao: string, tipoEdit: TipoMovimentacaoEnum, alteraSaldo: boolean) => void;
 }

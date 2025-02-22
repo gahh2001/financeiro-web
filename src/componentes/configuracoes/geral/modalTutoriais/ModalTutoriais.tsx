@@ -2,8 +2,8 @@ import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, LinearP
 import { useAtom } from "jotai";
 import { FC, Fragment, useState } from "react";
 import { modalTutoriais } from "../../../../atoms/atom";
+import { useAlert } from "../../../contextProviders/AlertProvider";
 import "../modalZerar/ModalZerar.scss";
-import { useAlert } from "../../../alert/AlertProvider";
 
 const ModalTutoriais: FC = () => {
 	const [loading, setLoading] = useState(false);

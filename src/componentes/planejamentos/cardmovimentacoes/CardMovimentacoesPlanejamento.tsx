@@ -8,14 +8,13 @@ import '../../../paginas/movimentacoes/Movimentacoes.scss';
 import { PlanejamentoService } from "../../../services/PlanejamentoService";
 import { Movimentacao } from "../../../types/Movimentacao";
 import ConverteIcone from "../../configuracoes/categorias/ConverteIcones";
-import DialogDescricaoMovimentacao from "../../home/informacoesDoDiaCard/dialogDescricaoMovimentacao/DialogDescricaoMovimentacao";
+import { useDialog } from "../../contextProviders/DialogContext";
 
 const CardMovimentacoesPlanejamento: FC = () => {
 	const service = new PlanejamentoService(useBack());
 	const [selecionado] = useAtom(planejamento);
 	const [movimentacoes, setMovimentacoes] = useState<Movimentacao[]>([]);
-	const [isOpenDialogDescricao, setIsOpenDialogDescricao] = useState(false);
-	const [descricao, setDescricao] = useState("");
+	const { showDialog } = useDialog();
 
 	useEffect(() => {
 		const obtemMovimentacoes = async () => {
@@ -28,14 +27,6 @@ const CardMovimentacoesPlanejamento: FC = () => {
 		};
 		obtemMovimentacoes();
 	}, [selecionado]);
-
-	const dialogDescricao = (description: string) => {
-		setIsOpenDialogDescricao(true);
-		setDescricao(description);
-	}
-	const closeDialogDescricao = () => {
-		setIsOpenDialogDescricao(false);
-	}
 
 	return (
 		<Fragment>
@@ -59,7 +50,7 @@ const CardMovimentacoesPlanejamento: FC = () => {
 								placement="top"
 							>
 								<IconButton
-									onClick={() => dialogDescricao(movimentacao.descricaoMovimentacao)}
+									onClick={() => showDialog(movimentacao.descricaoMovimentacao)}
 								>
 									<InfoOutlined
 										sx={{ color: "#0085FF" }}
@@ -73,11 +64,6 @@ const CardMovimentacoesPlanejamento: FC = () => {
 			: <div className="nenhum-conteudo">
 				Não há nenhuma movimentaçãoa ser exibida...
 			</div> }
-			<DialogDescricaoMovimentacao
-				openDialog={isOpenDialogDescricao}
-				description={descricao}
-				onClose={closeDialogDescricao}
-			/>
 		</Fragment>
 	);
 }

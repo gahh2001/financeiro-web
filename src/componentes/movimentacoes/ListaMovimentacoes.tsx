@@ -8,6 +8,7 @@ import { ListaMovimentacaoProps } from "../../interfaces/FiltrosMovimentacoesPro
 import { MovimentacaoService } from "../../services/MovimentacaoService";
 import { Movimentacao } from "../../types/Movimentacao";
 import ConverteIcone from "../configuracoes/categorias/ConverteIcones";
+import { useDialog } from "../contextProviders/DialogContext";
 
 const ListaMovimentacoes: FC<ListaMovimentacaoProps> = (props: ListaMovimentacaoProps) => {
 	const movimentacaoService = new MovimentacaoService(useBack());
@@ -16,6 +17,7 @@ const ListaMovimentacoes: FC<ListaMovimentacaoProps> = (props: ListaMovimentacao
 	const [campoOrdem, setCampoOrdem] = useState("data");
 	const [ordemAsc, setOrdemAsc] = useState(true);
 	const [accessTokenAtom] = useAtom(accessToken);
+	const { showDialog } = useDialog();
 
 	function mudaOrdem(campo: string) {
 		setCampoOrdem(campo);
@@ -129,7 +131,7 @@ const ListaMovimentacoes: FC<ListaMovimentacaoProps> = (props: ListaMovimentacao
 								placement="top"
 							>
 								<IconButton
-									onClick={() => props.dialogDescricao(movimentacao.descricaoMovimentacao)}
+									onClick={() => showDialog(movimentacao.descricaoMovimentacao)}
 								>
 									<InfoOutlined
 										sx={{ color: "#0085FF" }}

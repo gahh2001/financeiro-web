@@ -7,7 +7,6 @@ import Dica from '../../componentes/dicas/Dica';
 import Footer from "../../componentes/footer/Footer";
 import Calendario from "../../componentes/home/calendario/Calendario";
 import InformacoesDoDia from "../../componentes/home/informacoesDoDiaCard/InformacoesDoDia";
-import DialogDescricaoMovimentacao from "../../componentes/home/informacoesDoDiaCard/dialogDescricaoMovimentacao/DialogDescricaoMovimentacao";
 import InformacoesDoMes from "../../componentes/home/informacoesDoMesCard/InformacoesDoMes";
 import ModalAddMovimentacao from "../../componentes/home/modalAddMovimentacao/ModalAddMovimentacao";
 import useModalAddMovimentacao from "../../componentes/home/modalAddMovimentacao/UseModalAddMovimentacao";
@@ -24,12 +23,11 @@ const Home: FC = () => {
 	const [categoria, setCategoria] = useState("");
 	const [valor, setValor] = useState("");
 	const [descricao, setDescricao] = useState("");
-	const [alterarSaldo, setAlteraSaldo] = useState(true);
+	const [alterarSaldo, ] = useState(true);
 	const [movimentacoesDoMes, setMovimentacoesDoMes] = useState<Movimentacao[]>([]);
 	const [edit, setEdit] = useState(false);
 	const {isOpenModalAdd, closeModalAdd} = useModalAddMovimentacao();
 	const {isOpenModalRemove, closeModalRemove} = useModalRemoveMovimentacao();
-	const [isOpenDialogDescricao, setIsOpenDialogDescricao] = useState(false);
 	const [tipo, setTipo] = useState(TipoMovimentacaoEnum.POSITIVO);
 	const [movimentacaoApagar, setMovimentacaoApagar] = useState<Movimentacao | null>(null);
 	const [visivel, setVisivel] = useState(false);
@@ -79,15 +77,6 @@ const Home: FC = () => {
 		setMovimentacaoApagar(movimentacaoApagar);
 	}
 
-	const propsDialogDescricao = (description: string) => {
-		setIsOpenDialogDescricao(true);
-		setDescricao(description);
-	}
-
-	const closeDialogDescricao = () => {
-		setIsOpenDialogDescricao(false);
-	}
-
 	const handleEditMovimentacao = (idMovimentacao: number | undefined, data: Date, valor: string,
 			categoria: string, descricao: string, tipo: TipoMovimentacaoEnum) => {
 		setIdMovimentacao(idMovimentacao)
@@ -120,7 +109,6 @@ const Home: FC = () => {
 					modalAddRendimento={propsModalAddRendimento}
 					modalAddDespesa={propsModalAddDespesa}
 					modalApagaMovimentacao={propsModalApagaRendimento}
-					dialogDescricao={(description) => propsDialogDescricao(description)}
 					handleEditMovimentacao={handleEditMovimentacao}
 					setVisible={setVisible}
 					visivel={visivel}
@@ -174,11 +162,6 @@ const Home: FC = () => {
 				tipo={tipo}
 				closeModalRemove={closeModalRemove}
 				movimentacao={movimentacaoApagar}
-			/>
-			<DialogDescricaoMovimentacao
-				openDialog={isOpenDialogDescricao}
-				description={descricao}
-				onClose={closeDialogDescricao}
 			/>
 		</div>
 	);

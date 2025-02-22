@@ -21,13 +21,15 @@ import { CategoriaMovimentacaoService } from '../../../services/CategoriaMovimen
 import { MovimentacaoService } from '../../../services/MovimentacaoService';
 import { CategoriaMovimentacao } from '../../../types/CategoriaMovimentacao';
 import { Movimentacao } from '../../../types/Movimentacao';
-import { useAlert } from '../../alert/AlertProvider';
+import { useAlert } from '../../contextProviders/AlertProvider';
+import { useDialog } from '../../contextProviders/DialogContext';
 import Dica from '../../dicas/Dica';
 import "./ModalAddMovimentacao.scss";
 
 const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimentacao) => {
 	const [accessTokenAtom] = useAtom(accessToken);
 	const { showAlert, showError } = useAlert();
+	const { showDialog } = useDialog();
 	const categoriaMovimentacaoService = new CategoriaMovimentacaoService(useBack());
 	const movimentacaoService = new MovimentacaoService(useBack());
 	const verboTitulo = props.edit
@@ -187,7 +189,7 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 									label="Alterar o saldo da conta"
 								/>
 								<IconButton
-									onClick={() => console.log}
+									onClick={() => showDialog("Se você desativar esta opção, sua movimentação não irá alterar o seu saldo atual. Você pode alterar isto novamente mais tarde.")}
 								>
 									<InfoOutlined
 										sx={{ color: "#0085FF" }}

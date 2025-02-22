@@ -7,10 +7,10 @@ import { useBack } from "../../../../http";
 import { IModalCategoriaProps } from "../../../../interfaces/IModalCategoriaProps";
 import { CategoriaMovimentacaoService } from "../../../../services/CategoriaMovimentacaoService";
 import { CategoriaMovimentacao } from "../../../../types/CategoriaMovimentacao";
+import { useAlert } from "../../../contextProviders/AlertProvider";
 import listaSelectCores from "./ListaSelectsCores";
 import listaSelectIcones from "./ListaSelectsIcones";
 import "./ModalCategoria.scss";
-import { useAlert } from "../../../alert/AlertProvider";
 
 const ModalCategoria: FC<IModalCategoriaProps> = (props: IModalCategoriaProps) => {
 	const [nome, setNome] = useState("");

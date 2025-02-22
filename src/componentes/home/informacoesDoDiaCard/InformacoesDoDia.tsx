@@ -23,12 +23,14 @@ import { ContaService } from '../../../services/ContaService';
 import { Movimentacao } from '../../../types/Movimentacao';
 import ConverteIcone from '../../configuracoes/categorias/ConverteIcones';
 import './InformacoesDoDia.scss';
+import { useDialog } from '../../contextProviders/DialogContext';
 
 const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaProps) => {
 	const [accessTokenAtom] = useAtom(accessToken);
 	const [movimentacoesDoDia, setMovimentacoesDoDia] = useState<Movimentacao[]>([]);
 	const [saldoAtual, setSaldo] = useAtom(saldo);
 	const contaService = new ContaService(useBack());
+	const { showDialog } = useDialog();
 
 	useEffect(() => {
 		const buscaMovimentacoesDoDia = async () => {
@@ -182,7 +184,7 @@ const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaPr
 										placement="top"
 									>
 										<IconButton
-											onClick={() => props.dialogDescricao(movimentacao.descricaoMovimentacao)}
+											onClick={() => showDialog(movimentacao.descricaoMovimentacao)}
 										>
 											<InfoOutlined
 												sx={{ color: "#0085FF" }}

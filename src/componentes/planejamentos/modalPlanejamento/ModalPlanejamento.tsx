@@ -15,7 +15,7 @@ import { CategoriaMovimentacaoService } from "../../../services/CategoriaMovimen
 import { PlanejamentoService } from "../../../services/PlanejamentoService";
 import { CategoriaMovimentacao } from "../../../types/CategoriaMovimentacao";
 import { Planejamento } from "../../../types/Planejamento";
-import { useAlert } from '../../alert/AlertProvider';
+import { useAlert } from '../../contextProviders/AlertProvider';
 import './ModalPlanejamento.scss';
 
 const ModalPlanejamento: FC<IModalPlanejamento> = (props: IModalPlanejamento) => {

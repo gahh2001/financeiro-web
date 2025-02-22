@@ -2,10 +2,10 @@ import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, LinearP
 import { useAtom } from "jotai";
 import { FC, Fragment, useEffect, useState } from "react";
 import { modalEditSaldo, saldo } from "../../../../atoms/atom";
-import { ContaService } from "../../../../services/ContaService";
-import "./ModalZerar.scss";
 import { useBack } from "../../../../http";
-import { useAlert } from "../../../alert/AlertProvider";
+import { ContaService } from "../../../../services/ContaService";
+import { useAlert } from "../../../contextProviders/AlertProvider";
+import "./ModalZerar.scss";
 
 const ModalZerar: FC = () => {
 	const [loading, setLoading] = useState(false);

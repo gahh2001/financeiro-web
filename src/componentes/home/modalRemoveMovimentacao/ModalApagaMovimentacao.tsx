@@ -7,7 +7,7 @@ import { TipoMovimentacaoEnum } from '../../../enums/TipoMovimentacaoEnum';
 import { useBack } from '../../../http';
 import { IModalApagar } from '../../../interfaces/IModalApagar';
 import { MovimentacaoService } from '../../../services/MovimentacaoService';
-import { useAlert } from '../../alert/AlertProvider';
+import { useAlert } from '../../contextProviders/AlertProvider';
 import "./ModalApagaMovimentacao.scss";
 
 const ModalApagaMovimentacao: FC<IModalApagar> = (props: IModalApagar) => {
