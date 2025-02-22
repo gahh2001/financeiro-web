@@ -5,6 +5,7 @@ import { modalEditSaldo, saldo } from "../../../../atoms/atom";
 import { ContaService } from "../../../../services/ContaService";
 import "./ModalZerar.scss";
 import { useBack } from "../../../../http";
+import { useAlert } from "../../../alert/AlertProvider";
 
 const ModalZerar: FC = () => {
 	const [loading, setLoading] = useState(false);
@@ -15,6 +16,7 @@ const ModalZerar: FC = () => {
 	const [emptyValor, setEmptyValor] = useState(false);
 	const [valor, setValor] = useState("");
 	const [, setPrimeiroClique] = useState(false);
+	const { showAlert, showError } = useAlert();
 
 	const convertInputValor = (event: any) => {
 		let value = event.target.value;
@@ -96,10 +98,16 @@ const ModalZerar: FC = () => {
 		}
 		setLoading(true);
 		setSuccess(false);
-		await contaService.editarSaldo(valor);
+		let response = await contaService.editarSaldo(valor);
 		setLoading(false);
 		setSuccess(true);
 		setSaldoAtual(Number(valor));
+		setOpen(false);
+		if (response?.status === 200) {
+			showAlert("Saldo editado com sucesso", "success");
+		} else {
+			showError();
+		}
 	}
 }
 

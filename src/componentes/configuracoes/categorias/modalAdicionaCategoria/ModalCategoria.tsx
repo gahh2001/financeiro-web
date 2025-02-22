@@ -10,6 +10,7 @@ import { CategoriaMovimentacao } from "../../../../types/CategoriaMovimentacao";
 import listaSelectCores from "./ListaSelectsCores";
 import listaSelectIcones from "./ListaSelectsIcones";
 import "./ModalCategoria.scss";
+import { useAlert } from "../../../alert/AlertProvider";
 
 const ModalCategoria: FC<IModalCategoriaProps> = (props: IModalCategoriaProps) => {
 	const [nome, setNome] = useState("");
@@ -24,6 +25,7 @@ const ModalCategoria: FC<IModalCategoriaProps> = (props: IModalCategoriaProps) =
 	const [success, setSuccess] = useState(false);
 	const [primeiroClique, setPrimeiroClique] = useState(false);
 	const categoriaService = new CategoriaMovimentacaoService(useBack());
+	const { showAlert, showError } = useAlert();
 	const labelTipo = props.edit ? "Você não pode editar o tipo de uma categoria 😬" : "Tipo";
 
 	useEffect(() => {
@@ -205,6 +207,12 @@ const ModalCategoria: FC<IModalCategoriaProps> = (props: IModalCategoriaProps) =
 			}
 			setLoading(false);
 			setSuccess(true);
+			props.closeModal();
+			if (response?.status === 200) {
+				showAlert("Categoria salva com sucesso", "success");
+			} else {
+				showError();
+			}
 		}
 	}
 

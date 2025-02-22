@@ -5,6 +5,7 @@ type AlertSeverity = "success" | "error" | "warning" | "info";
 
 interface AlertContextProps {
 	showAlert: (message: string, severity?: AlertSeverity) => void;
+	showError: () => void;
 }
 
 const AlertContext = createContext<AlertContextProps | undefined>(undefined);
@@ -20,12 +21,16 @@ export const AlertProvider: React.FC<{ children: ReactNode }> = ({ children }) =
 		setOpen(true);
 	};
 
+	const showError = () => {
+		showAlert("Ocorreu um erro inesperado. Tente novamente mais tarde.", "error");
+	};
+
 	const handleClose = () => {
 		setOpen(false);
 	};
 
 	return (
-		<AlertContext.Provider value={{ showAlert }}>
+		<AlertContext.Provider value={{ showAlert, showError }}>
 			{children}
 			{/* Snackbar Global */}
 			<Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>

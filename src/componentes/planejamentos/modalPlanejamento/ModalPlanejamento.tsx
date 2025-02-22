@@ -15,6 +15,7 @@ import { CategoriaMovimentacaoService } from "../../../services/CategoriaMovimen
 import { PlanejamentoService } from "../../../services/PlanejamentoService";
 import { CategoriaMovimentacao } from "../../../types/CategoriaMovimentacao";
 import { Planejamento } from "../../../types/Planejamento";
+import { useAlert } from '../../alert/AlertProvider';
 import './ModalPlanejamento.scss';
 
 const ModalPlanejamento: FC<IModalPlanejamento> = (props: IModalPlanejamento) => {
@@ -32,6 +33,7 @@ const ModalPlanejamento: FC<IModalPlanejamento> = (props: IModalPlanejamento) =>
 	const camposInvalidos = emptyNome || emptyTipo || emptyRecorrencia || emptyValor || emptyInicio
 		|| emptyFim || emptyCategorias;
 	const [categorias, setCategorias] = useState<CategoriaMovimentacao[]>([]);
+	const { showAlert, showError } = useAlert();
 	let fraseValor = 'O valor será:';
 	let fraseRecorrencia = 'Valor';
 	let fraseSoma = '';
@@ -382,13 +384,20 @@ const ModalPlanejamento: FC<IModalPlanejamento> = (props: IModalPlanejamento) =>
 			categorias: props.categorias,
 			ativo: true,
 		};
+		let response;
 		if (novo.id && novo.id !== 0) {
 			novo.ativo = props.ativo
-			await planejamentoService.atualizaPlanejamento(novo);
+			response = await planejamentoService.atualizaPlanejamento(novo);
 		} else {
-			await planejamentoService.criaPlanejamento(novo);
+			response = await planejamentoService.criaPlanejamento(novo);
 		}
 		setSuccess(true);
+		setIsOpenModalPlanejamento(false);
+		if (response?.status === 200) {
+			showAlert("Planejamento salvo com sucesso", "success");
+		} else {
+			showError();
+		}
 	}
 }
 

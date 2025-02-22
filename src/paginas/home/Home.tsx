@@ -1,7 +1,7 @@
 import { useAtom } from "jotai";
 import { FC, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { accessToken, alertMovimentacao } from "../../atoms/atom";
+import { accessToken } from "../../atoms/atom";
 import AppBar from "../../componentes/AppBar/AppBar";
 import Dica from '../../componentes/dicas/Dica';
 import Footer from "../../componentes/footer/Footer";
@@ -16,7 +16,6 @@ import useModalRemoveMovimentacao from "../../componentes/home/modalRemoveMovime
 import { TipoMovimentacaoEnum } from '../../enums/TipoMovimentacaoEnum';
 import { Movimentacao } from "../../types/Movimentacao";
 import './Home.scss';
-import { Snackbar, Alert, SnackbarCloseReason } from "@mui/material";
 
 const Home: FC = () => {
 	const [selectedDate, setSelectedDate] = useState(new Date());
@@ -36,7 +35,6 @@ const Home: FC = () => {
 	const isMounted = useRef(true);
 	const navigate = useNavigate();
 	const [accessTokenAtom] = useAtom(accessToken);
-	const [alert, setAlert] = useAtom(alertMovimentacao);
 	const [openDicaInformacoesdia, setOpenDicaInformacoesdia] = useState(localStorage.getItem('dicaDia') !== "ok");
 	const [openDicaCalendario, setOpenDicaCalendario] = useState(localStorage.getItem('dicaCalendario') !== "ok");
 	const [openDicaMes, setOpenDicaMes] = useState(localStorage.getItem('dicaMes') !== "ok");
@@ -100,16 +98,6 @@ const Home: FC = () => {
 		setDescricao(descricao);
 		closeModalAdd();
 	}
-
-	const handleClose = (
-		event: React.SyntheticEvent | Event,
-		reason?: SnackbarCloseReason,
-	) => {
-		if (reason === 'clickaway') {
-		  return;
-		}
-		setAlert(false);
-	};
 
 	return (
 		<div className="home">
@@ -190,22 +178,6 @@ const Home: FC = () => {
 				description={descricao}
 				onClose={closeDialogDescricao}
 			/>
-			<Snackbar
-				open={alert}
-				onClose={handleClose}
-				//TransitionComponent={SlideTransition}
-				//onAnimationEnd={() => !open && setMessage("")}
-				autoHideDuration={3000}
-			>
-				<Alert
-					onClose={handleClose}
-					severity="success"
-					variant="filled"
-					elevation={6}
-				>
-					Movimentação salva com sucesso
-				</Alert>
-			</Snackbar>
 		</div>
 	);
 }

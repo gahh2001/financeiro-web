@@ -3,11 +3,13 @@ import { useAtom } from "jotai";
 import { FC, Fragment, useState } from "react";
 import { modalTutoriais } from "../../../../atoms/atom";
 import "../modalZerar/ModalZerar.scss";
+import { useAlert } from "../../../alert/AlertProvider";
 
 const ModalTutoriais: FC = () => {
 	const [loading, setLoading] = useState(false);
 	const [success, setSuccess] = useState(false);
 	const [open, setOpen] = useAtom(modalTutoriais);
+	const { showAlert } = useAlert();
 
 	return (
 		<Fragment>
@@ -63,6 +65,8 @@ const ModalTutoriais: FC = () => {
 		localStorage.removeItem("dicaMoviemtacaoPlano");
 		localStorage.removeItem("dicaMovimentacao");
 		localStorage.removeItem("dicaPlanejamento");
+		setOpen(false);
+		showAlert("Os tutoriais serão mostrados novamente", "success");
 	}
 }
 

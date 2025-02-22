@@ -7,12 +7,14 @@ import { TipoMovimentacaoEnum } from '../../../enums/TipoMovimentacaoEnum';
 import { useBack } from '../../../http';
 import { IModalApagar } from '../../../interfaces/IModalApagar';
 import { MovimentacaoService } from '../../../services/MovimentacaoService';
+import { useAlert } from '../../alert/AlertProvider';
 import "./ModalApagaMovimentacao.scss";
 
 const ModalApagaMovimentacao: FC<IModalApagar> = (props: IModalApagar) => {
 	const movimentacaoService = new MovimentacaoService(useBack());
 	const [success, setSuccess] = useState(false);
 	const [loading, setLoading] = useState(false);
+	const { showAlert, showError } = useAlert();
 	const tipoMovimentacao = props.tipo === TipoMovimentacaoEnum.POSITIVO ? 'rendimento' : 'despesa';
 	const possuiMovimentacaoEData = props?.movimentacao !== undefined
 		&& props.movimentacao?.dataMovimentacao !== undefined;
@@ -102,9 +104,13 @@ const ModalApagaMovimentacao: FC<IModalApagar> = (props: IModalApagar) => {
 		setLoading(true);
 		setSuccess(false);
 		const response = await movimentacaoService.apagaMovimentacao(id);
-		if (response?.status && response.status === 200) {
-			setLoading(false);
-			setSuccess(true);
+		setLoading(false);
+		setSuccess(true);
+		props.closeModalRemove();
+		if (response?.status === 200) {
+			showAlert("Movimentação apagada com sucesso", "success");
+		} else {
+			showError();
 		}
 	}
 }

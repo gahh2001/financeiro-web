@@ -13,7 +13,7 @@ import dayjs, { Dayjs } from 'dayjs';
 import 'dayjs/locale/pt-br';
 import { useAtom } from 'jotai';
 import { ChangeEvent, FC, useEffect, useState } from "react";
-import { accessToken, alertMovimentacao } from '../../../atoms/atom';
+import { accessToken } from '../../../atoms/atom';
 import { TipoMovimentacaoEnum } from '../../../enums/TipoMovimentacaoEnum';
 import { useBack } from '../../../http';
 import { IModalAddMovimentacao } from '../../../interfaces/IModalAddMovimentacao';
@@ -21,12 +21,13 @@ import { CategoriaMovimentacaoService } from '../../../services/CategoriaMovimen
 import { MovimentacaoService } from '../../../services/MovimentacaoService';
 import { CategoriaMovimentacao } from '../../../types/CategoriaMovimentacao';
 import { Movimentacao } from '../../../types/Movimentacao';
+import { useAlert } from '../../alert/AlertProvider';
 import Dica from '../../dicas/Dica';
 import "./ModalAddMovimentacao.scss";
 
 const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimentacao) => {
 	const [accessTokenAtom] = useAtom(accessToken);
-	const [, setAlert] = useAtom(alertMovimentacao);
+	const { showAlert, showError } = useAlert();
 	const categoriaMovimentacaoService = new CategoriaMovimentacaoService(useBack());
 	const movimentacaoService = new MovimentacaoService(useBack());
 	const verboTitulo = props.edit
@@ -216,16 +217,21 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 				idCategoriaMovimentacao: parseInt(categoria),
 				descricaoMovimentacao: descricao
 			}
+			let response;
 			if (props.edit) {
 				novaMovimentacao.id = props.idMovimentacao;
-				await movimentacaoService.atualizaMovimentacao(novaMovimentacao);
+				response = await movimentacaoService.atualizaMovimentacao(novaMovimentacao);
 			} else {
-				await movimentacaoService.adicionaMovimentacao(novaMovimentacao);
+				response = await movimentacaoService.adicionaMovimentacao(novaMovimentacao);
 			}
 			setLoading(false);
 			setSuccess(true);
 			props.closeModal();
-			setAlert(true);
+			if (response?.status === 200) {
+				showAlert("Movimentação salva com sucesso", "success");
+			} else {
+				showError();
+			}
 		}
 	}
 
