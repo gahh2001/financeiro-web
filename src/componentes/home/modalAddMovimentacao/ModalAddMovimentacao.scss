@@ -55,57 +55,5 @@
 				width: 130%;
 			}
 		}
-
-		.buttons {
-			width: 100%;
-			align-items: right;
-			height: 6vh;
-			margin-top: 19px;
-			background-color: transparent;
-			display: flex;
-			justify-content: space-evenly;
-
-			button {
-				text-align: center;
-				font-size: 2vh;
-				background-color: $fundo-linhas;
-				width: 12vh;
-				height: 6vh;
-				border: 2px solid $fundo-linhas;
-				box-shadow: 2px 2px 7px 1px $sombras;
-				border-radius: 7px;
-				cursor: pointer;
-				color: $color-in-linhas;
-
-				&:hover {
-					background-color: #4b4b4b;
-				}
-			}
-
-			.adicionar {
-				@media screen and (max-width: 768px) {
-					width: 12vh;
-				}
-				@media screen and (min-width: 768px) {
-					width: 12vh;
-				}
-
-				height: 6vh;
-				cursor: pointer;
-
-				button {
-					width: 100%;
-				}
-
-				svg {
-					font-size: 4vh;
-				}
-			}
-		}
-
-		.progress {
-			width: auto;
-			height: auto;
-		}
 	}
 }
