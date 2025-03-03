@@ -1,6 +1,5 @@
-import { AddCircleOutlineRounded, InfoOutlined } from '@mui/icons-material';
-import CheckIcon from '@mui/icons-material/Check';
-import { Box, Checkbox, FormControlLabel, IconButton, LinearProgress, TextField } from '@mui/material';
+import { InfoOutlined } from '@mui/icons-material';
+import { Box, Button, Checkbox, Dialog, DialogActions, DialogContent, FormControlLabel, IconButton, TextField } from '@mui/material';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -46,9 +45,6 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 	const [emptyValor, setEmptyValor] = useState(false);
 	const [primeiroClique, setPrimeiroClique] = useState(false);
 	const [success, setSuccess] = useState(false);
-	const [loading, setLoading] = useState(false);
-	const corBotaoAdd = props.tipo === TipoMovimentacaoEnum.POSITIVO
-		? "#44A81D" : "#B82121";
 	const [openDicaModalAdd, setOpenDicaModalAdd] = useState(localStorage.getItem('dicaModalAdd') !== "ok");
 
 	useEffect(() => {
@@ -119,117 +115,108 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 	},[categoria, valor]);
 
 	return (
-		<>
-			{props.isOpen && (
-				<div className="modal-overlay-adiciona" onKeyDown={handleKeyDown}>
-					<div className="modal-adiciona">
-						<div className="titulo">{verboTitulo} {tipoMovimentacao}</div>
-							<Dica
-								frase="Você pode criar novas categorias para as suas movimentações em 'Configurações'"
-								codigo="dicaModalAdd"
-								open={openDicaModalAdd}
-								setOpen={setOpenDicaModalAdd}
+		<Dialog
+			open={props.isOpen}
+			onClose={props.closeModal}
+			id='modal-add-moviemntacao'
+			onKeyDown={handleKeyDown}
+			disableEnforceFocus
+		>
+			<DialogContent>
+				<div className="modal-adiciona">
+					<div className="titulo">{verboTitulo} {tipoMovimentacao}</div>
+					<Dica
+						frase="Você pode criar novas categorias para as suas movimentações em 'Configurações'"
+						codigo="dicaModalAdd"
+						open={openDicaModalAdd}
+						setOpen={setOpenDicaModalAdd}
+					/>
+					<div className='inputs'>
+						<LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="pt-br">
+							<DemoContainer components={['DatePicker']}>
+								<DatePicker
+									className='data-add-movimentacao'
+									label="Data"
+									value={data}
+									defaultValue={data ? data : dayjs(props.selectedDate)}
+									onChange={(newValue) => setData(newValue)}
+								/>
+							</DemoContainer>
+						</LocalizationProvider>
+						<FormControl
+							required
+							sx={{ width: "213px" }}
+							error={emptyCategoria}
+						>
+							<InputLabel
+								id="demo-simple-select-helper-label"
+							>
+								Categoria
+							</InputLabel>
+							<Select
+								id="select-categoria"
+								value={categoria}
+								label="Age"
+								onChange={handleChangeCategoria}
+								required={true}
+							>
+							{obtemSelectCategorias(categoriasCarregadas)}
+							</Select>
+						</FormControl>
+						<TextField
+							required
+							error={emptyValor}
+							value={valor}
+							onChange={convertInputValor}
+							inputProps={{ type: 'number', step: "0.5"}}
+							label= "Valor"
+						/>
+					</div>
+					<div className='input-descricao'>
+						<Box>
+							<TextField
+								sx={{ width: "100%" }}
+								label="Escreva alguma observação sobre a movimentação"
+								id="fullWidth"
+								value={descricao}
+								onChange={handleChangeDescricao}
 							/>
-							<div className='inputs'>
-								<LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="pt-br">
-									<DemoContainer components={['DatePicker']}>
-										<DatePicker
-											sx={{width: "250px" }}
-											label="Data"
-											value={data}
-											defaultValue={data ? data : dayjs(props.selectedDate)}
-											onChange={(newValue) => setData(newValue)}
-										/>
-									</DemoContainer>
-								</LocalizationProvider>
-								<FormControl
-									required
-									sx={{ width: "250px" }}
-									error={emptyCategoria}
-								>
-									<InputLabel
-										id="demo-simple-select-helper-label"
-									>
-										Categoria
-									</InputLabel>
-									<Select
-										id="select-categoria"
-										value={categoria}
-										label="Age"
-										onChange={handleChangeCategoria}
-										required={true}
-									>
-									{obtemSelectCategorias(categoriasCarregadas)}
-									</Select>
-								</FormControl>
-								<TextField
-									required
-									error={emptyValor}
-									value={valor}
-									onChange={convertInputValor}
-									inputProps={{ type: 'number', step: "0.5"}}
-									sx={{width: "250px" }}
-									label= "Valor"
-								/>
-							</div>
-							<div className='input-descricao'>
-								<Box>
-									<TextField
-										sx={{ width: "100%" }}
-										label="Escreva alguma observação sobre a movimentação"
-										id="fullWidth"
-										value={descricao}
-										onChange={handleChangeDescricao}
-									/>
-								</Box>
-							</div>
-							<div className="altera-saldo">
-								<FormControlLabel
-									control={<Checkbox checked={alterarSaldo} onChange={handleChangeAlteraSaldo}/>}
-									label="Alterar o saldo da conta"
-								/>
-								<IconButton
-									onClick={() => showDialog("Se você desativar esta opção, sua movimentação não irá alterar o seu saldo atual. Você pode alterar isto novamente mais tarde.")}
-								>
-									<InfoOutlined
-										sx={{ color: "#0085FF" }}
-									/>
-								</IconButton>
-							</div>
-						<div className="buttons">
-							<button onClick={props.closeModal}>
-								{success ? "Fechar" : "Cancelar"}
-							</button>
-							<div className='adicionar'>
-								<button
-									onClick={() => salvarMovimentacao()}
-									disabled={success}
-								>
-									{success
-										? <CheckIcon sx={{color: "green"}}/>
-										: <AddCircleOutlineRounded sx={{ color: corBotaoAdd }} />
-									}
-								</button>
-							</div>
-						</div>
-						<div className='progress'>
-							{loading && (
-								<Box sx={{ width: '100%' }}>
-									<LinearProgress />
-								</Box>
-							)}
-						</div>
+						</Box>
+					</div>
+					<div className="altera-saldo">
+						<FormControlLabel
+							control={<Checkbox checked={alterarSaldo} onChange={handleChangeAlteraSaldo}/>}
+							label="Alterar o meu saldo"
+							sx={{marginRight: '0 !important'}}
+						/>
+						<IconButton
+							onClick={() => showDialog("Se você desativar esta opção, sua movimentação não irá alterar o seu saldo atual. Você pode alterar isto novamente mais tarde.")}
+						>
+							<InfoOutlined
+								sx={{ color: "#0085FF" }}
+							/>
+						</IconButton>
 					</div>
 				</div>
-			)}
-		</>
+			</DialogContent>
+			<DialogActions className='modal-planejamento-butons'>
+				<Button onClick={props.closeModal}>
+					{success ? "Fechar" : "Cancelar"}
+				</Button>
+				<Button
+					onClick={() => salvarMovimentacao()}
+					disabled={success}
+				>
+					Salvar
+				</Button>
+			</DialogActions>
+		</Dialog>
 	);
 
 	async function salvarMovimentacao() {
 		setPrimeiroClique(true);
 		const inputsValidados = validaInputsMovimentacao();
 		if (inputsValidados) {
-			setLoading(true);
 			setSuccess(false);
 			const novaMovimentacao: Partial<Movimentacao> = {
 				valor: parseFloat(valor),
@@ -246,7 +233,6 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 			} else {
 				response = await movimentacaoService.adicionaMovimentacao(novaMovimentacao);
 			}
-			setLoading(false);
 			setSuccess(true);
 			props.closeModal();
 			if (response?.status === 200) {

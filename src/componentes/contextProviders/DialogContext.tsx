@@ -1,6 +1,6 @@
-import React, { createContext, useContext, useState, ReactNode } from "react";
-import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button, Slide } from "@mui/material";
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slide } from "@mui/material";
 import { TransitionProps } from "@mui/material/transitions";
+import React, { createContext, ReactNode, useContext, useState } from "react";
 
 const Transition = React.forwardRef(function Transition(
 	props: TransitionProps & { children: React.ReactElement<any, any> },
@@ -32,7 +32,13 @@ export const DialogProvider: React.FC<{ children: ReactNode }> = ({ children }) 
 		<DialogContext.Provider value={{ showDialog }}>
 			{children}
 			{/* Dialog Global */}
-			<Dialog open={open} TransitionComponent={Transition} keepMounted onClose={handleClose} fullWidth>
+			<Dialog
+				open={open}
+				TransitionComponent={Transition}
+				keepMounted onClose={handleClose}
+				fullWidth
+				sx={{ zIndex: 1500 }}
+			>
 				<DialogTitle>Descrição</DialogTitle>
 				<DialogContent>
 					<DialogContentText>{message}</DialogContentText>
