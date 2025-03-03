@@ -1,33 +1,8 @@
 @import '../../../VariaveisSCSS.scss';
 
-.modal-overlay-apaga {
-	z-index: 1;
-	width: 100%;
-	height: 100%;
-	position: fixed;
-	top: 0;
-	left: 0;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	background: rgba(0, 0, 0, 0.6);
-}
-
 .modal-apaga {
-	@media screen and (min-width: 768px) {
-		height: 37vh;
-		width: 37%;
-	}
-	@media screen and (max-width: 768px) {
-		height: 40vh;
-		width: 90%;
-	}
-	background-color: $fundo-linhas;
-	padding: 1rem;
 	border-radius: 25px;
 	color: $color-in-linhas;
-	border: 1px solid $sombras;
-	box-shadow: 5px 4px 7px 1px $sombras;
 
 	.titulo {
 		height: auto;
@@ -42,6 +17,7 @@
 		text-align: center;
 		font-size: 2.5vh;
 		height: 20%;
+		margin-bottom: 3vh;
 	}
 
 	.headers {
@@ -76,59 +52,10 @@
 			height: 5vh;
 			font-size: 1.9vh;
 			align-content: center;
-		}
-	}
 
-	.buttons {
-		width: 100%;
-		align-items: right;
-		height: 15%;
-		margin-top: 50px;
-		background-color: transparent;
-		display: flex;
-		justify-content: center;
-
-		button {
-			text-align: center;
-			font-size: 2.4vh;
-			background-color: $fundo-linhas;
-			width: 25%;
-			height: 100%;
-			border: 2px solid $fundo-linhas;
-			box-shadow: 2px 2px 7px 1px $sombras;
-			border-radius: 7px;
-			cursor: pointer;
-			color: $color-in-linhas;
-			margin-left: 2%;
-			margin-right: 4%;
-
-			&:hover {
-				background-color: #4b4b4b;
+			@media screen and (max-width: 768px) {
+				font-size: 1.6vh;
 			}
 		}
-
-		.apagar {
-			margin-right: 5%;
-			width: 18%;
-			height: 100%;
-			cursor: pointer;
-
-			button {
-				width: 100%;
-			}
-
-			svg {
-				font-size: 4vh;
-			}
-		}
-
-		
 	}
-
-	.progress {
-		margin-top: 2%;
-		width: auto;
-		height: auto;
-	}
-
 }
