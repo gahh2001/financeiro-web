@@ -9,7 +9,6 @@ import Calendario from "../../componentes/home/calendario/Calendario";
 import InformacoesDoDia from "../../componentes/home/informacoesDoDiaCard/InformacoesDoDia";
 import InformacoesDoMes from "../../componentes/home/informacoesDoMesCard/InformacoesDoMes";
 import ModalAddMovimentacao from "../../componentes/home/modalAddMovimentacao/ModalAddMovimentacao";
-import useModalAddMovimentacao from "../../componentes/home/modalAddMovimentacao/UseModalAddMovimentacao";
 import ModalApagaMovimentacao from "../../componentes/home/modalRemoveMovimentacao/ModalApagaMovimentacao";
 import useModalRemoveMovimentacao from "../../componentes/home/modalRemoveMovimentacao/UseModalRemoveMovimentacao";
 import { TipoMovimentacaoEnum } from '../../enums/TipoMovimentacaoEnum';
@@ -26,7 +25,6 @@ const Home: FC = () => {
 	const [alterarSaldo, ] = useState(true);
 	const [movimentacoesDoMes, setMovimentacoesDoMes] = useState<Movimentacao[]>([]);
 	const [edit, setEdit] = useState(false);
-	const {isOpenModalAdd, closeModalAdd} = useModalAddMovimentacao();
 	const {isOpenModalRemove, closeModalRemove} = useModalRemoveMovimentacao();
 	const [tipo, setTipo] = useState(TipoMovimentacaoEnum.POSITIVO);
 	const [movimentacaoApagar, setMovimentacaoApagar] = useState<Movimentacao | null>(null);
@@ -59,12 +57,10 @@ const Home: FC = () => {
 	const propsModalAddRendimento = () => {
 		setTipo(TipoMovimentacaoEnum.POSITIVO);
 		setEdit(false);
-		closeModalAdd();
 	}
 	const propsModalAddDespesa = () => {
 		setTipo(TipoMovimentacaoEnum.NEGATIVO);
 		setEdit(false);
-		closeModalAdd();
 	}
 	const setVisible = () => {
 		setVisivel(!visivel);
@@ -86,7 +82,6 @@ const Home: FC = () => {
 		setCategoria(categoria);
 		setValor(valor);
 		setDescricao(descricao);
-		closeModalAdd();
 	}
 
 	return (
@@ -104,9 +99,7 @@ const Home: FC = () => {
 				<InformacoesDoDia
 					selectedDate={selectedDate}
 					movimentacoesMes={movimentacoesDoMes}
-					isOpenModalAdd={isOpenModalAdd}
 					isOpenModalRemove={isOpenModalRemove}
-					modalAddRendimento={propsModalAddRendimento}
 					modalAddDespesa={propsModalAddDespesa}
 					modalApagaMovimentacao={propsModalApagaRendimento}
 					handleEditMovimentacao={handleEditMovimentacao}
@@ -120,7 +113,6 @@ const Home: FC = () => {
 					setOpen={setOpenDicaCalendario}
 				/>
 				<Calendario
-					isOpenModalAdd={isOpenModalAdd}
 					isOpenModalRemove={isOpenModalRemove}
 					onDayClick={propsCalendario}
 					atualizaMovimentacoesMes={propsMovimentcoesMes}
@@ -143,7 +135,6 @@ const Home: FC = () => {
 			</div>
 			<Footer/>
 			<ModalAddMovimentacao
-				isOpen={isOpenModalAdd}
 				tipo= {tipo}
 				edit={edit}
 				idMovimentacao={idMovimentacao}
@@ -154,7 +145,6 @@ const Home: FC = () => {
 				alteraSaldo={alterarSaldo}
 				selectedDate={selectedDate}
 				movimentacoesMes={movimentacoesDoMes}
-				closeModal={closeModalAdd}
 				atualizaMovimentacoesMes={propsMovimentcoesMes}
 			/>
 			<ModalApagaMovimentacao

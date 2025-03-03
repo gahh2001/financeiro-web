@@ -15,21 +15,22 @@ import { IconButton } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
 import { useAtom } from 'jotai';
 import { FC, Fragment, useEffect, useState } from 'react';
-import { accessToken, saldo } from '../../../atoms/atom';
+import { accessToken, modalAddMovimentacao, saldo } from '../../../atoms/atom';
 import { TipoMovimentacaoEnum } from '../../../enums/TipoMovimentacaoEnum';
 import { useBack } from '../../../http';
 import { IInformacoesDoDiaProps } from '../../../interfaces/IInformacoesDoDiaProps';
 import { ContaService } from '../../../services/ContaService';
 import { Movimentacao } from '../../../types/Movimentacao';
 import ConverteIcone from '../../configuracoes/categorias/ConverteIcones';
-import './InformacoesDoDia.scss';
 import { useDialog } from '../../contextProviders/DialogContext';
+import './InformacoesDoDia.scss';
 
 const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaProps) => {
 	const [accessTokenAtom] = useAtom(accessToken);
 	const [movimentacoesDoDia, setMovimentacoesDoDia] = useState<Movimentacao[]>([]);
 	const [saldoAtual, setSaldo] = useAtom(saldo);
 	const contaService = new ContaService(useBack());
+	const [openModalAdd, setOpenModalApp] = useAtom(modalAddMovimentacao);
 	const { showDialog } = useDialog();
 
 	useEffect(() => {
@@ -45,7 +46,7 @@ const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaPr
 			}
 		};
 		buscaMovimentacoesDoDia();
-	}, [props.selectedDate, props.modalAddRendimento, props.modalAddDespesa, props.modalApagaMovimentacao]);
+	}, [props.selectedDate, openModalAdd, props.modalAddDespesa, props.modalApagaMovimentacao]);
 
 	useEffect(() => {
 		const atualizaSaldoConta = async () => {
@@ -61,7 +62,7 @@ const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaPr
 			}
 		};
 		atualizaSaldoConta();
-	}, [props.modalAddRendimento, props.modalAddDespesa, props.modalApagaMovimentacao]);
+	}, [openModalAdd, props.modalAddDespesa, props.modalApagaMovimentacao]);
 
 	return (
 		<div className="informacoes-do-dia">
@@ -119,14 +120,14 @@ const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaPr
 				<div className="buttons">
 					<button
 						
-						onClick={props.modalAddRendimento}
+						onClick={() => setOpenModalApp(true)}
 					>
 						<AddTaskOutlined
 							sx={{ color: "#44A81D" }}
 						/> <br/>
 						Adicionar rendimento
 					</button>
-					<button onClick={props.modalAddDespesa}>
+					<button onClick={() => setOpenModalApp(true)}>
 						<PlaylistRemove
 							sx={{ color: "#e15734db" }}
 						/> <br />

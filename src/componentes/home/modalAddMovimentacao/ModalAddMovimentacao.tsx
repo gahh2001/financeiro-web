@@ -12,8 +12,7 @@ import dayjs, { Dayjs } from 'dayjs';
 import 'dayjs/locale/pt-br';
 import { useAtom } from 'jotai';
 import { ChangeEvent, FC, useEffect, useState } from "react";
-import { accessToken } from '../../../atoms/atom';
-import { TipoMovimentacaoEnum } from '../../../enums/TipoMovimentacaoEnum';
+import { accessToken, modalAddMovimentacao } from '../../../atoms/atom';
 import { useBack } from '../../../http';
 import { IModalAddMovimentacao } from '../../../interfaces/IModalAddMovimentacao';
 import { CategoriaMovimentacaoService } from '../../../services/CategoriaMovimentacaoService';
@@ -27,14 +26,13 @@ import "./ModalAddMovimentacao.scss";
 
 const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimentacao) => {
 	const [accessTokenAtom] = useAtom(accessToken);
+	const [open, setOpen] = useAtom(modalAddMovimentacao);
 	const { showAlert, showError } = useAlert();
 	const { showDialog } = useDialog();
 	const categoriaMovimentacaoService = new CategoriaMovimentacaoService(useBack());
 	const movimentacaoService = new MovimentacaoService(useBack());
 	const verboTitulo = props.edit
 		? "Editar " : "Adicionar "
-	const tipoMovimentacao = props.tipo === TipoMovimentacaoEnum.POSITIVO
-		? 'rendimento' : 'despesa'
 	const [categoriasCarregadas, setCategoriasCarregadas] = useState<CategoriaMovimentacao[]>([]);
 	const [data, setData] = useState<Dayjs | null>(dayjs());
 	const [categoria, setCategoria] = useState("");
@@ -49,7 +47,7 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 
 	useEffect(() => {
 		const buscaCategorias = async () => {
-			if (props.isOpen) {
+			if (open) {
 				try {
 					if (accessTokenAtom !== "") {
 						const categorias = await categoriaMovimentacaoService
@@ -80,7 +78,7 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 			setPrimeiroClique(false);
 		}
 		setSuccess(false);
-	}, [props.closeModal]);
+	}, [open]);
 
 	const handleChangeCategoria = (event: SelectChangeEvent) => {
 		setCategoria(event.target.value);
@@ -116,15 +114,15 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 
 	return (
 		<Dialog
-			open={props.isOpen}
-			onClose={props.closeModal}
+			open={open}
+			onClose={() => setOpen(false)}
 			id='modal-add-moviemntacao'
 			onKeyDown={handleKeyDown}
 			disableEnforceFocus
 		>
 			<DialogContent>
 				<div className="modal-adiciona">
-					<div className="titulo">{verboTitulo} {tipoMovimentacao}</div>
+					<div className="titulo">{verboTitulo} movimentação</div>
 					<Dica
 						frase="Você pode criar novas categorias para as suas movimentações em 'Configurações'"
 						codigo="dicaModalAdd"
@@ -200,7 +198,7 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 				</div>
 			</DialogContent>
 			<DialogActions className='modal-planejamento-butons'>
-				<Button onClick={props.closeModal}>
+				<Button onClick={() => setOpen(false)}>
 					{success ? "Fechar" : "Cancelar"}
 				</Button>
 				<Button
@@ -234,7 +232,7 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 				response = await movimentacaoService.adicionaMovimentacao(novaMovimentacao);
 			}
 			setSuccess(true);
-			props.closeModal();
+			setOpen(false);
 			if (response?.status === 200) {
 				showAlert("Movimentação salva com sucesso", "success");
 			} else {

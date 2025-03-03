@@ -5,7 +5,7 @@ import { useAtom } from "jotai";
 import moment from "moment";
 import "moment/locale/pt-br";
 import { FC, useEffect, useState } from "react";
-import { accessToken } from "../../../atoms/atom";
+import { accessToken, modalAddMovimentacao } from "../../../atoms/atom";
 import { TipoMovimentacaoEnum } from "../../../enums/TipoMovimentacaoEnum";
 import { useBack } from "../../../http";
 import { ICalendarioProps } from "../../../interfaces/ICalendarioProps";
@@ -22,6 +22,7 @@ const Calendario: FC<ICalendarioProps> = (props: ICalendarioProps) => {
 	const startingDay = parseInt(firstDayOfMonth.format("d"), 10);
 	const [carregado, setCarregado] = useState(false);
 	const [accessTokenAtom] = useAtom(accessToken);
+	const [openModalAdd] = useAtom(modalAddMovimentacao);
 	const movimentacaoService = new MovimentacaoService(useBack());
 
 	const days = [];
@@ -51,7 +52,7 @@ const Calendario: FC<ICalendarioProps> = (props: ICalendarioProps) => {
 			}
 		};
 		buscaMovimentacoesDoMes();
-	}, [currentMonth, props.isOpenModalAdd, props.isOpenModalRemove]);
+	}, [currentMonth, openModalAdd, props.isOpenModalRemove]);
 
 	for (let day = 1; day <= daysInMonth; day++) {
 		const isCurrentDay = (day + currentMonth.format('YYYYMM')) === selectedDay;

@@ -4,10 +4,8 @@ import { Movimentacao } from "../types/Movimentacao";
 export type IInformacoesDoDiaProps = {
 	selectedDate: Date;
 	movimentacoesMes: Movimentacao[];
-	isOpenModalAdd: boolean;
 	isOpenModalRemove: boolean;
 	visivel: boolean;
-	modalAddRendimento: () => void;
 	modalAddDespesa: () => void;
 	setVisible: () => void;
 	modalApagaMovimentacao: (movimentacaoApagar: Movimentacao) => void;
