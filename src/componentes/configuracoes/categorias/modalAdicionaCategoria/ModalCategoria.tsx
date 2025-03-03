@@ -1,13 +1,12 @@
-import { AddCircleOutlineRounded } from "@mui/icons-material";
-import CheckIcon from '@mui/icons-material/Check';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
-import { Box, FormControl, InputLabel, LinearProgress, MenuItem, Select, TextField, Tooltip } from "@mui/material";
-import { FC, Fragment, useEffect, useState } from "react";
+import { Button, Dialog, DialogActions, DialogContent, FormControl, IconButton, InputLabel, MenuItem, Select, TextField } from "@mui/material";
+import { FC, useEffect, useState } from "react";
 import { useBack } from "../../../../http";
 import { IModalCategoriaProps } from "../../../../interfaces/IModalCategoriaProps";
 import { CategoriaMovimentacaoService } from "../../../../services/CategoriaMovimentacaoService";
 import { CategoriaMovimentacao } from "../../../../types/CategoriaMovimentacao";
 import { useAlert } from "../../../contextProviders/AlertProvider";
+import { useDialog } from '../../../contextProviders/DialogContext';
 import listaSelectCores from "./ListaSelectsCores";
 import listaSelectIcones from "./ListaSelectsIcones";
 import "./ModalCategoria.scss";
@@ -21,11 +20,11 @@ const ModalCategoria: FC<IModalCategoriaProps> = (props: IModalCategoriaProps) =
 	const [iconeVazio, setIconeVazio] = useState(false);
 	const [cor, setCor] = useState("");
 	const [corVazio, setCorVazio] = useState(false);
-	const [loading, setLoading] = useState(false);
 	const [success, setSuccess] = useState(false);
 	const [primeiroClique, setPrimeiroClique] = useState(false);
 	const categoriaService = new CategoriaMovimentacaoService(useBack());
 	const { showAlert, showError } = useAlert();
+	const { showDialog } = useDialog();
 	const labelTipo = props.edit ? "Você não pode editar o tipo de uma categoria 😬" : "Tipo";
 
 	useEffect(() => {
@@ -54,136 +53,125 @@ const ModalCategoria: FC<IModalCategoriaProps> = (props: IModalCategoriaProps) =
 	},[nome, tipo, icone, cor]);
 
 	return (
-		<Fragment>
-			{ props.isOpen && (
-				<div className="modal-overlay">
-					<div className="modal">
-						<div className="titulo-add-categoria">
-							Adicionar categoria de movimentação
-						</div>
-						<div className="linha">
-							<TextField
-								label="Nome da categoria"
-								size="small"
-								sx={{ m: 1, width: "44vh" }}
-								value={nome}
-								error={nomeVazio}
-								onChange={(e) => setNome(e.target.value)}
-							/>
-						</div>
-						<div className="linha">
-							<FormControl
-								required
-								sx={{ m: 1, width: "44vh" }}
-								size="small"
-								error={!props.edit && tipoVazio}
-								disabled={props.edit}
+		<Dialog
+			open={props.isOpen}
+			onClose={props.closeModal}
+		>
+			<DialogContent>
+				<div className="modal">
+					<div className="titulo-add-categoria">
+						Adicionar categoria de movimentação
+					</div>
+					<div className="linha">
+						<TextField
+							label="Nome da categoria"
+							size="small"
+							sx={{ m: 1, width: "44vh" }}
+							value={nome}
+							error={nomeVazio}
+							onChange={(e) => setNome(e.target.value)}
+						/>
+					</div>
+					<div className="linha">
+						<FormControl
+							required
+							sx={{ m: 1, width: "44vh" }}
+							size="small"
+							error={!props.edit && tipoVazio}
+							disabled={props.edit}
+						>
+							<InputLabel
+								id="demo-simple-select-helper-label"
 							>
-								<InputLabel
-									id="demo-simple-select-helper-label"
-								>
-									{labelTipo}
-								</InputLabel>
-								<Select
-									id="select-tipo"
-									value={tipo}
-									label="tipo"
-									onChange={(e) => setTipo(e.target.value)}
-									required={true}
-								>
-									<MenuItem
-										key={"positivo"}
-										value={"POSITIVO"}
-									>
-										Rendimentos
-									</MenuItem>
-									<MenuItem
-										key={"negativo"}
-										value={"NEGATIVO"}
-									>
-										Gastos
-									</MenuItem>
-								</Select>
-							</FormControl>
-							<div className="dica-tipo">
-								<Tooltip
-									title="Categorias Positivas categorizam entrada de valores, enquanto as Negativas indicam gastos"
-									placement="right"
-								>
-									<HelpOutlineIcon/>
-								</Tooltip>
-							</div>
-						</div>
-						<div className="linha">
-							<FormControl
-								required
-								sx={{ m: 1, width: "21vh" }}
-								size="small"
-								error={iconeVazio}
+								{labelTipo}
+							</InputLabel>
+							<Select
+								id="select-tipo"
+								value={tipo}
+								label="tipo"
+								onChange={(e) => setTipo(e.target.value)}
+								required={true}
 							>
-								<InputLabel
-									id="icone"
+								<MenuItem
+									key={"positivo"}
+									value={"POSITIVO"}
 								>
-									Ícone
-								</InputLabel>
-								<Select
-									id="select-icone"
-									value={icone}
-									label="icone"
-									onChange={(e) => setIcone(e.target.value)}
-									required={true}
+									Rendimentos
+								</MenuItem>
+								<MenuItem
+									key={"negativo"}
+									value={"NEGATIVO"}
 								>
-									{listaSelectIcones()}
-								</Select>
-							</FormControl>
-							<FormControl
-								required
-								sx={{ m: 1, width: "21vh" }}
-								size="small"
-								error={corVazio}
+									Gastos
+								</MenuItem>
+							</Select>
+						</FormControl>
+						<div className="dica-tipo">
+							<IconButton
+								onClick={() => showDialog("Categorias Positivas categorizam entrada de valores, enquanto as Negativas indicam gastos.")}
 							>
-								<InputLabel
-									id="cor"
-								>
-									Cor
-								</InputLabel>
-								<Select
-									id="select-cor"
-									value={cor}
-									label="cor"
-									onChange={(e) => setCor(e.target.value)}
-									required={true}
-								>
-									{listaSelectCores()}
-								</Select>
-							</FormControl>
-						</div>
-						<div className="linha">
-							<button onClick={props.closeModal}>
-								{success ? "Fechar" : "Cancelar"}
-							</button>
-							<button
-								onClick={() => salvarCategoria()}
-								disabled={success}
-							>
-								{success
-									? <CheckIcon sx={{color: "green"}}/>
-									: <AddCircleOutlineRounded sx={{ color: "#44A81D" }} />
-								}
-								{success ? "Salvo" : "Salvar"}
-							</button>
-						</div>
-						<div className='progress'>
-							{loading && (
-								<Box sx={{ width: '100%' }}>
-									<LinearProgress />
-								</Box>
-							)}
+								<HelpOutlineIcon/>
+							</IconButton>
 						</div>
 					</div>
+					<div className="linha">
+						<FormControl
+							required
+							sx={{ m: 1, width: "21vh" }}
+							size="small"
+							error={iconeVazio}
+						>
+							<InputLabel
+								id="icone"
+							>
+								Ícone
+							</InputLabel>
+							<Select
+								id="select-icone"
+								value={icone}
+								label="icone"
+								onChange={(e) => setIcone(e.target.value)}
+								required={true}
+							>
+								{listaSelectIcones()}
+							</Select>
+						</FormControl>
+						<FormControl
+							required
+							sx={{ m: 1, width: "21vh" }}
+							size="small"
+							error={corVazio}
+						>
+							<InputLabel
+								id="cor"
+							>
+								Cor
+							</InputLabel>
+							<Select
+								id="select-cor"
+								value={cor}
+								label="cor"
+								onChange={(e) => setCor(e.target.value)}
+								required={true}
+							>
+								{listaSelectCores()}
+							</Select>
+						</FormControl>
+					</div>
 				</div>
-			)}
-		</Fragment>
+			</DialogContent>
+			<DialogActions className='modal-planejamento-butons'>
+				<Button onClick={props.closeModal}>
+					{success ? "Fechar" : "Cancelar"}
+				</Button>
+				<Button
+					onClick={() => salvarCategoria()}
+					disabled={success}
+				>
+					Salvar
+				</Button>
+			</DialogActions>
+		</Dialog>
 	)
 
 	async function salvarCategoria() {
@@ -191,7 +179,6 @@ const ModalCategoria: FC<IModalCategoriaProps> = (props: IModalCategoriaProps) =
 		const inputsValidados = validaCamposCategoria();
 		let response = undefined;
 		if (inputsValidados) {
-			setLoading(true);
 			setSuccess(false);
 			const novaCategoria: Partial<CategoriaMovimentacao> = {
 				nomeCategoria: nome,
@@ -205,7 +192,6 @@ const ModalCategoria: FC<IModalCategoriaProps> = (props: IModalCategoriaProps) =
 			} else {
 				response = await categoriaService.adicionaCategoria(novaCategoria);
 			}
-			setLoading(false);
 			setSuccess(true);
 			props.closeModal();
 			if (response?.status === 200) {
