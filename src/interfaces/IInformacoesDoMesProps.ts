@@ -6,5 +6,4 @@ export type InformacoesDoMesProps = {
 	visivel: boolean;
 	modalAddRendimento: () => void;
 	modalAddDespesa: () => void;
-	modalApagaMovimentacao: (movimentacaoApagar: Movimentacao) => void;
 }

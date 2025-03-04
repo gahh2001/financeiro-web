@@ -1,5 +1,7 @@
 import { Button, Dialog, DialogActions, DialogContent } from '@mui/material';
+import { useAtom } from 'jotai';
 import { FC, useEffect, useState } from "react";
+import { modalRemoveMovimentacao } from '../../../atoms/atom';
 import { TipoMovimentacaoEnum } from '../../../enums/TipoMovimentacaoEnum';
 import { useBack } from '../../../http';
 import { IModalApagar } from '../../../interfaces/IModalApagar';
@@ -11,6 +13,7 @@ const ModalApagaMovimentacao: FC<IModalApagar> = (props: IModalApagar) => {
 	const movimentacaoService = new MovimentacaoService(useBack());
 	const [success, setSuccess] = useState(false);
 	const { showAlert, showError } = useAlert();
+	const [open, setOpen] = useAtom(modalRemoveMovimentacao);
 	const tipoMovimentacao = props.tipo === TipoMovimentacaoEnum.POSITIVO ? 'rendimento' : 'despesa';
 	const possuiMovimentacaoEData = props?.movimentacao !== undefined
 		&& props.movimentacao?.dataMovimentacao !== undefined;
@@ -37,12 +40,12 @@ const ModalApagaMovimentacao: FC<IModalApagar> = (props: IModalApagar) => {
 		return () => {
 			setSuccess(false);
 		}
-	}, [props.closeModalRemove])
+	}, [open])
 
 	return (
 		<Dialog
-			open={props.isOpen}
-			onClose={props.closeModalRemove}
+			open={open}
+			onClose={() => setOpen(false)}
 		>
 			<DialogContent>
 				<div className="modal-apaga">
@@ -71,7 +74,7 @@ const ModalApagaMovimentacao: FC<IModalApagar> = (props: IModalApagar) => {
 				</div>
 			</DialogContent>
 			<DialogActions className='modal-planejamento-butons'>
-				<Button onClick={props.closeModalRemove}>
+				<Button onClick={() => setOpen(false)}>
 					{success ? "Fechar" : "Cancelar"}
 				</Button>
 				<Button
@@ -89,7 +92,7 @@ const ModalApagaMovimentacao: FC<IModalApagar> = (props: IModalApagar) => {
 		setSuccess(false);
 		const response = await movimentacaoService.apagaMovimentacao(id);
 		setSuccess(true);
-		props.closeModalRemove();
+		setOpen(false);
 		if (response?.status === 200) {
 			showAlert("Movimentação apagada com sucesso", "success");
 		} else {

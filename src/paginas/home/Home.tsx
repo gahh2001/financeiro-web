@@ -1,7 +1,7 @@
 import { useAtom } from "jotai";
 import { FC, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { accessToken } from "../../atoms/atom";
+import { accessToken, modalRemoveMovimentacao } from "../../atoms/atom";
 import AppBar from "../../componentes/AppBar/AppBar";
 import Dica from '../../componentes/dicas/Dica';
 import Footer from "../../componentes/footer/Footer";
@@ -10,7 +10,6 @@ import InformacoesDoDia from "../../componentes/home/informacoesDoDiaCard/Inform
 import InformacoesDoMes from "../../componentes/home/informacoesDoMesCard/InformacoesDoMes";
 import ModalAddMovimentacao from "../../componentes/home/modalAddMovimentacao/ModalAddMovimentacao";
 import ModalApagaMovimentacao from "../../componentes/home/modalRemoveMovimentacao/ModalApagaMovimentacao";
-import useModalRemoveMovimentacao from "../../componentes/home/modalRemoveMovimentacao/UseModalRemoveMovimentacao";
 import { TipoMovimentacaoEnum } from '../../enums/TipoMovimentacaoEnum';
 import { Movimentacao } from "../../types/Movimentacao";
 import './Home.scss';
@@ -25,7 +24,6 @@ const Home: FC = () => {
 	const [alterarSaldo, ] = useState(true);
 	const [movimentacoesDoMes, setMovimentacoesDoMes] = useState<Movimentacao[]>([]);
 	const [edit, setEdit] = useState(false);
-	const {isOpenModalRemove, closeModalRemove} = useModalRemoveMovimentacao();
 	const [tipo, setTipo] = useState(TipoMovimentacaoEnum.POSITIVO);
 	const [movimentacaoApagar, setMovimentacaoApagar] = useState<Movimentacao | null>(null);
 	const [visivel, setVisivel] = useState(false);
@@ -35,6 +33,7 @@ const Home: FC = () => {
 	const [openDicaInformacoesdia, setOpenDicaInformacoesdia] = useState(localStorage.getItem('dicaDia') !== "ok");
 	const [openDicaCalendario, setOpenDicaCalendario] = useState(localStorage.getItem('dicaCalendario') !== "ok");
 	const [openDicaMes, setOpenDicaMes] = useState(localStorage.getItem('dicaMes') !== "ok");
+	const [, setOpenModalRemove] = useAtom(modalRemoveMovimentacao);
 
 	useEffect(() => {
 		return () => {
@@ -69,8 +68,8 @@ const Home: FC = () => {
 		movimentacaoApagar.tipoMovimentacao.toUpperCase() === TipoMovimentacaoEnum.POSITIVO
 			? setTipo(TipoMovimentacaoEnum.POSITIVO)
 			: setTipo(TipoMovimentacaoEnum.NEGATIVO);
-		closeModalRemove();
 		setMovimentacaoApagar(movimentacaoApagar);
+		setOpenModalRemove(true);
 	}
 
 	const handleEditMovimentacao = (idMovimentacao: number | undefined, data: Date, valor: string,
@@ -99,7 +98,6 @@ const Home: FC = () => {
 				<InformacoesDoDia
 					selectedDate={selectedDate}
 					movimentacoesMes={movimentacoesDoMes}
-					isOpenModalRemove={isOpenModalRemove}
 					modalAddDespesa={propsModalAddDespesa}
 					modalApagaMovimentacao={propsModalApagaRendimento}
 					handleEditMovimentacao={handleEditMovimentacao}
@@ -113,7 +111,6 @@ const Home: FC = () => {
 					setOpen={setOpenDicaCalendario}
 				/>
 				<Calendario
-					isOpenModalRemove={isOpenModalRemove}
 					onDayClick={propsCalendario}
 					atualizaMovimentacoesMes={propsMovimentcoesMes}
 					movimentacoesMes={movimentacoesDoMes}
@@ -129,7 +126,6 @@ const Home: FC = () => {
 					movimentacoesMes={movimentacoesDoMes}
 					modalAddRendimento={propsModalAddRendimento}
 					modalAddDespesa={propsModalAddDespesa}
-					modalApagaMovimentacao={propsModalApagaRendimento}
 					visivel={visivel}
 				/>
 			</div>
@@ -148,9 +144,7 @@ const Home: FC = () => {
 				atualizaMovimentacoesMes={propsMovimentcoesMes}
 			/>
 			<ModalApagaMovimentacao
-				isOpen={isOpenModalRemove}
 				tipo={tipo}
-				closeModalRemove={closeModalRemove}
 				movimentacao={movimentacaoApagar}
 			/>
 		</div>
