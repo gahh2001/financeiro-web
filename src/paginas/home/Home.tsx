@@ -131,7 +131,6 @@ const Home: FC = () => {
 			</div>
 			<Footer/>
 			<ModalAddMovimentacao
-				tipo= {tipo}
 				edit={edit}
 				idMovimentacao={idMovimentacao}
 				date={data}

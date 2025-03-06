@@ -4,7 +4,6 @@ import { Movimentacao } from "../types/Movimentacao";
 
 export type IModalAddMovimentacao = {
 	children?: ReactNode;
-	tipo: TipoMovimentacaoEnum;
 	edit: boolean;
 	idMovimentacao: number | undefined;
 	date: Date;

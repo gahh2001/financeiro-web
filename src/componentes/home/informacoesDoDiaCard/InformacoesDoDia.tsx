@@ -15,7 +15,7 @@ import { IconButton } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
 import { useAtom } from 'jotai';
 import { FC, Fragment, useEffect, useState } from 'react';
-import { accessToken, modalAddMovimentacao, saldo } from '../../../atoms/atom';
+import { accessToken, modalAddMovimentacao, modalMovimentacao, saldo } from '../../../atoms/atom';
 import { TipoMovimentacaoEnum } from '../../../enums/TipoMovimentacaoEnum';
 import { useBack } from '../../../http';
 import { IInformacoesDoDiaProps } from '../../../interfaces/IInformacoesDoDiaProps';
@@ -31,6 +31,7 @@ const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaPr
 	const [saldoAtual, setSaldo] = useAtom(saldo);
 	const contaService = new ContaService(useBack());
 	const [openModalAdd, setOpenModalApp] = useAtom(modalAddMovimentacao);
+	const [, setModalMovimentacao] = useAtom(modalMovimentacao);
 	const { showDialog } = useDialog();
 
 	useEffect(() => {
@@ -119,15 +120,20 @@ const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaPr
 				</div>
 				<div className="buttons">
 					<button
-						
-						onClick={() => setOpenModalApp(true)}
+						onClick={() => {
+							setModalMovimentacao(TipoMovimentacaoEnum.POSITIVO)
+							setOpenModalApp(true);
+						}}
 					>
 						<AddTaskOutlined
 							sx={{ color: "#44A81D" }}
 						/> <br/>
 						Adicionar rendimento
 					</button>
-					<button onClick={() => setOpenModalApp(true)}>
+					<button onClick={() => {
+						setModalMovimentacao(TipoMovimentacaoEnum.NEGATIVO)
+						setOpenModalApp(true);
+					}}>
 						<PlaylistRemove
 							sx={{ color: "#e15734db" }}
 						/> <br />

@@ -12,7 +12,7 @@ import dayjs, { Dayjs } from 'dayjs';
 import 'dayjs/locale/pt-br';
 import { useAtom } from 'jotai';
 import { ChangeEvent, FC, useEffect, useState } from "react";
-import { accessToken, modalAddMovimentacao } from '../../../atoms/atom';
+import { accessToken, modalAddMovimentacao, modalMovimentacao } from '../../../atoms/atom';
 import { useBack } from '../../../http';
 import { IModalAddMovimentacao } from '../../../interfaces/IModalAddMovimentacao';
 import { CategoriaMovimentacaoService } from '../../../services/CategoriaMovimentacaoService';
@@ -27,6 +27,7 @@ import "./ModalAddMovimentacao.scss";
 const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimentacao) => {
 	const [accessTokenAtom] = useAtom(accessToken);
 	const [open, setOpen] = useAtom(modalAddMovimentacao);
+	const [tipo] = useAtom(modalMovimentacao);
 	const { showAlert, showError } = useAlert();
 	const { showDialog } = useDialog();
 	const categoriaMovimentacaoService = new CategoriaMovimentacaoService(useBack());
@@ -51,13 +52,13 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 				try {
 					if (accessTokenAtom !== "") {
 						const categorias = await categoriaMovimentacaoService
-							.obtemCategoriasPorTipoMovimentacaoEConta(props.tipo);
+							.obtemCategoriasPorTipoMovimentacaoEConta(tipo);
 						if (categorias?.data) {
 							setCategoriasCarregadas(categorias.data);
 						}
 					}
 				} catch (error) {
-					console.log("erro ao carregar categorias do tipo ", props.tipo);
+					console.log("erro ao carregar categorias do tipo ", tipo);
 				}
 			}
 		}
@@ -219,7 +220,7 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 			const novaMovimentacao: Partial<Movimentacao> = {
 				valor: parseFloat(valor),
 				dataMovimentacao: data?.toDate() ? data?.toDate() : new Date(),
-				tipoMovimentacao: props.tipo.toString(),
+				tipoMovimentacao: tipo.toString(),
 				idCategoriaMovimentacao: parseInt(categoria),
 				descricaoMovimentacao: descricao,
 				alteraSaldo: alterarSaldo
