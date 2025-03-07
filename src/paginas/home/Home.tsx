@@ -1,7 +1,7 @@
 import { useAtom } from "jotai";
 import { FC, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { accessToken, modalRemoveMovimentacao } from "../../atoms/atom";
+import { accessToken, modalAddMovimentacao, modalMovimentacao, modalRemoveMovimentacao } from "../../atoms/atom";
 import AppBar from "../../componentes/AppBar/AppBar";
 import Dica from '../../componentes/dicas/Dica';
 import Footer from "../../componentes/footer/Footer";
@@ -34,6 +34,8 @@ const Home: FC = () => {
 	const [openDicaCalendario, setOpenDicaCalendario] = useState(localStorage.getItem('dicaCalendario') !== "ok");
 	const [openDicaMes, setOpenDicaMes] = useState(localStorage.getItem('dicaMes') !== "ok");
 	const [, setOpenModalRemove] = useAtom(modalRemoveMovimentacao);
+	const [, setModal] = useAtom(modalMovimentacao);
+	const [, setOpenModalEdit] = useAtom(modalAddMovimentacao);
 
 	useEffect(() => {
 		return () => {
@@ -76,11 +78,12 @@ const Home: FC = () => {
 			categoria: string, descricao: string, tipo: TipoMovimentacaoEnum) => {
 		setIdMovimentacao(idMovimentacao)
 		setEdit(true)
-		setTipo(tipo)
+		setModal(tipo)
 		setData(data);
 		setCategoria(categoria);
 		setValor(valor);
 		setDescricao(descricao);
+		setOpenModalEdit(true);
 	}
 
 	return (
