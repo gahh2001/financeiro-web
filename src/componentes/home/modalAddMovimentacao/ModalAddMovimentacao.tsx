@@ -215,11 +215,12 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 	async function salvarMovimentacao() {
 		setPrimeiroClique(true);
 		const inputsValidados = validaInputsMovimentacao();
+		const dataFormatada = data?.hour(12); //evitar problema de TimeZone
 		if (inputsValidados) {
 			setSuccess(false);
 			const novaMovimentacao: Partial<Movimentacao> = {
 				valor: parseFloat(valor),
-				dataMovimentacao: data?.toDate() ? data?.toDate() : new Date(),
+				dataMovimentacao: dataFormatada?.toDate() ? dataFormatada?.toDate() : new Date(),
 				tipoMovimentacao: tipo.toString(),
 				idCategoriaMovimentacao: parseInt(categoria),
 				descricaoMovimentacao: descricao,
