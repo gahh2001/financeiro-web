@@ -139,12 +139,13 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 									value={data}
 									defaultValue={data ? data : dayjs(props.selectedDate)}
 									onChange={(newValue) => setData(newValue)}
+									sx={{width: { xs: "213px", sm: "160px", md: "160px"}}}
 								/>
 							</DemoContainer>
 						</LocalizationProvider>
 						<FormControl
 							required
-							sx={{ width: "213px" }}
+							sx={{width: { xs: "213px", sm: "160px", md: "160px"}}}
 							error={emptyCategoria}
 						>
 							<InputLabel
@@ -169,12 +170,13 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 							onChange={convertInputValor}
 							inputProps={{ type: 'number', step: "0.5"}}
 							label= "Valor"
+							sx={{width: { xs: "213px", sm: "160px", md: "160px"}}}
 						/>
 					</div>
 					<div className='input-descricao'>
 						<Box>
 							<TextField
-								sx={{ width: "100%" }}
+								sx={{width: { xs: "213px", sm: "100%", md: "100%"}}}
 								label="Escreva alguma observação sobre a movimentação"
 								id="fullWidth"
 								value={descricao}

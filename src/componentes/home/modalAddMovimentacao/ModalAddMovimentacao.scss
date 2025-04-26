@@ -12,7 +12,7 @@
 		gap: 1vh;
 
 		@media screen and (max-width: 768px) {
-			padding-inline: 5vh;
+			padding-inline: 2.4vh;
 		}
 
 		.titulo {
@@ -39,9 +39,9 @@
 		}
 
 		.input-descricao {
-			width: 100%;
 			text-align: center;
 			@media screen and (min-width: 768px) {
+				width: 100%;
 				margin-top: 1vh;
 			}
 		}
