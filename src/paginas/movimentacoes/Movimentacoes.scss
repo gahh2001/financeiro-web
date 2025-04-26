@@ -44,6 +44,14 @@
 			align-items: center;
 			margin-bottom: 2vh;
 			justify-content: center;
+
+			.filtro {
+				.form-categories {
+					.css-px39cz-MuiInputBase-root-MuiOutlinedInput-root {
+						height: 57px;
+					}
+				}
+			}
 		}
 
 		.listagem {
