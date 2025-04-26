@@ -148,7 +148,7 @@ const FiltrosMovimentacoes: FC<FiltrosMovimentacoesProps> = (props: FiltrosMovim
 				</FormControl>
 			</div>
 			<div className="filtro">
-				<FormControl className="form-categories" sx={{ width: "25vh", marginTop: 1 }}>
+				<FormControl className="form-categories" sx={{ width: "25vh", height: "57px", marginTop: 1 }}>
 					<InputLabel id="demo-multiple-chip-label">Categorias</InputLabel>
 					<Select
 						size="small"
