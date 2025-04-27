@@ -22,7 +22,7 @@ const ModalCategoria: FC<IModalCategoriaProps> = (props: IModalCategoriaProps) =
 	const [corVazio, setCorVazio] = useState(false);
 	const [success, setSuccess] = useState(false);
 	const [primeiroClique, setPrimeiroClique] = useState(false);
-	const categoriaService = new CategoriaMovimentacaoService(useBack());
+	const categoriaService = new CategoriaMovimentacaoService();
 	const { showAlert, showError } = useAlert();
 	const { showDialog } = useDialog();
 	const labelTipo = props.edit ? "Você não pode editar o tipo de uma categoria 😬" : "Tipo";

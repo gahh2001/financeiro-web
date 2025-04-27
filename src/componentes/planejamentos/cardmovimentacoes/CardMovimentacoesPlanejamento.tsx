@@ -7,7 +7,7 @@ import { useBack } from "../../../http";
 import '../../../paginas/movimentacoes/Movimentacoes.scss';
 import { PlanejamentoService } from "../../../services/PlanejamentoService";
 import { Movimentacao } from "../../../types/Movimentacao";
-import ConverteIcone from "../../configuracoes/categorias/ConverteIcones";
+import ConverteIcone from "../../../utils/ConverteIcones";
 import { useDialog } from "../../contextProviders/DialogContext";
 
 const CardMovimentacoesPlanejamento: FC = () => {

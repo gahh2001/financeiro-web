@@ -21,7 +21,7 @@ import { useBack } from '../../../http';
 import { IInformacoesDoDiaProps } from '../../../interfaces/IInformacoesDoDiaProps';
 import { ContaService } from '../../../services/ContaService';
 import { Movimentacao } from '../../../types/Movimentacao';
-import ConverteIcone from '../../configuracoes/categorias/ConverteIcones';
+import ConverteIcone from '../../../utils/ConverteIcones';
 import { useDialog } from '../../contextProviders/DialogContext';
 import './InformacoesDoDia.scss';
 

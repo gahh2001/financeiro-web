@@ -7,7 +7,7 @@ import { useBack } from "../../http";
 import { ListaMovimentacaoProps } from "../../interfaces/FiltrosMovimentacoesProps";
 import { MovimentacaoService } from "../../services/MovimentacaoService";
 import { Movimentacao } from "../../types/Movimentacao";
-import ConverteIcone from "../configuracoes/categorias/ConverteIcones";
+import ConverteIcone from "../../utils/ConverteIcones";
 import { useDialog } from "../contextProviders/DialogContext";
 
 const ListaMovimentacoes: FC<ListaMovimentacaoProps> = (props: ListaMovimentacaoProps) => {

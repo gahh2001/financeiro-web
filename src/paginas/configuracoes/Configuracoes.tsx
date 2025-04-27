@@ -15,7 +15,7 @@ import "./Configuracoes.scss";
 import { useBack } from '../../http';
 
 const Configuracoes: FC = () => {
-	const categoriaMovimentacaoService = new CategoriaMovimentacaoService(useBack());
+	const categoriaMovimentacaoService = new CategoriaMovimentacaoService();
 	const [categorias, setCategorias] = useState<CategoriaMovimentacao[]>([]);
 	const {isOpenModalAdd: isOpenModalAddCategoria, closeModalCategoria} = useModalCategoria();
 	const [aba, setAba] = useState<string | false>("CATEGORIAS");

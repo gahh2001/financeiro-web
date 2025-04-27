@@ -14,7 +14,7 @@ import { CategoriaMovimentacao } from "../../types/CategoriaMovimentacao";
 const FiltrosMovimentacoes: FC<FiltrosMovimentacoesProps> = (props: FiltrosMovimentacoesProps) => {
 	const [categoriasIniciais, setCategoriasIniciais] = useState<CategoriaMovimentacao[]>([]);
 	const [categorias, setCategorias] = useState<CategoriaMovimentacao[]>([]);
-	const categoriaMovimentacaoService = new CategoriaMovimentacaoService(useBack());
+	const categoriaMovimentacaoService = new CategoriaMovimentacaoService();
 	const [accessTokenAtom] = useAtom(accessToken);
 	const theme = useTheme();
 	const ITEM_HEIGHT = 48;
@@ -41,7 +41,7 @@ const FiltrosMovimentacoes: FC<FiltrosMovimentacoesProps> = (props: FiltrosMovim
 	};
 
 	const handleChangeCategorias = (event: SelectChangeEvent<typeof props.categorias>) => {
-		const { target: { value },} = event;
+		const { target: { value }} = event;
 		const newValue = typeof value === 'string' ? value.split(',') : value;
 		let updatedCategorias = newValue.includes("Todas") && newValue.length > 1 
 			? newValue.filter((categoria) => categoria !== "Todas") 

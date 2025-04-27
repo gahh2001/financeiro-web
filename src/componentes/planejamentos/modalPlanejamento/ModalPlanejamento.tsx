@@ -19,7 +19,7 @@ import { useAlert } from '../../contextProviders/AlertProvider';
 import './ModalPlanejamento.scss';
 
 const ModalPlanejamento: FC<IModalPlanejamento> = (props: IModalPlanejamento) => {
-	const categoriaMovimentacaoService = new CategoriaMovimentacaoService(useBack());
+	const categoriaMovimentacaoService = new CategoriaMovimentacaoService();
 	const planejamentoService = new PlanejamentoService(useBack());
 	const [isOpen, setIsOpenModalPlanejamento] = useAtom(modalPlanajamento);
 	const [emptyNome, setEmptyNome] = useState(props.nome === '');

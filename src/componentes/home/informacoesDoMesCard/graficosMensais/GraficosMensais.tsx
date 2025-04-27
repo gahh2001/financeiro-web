@@ -14,7 +14,7 @@ const GraficosMensais: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProps
 	const [somaCategoriasPositivas, setSomaCategoriasPositivas] = useState<number[]>([]);
 	const [nomeCategoriasNegativas, setNomeCategoriasNegativas] = useState<string[]>([]);
 	const [somaCategoriasNegativas, setSomaCategoriasNegativas] = useState<number[]>([]);
-	const categoriaMovimentacaoService = new CategoriaMovimentacaoService(useBack());
+	const categoriaMovimentacaoService = new CategoriaMovimentacaoService();
 	const [accessTokenAtom] = useAtom(accessToken);
 
 	useEffect(() => {

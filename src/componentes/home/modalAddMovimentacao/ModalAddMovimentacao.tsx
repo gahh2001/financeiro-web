@@ -30,7 +30,7 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 	const [tipo] = useAtom(modalMovimentacao);
 	const { showAlert, showError } = useAlert();
 	const { showDialog } = useDialog();
-	const categoriaMovimentacaoService = new CategoriaMovimentacaoService(useBack());
+	const categoriaMovimentacaoService = new CategoriaMovimentacaoService();
 	const movimentacaoService = new MovimentacaoService(useBack());
 	const verboTitulo = props.edit
 		? "Editar " : "Adicionar "

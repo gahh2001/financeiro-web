@@ -3,9 +3,12 @@ import { TipoMovimentacaoEnum } from "../enums/TipoMovimentacaoEnum";
 import { IMediasAnalitico } from "../interfaces/IMediasAnalitico";
 import { CategoriaMovimentacao } from "../types/CategoriaMovimentacao";
 import { SomaCategoriasPorMes } from "../types/SomaCategoriasPorMes";
+import { useBack } from "../http";
 
 export class CategoriaMovimentacaoService {
-	constructor(private readonly axiosInstance: AxiosInstance) {}
+	constructor() {}
+
+	axiosInstance = useBack();
 	urlDefault = "/categoria-movimentacao";
 
 	async adicionaCategoria(categoria: Partial<CategoriaMovimentacao>) {

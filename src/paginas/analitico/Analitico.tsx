@@ -41,7 +41,7 @@ const Analitico: FC = () => {
 	const [agrupamentoMesAnoEvolucao, setAgrupamentoMesAnoEvolucao] = useState<string[]>([]);
 	const [agrupamentoMesAnoComparacao, setAgrupamentoMesAnoComparacao] = useState<string[]>([]);
 	const [mediasGerais, setMediasgerais] = useState<IMediasAnalitico>();
-	const categoriaService = new CategoriaMovimentacaoService(useBack());
+	const categoriaService = new CategoriaMovimentacaoService();
 	const [accessTokenAtom] = useAtom(accessToken);
 	const isMounted = useRef(true);
 	const navigate = useNavigate();

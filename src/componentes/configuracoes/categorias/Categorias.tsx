@@ -2,8 +2,8 @@ import { AddTaskOutlined } from "@mui/icons-material";
 import { Button, Divider } from "@mui/material";
 import { FC, Fragment, useEffect, useState } from "react";
 import { ICategoriasProps } from "../../../interfaces/ICategoriasProps";
+import ConverteIcone from "../../../utils/ConverteIcones";
 import "./Categorias.scss";
-import ConverteIcone from "./ConverteIcones";
 import ModalCategoria from "./modalAdicionaCategoria/ModalCategoria";
 import useModalCategoria from "./modalAdicionaCategoria/UseModalCategoria";
 
