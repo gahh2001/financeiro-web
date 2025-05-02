@@ -1,4 +1,5 @@
 import axios from "axios";
+import qs from "qs";
 
 export const useBack = () => {
 
@@ -6,6 +7,9 @@ export const useBack = () => {
 		baseURL: 'https://mywalletpro.com.br/api',
 		headers: {
 			"Content-Type": "application/json",
+		},
+		paramsSerializer: {
+			serialize: params => qs.stringify(params, { arrayFormat: "repeat" }),
 		},
 	});
 

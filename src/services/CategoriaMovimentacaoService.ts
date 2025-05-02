@@ -1,9 +1,8 @@
-import { AxiosInstance } from "axios";
 import { TipoMovimentacaoEnum } from "../enums/TipoMovimentacaoEnum";
+import { useBack } from "../http";
 import { IMediasAnalitico } from "../interfaces/IMediasAnalitico";
 import { CategoriaMovimentacao } from "../types/CategoriaMovimentacao";
 import { SomaCategoriasPorMes } from "../types/SomaCategoriasPorMes";
-import { useBack } from "../http";
 
 export class CategoriaMovimentacaoService {
 	constructor() {}
@@ -88,15 +87,15 @@ export class CategoriaMovimentacaoService {
 	}
 
 	async obtemSomaCategoriasEValoresPorMeses(dataInicio: number,
-			dataFim: number, tipoMovimentacao: string) {
+			dataFim: number, categorias: string[]) {
 		const params = {
 			dataInicio: dataInicio,
 			dataFim: dataFim,
-			tipoMovimentacao: tipoMovimentacao
+			categoria: categorias
 		};
 		try {
 			const response = await this.axiosInstance
-				.get<SomaCategoriasPorMes[]>(`${this.urlDefault}/soma-categorias-meses`, {params});
+				.get<SomaCategoriasPorMes[]>(`${this.urlDefault}/soma-categorias-meses`, { params,});
 			return {...response};
 		} catch (error) {
 			console.log(`Não foi possível obter a comparação da soma de categorias`, error);

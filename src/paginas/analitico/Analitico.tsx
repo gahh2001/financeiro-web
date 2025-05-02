@@ -15,7 +15,6 @@ import Dica from "../../componentes/dicas/Dica";
 import Footer from "../../componentes/footer/Footer";
 import { obtemNumeroEnum, TipoComparacaoEnum } from "../../enums/TipoComparacaoEnum";
 import { TipoMovimentacaoEnum } from "../../enums/TipoMovimentacaoEnum";
-import { useBack } from '../../http';
 import { IMediasAnalitico } from "../../interfaces/IMediasAnalitico";
 import { ISeriesChart } from "../../interfaces/ISeriesChart";
 import { ISeriesComparacao } from "../../interfaces/ISeriesComparacao";
@@ -28,7 +27,7 @@ const Analitico: FC = () => {
 	const [ano, setAno] = useState<Dayjs | null>(dayjs(new Date().getTime()));
 	const [mes, setMes] = useState<Dayjs | null>(ano);
 	const [tipoMovimentacaoTop, setTipoMovimentacaoTop] = useState(TipoMovimentacaoEnum.POSITIVO.toString());
-	const [tipoMovimentacaoDown, setTipoMovimentacaoDown] = useState(TipoMovimentacaoEnum.POSITIVO.toString());
+	const [categoriasComparacao, setCategoriasComparacao] = useState(["POSITIVAS"]);
 	const [tipoComparacao, setTipoComparacao] = useState(TipoComparacaoEnum.TRESMESES.toString());
 	const [openDicaGeral, setOpenDicaGeral] = useState(localStorage.getItem('dicaGeral') !== "ok");
 	const [openDicaComparacao, setOpenDicaComparacao] = useState(localStorage.getItem('dicaComparacao') !== "ok");
@@ -58,8 +57,8 @@ const Analitico: FC = () => {
 	const propsSetTipoMovimentacaoTop = (tipo: string) => {
 		setTipoMovimentacaoTop(tipo);
 	};
-	const propsSetTipoMovimentacaoDown = (tipo: string) => {
-		setTipoMovimentacaoDown(tipo);
+	const propsSetCategoriasComparacao = (categorias: string[]) => {
+		setCategoriasComparacao(categorias);
 	};
 	const propsSetTipoComparacao = (tipo: string) => {
 		setTipoComparacao(tipo);
@@ -100,7 +99,7 @@ const Analitico: FC = () => {
 			try {
 				const somaComparacoes = await categoriaService
 					.obtemSomaCategoriasEValoresPorMeses(obtemDataInicialComparacao(),
-						obtemDataFinalComparacao(), tipoMovimentacaoDown);
+						obtemDataFinalComparacao(), categoriasComparacao);
 				if (somaComparacoes?.data) {
 					extraiSomaComparacoes(somaComparacoes.data);
 				}
@@ -109,7 +108,7 @@ const Analitico: FC = () => {
 			}
 		};
 		atualizaComparacoes();
-	}, [tipoComparacao, tipoMovimentacaoDown]);
+	}, [tipoComparacao, categoriasComparacao]);
 
 	useEffect(() => {
 		const atualizaEvolucao = async () => {
@@ -184,9 +183,9 @@ const Analitico: FC = () => {
 					<div className="section">
 						<FiltroComparacoes
 							tipoComparacao={tipoComparacao}
-							tipoMovimentacao={tipoMovimentacaoDown}
+							tipoMovimentacao={categoriasComparacao}
 							setTipoComparacao={propsSetTipoComparacao}
-							setTipoMovimentacao={propsSetTipoMovimentacaoDown}
+							setCategoriasComparacao={propsSetCategoriasComparacao}
 						/>
 						<CategoriasComparacao
 							comparacoes={comparacoes}
