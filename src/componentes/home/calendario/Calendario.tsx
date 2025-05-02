@@ -133,10 +133,10 @@ const Calendario: FC<ICalendarioProps> = (props: ICalendarioProps) => {
 				let dataString: string = movimentacao.dataMovimentacao.toString();
 				dataString = dataString.replace('00', '12')
 				let date = new Date(dataString);
-				const dia = date.getDate();
-				const mes = date.getMonth();
+				const dia = date.getUTCDate();
+				const mes = date.getUTCMonth();
 				if (dia === day && month === mes
-					&& movimentacao.tipoMovimentacao.toUpperCase() === operador.toString()) {
+						&& movimentacao.tipoMovimentacao.toUpperCase() === operador.toString()) {
 					possuiMovimentacao++;
 				}
 			});
