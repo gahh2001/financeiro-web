@@ -75,7 +75,7 @@ const ListaMovimentacoes: FC<ListaMovimentacaoProps> = (props: ListaMovimentacao
 		}
 		setMovimentacoes(sortedMovimentacoes);
 	}, [campoOrdem, ordemAsc]);
-	
+
 	useEffect(() => {
 		if (!props.categorias.includes("Todas")) {
 			setMovimentacoes(movimentacoesIniciais.filter(movimentacao =>
@@ -152,5 +152,5 @@ const ListaMovimentacoes: FC<ListaMovimentacaoProps> = (props: ListaMovimentacao
 		return (<ArrowUpward/>);
 	}
 }
-	
+
 export default ListaMovimentacoes;
