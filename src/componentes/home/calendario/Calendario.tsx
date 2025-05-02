@@ -37,10 +37,12 @@ const Calendario: FC<ICalendarioProps> = (props: ICalendarioProps) => {
 				if (accessTokenAtom !== "") {
 					const primeiroDiaMes : Date = currentMonth.clone().toDate();
 					primeiroDiaMes.setDate(1);
+					primeiroDiaMes.setHours(12);
 					const ultimoDiaMes : Date = currentMonth.clone().toDate();
 					ultimoDiaMes.setDate(15)
 					ultimoDiaMes.setMonth(primeiroDiaMes.getMonth() + 1);
 					ultimoDiaMes.setDate(0);
+					ultimoDiaMes.setHours(12);
 					const response = await movimentacaoService.getMovimentacao(
 						primeiroDiaMes.getTime(), ultimoDiaMes.getTime());
 					if (response?.data) {
