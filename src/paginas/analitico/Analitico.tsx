@@ -27,7 +27,7 @@ const Analitico: FC = () => {
 	const [ano, setAno] = useState<Dayjs | null>(dayjs(new Date().getTime()));
 	const [mes, setMes] = useState<Dayjs | null>(ano);
 	const [tipoMovimentacaoTop, setTipoMovimentacaoTop] = useState(TipoMovimentacaoEnum.POSITIVO.toString());
-	const [categoriasComparacao, setCategoriasComparacao] = useState(["POSITIVAS"]);
+	const [categoriasComparacao, setCategoriasComparacao] = useState(["POSITIVOS"]);
 	const [tipoComparacao, setTipoComparacao] = useState(TipoComparacaoEnum.TRESMESES.toString());
 	const [openDicaGeral, setOpenDicaGeral] = useState(localStorage.getItem('dicaGeral') !== "ok");
 	const [openDicaComparacao, setOpenDicaComparacao] = useState(localStorage.getItem('dicaComparacao') !== "ok");
