@@ -3,7 +3,6 @@ import { useAtom } from "jotai";
 import { FC, Fragment, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { accessToken, modalLogin, pictureAtom } from "../../atoms/atom";
-import { useBack } from "../../http";
 import { LoginService } from "../../services/LoginService";
 import './ModalLogin.scss';
 
@@ -12,7 +11,7 @@ const ModalLogin: FC = () => {
 	const [open, setOpen] = useAtom(modalLogin);
 	const [, setAccessToken] = useAtom(accessToken);
 	const [, setPicture] = useAtom(pictureAtom);
-	const service = new LoginService(useBack());
+	const service = new LoginService();
 
 	useEffect(() => {
 		if (!open) return;

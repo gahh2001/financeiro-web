@@ -13,7 +13,6 @@ import 'dayjs/locale/pt-br';
 import { useAtom } from 'jotai';
 import { ChangeEvent, FC, useEffect, useState } from "react";
 import { accessToken, modalAddMovimentacao, modalMovimentacao } from '../../../atoms/atom';
-import { useBack } from '../../../http';
 import { IModalAddMovimentacao } from '../../../interfaces/IModalAddMovimentacao';
 import { CategoriaMovimentacaoService } from '../../../services/CategoriaMovimentacaoService';
 import { MovimentacaoService } from '../../../services/MovimentacaoService';
@@ -31,7 +30,7 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 	const { showAlert, showError } = useAlert();
 	const { showDialog } = useDialog();
 	const categoriaMovimentacaoService = new CategoriaMovimentacaoService();
-	const movimentacaoService = new MovimentacaoService(useBack());
+	const movimentacaoService = new MovimentacaoService();
 	const verboTitulo = props.edit
 		? "Editar " : "Adicionar "
 	const [categoriasCarregadas, setCategoriasCarregadas] = useState<CategoriaMovimentacao[]>([]);

@@ -3,7 +3,6 @@ import { Button, IconButton, Tooltip } from "@mui/material";
 import { useAtom } from "jotai";
 import { FC, useEffect, useState } from "react";
 import { accessToken } from "../../atoms/atom";
-import { useBack } from "../../http";
 import { ListaMovimentacaoProps } from "../../interfaces/FiltrosMovimentacoesProps";
 import { MovimentacaoService } from "../../services/MovimentacaoService";
 import { Movimentacao } from "../../types/Movimentacao";
@@ -11,7 +10,7 @@ import ConverteIcone from "../../utils/ConverteIcones";
 import { useDialog } from "../contextProviders/DialogContext";
 
 const ListaMovimentacoes: FC<ListaMovimentacaoProps> = (props: ListaMovimentacaoProps) => {
-	const movimentacaoService = new MovimentacaoService(useBack());
+	const movimentacaoService = new MovimentacaoService();
 	const [movimentacoes, setMovimentacoes] = useState<Movimentacao[]>([]);
 	const [movimentacoesIniciais, setMovimentacoesIniciais] = useState<Movimentacao[]>([]);
 	const [campoOrdem, setCampoOrdem] = useState("data");

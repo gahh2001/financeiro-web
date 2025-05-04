@@ -9,7 +9,6 @@ import { FC, Fragment, useEffect, useState } from "react";
 import { modalPlanajamento } from "../../../atoms/atom";
 import { TipoPlanejamentoEnum } from "../../../enums/TipoPlanejamentoEnum";
 import { TipoRecorrenciaEnum } from "../../../enums/TipoRecorrenciaEnum";
-import { useBack } from '../../../http';
 import { IModalPlanejamento } from "../../../interfaces/IModalPlanejamentoProps";
 import { CategoriaMovimentacaoService } from "../../../services/CategoriaMovimentacaoService";
 import { PlanejamentoService } from "../../../services/PlanejamentoService";
@@ -20,7 +19,7 @@ import './ModalPlanejamento.scss';
 
 const ModalPlanejamento: FC<IModalPlanejamento> = (props: IModalPlanejamento) => {
 	const categoriaMovimentacaoService = new CategoriaMovimentacaoService();
-	const planejamentoService = new PlanejamentoService(useBack());
+	const planejamentoService = new PlanejamentoService();
 	const [isOpen, setIsOpenModalPlanejamento] = useAtom(modalPlanajamento);
 	const [emptyNome, setEmptyNome] = useState(props.nome === '');
 	const [emptyTipo, setEmptyTipo] = useState(props.tipo === '');

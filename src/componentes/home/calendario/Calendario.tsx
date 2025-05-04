@@ -7,7 +7,6 @@ import "moment/locale/pt-br";
 import { FC, useEffect, useState } from "react";
 import { accessToken, modalAddMovimentacao, modalRemoveMovimentacao } from "../../../atoms/atom";
 import { TipoMovimentacaoEnum } from "../../../enums/TipoMovimentacaoEnum";
-import { useBack } from "../../../http";
 import { ICalendarioProps } from "../../../interfaces/ICalendarioProps";
 import { MovimentacaoService } from "../../../services/MovimentacaoService";
 import "./CalendarioStyle.scss";
@@ -24,7 +23,7 @@ const Calendario: FC<ICalendarioProps> = (props: ICalendarioProps) => {
 	const [accessTokenAtom] = useAtom(accessToken);
 	const [openModalAdd] = useAtom(modalAddMovimentacao);
 	const [openModalRemove] = useAtom(modalRemoveMovimentacao);
-	const movimentacaoService = new MovimentacaoService(useBack());
+	const movimentacaoService = new MovimentacaoService();
 
 	const days = [];
 	for (let i = 0; i < startingDay; i++) {

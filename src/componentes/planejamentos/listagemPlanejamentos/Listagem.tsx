@@ -4,7 +4,6 @@ import dayjs from "dayjs";
 import { useAtom } from "jotai";
 import { ChangeEvent, FC, Fragment, useEffect, useState } from "react";
 import { accessToken, modalPlanajamento, planejamento } from "../../../atoms/atom";
-import { useBack } from "../../../http";
 import { IModalPlanejamento } from "../../../interfaces/IModalPlanejamentoProps";
 import { PlanejamentoService } from "../../../services/PlanejamentoService";
 import { Planejamento } from "../../../types/Planejamento";
@@ -16,7 +15,7 @@ const ListagemPlanejamentos: FC<Partial<IModalPlanejamento>> = (props: Partial<I
 	const [isOpen, setIsOpenModalPlanejamento] = useAtom(modalPlanajamento);
 	const [planejamentos, setPlanejamentos] = useState<Planejamento[]>();
 	const [verInativos, setVerInativos] = useState(false);
-	const planejamentoService = new PlanejamentoService(useBack());
+	const planejamentoService = new PlanejamentoService();
 
 	const verPlanejamentosInativos = (event: ChangeEvent<HTMLInputElement>) => {
 		setVerInativos(event.target.checked);

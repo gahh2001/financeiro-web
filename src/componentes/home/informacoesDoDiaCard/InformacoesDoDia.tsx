@@ -17,7 +17,6 @@ import { useAtom } from 'jotai';
 import { FC, Fragment, useEffect, useState } from 'react';
 import { accessToken, modalAddMovimentacao, modalMovimentacao, saldo } from '../../../atoms/atom';
 import { TipoMovimentacaoEnum } from '../../../enums/TipoMovimentacaoEnum';
-import { useBack } from '../../../http';
 import { IInformacoesDoDiaProps } from '../../../interfaces/IInformacoesDoDiaProps';
 import { ContaService } from '../../../services/ContaService';
 import { Movimentacao } from '../../../types/Movimentacao';
@@ -29,7 +28,7 @@ const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaPr
 	const [accessTokenAtom] = useAtom(accessToken);
 	const [movimentacoesDoDia, setMovimentacoesDoDia] = useState<Movimentacao[]>([]);
 	const [saldoAtual, setSaldo] = useAtom(saldo);
-	const contaService = new ContaService(useBack());
+	const contaService = new ContaService();
 	const [openModalAdd, setOpenModalApp] = useAtom(modalAddMovimentacao);
 	const [, setModalMovimentacao] = useAtom(modalMovimentacao);
 	const { showDialog } = useDialog();

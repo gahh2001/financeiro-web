@@ -1,8 +1,10 @@
 import { AxiosInstance } from "axios";
 import { Conta } from "../types/Conta";
+import { useBack } from "../http";
 
 export class ContaService {
-	constructor(private readonly axiosInstance: AxiosInstance){}
+	constructor() {}
+	axiosInstance = useBack();
 
 	async obtemConta() {
 		try {

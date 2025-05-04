@@ -6,7 +6,6 @@ import { SomaCategoriasPorMes } from "../types/SomaCategoriasPorMes";
 
 export class CategoriaMovimentacaoService {
 	constructor() {}
-
 	axiosInstance = useBack();
 	urlDefault = "/categoria-movimentacao";
 

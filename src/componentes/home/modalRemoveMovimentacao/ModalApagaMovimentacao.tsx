@@ -3,14 +3,13 @@ import { useAtom } from 'jotai';
 import { FC, useEffect, useState } from "react";
 import { modalRemoveMovimentacao } from '../../../atoms/atom';
 import { TipoMovimentacaoEnum } from '../../../enums/TipoMovimentacaoEnum';
-import { useBack } from '../../../http';
 import { IModalApagar } from '../../../interfaces/IModalApagar';
 import { MovimentacaoService } from '../../../services/MovimentacaoService';
 import { useAlert } from '../../contextProviders/AlertProvider';
 import "./ModalApagaMovimentacao.scss";
 
 const ModalApagaMovimentacao: FC<IModalApagar> = (props: IModalApagar) => {
-	const movimentacaoService = new MovimentacaoService(useBack());
+	const movimentacaoService = new MovimentacaoService();
 	const [success, setSuccess] = useState(false);
 	const { showAlert, showError } = useAlert();
 	const [open, setOpen] = useAtom(modalRemoveMovimentacao);

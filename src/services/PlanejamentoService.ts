@@ -3,10 +3,11 @@ import { Desempenho } from "../types/Desempenho";
 import { Planejamento } from "../types/Planejamento";
 import { Progressos } from "../types/Progressos";
 import { Movimentacao } from "../types/Movimentacao";
+import { useBack } from "../http";
 
 export class PlanejamentoService {
-
-	constructor(private readonly axiosInstance: AxiosInstance){}
+	constructor() {}
+	axiosInstance = useBack();
 	urlDefault = "/planejamento";
 
 	async listaPlanejamentos() {

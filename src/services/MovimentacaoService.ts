@@ -1,8 +1,10 @@
 import { AxiosInstance } from "axios";
 import { Movimentacao } from "../types/Movimentacao";
+import { useBack } from "../http";
 
 export class MovimentacaoService {
-	constructor(private readonly axiosInstance: AxiosInstance){}
+	constructor() {}
+	axiosInstance = useBack();
 	urlDefault = "/movimentacao";
 
 	async getMovimentacao(dataInicio: number, dataFim: number) {

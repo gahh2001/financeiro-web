@@ -1,8 +1,10 @@
 import { AxiosInstance } from "axios";
 import { ILoginId } from "../interfaces/ILoginId";
+import { useBack } from "../http";
 
 export class LoginService {
-	constructor(private readonly axiosInstance: AxiosInstance){}
+	constructor() {}
+	axiosInstance = useBack();
 
 	async autentica(token: string) {
 		const url = '/login';
