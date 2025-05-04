@@ -34,10 +34,12 @@ const FiltroComparacoes: FC<IFiltroComparacoesProps> = (props: IFiltroComparacoe
 		const valueArray = typeof value === 'string' ? value.split(',') : value;
 		if (!selecionadas.includes(POSITIVOS) && valueArray.includes(POSITIVOS)) {
 			setSelecionadas([POSITIVOS]);
+			props.setCategoriasComparacao([POSITIVOS]);
 			return;
 		}
 		if (!selecionadas.includes(NEGATIVOS) && valueArray.includes(NEGATIVOS)) {
 			setSelecionadas([NEGATIVOS]);
+			props.setCategoriasComparacao([NEGATIVOS]);
 			return;
 		}
 		const positivos = valueArray.filter(item => ![POSITIVOS, NEGATIVOS].includes(item));
