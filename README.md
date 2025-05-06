@@ -2,6 +2,8 @@
 
 Este repositório contém o frontend da aplicação [**MyWallet Pro**](https://mywalletpro.com.br/), uma aplicação web para organização financeira pessoal. Desenvolvido com **React** e **TypeScript**, o projeto conta com uma interface responsiva, autenticação com **Google** e empacotamento com **Docker** e **Nginx** para produção.
 
+![Tela inicial](public/images/login.png)
+
 ## ✨ Funcionalidades
 
 - Login com conta Google (OAuth2)
