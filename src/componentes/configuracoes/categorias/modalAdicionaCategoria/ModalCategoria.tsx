@@ -1,7 +1,8 @@
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import { Button, Dialog, DialogActions, DialogContent, FormControl, IconButton, InputLabel, MenuItem, Select, TextField } from "@mui/material";
+import { useAtom } from 'jotai';
 import { FC, useEffect, useState } from "react";
-import { useBack } from "../../../../http";
+import { modalCategorias } from '../../../../atoms/atom';
 import { IModalCategoriaProps } from "../../../../interfaces/IModalCategoriaProps";
 import { CategoriaMovimentacaoService } from "../../../../services/CategoriaMovimentacaoService";
 import { CategoriaMovimentacao } from "../../../../types/CategoriaMovimentacao";
@@ -22,6 +23,7 @@ const ModalCategoria: FC<IModalCategoriaProps> = (props: IModalCategoriaProps) =
 	const [corVazio, setCorVazio] = useState(false);
 	const [success, setSuccess] = useState(false);
 	const [primeiroClique, setPrimeiroClique] = useState(false);
+	const [open, setOpen] = useAtom(modalCategorias);
 	const categoriaService = new CategoriaMovimentacaoService();
 	const { showAlert, showError } = useAlert();
 	const { showDialog } = useDialog();
@@ -44,7 +46,7 @@ const ModalCategoria: FC<IModalCategoriaProps> = (props: IModalCategoriaProps) =
 			setPrimeiroClique(false);
 		}
 		setSuccess(false);
-	}, [props.closeModal]);
+	}, [open]);
 
 	useEffect(() => {
 		if (primeiroClique) {
@@ -54,8 +56,8 @@ const ModalCategoria: FC<IModalCategoriaProps> = (props: IModalCategoriaProps) =
 
 	return (
 		<Dialog
-			open={props.isOpen}
-			onClose={props.closeModal}
+			open={open}
+			onClose={() => setOpen(false)}
 		>
 			<DialogContent>
 				<div className="modal">
@@ -161,7 +163,7 @@ const ModalCategoria: FC<IModalCategoriaProps> = (props: IModalCategoriaProps) =
 				</div>
 			</DialogContent>
 			<DialogActions className='modal-planejamento-butons'>
-				<Button onClick={props.closeModal}>
+				<Button onClick={() => setOpen(false)}>
 					{success ? "Fechar" : "Cancelar"}
 				</Button>
 				<Button
@@ -193,7 +195,7 @@ const ModalCategoria: FC<IModalCategoriaProps> = (props: IModalCategoriaProps) =
 				response = await categoriaService.adicionaCategoria(novaCategoria);
 			}
 			setSuccess(true);
-			props.closeModal();
+			setOpen(true);
 			if (response?.status === 200) {
 				showAlert("Categoria salva com sucesso", "success");
 			} else {

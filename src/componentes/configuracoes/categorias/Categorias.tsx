@@ -1,25 +1,21 @@
 import { AddTaskOutlined } from "@mui/icons-material";
 import { Button, Divider } from "@mui/material";
-import { FC, Fragment, useEffect, useState } from "react";
+import { useAtom } from "jotai";
+import { FC, Fragment, useState } from "react";
+import { modalCategorias } from "../../../atoms/atom";
 import { ICategoriasProps } from "../../../interfaces/ICategoriasProps";
 import ConverteIcone from "../../../utils/ConverteIcones";
 import "./Categorias.scss";
 import ModalCategoria from "./modalAdicionaCategoria/ModalCategoria";
-import useModalCategoria from "./modalAdicionaCategoria/UseModalCategoria";
 
 const Categorias: FC<ICategoriasProps> = (props: ICategoriasProps) => {
 
 	const [edit, setEdit] = useState(false);
-	const {isOpenModalAdd, closeModalCategoria} = useModalCategoria();
+	const [, setOpen] = useAtom(modalCategorias);
 	const [nomeCategoria, setNomeCategoria] = useState("");
 	const [iconeCategoria, setIconeCategoria] = useState("");
 	const [corCategoria, setCorCategoria] = useState("");
 	const [idCategoria, setIdCategoria] = useState<number | null>(null);
-
-	const handleAddCategoria = () => {
-		setEdit(false);
-		closeModalCategoria();
-	};
 
 	const handleEditCategoria = (id: number | null, nome: string, icone: string, cor: string) => {
 		setEdit(true);
@@ -27,14 +23,8 @@ const Categorias: FC<ICategoriasProps> = (props: ICategoriasProps) => {
 		setNomeCategoria(nome);
 		setIconeCategoria(icone);
 		setCorCategoria(cor);
-		closeModalCategoria();
+		setOpen(true);
 	};
-
-	useEffect(() => {
-		if (!isOpenModalAdd) {
-			props.handleAddCategoria();
-		}
-	}, [isOpenModalAdd]);
 
 	return (
 		<Fragment>
@@ -45,7 +35,10 @@ const Categorias: FC<ICategoriasProps> = (props: ICategoriasProps) => {
 						Você pode clicar para editar ou criar categorias personalidas para identificar suas movimentações!
 					</div> <br />
 					<button
-						onClick={handleAddCategoria}
+						onClick={() => {
+							setEdit(false);
+							setOpen(true);
+						}}
 					>
 						<AddTaskOutlined
 							sx={{ color: "#44A81D" }}
@@ -57,8 +50,6 @@ const Categorias: FC<ICategoriasProps> = (props: ICategoriasProps) => {
 				{montaCategoriasMovimentacao()}
 			</div>
 			<ModalCategoria
-				closeModal={closeModalCategoria}
-				isOpen={isOpenModalAdd}
 				edit={edit}
 				nome={nomeCategoria}
 				icone={iconeCategoria}
