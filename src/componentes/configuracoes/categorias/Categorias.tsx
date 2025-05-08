@@ -16,13 +16,15 @@ const Categorias: FC<ICategoriasProps> = (props: ICategoriasProps) => {
 	const [iconeCategoria, setIconeCategoria] = useState("");
 	const [corCategoria, setCorCategoria] = useState("");
 	const [idCategoria, setIdCategoria] = useState<number | null>(null);
+	const [valorPadrao, setValorPadrao] = useState("");
 
-	const handleEditCategoria = (id: number | null, nome: string, icone: string, cor: string) => {
+	const handleEditCategoria = (id: number | null, nome: string, icone: string, cor: string, valorPadrao: number | null) => {
 		setEdit(true);
 		setIdCategoria(id);
 		setNomeCategoria(nome);
 		setIconeCategoria(icone);
 		setCorCategoria(cor);
+		setValorPadrao(valorPadrao?.toString() || "");
 		setOpen(true);
 	};
 
@@ -55,6 +57,7 @@ const Categorias: FC<ICategoriasProps> = (props: ICategoriasProps) => {
 				icone={iconeCategoria}
 				corIcone={corCategoria}
 				idCategoria={idCategoria}
+				valorPadrao={valorPadrao}
 				handleEditCategoria={handleEditCategoria}
 			/>
 		</Fragment>
@@ -74,7 +77,7 @@ const Categorias: FC<ICategoriasProps> = (props: ICategoriasProps) => {
 							<Button
 								key={categoria.id}
 								onClick={() => handleEditCategoria(categoria.id, categoria.nomeCategoria,
-									categoria.icone, categoria.corIcone)}
+									categoria.icone, categoria.corIcone, categoria.valorPadrao)}
 							>
 								<p className={categoria.tipoMovimentacao} id="nome-categoria">
 									{categoria.tipoMovimentacao === "POSITIVO" ? "Rendimentos" : "Gastos"}

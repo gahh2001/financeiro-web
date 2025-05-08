@@ -16,23 +16,21 @@
 	.linha {
 		width: 100%;
 		display: flex;
-		justify-content: center;
 		align-items: center;
-		
-		@media screen and (min-width: 768px) {
-			padding-left: 4vh;
-			justify-content: left;
-		}
-		
-		@media screen and (max-width: 768px) {
-			justify-content: center;
-		}
-	}
+		justify-content: left;
 
-	.dica-tipo {
-		@media screen and (max-width: 768px) {
-			display: none;
-			// fiz isso pro ícone desaparecer se for no celular, pois não precisa mesmo
+		@media screen and (min-width: 768px) {
+			padding-right: 2vh;
+			padding-left: 2vh;
+		}
+
+		.form-tipo {
+			@media screen and (min-width: 768px) {
+				width: 47%;
+			}
+			@media screen and (max-width: 768px) {
+				width: 45%;
+			}
 		}
 	}
 }

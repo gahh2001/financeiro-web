@@ -7,5 +7,6 @@ export type IModalCategoriaProps = {
 	nome: string;
 	icone: string;
 	corIcone: string;
-	handleEditCategoria: (id: number, nome: string, icone: string, cor: string) => void;
+	valorPadrao: string;
+	handleEditCategoria: (id: number, nome: string, icone: string, cor: string, valorPadrao: number) => void;
 }
