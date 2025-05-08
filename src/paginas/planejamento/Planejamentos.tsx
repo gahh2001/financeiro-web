@@ -38,7 +38,7 @@ const Planejamentos: FC = () => {
 
 	useEffect(() => {
 		if (!accessTokenAtom && isMounted.current) {
-			navigate("/login")
+			navigate("/login");
 		}
 	}, [accessTokenAtom]);
 

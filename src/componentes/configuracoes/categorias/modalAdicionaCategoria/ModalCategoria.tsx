@@ -214,7 +214,6 @@ const ModalCategoria: FC<IModalCategoriaProps> = (props: IModalCategoriaProps) =
 				</Button>
 				<Button
 					onClick={() => salvarCategoria()}
-					//disabled={success}
 				>
 					Salvar
 				</Button>

@@ -45,7 +45,7 @@ const Movimentacoes: FC = () => {
 
 	useEffect(() => {
 		if (!accessTokenAtom && isMounted.current) {
-			navigate("/login")
+			navigate("/login");
 		}
 	}, [accessTokenAtom]);
 
