@@ -82,6 +82,11 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 
 	const handleChangeCategoria = (event: SelectChangeEvent) => {
 		setCategoria(event.target.value);
+		const selecionada = categoriasCarregadas.find(item =>
+			item.id === parseInt(event.target.value));
+		if (selecionada && selecionada.valorPadrao) {
+			setValor(selecionada.valorPadrao.toString());
+		}
 	};
 
 	const handleChangeDescricao = (event: ChangeEvent<HTMLInputElement>) => {
