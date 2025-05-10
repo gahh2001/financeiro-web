@@ -1,5 +1,5 @@
 export type ILoginId = {
 	credential: string;
-	picture: string;
+	urlPicture: string;
 	accessToken: string;
 }

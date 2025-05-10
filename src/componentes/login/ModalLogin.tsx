@@ -35,11 +35,11 @@ const ModalLogin: FC = () => {
 
 	async function handleCredentialResponse(response: any) {
 		const resposta = await service.autentica(response.credential);
-		if (resposta && resposta.data && resposta.data.accessToken && resposta.data.picture) {
+		if (resposta && resposta.data && resposta.data.accessToken && resposta.data.urlPicture) {
 			setAccessToken(resposta.data.credential);
-			setPicture(resposta.data.picture);
+			setPicture(resposta.data.urlPicture);
 			localStorage.setItem('accessToken', resposta.data.accessToken);
-			localStorage.setItem('urlPicture', resposta.data.picture);
+			localStorage.setItem('urlPicture', resposta.data.urlPicture);
 			window.location.reload(); //isso não tá legal. tive que fazer isso pq a home não renderiza a tempo, ou algo do tipo
 		}
 	}
