@@ -70,7 +70,7 @@ const FiltroComparacoes: FC<IFiltroComparacoesProps> = (props: IFiltroComparacoe
 						multiple
 						value={selecionadas}
 						onChange={handleChangeCategorias}
-						input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+						input={<OutlinedInput id="select-multiple-chip" label="Categorias" />}
 						renderValue={(selected) => (
 							<Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, alignItems: 'center' }}>
 								{selected.map((value) => (
