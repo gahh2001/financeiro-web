@@ -160,7 +160,7 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 							<Select
 								id="select-categoria"
 								value={categoria}
-								label="Age"
+								label="Categoria"
 								onChange={handleChangeCategoria}
 								required={true}
 							>

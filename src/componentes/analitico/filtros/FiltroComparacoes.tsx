@@ -66,6 +66,7 @@ const FiltroComparacoes: FC<IFiltroComparacoesProps> = (props: IFiltroComparacoe
 						size="small"
 						labelId="demo-multiple-chip-label"
 						id="demo-multiple-chip"
+						label="Categorias"
 						multiple
 						value={selecionadas}
 						onChange={handleChangeCategorias}
@@ -111,6 +112,7 @@ const FiltroComparacoes: FC<IFiltroComparacoesProps> = (props: IFiltroComparacoe
 					</InputLabel>
 					<Select
 						id="select-comparacao"
+						label="Comparação"
 						value={props.tipoComparacao}
 						onChange={handleChangeComparacao}
 						defaultValue={TipoComparacaoEnum.TRESMESES.toString()}

@@ -104,7 +104,7 @@ const ModalCategoria: FC<IModalCategoriaProps> = (props: IModalCategoriaProps) =
 							<Select
 								id="select-icone"
 								value={icone}
-								label="icone"
+								label="Ícone"
 								onChange={(e) => setIcone(e.target.value)}
 								required={true}
 							>
@@ -125,7 +125,7 @@ const ModalCategoria: FC<IModalCategoriaProps> = (props: IModalCategoriaProps) =
 							<Select
 								id="select-cor"
 								value={cor}
-								label="cor"
+								label="Cor"
 								onChange={(e) => setCor(e.target.value)}
 								required={true}
 							>
@@ -150,7 +150,7 @@ const ModalCategoria: FC<IModalCategoriaProps> = (props: IModalCategoriaProps) =
 							<Select
 								id="select-tipo"
 								value={tipo}
-								label="tipo"
+								label="Tipo"
 								onChange={(e) => setTipo(e.target.value)}
 								required
 							>

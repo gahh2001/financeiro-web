@@ -85,6 +85,7 @@ const FiltroData: FC<IFiltroDataProps> = (props: IFiltroDataProps) => {
 						value={props.tipoMovimentacao}
 						onChange={handleChangeMovimentacao}
 						defaultValue={TipoMovimentacaoEnum.POSITIVO.toString()}
+						label="Movimentações"
 					>
 						<MenuItem
 							key={"POSITIVAS"}

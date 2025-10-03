@@ -122,7 +122,7 @@ const FiltrosMovimentacoes: FC<FiltrosMovimentacoesProps> = (props: FiltrosMovim
 					<Select
 						id="select-categoria"
 						value={props.tipo}
-						label="tipo"
+						label="Tipo movimentação"
 						onChange={handleChangeTipo}
 						required={true}
 					>
@@ -153,6 +153,7 @@ const FiltrosMovimentacoes: FC<FiltrosMovimentacoesProps> = (props: FiltrosMovim
 					<Select
 						size="small"
 						labelId="demo-multiple-chip-label"
+						label="Categorias"
 						id="demo-multiple-chip"
 						multiple
 						value={props.categorias}

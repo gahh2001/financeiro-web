@@ -57,6 +57,7 @@ const CardDesempenho: FC = () => {
 					</InputLabel>
 					<Select
 						id="select-movimentacoes"
+						label="Ver progresso"
 						value={periodo}
 						onChange={mudarPeriodo}
 						defaultValue={TipoMovimentacaoEnum.POSITIVO.toString()}

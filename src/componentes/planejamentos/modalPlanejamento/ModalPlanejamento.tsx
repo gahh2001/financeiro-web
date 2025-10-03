@@ -204,6 +204,7 @@ const ModalPlanejamento: FC<IModalPlanejamento> = (props: IModalPlanejamento) =>
 								</InputLabel>
 								<Select
 									id="select-tipo-planejamento"
+									label="Tipo"
 									value={props.tipo}
 									onChange={handleChangetipo}
 									defaultValue={TipoPlanejamentoEnum.META.toString()}
@@ -233,6 +234,7 @@ const ModalPlanejamento: FC<IModalPlanejamento> = (props: IModalPlanejamento) =>
 								</InputLabel>
 								<Select
 									id="select-recorrencia-planejamento"
+									label="Recorrência"
 									value={props.recorrencia}
 									onChange={handleChangeRecorrencia}
 									defaultValue={TipoRecorrenciaEnum.MENSAL.toString()}
@@ -299,6 +301,7 @@ const ModalPlanejamento: FC<IModalPlanejamento> = (props: IModalPlanejamento) =>
 								</InputLabel>
 								<Select
 									id="select-categoria-planejamento"
+									label="Categorias"
 									value={props.categorias}
 									onChange={handleChangeCategorias}
 									MenuProps={MenuProps}
