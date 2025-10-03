@@ -6,7 +6,7 @@ import { useAlert } from "../../../contextProviders/AlertProvider";
 import "../modalZerar/ModalZerar.scss";
 
 const ModalTutoriais: FC = () => {
-	const [loading, setLoading] = useState(false);
+	const [loading] = useState(false);
 	const [success, setSuccess] = useState(false);
 	const [open, setOpen] = useAtom(modalTutoriais);
 	const { showAlert } = useAlert();
