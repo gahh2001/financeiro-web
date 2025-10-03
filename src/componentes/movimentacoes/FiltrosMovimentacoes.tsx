@@ -6,7 +6,6 @@ import { useAtom } from "jotai";
 import { FC, useEffect, useState } from "react";
 import { accessToken } from "../../atoms/atom";
 import { TipoMovimentacaoEnum } from "../../enums/TipoMovimentacaoEnum";
-import { useBack } from "../../http";
 import { FiltrosMovimentacoesProps } from "../../interfaces/FiltrosMovimentacoesProps";
 import { CategoriaMovimentacaoService } from "../../services/CategoriaMovimentacaoService";
 import { CategoriaMovimentacao } from "../../types/CategoriaMovimentacao";

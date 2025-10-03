@@ -3,7 +3,6 @@ import { BarChart } from '@mui/x-charts/BarChart';
 import { useAtom } from 'jotai';
 import { FC, useEffect, useState } from 'react';
 import { accessToken } from '../../../../atoms/atom';
-import { useBack } from '../../../../http';
 import { InformacoesDoMesProps } from '../../../../interfaces/IInformacoesDoMesProps';
 import { CategoriaMovimentacaoService } from '../../../../services/CategoriaMovimentacaoService';
 import { SomaCategoriasPorMes } from '../../../../types/SomaCategoriasPorMes';
