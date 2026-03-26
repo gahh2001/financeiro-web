@@ -102,7 +102,7 @@ const FiltroComparacoes: FC<IFiltroComparacoesProps> = (props: IFiltroComparacoe
 			</div>
 			<div className="filter">
 				<FormControl
-					sx={{m: 1, width: '18vh'}}
+					sx={{m: 1, width: '18vh', marginTop: 2}}
 					size="small"
 				>
 					<InputLabel
@@ -116,6 +116,7 @@ const FiltroComparacoes: FC<IFiltroComparacoesProps> = (props: IFiltroComparacoe
 						value={props.tipoComparacao}
 						onChange={handleChangeComparacao}
 						defaultValue={TipoComparacaoEnum.TRESMESES.toString()}
+						sx={{height: "49px"}}
 					>
 						<MenuItem
 							key={"3"}
