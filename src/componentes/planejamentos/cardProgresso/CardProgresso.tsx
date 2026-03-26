@@ -140,7 +140,7 @@ const CardProgresso: FC = () => {
 					endAngle={110}
 					sx={{
 						[`& .${gaugeClasses.valueText}`]: {
-							fontSize: 34,
+							fontSize: 28,
 							transform: 'translate(0px, 0px)',
 						},
 						[`& .${gaugeClasses.valueArc}`]: {
@@ -152,11 +152,14 @@ const CardProgresso: FC = () => {
 					}
 				/>
 			</div>
-			{fraseProgresso !== "" ? <div className="dica-progresso">
-				<Typography>
-					<InfoOutlined fontSize="small"/> {fraseProgresso}
-				</Typography>
-			</div> : <></>}
+			{fraseProgresso !== ""
+				? <div className="dica-progresso">
+					<Typography>
+						<InfoOutlined fontSize="small"/> {fraseProgresso}
+					</Typography>
+				</div>
+				: <></>
+			}
 		</Fragment>
 		: <Fragment>
 			<div className="nenhum-conteudo">
