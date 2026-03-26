@@ -1,16 +1,15 @@
-import { Dialog, DialogContent, DialogTitle } from "@mui/material";
+import { CircularProgress, Dialog, DialogContent, DialogTitle } from "@mui/material";
 import { useAtom } from "jotai";
-import { FC, Fragment, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { FC, Fragment, useEffect, useState } from "react";
 import { accessToken, modalLogin, pictureAtom } from "../../atoms/atom";
 import { LoginService } from "../../services/LoginService";
 import './ModalLogin.scss';
 
 const ModalLogin: FC = () => {
-	const navigate = useNavigate();
 	const [open, setOpen] = useAtom(modalLogin);
 	const [, setAccessToken] = useAtom(accessToken);
 	const [, setPicture] = useAtom(pictureAtom);
+	const [loading, setLoading] = useState(false);
 	const service = new LoginService();
 
 	useEffect(() => {
@@ -34,6 +33,7 @@ const ModalLogin: FC = () => {
 	}, [open]);
 
 	async function handleCredentialResponse(response: any) {
+		setLoading(true);
 		const resposta = await service.autentica(response.credential);
 		if (resposta && resposta.data && resposta.data.accessToken && resposta.data.urlPicture) {
 			setAccessToken(resposta.data.credential);
@@ -57,9 +57,12 @@ const ModalLogin: FC = () => {
 						<div className="texto">
 							Entre com sua conta do Google para acessar o MyWallet Pro.
 						</div>
-						<div className="google">
-							<div id="buttonDiv"></div>
-						</div>
+						{loading
+							? <CircularProgress sx={{color: "#48a7dbff"}} size={'35px'}/>
+							: <div className="google">
+								<div id="buttonDiv"></div>
+							</div>
+						}
 						<div className="texto">
 							Se você já possui cadastro, é só continuar com a conta Google também. Prático, não? 🙂
 						</div>

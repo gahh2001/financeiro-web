@@ -2,11 +2,11 @@
 
 .card-login {
 	height: 25vh;
-	//padding: 1rem;
 	display: flex;
 	flex-direction: column;
 	gap: 3vh;
 	width: 100%;
+	align-items: center;
 
 	@media screen and (max-width: 768px) {
 		width: 100%;
