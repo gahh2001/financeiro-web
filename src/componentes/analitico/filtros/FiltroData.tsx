@@ -72,7 +72,7 @@ const FiltroData: FC<IFiltroDataProps> = (props: IFiltroDataProps) => {
 			</div>
 			<div className="filter-data">
 				<FormControl
-					sx={{width: '23vh'}}
+					sx={{width: { xs: "22vh", sm: "24vh", md: "24vh"}}}
 					size="small"
 				>
 					<InputLabel
