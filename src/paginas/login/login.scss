@@ -1,98 +1,126 @@
 @import '../../VariaveisSCSS.scss';
 
-.login {
-	height: 90vh;
+.login-container {
 	width: 100%;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
 	align-items: center;
 	background: linear-gradient(180deg, rgb(4, 0, 88) 0%, rgb(0, 55, 26) 35%, rgb(0, 69, 83) 100%);
+	padding: 0 4rem 1.5rem;
+	box-sizing: border-box;
 
 	@media screen and (max-width: 768px) {
-		height: auto;
+		padding: 2rem 1rem;
 	}
 
-	.nome-site {
+	.login-content {
+		max-width: 1200px;
 		width: 100%;
-		font-size: 5vh;
-		text-align: center;
-		color: $color-in-linhas;
-	}
-
-	.imagens {
 		display: flex;
-		width: 100%;
-		height: 90%;
-		padding: 2vh;
+		flex-direction: column;
+		align-items: center;
+		gap: 4rem;
+	}
 
-		@media screen and (max-width: 768px) {
-			flex-direction: column;
-			gap: 3vh;
+	.hero-section {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		gap: 1.5rem;
+		margin-top: 2rem;
+
+		.nome-site {
+			font-size: 3.5rem;
+			font-weight: 800;
+			margin: 0;
+			color: $color-in-linhas;
+			text-shadow: 0 4px 20px rgba(0,0,0, 0.3);
+			
+			@media screen and (max-width: 768px) {
+				font-size: 2.5rem;
+			}
 		}
 
-		.card-imagem {
-			width: 32%;
-			height: 100%;
+		.subtitulo {
+			font-size: 1.25rem;
+			color: rgba(255, 255, 255, 0.85);
+			max-width: 600px;
+			margin: 0;
+			line-height: 1.6;
+		}
+
+		.btn-primary {
+			background-color: #48ab3b;
+			color: white;
+			font-weight: bold;
+			padding: 0.8rem 2.5rem;
+			border-radius: 50px;
+			font-size: 1.1rem;
+			text-transform: none;
+			box-shadow: 0 4px 14px 0 rgba(72, 171, 59, 0.39);
+			transition: all 0.2s ease-in-out;
+
+			&:hover {
+				background-color: darken(#48ab3b, 10%);
+				box-shadow: 0 6px 20px rgba(72, 171, 59, 0.5);
+				transform: translateY(-2px);
+			}
+		}
+	}
+
+	.features-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 2rem;
+		width: 100%;
+
+		@media screen and (max-width: 900px) {
+			grid-template-columns: 1fr;
+			max-width: 400px;
+		}
+
+		.card-feature {
+			background: rgba(255, 255, 255, 0.05);
+			backdrop-filter: blur(10px);
+			border: 1px solid rgba(255, 255, 255, 0.1);
+			border-radius: 20px;
+			padding: 2.5rem 1.5rem;
 			display: flex;
 			flex-direction: column;
-			justify-content: center;
 			align-items: center;
-			gap: 2vh;
+			text-align: center;
+			transition: transform 0.3s ease;
 
-			@media screen and (max-width: 768px) {
-				width: 100%;
+			&:hover {
+				transform: translateY(-5px);
+				background: rgba(255, 255, 255, 0.08);
 			}
 
 			img {
-				height: 55vh;
+				height: 305px;
+				object-fit: contain;
+				margin-bottom: 2rem;
+				filter: drop-shadow(0 10px 15px rgba(0,0,0,0.2));
+
 				@media screen and (max-width: 768px) {
-					height: 55vh;
+					height: 180px;
 				}
 			}
 
-			.titulo-imagem {
-				width: 100%;
-				display: flex;
-				justify-content: center;
-				font-size: 3vh;
+			.titulo-feature {
+				font-size: 1.4rem;
 				color: white;
-				margin-bottom: 1vh;
+				margin: 0 0 1rem 0;
+				font-weight: 600;
 			}
 
-			.text-imagem {
-				color: $color-in-linhas;
-				width: 35vh;
-				font-size: 2vh;
-				text-align: justify;
-				font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+			.text-feature {
+				color: rgba(255, 255, 255, 0.7);
+				font-size: 1rem;
+				line-height: 1.5;
+				margin: 0;
 			}
-
-			button {
-				width: 35%;
-				background-color: $fundo-components;
-				border-radius: 3vh;
-				font-size: 2.5vh;
-				color: $color-in-linhas;
-				font-family: system-ui;
-				text-shadow: 0 0 20px #48ab3b, 0 0 10px #48ab3b, 0 0 15px #48ab3b;
-
-				@media screen and (max-width: 768px) {
-					width: 70%;
-					height: 60px;
-				}
-			}
-			.top {
-				margin-bottom: 2vh;
-			}
-		}
-	}
-
-	.cards-demos {
-		display: flex;
-
-		@media screen and (max-width: 768px) {
-			flex-direction: column;
 		}
 	}
 }

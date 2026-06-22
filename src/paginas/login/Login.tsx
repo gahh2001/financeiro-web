@@ -24,57 +24,52 @@ const Login: FC = () => {
 
 	return (
 		<Fragment>
-			<div className='login'>
-				<div className="nome-site">
-					MyWallet Pro
-				</div>
-				<div className="imagens">
-					<div className="card-imagem">
-						<div className="titulo-imagem">Fique no controle</div>
-						<div className="text-imagem">
-							Registre suas movimentações financeiras, crie categorias,
-							visualize seu calendário, acompanhe o seu saldo e muito mais!
-						</div>
-						<img
-							src={imgHome}
-							alt="Página Home"
-						/>
-						<Button onClick={() => setOpen(true)}>
-							Começar
+			<div className='login-container'>
+				<div className='login-content'>
+					<div className="hero-section">
+						<h1 className="nome-site">MyWallet Pro</h1>
+						<p className="subtitulo">
+							Acompanhe, planeje e evolua. O controle total da sua vida financeira em um só lugar.
+						</p>
+						<Button 
+							className="btn-primary" 
+							variant="contained" 
+							size="large"
+							onClick={() => setOpen(true)}
+						>
+							Acessar Minha Conta
 						</Button>
 					</div>
-					<div className="card-imagem">
-						<img
-							src={imgPlanos}
-							alt="Página Home"
-							/>
-						<div className="titulo-imagem">Crie planejamentos</div>
-						<div className="text-imagem">
-							Defina metas, limites, acompanhe o seu progresso e veja
-							como você se sai nos seus planejamentos.
+					<div className="features-grid">
+						<div className="card-feature">
+							<img src={imgHome} alt="Dashboard inicial" />
+							<h2 className="titulo-feature">Fique no controle</h2>
+							<p className="text-feature">
+								Registre suas movimentações financeiras, crie categorias,
+								visualize seu calendário, acompanhe o seu saldo e muito mais!
+							</p>
 						</div>
-						<Button onClick={() => setOpen(true)}>
-							Planejar
-						</Button>
-					</div>
-					<div className="card-imagem">
-						<div className="titulo-imagem">De olho nos gráficos</div>
-						<div className="text-imagem">
-							Acompanhe o andamento das suas movimentações, veja
-							comparações, evoluções, fique por dentro do desempenho da sua rotina financeira.
+						<div className="card-feature">
+							<img src={imgPlanos} alt="Tela de Planejamento" />
+							<h2 className="titulo-feature">Crie planejamentos</h2>
+							<p className="text-feature">
+								Defina metas, limites, acompanhe o seu progresso e veja
+								como você se sai nos seus planejamentos.
+							</p>
 						</div>
-						<img
-							src={imgAnalitico}
-							alt="Página Home"
-						/>
-						<Button onClick={() => setOpen(true)}>
-							Começar
-						</Button>
+						<div className="card-feature">
+							<img src={imgAnalitico} alt="Gráficos analíticos" />
+							<h2 className="titulo-feature">De olho nos gráficos</h2>
+							<p className="text-feature">
+								Acompanhe o andamento das suas movimentações, veja
+								comparações, evoluções e fique por dentro do seu desempenho.
+							</p>
+						</div>
 					</div>
 				</div>
-				<ModalLogin/>
+				<ModalLogin />
 			</div>
-			<Footer/>
+			<Footer />
 		</Fragment>
 	);
 }
