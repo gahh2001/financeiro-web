@@ -61,17 +61,40 @@ const Calendario: FC<ICalendarioProps> = (props: ICalendarioProps) => {
 		const dayClass = classNames("day", {
 			"selected-day": isCurrentDay,
 		});
+		const { hasPositive, hasNegative } = checkMovimentacoes(day, currentMonth.month());
 		days.push(
 			<div
 				key={day + currentMonth.format('YYYYMM')}
 				className={dayClass}
 				onClick={() => handleDayClick(day, currentMonth.month(), currentMonth.year())}
 			>
-				{verificaDiaComMovimentação(day, currentMonth.month(), TipoMovimentacaoEnum.NEGATIVO)}
-				{day}
-				{verificaDiaComMovimentação(day, currentMonth.month(), TipoMovimentacaoEnum.POSITIVO)}
+				<span className="day-number">{day}</span>
+				<div className="indicators">
+					{hasNegative && <div className="dot dot-negative"></div>}
+					{hasPositive && <div className="dot dot-positive"></div>}
+				</div>
 			</div>
 		);
+	}
+
+	function checkMovimentacoes(day: number, month: number) {
+		let hasPositive = false;
+		let hasNegative = false;
+		if (props.movimentacoesMes && props.movimentacoesMes.length > 0) {
+			for (const movimentacao of props.movimentacoesMes) {
+				let dataString = movimentacao.dataMovimentacao.toString().replace('00', '12');
+				let date = new Date(dataString);
+				if (date.getUTCDate() === day && date.getUTCMonth() === month) {
+					if (movimentacao.tipoMovimentacao.toUpperCase() === TipoMovimentacaoEnum.POSITIVO.toString()) {
+						hasPositive = true;
+					} else if (movimentacao.tipoMovimentacao.toUpperCase() === TipoMovimentacaoEnum.NEGATIVO.toString()) {
+						hasNegative = true;
+					}
+				}
+				if (hasPositive && hasNegative) break; 
+			}
+		}
+		return { hasPositive, hasNegative };
 	}
 
 	const handleDayClick = (daySelected: number, monthSelected: number, yearSelected: number) => {
