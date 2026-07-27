@@ -120,7 +120,8 @@ const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaPr
 				<div className="buttons">
 					<button
 						onClick={() => {
-							setModalMovimentacao(TipoMovimentacaoEnum.POSITIVO)
+							setModalMovimentacao(TipoMovimentacaoEnum.POSITIVO);
+							props.handleEditMovimentacao(0, new Date(), "", "", "", TipoMovimentacaoEnum.POSITIVO, true);
 							setOpenModalApp(true);
 						}}
 					>
@@ -130,7 +131,8 @@ const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaPr
 						Adicionar rendimento
 					</button>
 					<button onClick={() => {
-						setModalMovimentacao(TipoMovimentacaoEnum.NEGATIVO)
+						setModalMovimentacao(TipoMovimentacaoEnum.NEGATIVO);
+						props.handleEditMovimentacao(0, new Date(), "", "", "", TipoMovimentacaoEnum.NEGATIVO, true)
 						setOpenModalApp(true);
 					}}>
 						<PlaylistRemove
