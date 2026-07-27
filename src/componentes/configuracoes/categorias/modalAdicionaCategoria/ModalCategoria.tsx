@@ -1,7 +1,7 @@
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import { Button, Checkbox, Dialog, DialogActions, DialogContent, FormControl, FormControlLabel, IconButton, InputLabel, MenuItem, Select, TextField } from "@mui/material";
 import { useAtom } from 'jotai';
-import { FC, useEffect, useState } from "react";
+import { ChangeEvent, FC, useEffect, useState } from "react";
 import { modalCategorias } from '../../../../atoms/atom';
 import { IModalCategoriaProps } from "../../../../interfaces/IModalCategoriaProps";
 import { CategoriaMovimentacaoService } from "../../../../services/CategoriaMovimentacaoService";
@@ -32,10 +32,13 @@ const ModalCategoria: FC<IModalCategoriaProps> = (props: IModalCategoriaProps) =
 	const labelTipo = props.edit ? "Você não pode editar o tipo de uma categoria 😬" : "Tipo";
 	const [temValor, setTemValor] = useState(!!valorPadrao);
 
-	const convertInputValor = (event: any) => {
-		let value = event.target.value;
-		value = value.replace(/[^0-9]/g, "");
-		let numberValue = parseFloat(value) / 100;
+	const convertInputValor = (event: ChangeEvent<HTMLInputElement>) => {
+		const digitos = event.target.value.replace(/[^0-9]/g, "");
+		if (digitos === "") {
+			setValorPadrao("");
+			return;
+		}
+		const numberValue = parseInt(digitos, 10) / 100;
 		setValorPadrao(numberValue.toFixed(2));
 	};
 
@@ -197,7 +200,7 @@ const ModalCategoria: FC<IModalCategoriaProps> = (props: IModalCategoriaProps) =
 							error={padraoVazio}
 							value={valorPadrao}
 							onChange={convertInputValor}
-							inputProps={{ type: 'number', step: "0.5"}}
+							inputProps={{ type: 'text', inputMode: 'decimal', pattern: '[0-9]*' }}
 							sx={{
 								m: 1,
 								width: "100%",

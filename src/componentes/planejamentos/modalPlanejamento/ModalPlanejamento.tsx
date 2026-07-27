@@ -5,7 +5,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { Dayjs } from "dayjs";
 import { useAtom } from "jotai";
-import { FC, Fragment, useEffect, useState } from "react";
+import { ChangeEvent, FC, Fragment, useEffect, useState } from "react";
 import { modalPlanajamento } from "../../../atoms/atom";
 import { TipoPlanejamentoEnum } from "../../../enums/TipoPlanejamentoEnum";
 import { TipoRecorrenciaEnum } from "../../../enums/TipoRecorrenciaEnum";
@@ -101,11 +101,14 @@ const ModalPlanejamento: FC<IModalPlanejamento> = (props: IModalPlanejamento) =>
 		setEmptyCategorias(event.target.value.length < 1)
 	};
 
-	const convertInputValor = (event: any) => {
-		let value = event.target.value;
-		value = value.replace(/[^0-9]/g, "");
-		let numberValue = parseFloat(value) / 100;
-		setEmptyValor(event.target.value === '');
+	const convertInputValor = (event: ChangeEvent<HTMLInputElement>) => {
+		const digitos = event.target.value.replace(/[^0-9]/g, "");
+		setEmptyValor(digitos === "");
+		if (digitos === "") {
+			props.setValor("");
+			return;
+		}
+		const numberValue = parseInt(digitos, 10) / 100;
 		props.setValor(numberValue.toFixed(2));
 	};
 
@@ -260,7 +263,7 @@ const ModalPlanejamento: FC<IModalPlanejamento> = (props: IModalPlanejamento) =>
 								required
 								value={props.valor}
 								onChange={convertInputValor}
-								inputProps={{ type: 'number', step: "0.5"}}
+								inputProps={{ type: 'text', inputMode: 'decimal', pattern: '[0-9]*' }}
 								sx={{width: "250px" }}
 								label= {fraseRecorrencia}
 							/>

@@ -1,6 +1,6 @@
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, LinearProgress, TextField } from "@mui/material";
 import { useAtom } from "jotai";
-import { FC, Fragment, useEffect, useState } from "react";
+import { ChangeEvent, FC, Fragment, useEffect, useState } from "react";
 import { modalEditSaldo, saldo } from "../../../../atoms/atom";
 import { ContaService } from "../../../../services/ContaService";
 import { useAlert } from "../../../contextProviders/AlertProvider";
@@ -17,10 +17,13 @@ const ModalZerar: FC = () => {
 	const [, setPrimeiroClique] = useState(false);
 	const { showAlert, showError } = useAlert();
 
-	const convertInputValor = (event: any) => {
-		let value = event.target.value;
-		value = value.replace(/[^0-9]/g, "");
-		let numberValue = parseFloat(value) / 100;
+	const convertInputValor = (event: ChangeEvent<HTMLInputElement>) => {
+		const digitos = event.target.value.replace(/[^0-9]/g, "");
+		if (digitos === "") {
+			setValor("");
+			return;
+		}
+		const numberValue = parseInt(digitos, 10) / 100;
 		setValor(numberValue.toFixed(2));
 	};
 
@@ -60,7 +63,7 @@ const ModalZerar: FC = () => {
 								error={emptyValor}
 								value={valor}
 								onChange={convertInputValor}
-								inputProps={{ type: 'number', step: "0.5"}}
+								inputProps={{ type: 'text', inputMode: 'decimal', pattern: '[0-9]*' }}
 								sx={{width: "200px" }}
 								label= "Novo saldo"
 							/>

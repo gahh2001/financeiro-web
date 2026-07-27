@@ -93,10 +93,13 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 		setDescricao(event.target.value);
 	}
 
-	const convertInputValor = (event: any) => {
-		let value = event.target.value;
-		value = value.replace(/[^0-9]/g, "");
-		let numberValue = parseFloat(value) / 100;
+	const convertInputValor = (event: ChangeEvent<HTMLInputElement>) => {
+		const digitos = event.target.value.replace(/[^0-9]/g, "");
+		if (digitos === "") {
+			setValor("");
+			return;
+		}
+		const numberValue = parseInt(digitos, 10) / 100;
 		setValor(numberValue.toFixed(2));
 	};
 
@@ -172,7 +175,7 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 							error={emptyValor}
 							value={valor}
 							onChange={convertInputValor}
-							inputProps={{ type: 'number', step: "0.5"}}
+							inputProps={{ type: 'text', inputMode: 'decimal', pattern: '[0-9]*' }}
 							label= "Valor"
 							sx={{width: { xs: "213px", sm: "160px", md: "160px"}}}
 						/>
