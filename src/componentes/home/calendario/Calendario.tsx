@@ -1,17 +1,15 @@
-import { CircleTwoTone } from "@mui/icons-material";
 import { CircularProgress } from "@mui/material";
 import classNames from 'classnames';
 import { useAtom } from "jotai";
 import moment from "moment";
 import "moment/locale/pt-br";
 import { FC, useEffect, useState } from "react";
-import { accessToken, modalAddMovimentacao, modalRemoveMovimentacao } from "../../../atoms/atom";
+import { accessToken, dataSelecionada, modalAddMovimentacao, modalRemoveMovimentacao, movimentacoesMes } from "../../../atoms/atom";
 import { TipoMovimentacaoEnum } from "../../../enums/TipoMovimentacaoEnum";
-import { ICalendarioProps } from "../../../interfaces/ICalendarioProps";
 import { MovimentacaoService } from "../../../services/MovimentacaoService";
 import "./CalendarioStyle.scss";
 
-const Calendario: FC<ICalendarioProps> = (props: ICalendarioProps) => {
+const Calendario: FC = () => {
 	moment.locale("pt-br");
 	const [currentMonth, setCurrentMonth] = useState(moment());
 	const [selectedDay, setSelectedDay] = useState(moment().date() + currentMonth.format('YYYYMM'));
@@ -23,6 +21,9 @@ const Calendario: FC<ICalendarioProps> = (props: ICalendarioProps) => {
 	const [accessTokenAtom] = useAtom(accessToken);
 	const [openModalAdd] = useAtom(modalAddMovimentacao);
 	const [openModalRemove] = useAtom(modalRemoveMovimentacao);
+	const [movimentacoesDoMes, setMovimentacoesMes] = useAtom(movimentacoesMes);
+	const [, setDataSelecionada] = useAtom(dataSelecionada);
+	const modalAberto = openModalAdd || openModalRemove;
 	const movimentacaoService = new MovimentacaoService();
 
 	const days = [];
@@ -45,7 +46,7 @@ const Calendario: FC<ICalendarioProps> = (props: ICalendarioProps) => {
 					const response = await movimentacaoService.getMovimentacao(
 						primeiroDiaMes.getTime(), ultimoDiaMes.getTime());
 					if (response?.data) {
-						props.atualizaMovimentacoesMes(response.data);
+						setMovimentacoesMes(response.data);
 						setCarregado(true);
 					}
 				}
@@ -53,8 +54,10 @@ const Calendario: FC<ICalendarioProps> = (props: ICalendarioProps) => {
 				console.error('Erro ao buscar movimentações:', error);
 			}
 		};
-		buscaMovimentacoesDoMes();
-	}, [currentMonth, openModalAdd, openModalRemove]);
+		if (!modalAberto) {
+			buscaMovimentacoesDoMes();
+		}
+	}, [currentMonth, modalAberto]);
 
 	for (let day = 1; day <= daysInMonth; day++) {
 		const isCurrentDay = (day + currentMonth.format('YYYYMM')) === selectedDay;
@@ -80,8 +83,8 @@ const Calendario: FC<ICalendarioProps> = (props: ICalendarioProps) => {
 	function checkMovimentacoes(day: number, month: number) {
 		let hasPositive = false;
 		let hasNegative = false;
-		if (props.movimentacoesMes && props.movimentacoesMes.length > 0) {
-			for (const movimentacao of props.movimentacoesMes) {
+		if (movimentacoesDoMes && movimentacoesDoMes.length > 0) {
+			for (const movimentacao of movimentacoesDoMes) {
 				let dataString = movimentacao.dataMovimentacao.toString().replace('00', '12');
 				let date = new Date(dataString);
 				if (date.getUTCDate() === day && date.getUTCMonth() === month) {
@@ -105,7 +108,7 @@ const Calendario: FC<ICalendarioProps> = (props: ICalendarioProps) => {
 		selectedDate.setDate(daySelected);
 		selectedDate.setFullYear(yearSelected);
 		selectedDate.setHours(12);
-		props.onDayClick(selectedDate);
+		setDataSelecionada(selectedDate);
 	};
 
 	return (
@@ -150,43 +153,6 @@ const Calendario: FC<ICalendarioProps> = (props: ICalendarioProps) => {
 			</div>
 	);
 
-	function verificaDiaComMovimentação(day: number, month: number, operador: TipoMovimentacaoEnum) {
-		if (props.movimentacoesMes.length > 0) {
-			let possuiMovimentacao = 0;
-			props.movimentacoesMes.forEach((movimentacao) => {
-				let dataString: string = movimentacao.dataMovimentacao.toString();
-				dataString = dataString.replace('00', '12')
-				let date = new Date(dataString);
-				const dia = date.getUTCDate();
-				const mes = date.getUTCMonth();
-				if (dia === day && month === mes
-						&& movimentacao.tipoMovimentacao.toUpperCase() === operador.toString()) {
-					possuiMovimentacao++;
-				}
-			});
-			let cor = '';
-			switch (operador) {
-				case TipoMovimentacaoEnum.NEGATIVO:
-					cor = "#9a1d1d";
-					break;
-				case TipoMovimentacaoEnum.POSITIVO:
-					cor = "#2D9632"
-					break;
-			}
-			if (possuiMovimentacao > 0) {
-				return (
-					<CircleTwoTone
-						sx={{ color: cor, backgroundColor: 'transparent' }}
-					/>
-				);
-			}
-			return (
-				<CircleTwoTone
-					sx={{ color: "transparent", backgroundColor: 'transparent' }}
-				/>
-			);
-		}
-	}
 };
 
 export default Calendario;

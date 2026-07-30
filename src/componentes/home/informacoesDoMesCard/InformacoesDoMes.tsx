@@ -3,20 +3,24 @@ import {
 	AssessmentOutlined,
 	RemoveCircleOutlineRounded
 } from '@mui/icons-material';
+import { useAtom } from 'jotai';
 import { FC } from 'react';
+import { dataSelecionada, movimentacoesMes, valoresVisiveis } from '../../../atoms/atom';
 import { TipoMovimentacaoEnum } from '../../../enums/TipoMovimentacaoEnum';
-import { InformacoesDoMesProps } from '../../../interfaces/IInformacoesDoMesProps';
 import { Movimentacao } from '../../../types/Movimentacao';
 import './InformacoesDoMes.scss';
 import GraficosMensais from './graficosMensais/GraficosMensais';
 
-const InformacoesDoMes: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProps) => {
+const InformacoesDoMes: FC = () => {
+	const [movimentacoesDoMes] = useAtom(movimentacoesMes);
+	const [diaSelecionado] = useAtom(dataSelecionada);
+	const [visivel] = useAtom(valoresVisiveis);
 
 	return (
 		<div className="informacoes-do-mes">
 			<div className="card-resumo-mes">
 				<div className="titulo">
-					Resumo de {obtemNomeMes(props.selectedDate.getMonth())}
+					Resumo de {obtemNomeMes(diaSelecionado.getMonth())}
 				</div>
 				<div className="infos">
 					<div className="info-mes">
@@ -26,8 +30,8 @@ const InformacoesDoMes: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProp
 						/>
 						</div>
 						Total recebido no mês: R$
-						{props.visivel
-							? somaTotalMes(props.movimentacoesMes, TipoMovimentacaoEnum.POSITIVO).toFixed(2).replace('.', ',')
+						{visivel
+							? somaTotalMes(movimentacoesDoMes, TipoMovimentacaoEnum.POSITIVO).toFixed(2).replace('.', ',')
 							: "***"
 						}
 					</div>
@@ -38,8 +42,8 @@ const InformacoesDoMes: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProp
 							/>
 						</div>
 						Total de gastos do mês: R$
-						{props.visivel
-							? somaTotalMes(props.movimentacoesMes, TipoMovimentacaoEnum.NEGATIVO).toFixed(2).replace('.', ',')
+						{visivel
+							? somaTotalMes(movimentacoesDoMes, TipoMovimentacaoEnum.NEGATIVO).toFixed(2).replace('.', ',')
 							: "***"
 						}
 					</div>
@@ -49,13 +53,11 @@ const InformacoesDoMes: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProp
 								sx={{ color: "#0085FF" }}
 							/>
 						</div>
-						Você gastou: {calculaPorcentagemTotal(props.movimentacoesMes)}% dos rendimentos.
+						Você gastou: {calculaPorcentagemTotal(movimentacoesDoMes)}% dos rendimentos.
 					</div>
 				</div>
 			</div>
-			<GraficosMensais
-				{...props}
-			/>
+			<GraficosMensais/>
 		</div>
 	);
 
@@ -78,33 +80,9 @@ const InformacoesDoMes: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProp
 	}
 
 	function obtemNomeMes(mes: number) {
-		switch(mes) {
-			case 0: 
-				return "Janeiro";
-			case 1: 
-				return "Fevereiro";
-			case 2: 
-				return "Março";
-			case 3: 
-				return "Abril";
-			case 4: 
-				return "Maio";
-			case 5: 
-				return "Junho";
-			case 6: 
-				return "Julho";
-			case 7: 
-				return "Agosto";
-			case 8: 
-				return "Setembro";
-			case 9: 
-				return "Outubro";
-			case 10: 
-				return "Novembro";
-			case 11: 
-				return "Dezembro";
-			
-		}
+		const months = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+			"Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+		return months[mes];
 	}
 };
 

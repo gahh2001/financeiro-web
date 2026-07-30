@@ -14,39 +14,44 @@ import {
 import { IconButton } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
 import { useAtom } from 'jotai';
-import { FC, Fragment, useEffect, useState } from 'react';
-import { accessToken, modalAddMovimentacao, modalMovimentacao, saldo } from '../../../atoms/atom';
+import { FC, Fragment, useEffect } from 'react';
+import {
+	accessToken,
+	dataSelecionada,
+	modalAddMovimentacao,
+	modalMovimentacao,
+	modalRemoveMovimentacao,
+	movimentacaoApagar,
+	movimentacaoAtom,
+	movimentacoesMes,
+	saldo,
+	valoresVisiveis
+} from '../../../atoms/atom';
 import { TipoMovimentacaoEnum } from '../../../enums/TipoMovimentacaoEnum';
-import { IInformacoesDoDiaProps } from '../../../interfaces/IInformacoesDoDiaProps';
 import { ContaService } from '../../../services/ContaService';
 import { Movimentacao } from '../../../types/Movimentacao';
 import ConverteIcone from '../../../utils/ConverteIcones';
+import { criaMovimentacaoVazia } from '../../../utils/MovimentacaoUtils';
 import { useDialog } from '../../contextProviders/DialogContext';
 import './InformacoesDoDia.scss';
 
-const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaProps) => {
+const InformacoesDoDia: FC = () => {
 	const [accessTokenAtom] = useAtom(accessToken);
-	const [movimentacoesDoDia, setMovimentacoesDoDia] = useState<Movimentacao[]>([]);
 	const [saldoAtual, setSaldo] = useAtom(saldo);
+	const [movimentacoesDoMes] = useAtom(movimentacoesMes);
+	const [diaSelecionado] = useAtom(dataSelecionada);
+	const [visivel, setVisivel] = useAtom(valoresVisiveis);
+	const [, setMovimentacao] = useAtom(movimentacaoAtom);
+	const [, setMovimentacaoApagar] = useAtom(movimentacaoApagar);
 	const contaService = new ContaService();
 	const [openModalAdd, setOpenModalApp] = useAtom(modalAddMovimentacao);
+	const [openModalRemove, setOpenModalRemove] = useAtom(modalRemoveMovimentacao);
 	const [, setModalMovimentacao] = useAtom(modalMovimentacao);
+	const modalAberto = openModalAdd || openModalRemove;
 	const { showDialog } = useDialog();
 
-	useEffect(() => {
-		const buscaMovimentacoesDoDia = async () => {
-			if (props.movimentacoesMes.length) {
-				const movimentacoes = props.movimentacoesMes
-					.filter((movimentacao) =>
-						new Date(movimentacao.dataMovimentacao).getUTCDate() === props.selectedDate.getDate()
-					)
-				setMovimentacoesDoDia(movimentacoes);
-			} else {
-				setMovimentacoesDoDia([]);
-			}
-		};
-		buscaMovimentacoesDoDia();
-	}, [props.selectedDate, openModalAdd, props.modalAddDespesa, props.modalApagaMovimentacao]);
+	const movimentacoesDoDia = movimentacoesDoMes.filter((movimentacao) =>
+		new Date(movimentacao.dataMovimentacao).getUTCDate() === diaSelecionado.getDate());
 
 	useEffect(() => {
 		const atualizaSaldoConta = async () => {
@@ -61,8 +66,28 @@ const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaPr
 				console.error('Erro ao buscar saldo:', error);
 			}
 		};
-		atualizaSaldoConta();
-	}, [openModalAdd, props.modalAddDespesa, props.modalApagaMovimentacao]);
+		if (!modalAberto) {
+			atualizaSaldoConta();
+		}
+	}, [modalAberto]);
+
+	const abreModalMovimentacao = (tipo: TipoMovimentacaoEnum, movimentacaoEditar?: Movimentacao) => {
+		setModalMovimentacao(tipo);
+		setMovimentacao(movimentacaoEditar
+			? { ...movimentacaoEditar, dataMovimentacao: diaSelecionado }
+			: criaMovimentacaoVazia(tipo, diaSelecionado));
+		setOpenModalApp(true);
+	};
+
+	const abreModalApagar = (movimentacao: Movimentacao) => {
+		setMovimentacaoApagar(movimentacao);
+		setOpenModalRemove(true);
+	};
+
+	const obtemTipo = (movimentacao: Movimentacao) =>
+		movimentacao.tipoMovimentacao.toUpperCase() === TipoMovimentacaoEnum.POSITIVO.toString()
+			? TipoMovimentacaoEnum.POSITIVO
+			: TipoMovimentacaoEnum.NEGATIVO;
 
 	return (
 		<div className="informacoes-do-dia">
@@ -71,29 +96,29 @@ const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaPr
 					<AssessmentOutlined
 						sx={{ color: "#3451C7" }}
 						fontSize="large"
-					/> 
+					/>
 					<div className="saldo">
-						Saldo atual: ${props.visivel ? saldoAtual.toFixed(2).replace('.', ',') : "***"}
+						Saldo atual: ${visivel ? saldoAtual.toFixed(2).replace('.', ',') : "***"}
 					</div>
 					<Tooltip
-						title={props.visivel ? "Ocultar valores" : "Mostrar valores"}
+						title={visivel ? "Ocultar valores" : "Mostrar valores"}
 						placement="top"
 					>
 						<IconButton
-							onClick={() => props.setVisible()}
+							onClick={() => setVisivel(!visivel)}
 						>
-							{props.visivel
+							{visivel
 								? <RemoveRedEye color='action' />
 								: <VisibilityOff color='action' />
 							}
 						</IconButton>
 					</Tooltip>
 				</div>
-				
+
 				<div className="titulo">
-					Resumo do dia {props.selectedDate.getDate().toString().padStart(2,"0")}
-					/{props.selectedDate.getMonth() + 1}
-					/{props.selectedDate.getFullYear()}
+					Resumo do dia {diaSelecionado.getDate().toString().padStart(2,"0")}
+					/{diaSelecionado.getMonth() + 1}
+					/{diaSelecionado.getFullYear()}
 				</div>
 				<div className="infos">
 					<div className="info-dia">
@@ -119,22 +144,14 @@ const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaPr
 				</div>
 				<div className="buttons">
 					<button
-						onClick={() => {
-							setModalMovimentacao(TipoMovimentacaoEnum.POSITIVO);
-							props.handleEditMovimentacao(0, new Date(), "", "", "", TipoMovimentacaoEnum.POSITIVO, true);
-							setOpenModalApp(true);
-						}}
+						onClick={() => abreModalMovimentacao(TipoMovimentacaoEnum.POSITIVO)}
 					>
 						<AddTaskOutlined
 							sx={{ color: "#44A81D" }}
 						/> <br/>
 						Adicionar rendimento
 					</button>
-					<button onClick={() => {
-						setModalMovimentacao(TipoMovimentacaoEnum.NEGATIVO);
-						props.handleEditMovimentacao(0, new Date(), "", "", "", TipoMovimentacaoEnum.NEGATIVO, true)
-						setOpenModalApp(true);
-					}}>
+					<button onClick={() => abreModalMovimentacao(TipoMovimentacaoEnum.NEGATIVO)}>
 						<PlaylistRemove
 							sx={{ color: "#e15734db" }}
 						/> <br />
@@ -154,7 +171,7 @@ const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaPr
 				soma += movimentacao.valor;
 			}
 		}
-		return props.visivel ? soma.toFixed(2).replace('.', ',') : "***"
+		return visivel ? soma.toFixed(2).replace('.', ',') : "***"
 	}
 
 	function listaMovimentacoesDoDia(movimentacoes: Movimentacao[]) {
@@ -205,14 +222,7 @@ const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaPr
 									>
 										<IconButton
 											color="inherit"
-											onClick={() => props.handleEditMovimentacao(
-												movimentacao.id, props.selectedDate,
-												movimentacao.valor.toString(), movimentacao.idCategoriaMovimentacao
-												? movimentacao.idCategoriaMovimentacao.toString() : "",
-												movimentacao.descricaoMovimentacao,
-												movimentacao.tipoMovimentacao === TipoMovimentacaoEnum.POSITIVO.toString()
-												? TipoMovimentacaoEnum.POSITIVO : TipoMovimentacaoEnum.NEGATIVO, movimentacao.alteraSaldo
-											)}
+											onClick={() => abreModalMovimentacao(obtemTipo(movimentacao), movimentacao)}
 										>
 											<ModeEdit />
 										</IconButton>
@@ -222,8 +232,7 @@ const InformacoesDoDia: FC<IInformacoesDoDiaProps> = (props: IInformacoesDoDiaPr
 										placement="left"
 									>
 										<IconButton
-											onClick={() =>
-												props.modalApagaMovimentacao(movimentacao)}
+											onClick={() => abreModalApagar(movimentacao)}
 										>
 											<DeleteForever sx={{ color: "#e15734db" }}
 										/>

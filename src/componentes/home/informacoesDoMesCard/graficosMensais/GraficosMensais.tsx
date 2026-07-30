@@ -1,47 +1,21 @@
 import { Divider } from '@mui/material';
 import { BarChart } from '@mui/x-charts/BarChart';
 import { useAtom } from 'jotai';
-import { FC, useEffect, useState } from 'react';
-import { accessToken } from '../../../../atoms/atom';
-import { InformacoesDoMesProps } from '../../../../interfaces/IInformacoesDoMesProps';
-import { CategoriaMovimentacaoService } from '../../../../services/CategoriaMovimentacaoService';
-import { SomaCategoriasPorMes } from '../../../../types/SomaCategoriasPorMes';
+import { FC } from 'react';
+import { movimentacoesMes } from '../../../../atoms/atom';
+import { TipoMovimentacaoEnum } from '../../../../enums/TipoMovimentacaoEnum';
+import { Movimentacao } from '../../../../types/Movimentacao';
 import './GraficosMensais.scss';
 
-const GraficosMensais: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProps) => {
-	const [nomeCategoriasPositivas, setNomeCategoriasPositivas] = useState<string[]>([]);
-	const [somaCategoriasPositivas, setSomaCategoriasPositivas] = useState<number[]>([]);
-	const [nomeCategoriasNegativas, setNomeCategoriasNegativas] = useState<string[]>([]);
-	const [somaCategoriasNegativas, setSomaCategoriasNegativas] = useState<number[]>([]);
-	const categoriaMovimentacaoService = new CategoriaMovimentacaoService();
-	const [accessTokenAtom] = useAtom(accessToken);
+type SomaPorCategoria = {
+	nomes: string[];
+	somas: number[];
+};
 
-	useEffect(() => {
-		const buscaSomaCategorias = async () => {
-			try {
-				if (accessTokenAtom !== "") {
-					const dataInicio = new Date(props.selectedDate);
-					dataInicio.setDate(1);
-					const dataFim = new Date(props.selectedDate);
-					dataFim.setMonth(dataFim.getMonth() + 1);
-					dataFim.setDate(0);
-					const somaPositivas = await categoriaMovimentacaoService
-						.obtemSomaCategoriasEValores(dataInicio.getTime(), dataFim.getTime(), "POSITIVO");
-					const somaNegativas = await categoriaMovimentacaoService
-						.obtemSomaCategoriasEValores(dataInicio.getTime(), dataFim.getTime(), "NEGATIVO");
-					if (somaPositivas?.data) {
-						extractSomaCategoriasPositivas(somaPositivas.data)
-					}
-					if (somaNegativas?.data) {
-						extractSomaCategoriasNegativas(somaNegativas.data)
-					}
-				}
-			} catch (error) {
-				console.log("Erro ao atualizar soma das categorias")
-			}
-		};
-		buscaSomaCategorias();
-	}, [props.movimentacoesMes]);
+const GraficosMensais: FC = () => {
+	const [movimentacoesDoMes] = useAtom(movimentacoesMes);
+	const positivas = somaPorCategoria(movimentacoesDoMes, TipoMovimentacaoEnum.POSITIVO);
+	const negativas = somaPorCategoria(movimentacoesDoMes, TipoMovimentacaoEnum.NEGATIVO);
 
 	return (
 		<div className="graficos">
@@ -51,31 +25,25 @@ const GraficosMensais: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProps
 		</div>
 	);
 
-	function extractSomaCategoriasPositivas(somaCategorias: SomaCategoriasPorMes[]) {
-		const nomesPositivos: string[] = [];
-		const somasPositivas: number[] = [];
-		somaCategorias.forEach((result) => {
-			nomesPositivos.push(result.nomeCategoria);
-			somasPositivas.push(result.somaMovimentacao);
-		});
-		setNomeCategoriasPositivas(nomesPositivos);
-		setSomaCategoriasPositivas(somasPositivas);
-	}
-
-	function extractSomaCategoriasNegativas(somaCategorias: SomaCategoriasPorMes[]) {
-		const nomesNegativos: string[] = [];
-		const somasNegativas: number[] = [];
-		somaCategorias.forEach((result) => {
-			nomesNegativos.push(result.nomeCategoria);
-			somasNegativas.push(result.somaMovimentacao);
-		});
-		setNomeCategoriasNegativas(nomesNegativos);
-		setSomaCategoriasNegativas(somasNegativas);
+	function somaPorCategoria(movimentacoes: Movimentacao[],
+			tipo: TipoMovimentacaoEnum): SomaPorCategoria {
+		const somaPorNome = new Map<string, number>();
+		movimentacoes
+			.filter((movimentacao) => movimentacao.tipoMovimentacao.toUpperCase() === tipo.toString())
+			.forEach((movimentacao) => {
+				const nome = movimentacao.nomeCategoriaMovimentacao
+					? movimentacao.nomeCategoriaMovimentacao : "Sem categoria";
+				somaPorNome.set(nome, (somaPorNome.get(nome) ?? 0) + movimentacao.valor);
+			});
+		const ordenadas = Array.from(somaPorNome.entries()).sort((uma, outra) => outra[1] - uma[1]);
+		return {
+			nomes: ordenadas.map((categoria) => categoria[0]),
+			somas: ordenadas.map((categoria) => categoria[1])
+		};
 	}
 
 	function obtemGraficoRendimentos() {
-		return nomeCategoriasPositivas.length > 0
-			&& somaCategoriasPositivas.length > 0
+		return positivas.nomes.length > 0
 		? <div className="card-graficos" style={{ marginRight: "0.5%" }}>
 				<div className="titulo">Rendimentos</div>
 				<div className='grafic'>
@@ -83,13 +51,13 @@ const GraficosMensais: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProps
 						xAxis={[
 							{
 							id: 'barCategories',
-							data: nomeCategoriasPositivas,
+							data: positivas.nomes,
 							scaleType: 'band',
 							},
 						]}
 						series={[
 							{
-							data: somaCategoriasPositivas,
+							data: positivas.somas,
 							color: "#42B84A"
 							},
 						]}
@@ -102,7 +70,7 @@ const GraficosMensais: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProps
 					/>
 				</div>
 			</div>
-		: 
+		:
 			<div className="card-graficos" style={{ marginRight: "0.5%" }}>
 				<div className="titulo">Gráfico de rendimentos</div>
 				<div className='nenhum-conteudo'>
@@ -112,8 +80,7 @@ const GraficosMensais: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProps
 	}
 
 	function obtemGraficoDespesas() {
-		return nomeCategoriasNegativas.length > 0
-			&& somaCategoriasNegativas.length > 0
+		return negativas.nomes.length > 0
 	? (
 		<>
 			<div className="card-graficos">
@@ -123,13 +90,13 @@ const GraficosMensais: FC<InformacoesDoMesProps> = (props: InformacoesDoMesProps
 						xAxis={[
 							{
 							id: 'barCategories',
-							data: nomeCategoriasNegativas,
+							data: negativas.nomes,
 							scaleType: 'band',
 							},
 						]}
 						series={[
 							{
-							data: somaCategoriasNegativas,
+							data: negativas.somas,
 							color: "#AD4331"
 							},
 						]}

@@ -8,37 +8,33 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-import dayjs, { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
 import 'dayjs/locale/pt-br';
 import { useAtom } from 'jotai';
 import { ChangeEvent, FC, useEffect, useState } from "react";
-import { accessToken, modalAddMovimentacao, modalMovimentacao } from '../../../atoms/atom';
-import { IModalAddMovimentacao } from '../../../interfaces/IModalAddMovimentacao';
+import { accessToken, modalAddMovimentacao, modalMovimentacao, movimentacaoAtom } from '../../../atoms/atom';
 import { CategoriaMovimentacaoService } from '../../../services/CategoriaMovimentacaoService';
 import { MovimentacaoService } from '../../../services/MovimentacaoService';
 import { CategoriaMovimentacao } from '../../../types/CategoriaMovimentacao';
 import { Movimentacao } from '../../../types/Movimentacao';
+import { formataValorInput } from '../../../utils/MovimentacaoUtils';
 import { useAlert } from '../../contextProviders/AlertProvider';
 import { useDialog } from '../../contextProviders/DialogContext';
 import Dica from '../../dicas/Dica';
 import "./ModalAddMovimentacao.scss";
 
-const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimentacao) => {
+const ModalAddMovimentacao: FC = () => {
 	const [accessTokenAtom] = useAtom(accessToken);
 	const [open, setOpen] = useAtom(modalAddMovimentacao);
 	const [tipo] = useAtom(modalMovimentacao);
+	const [movimentacao, setMovimentacao] = useAtom(movimentacaoAtom);
 	const { showAlert, showError } = useAlert();
 	const { showDialog } = useDialog();
 	const categoriaMovimentacaoService = new CategoriaMovimentacaoService();
 	const movimentacaoService = new MovimentacaoService();
-	const verboTitulo = props.edit
-		? "Editar " : "Adicionar "
+	const edit = Boolean(movimentacao.id);
+	const verboTitulo = edit ? "Editar " : "Adicionar "
 	const [categoriasCarregadas, setCategoriasCarregadas] = useState<CategoriaMovimentacao[]>([]);
-	const [data, setData] = useState<Dayjs | null>(dayjs());
-	const [categoria, setCategoria] = useState("");
-	const [valor, setValor] = useState("");
-	const [descricao, setDescricao] = useState("");
-	const [alterarSaldo, setAlteraSaldo] = useState(true);
 	const [emptyCategoria, setEmptyCategoria] = useState(false);
 	const [emptyValor, setEmptyValor] = useState(false);
 	const [primeiroClique, setPrimeiroClique] = useState(false);
@@ -62,45 +58,38 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 			}
 		}
 		buscaCategorias();
-		if (props.edit) {
-			setData(dayjs(props.date));
-			setCategoria(props.categoria);
-			setValor(props.valor);
-			setDescricao(props.descricao);
-		} else {
-			setValor("");
-			setCategoria("");
-			setData(dayjs(props.selectedDate));
-			setDescricao("");
-			setAlteraSaldo(true);
-			setEmptyCategoria(false);
-			setEmptyValor(false);
-			setPrimeiroClique(false);
-		}
+		setEmptyCategoria(false);
+		setEmptyValor(false);
+		setPrimeiroClique(false);
 		setSuccess(false);
 	}, [open]);
 
-	const handleChangeCategoria = (event: SelectChangeEvent) => {
-		setCategoria(event.target.value);
-		const selecionada = categoriasCarregadas.find(item =>
-			item.id === parseInt(event.target.value));
-		if (selecionada && selecionada.valorPadrao) {
-			setValor(selecionada.valorPadrao.toString());
+	useEffect(() => {
+		if (primeiroClique) {
+			validaInputsMovimentacao();
 		}
+	},[movimentacao.idCategoriaMovimentacao, movimentacao.valor]);
+
+	const alteraMovimentacao = (campos: Partial<Movimentacao>) => {
+		setMovimentacao({ ...movimentacao, ...campos });
+	};
+
+	const handleChangeCategoria = (event: SelectChangeEvent) => {
+		const idCategoria = parseInt(event.target.value, 10);
+		const selecionada = categoriasCarregadas.find(item => item.id === idCategoria);
+		alteraMovimentacao({
+			idCategoriaMovimentacao: idCategoria,
+			...(selecionada?.valorPadrao ? { valor: selecionada.valorPadrao } : {})
+		});
 	};
 
 	const handleChangeDescricao = (event: ChangeEvent<HTMLInputElement>) => {
-		setDescricao(event.target.value);
+		alteraMovimentacao({ descricaoMovimentacao: event.target.value });
 	}
 
 	const convertInputValor = (event: ChangeEvent<HTMLInputElement>) => {
 		const digitos = event.target.value.replace(/[^0-9]/g, "");
-		if (digitos === "") {
-			setValor("");
-			return;
-		}
-		const numberValue = parseInt(digitos, 10) / 100;
-		setValor(numberValue.toFixed(2));
+		alteraMovimentacao({ valor: digitos === "" ? 0 : parseInt(digitos, 10) / 100 });
 	};
 
 	const handleKeyDown = (event: React.KeyboardEvent) => {
@@ -111,14 +100,8 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 	};
 
 	const handleChangeAlteraSaldo = () => {
-		setAlteraSaldo(!alterarSaldo);
+		alteraMovimentacao({ alteraSaldo: !movimentacao.alteraSaldo });
 	};
-
-	useEffect(() => {
-		if (primeiroClique) {
-			validaInputsMovimentacao();
-		}
-	},[categoria, valor]);
 
 	return (
 		<Dialog
@@ -143,9 +126,10 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 								<DatePicker
 									className='data-add-movimentacao'
 									label="Data"
-									value={data}
-									defaultValue={data ? data : dayjs(props.selectedDate)}
-									onChange={(newValue) => setData(newValue)}
+									value={dayjs(movimentacao.dataMovimentacao)}
+									onChange={(newValue) => alteraMovimentacao({
+										dataMovimentacao: newValue ? newValue.toDate() : new Date()
+									})}
 									sx={{width: { xs: "213px", sm: "160px", md: "160px"}}}
 								/>
 							</DemoContainer>
@@ -162,7 +146,8 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 							</InputLabel>
 							<Select
 								id="select-categoria"
-								value={categoria}
+								value={movimentacao.idCategoriaMovimentacao
+									? movimentacao.idCategoriaMovimentacao.toString() : ""}
 								label="Categoria"
 								onChange={handleChangeCategoria}
 								required={true}
@@ -173,7 +158,7 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 						<TextField
 							required
 							error={emptyValor}
-							value={valor}
+							value={formataValorInput(movimentacao.valor)}
 							onChange={convertInputValor}
 							inputProps={{ type: 'text', inputMode: 'decimal', pattern: '[0-9]*' }}
 							label= "Valor"
@@ -186,14 +171,14 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 								sx={{width: { xs: "213px", sm: "100%", md: "100%"}}}
 								label="Escreva alguma observação sobre a movimentação"
 								id="fullWidth"
-								value={descricao}
+								value={movimentacao.descricaoMovimentacao}
 								onChange={handleChangeDescricao}
 							/>
 						</Box>
 					</div>
 					<div className="altera-saldo">
 						<FormControlLabel
-							control={<Checkbox checked={alterarSaldo} onChange={handleChangeAlteraSaldo}/>}
+							control={<Checkbox checked={movimentacao.alteraSaldo} onChange={handleChangeAlteraSaldo}/>}
 							label="Alterar o meu saldo"
 							sx={{marginRight: '0 !important'}}
 						/>
@@ -224,24 +209,22 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 	async function salvarMovimentacao() {
 		setPrimeiroClique(true);
 		const inputsValidados = validaInputsMovimentacao();
-		const dataFormatada = data?.hour(12); //evitar problema de TimeZone
 		if (inputsValidados) {
 			setSuccess(false);
-			const novaMovimentacao: Partial<Movimentacao> = {
-				valor: parseFloat(valor),
-				dataMovimentacao: dataFormatada?.toDate() ? dataFormatada?.toDate() : new Date(),
-				tipoMovimentacao: tipo.toString(),
-				idCategoriaMovimentacao: parseInt(categoria),
-				descricaoMovimentacao: descricao,
-				alteraSaldo: alterarSaldo
+			const movimentacaoSalvar: Partial<Movimentacao> = {
+				id: movimentacao.id,
+				valor: movimentacao.valor,
+				//hora 12 evita problema de TimeZone
+				dataMovimentacao: dayjs(movimentacao.dataMovimentacao).hour(12).toDate(),
+				tipoMovimentacao: movimentacao.tipoMovimentacao
+					? movimentacao.tipoMovimentacao : tipo.toString(),
+				idCategoriaMovimentacao: movimentacao.idCategoriaMovimentacao,
+				descricaoMovimentacao: movimentacao.descricaoMovimentacao,
+				alteraSaldo: movimentacao.alteraSaldo
 			}
-			let response;
-			if (props.edit) {
-				novaMovimentacao.id = props.idMovimentacao;
-				response = await movimentacaoService.atualizaMovimentacao(novaMovimentacao);
-			} else {
-				response = await movimentacaoService.adicionaMovimentacao(novaMovimentacao);
-			}
+			const response = edit
+				? await movimentacaoService.atualizaMovimentacao(movimentacaoSalvar)
+				: await movimentacaoService.adicionaMovimentacao(movimentacaoSalvar);
 			setSuccess(true);
 			setOpen(false);
 			if (response?.status === 200) {
@@ -253,8 +236,8 @@ const ModalAddMovimentacao: FC<IModalAddMovimentacao> = (props: IModalAddMovimen
 	}
 
 	function validaInputsMovimentacao() {
-		const emptyFieldCategoria = categoria.trim() === "";
-		const emptyFieldValor = valor.trim() === "" || parseInt(valor) <= 0;
+		const emptyFieldCategoria = !movimentacao.idCategoriaMovimentacao;
+		const emptyFieldValor = !movimentacao.valor || movimentacao.valor <= 0;
 		setEmptyCategoria(emptyFieldCategoria);
 		setEmptyValor(emptyFieldValor);
 		return !emptyFieldCategoria && !emptyFieldValor;

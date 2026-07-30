@@ -1,31 +1,30 @@
 import { Button, Dialog, DialogActions, DialogContent } from '@mui/material';
 import { useAtom } from 'jotai';
 import { FC, useEffect, useState } from "react";
-import { modalRemoveMovimentacao } from '../../../atoms/atom';
+import { modalRemoveMovimentacao, movimentacaoApagar } from '../../../atoms/atom';
 import { TipoMovimentacaoEnum } from '../../../enums/TipoMovimentacaoEnum';
-import { IModalApagar } from '../../../interfaces/IModalApagar';
 import { MovimentacaoService } from '../../../services/MovimentacaoService';
 import { useAlert } from '../../contextProviders/AlertProvider';
 import "./ModalApagaMovimentacao.scss";
 
-const ModalApagaMovimentacao: FC<IModalApagar> = (props: IModalApagar) => {
+const ModalApagaMovimentacao: FC = () => {
 	const movimentacaoService = new MovimentacaoService();
 	const [success, setSuccess] = useState(false);
 	const { showAlert, showError } = useAlert();
 	const [open, setOpen] = useAtom(modalRemoveMovimentacao);
-	const tipoMovimentacao = props.tipo === TipoMovimentacaoEnum.POSITIVO ? 'rendimento' : 'despesa';
-	const possuiMovimentacaoEData = props?.movimentacao !== undefined
-		&& props.movimentacao?.dataMovimentacao !== undefined;
+	const [movimentacao] = useAtom(movimentacaoApagar);
+	const tipoMovimentacao = movimentacao?.tipoMovimentacao.toUpperCase()
+		=== TipoMovimentacaoEnum.POSITIVO.toString() ? 'rendimento' : 'despesa';
 
 	let date = undefined;
 	let id = 0;
 	let valor = 0;
 
-	if (possuiMovimentacaoEData) {
-		const dateString = props.movimentacao?.dataMovimentacao as string | undefined;
+	if (movimentacao?.dataMovimentacao !== undefined) {
+		const dateString = movimentacao.dataMovimentacao as unknown as string | undefined;
 		date = dateString ? new Date(dateString) : undefined;
-		id = props.movimentacao?.id ? props.movimentacao.id : 0
-		valor = props.movimentacao ? props.movimentacao.valor : 0;
+		id = movimentacao.id ? movimentacao.id : 0
+		valor = movimentacao.valor;
 	}
 
 	const handleKeyDown = (event: React.KeyboardEvent) => {
@@ -64,7 +63,7 @@ const ModalApagaMovimentacao: FC<IModalApagar> = (props: IModalApagar) => {
 							/{date?.getFullYear()}
 						</div>
 						<div className="info">
-							{props.movimentacao?.nomeCategoriaMovimentacao}
+							{movimentacao?.nomeCategoriaMovimentacao}
 						</div>
 						<div className="info">
 							{valor.toFixed(2).replace('.', ',')}

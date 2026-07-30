@@ -1,6 +1,8 @@
 import { atom } from "jotai";
 import { TipoMovimentacaoEnum } from "../enums/TipoMovimentacaoEnum";
+import { Movimentacao } from "../types/Movimentacao";
 import { Planejamento } from "../types/Planejamento";
+import { criaMovimentacaoVazia } from "../utils/MovimentacaoUtils";
 
 export const accessToken = atom("" as string | null);
 export const pictureAtom = atom(localStorage.getItem("urlPicture") as string | null);
@@ -14,3 +16,8 @@ export const modalEditSaldo = atom(false as boolean);
 export const modalTutoriais = atom(false as boolean);
 export const modalCategorias = atom(false as boolean);
 export const planejamento = atom({} as Planejamento);
+export const movimentacaoAtom = atom<Movimentacao>(criaMovimentacaoVazia());
+export const movimentacaoApagar = atom<Movimentacao | null>(null);
+export const movimentacoesMes = atom<Movimentacao[]>([]);
+export const dataSelecionada = atom<Date>(new Date());
+export const valoresVisiveis = atom(false as boolean);
