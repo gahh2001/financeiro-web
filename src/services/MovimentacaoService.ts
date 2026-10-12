@@ -23,12 +23,14 @@ export class MovimentacaoService {
 	}
 
 	async obtemPorParametros(dataInicio: number | undefined,
-			dataFim: number | undefined, tipo: string | undefined, categorias: string[] | undefined) {
+			dataFim: number | undefined, tipo: string | undefined, categorias: string[] | undefined,
+			description?: string) {
 		const params = {
 			dataInicio: dataInicio,
 			dataFim: dataFim,
 			tipoMovimentacao: tipo,
-			categorias: categorias?.join(',')
+			categorias: categorias?.join(','),
+			descricao: description
 		}
 		try {
 			const response = await this.axiosInstance

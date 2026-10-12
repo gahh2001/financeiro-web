@@ -1,8 +1,9 @@
 import { ArrowDownward, ArrowUpward, InfoOutlined } from "@mui/icons-material";
 import { Button, IconButton, Tooltip } from "@mui/material";
 import { useAtom } from "jotai";
-import { FC, useEffect, useState } from "react";
-import { accessToken } from "../../atoms/atom";
+import { FC, useEffect, useMemo, useState } from "react";
+import { accessToken, movementSearchText } from "../../atoms/atom";
+import { TipoMovimentacaoEnum } from "../../enums/TipoMovimentacaoEnum";
 import { ListaMovimentacaoProps } from "../../interfaces/FiltrosMovimentacoesProps";
 import { MovimentacaoService } from "../../services/MovimentacaoService";
 import { Movimentacao } from "../../types/Movimentacao";
@@ -11,11 +12,11 @@ import { useDialog } from "../contextProviders/DialogContext";
 
 const ListaMovimentacoes: FC<ListaMovimentacaoProps> = (props: ListaMovimentacaoProps) => {
 	const movimentacaoService = new MovimentacaoService();
-	const [movimentacoes, setMovimentacoes] = useState<Movimentacao[]>([]);
 	const [movimentacoesIniciais, setMovimentacoesIniciais] = useState<Movimentacao[]>([]);
 	const [campoOrdem, setCampoOrdem] = useState("data");
 	const [ordemAsc, setOrdemAsc] = useState(true);
 	const [accessTokenAtom] = useAtom(accessToken);
+	const [searchText] = useAtom(movementSearchText);
 	const { showDialog } = useDialog();
 
 	function mudaOrdem(campo: string) {
@@ -28,11 +29,10 @@ const ListaMovimentacoes: FC<ListaMovimentacaoProps> = (props: ListaMovimentacao
 			try {
 				if (accessTokenAtom !== "") {
 					const categorias = await movimentacaoService
-						.obtemPorParametros(props.dataInicio?.valueOf(), props.dataFim?.valueOf(),
-							props.tipo, props.categorias);
+						.obtemPorParametros(searchText ? undefined : props.dataInicio?.valueOf(),
+							searchText ? undefined : props.dataFim?.valueOf(), undefined, undefined, searchText);
 					if (categorias?.data) {
 						setMovimentacoesIniciais(categorias.data);
-						setMovimentacoes(categorias.data);
 					}
 				}
 			} catch (error) {
@@ -40,52 +40,44 @@ const ListaMovimentacoes: FC<ListaMovimentacaoProps> = (props: ListaMovimentacao
 			}
 		}
 		buscaCategorias();
-	}, [props.dataInicio, props.dataFim]);
+	}, [props.dataInicio, props.dataFim, searchText]);
 
-	useEffect(() => {
-		if (props.tipo !== "TODOS") {
-			setMovimentacoes(movimentacoesIniciais.filter(movimentacao =>
-				movimentacao.tipoMovimentacao === props.tipo
-			));
-		}
-	},[props.tipo]);
-
-	useEffect(()=> {
-		let sortedMovimentacoes = [...movimentacoes];
+	const movimentacoes = useMemo(() => {
+		const filteredMovimentacoes = movimentacoesIniciais.filter(movimentacao =>
+			(props.tipo === TipoMovimentacaoEnum.TODOS.toString() || movimentacao.tipoMovimentacao === props.tipo)
+			&& (props.categorias.includes("Todas")
+				|| props.categorias.includes(movimentacao.nomeCategoriaMovimentacao || ""))
+		);
 		switch (campoOrdem) {
 			case "data":
-				sortedMovimentacoes.sort((a, b) =>
+				filteredMovimentacoes.sort((a, b) =>
 					new Date(a.dataMovimentacao).getTime() - new Date(b.dataMovimentacao).getTime()
 				);
 				break;
 			case "categoria":
-				sortedMovimentacoes.sort((a, b) =>
+				filteredMovimentacoes.sort((a, b) =>
 					(a.nomeCategoriaMovimentacao || "").localeCompare(b.nomeCategoriaMovimentacao || "")
 				);
 				break;
 			case "valor":
-				sortedMovimentacoes.sort((a, b) => a.valor - b.valor);
+				filteredMovimentacoes.sort((a, b) => a.valor - b.valor);
 				break;
 			default:
 				break;
 		}
 		if (!ordemAsc) {
-			sortedMovimentacoes.reverse();
+			filteredMovimentacoes.reverse();
 		}
-		setMovimentacoes(sortedMovimentacoes);
-	}, [campoOrdem, ordemAsc]);
+		return filteredMovimentacoes;
+	}, [movimentacoesIniciais, props.tipo, props.categorias, campoOrdem, ordemAsc]);
 
-	useEffect(() => {
-		if (!props.categorias.includes("Todas")) {
-			setMovimentacoes(movimentacoesIniciais.filter(movimentacao =>
-				props.categorias.includes(movimentacao.nomeCategoriaMovimentacao || "")
-			));
-			return;
-		}
-		setMovimentacoes(movimentacoesIniciais.filter(movimentacao =>
-			movimentacao.tipoMovimentacao === props.tipo
-		));
-	},[props.categorias]);
+	const totals = useMemo(() => movimentacoes.reduce((accumulated, movimentacao) =>
+		movimentacao.tipoMovimentacao === TipoMovimentacaoEnum.POSITIVO.toString()
+			? {...accumulated, income: accumulated.income + movimentacao.valor}
+			: {...accumulated, expense: accumulated.expense + movimentacao.valor},
+		{ income: 0, expense: 0 }
+	), [movimentacoes]);
+	const total = totals.income + totals.expense;
 
 	return (
 		movimentacoes.length ?
@@ -105,8 +97,24 @@ const ListaMovimentacoes: FC<ListaMovimentacaoProps> = (props: ListaMovimentacao
 				</Button>
 			</div>
 			{montaMovimentacoes(movimentacoes)}
+			<div className="totais">
+				<p>
+					Rendimentos
+					<span style={{ color: "#42B84A" }}>{formatAmount(totals.income)}</span>
+				</p>
+				<p>
+					Despesas
+					<span style={{ color: "#AD4331" }}>{formatAmount(totals.expense)}</span>
+				</p>
+				<p>
+					Soma total
+					<span>{formatAmount(total)}</span>
+				</p>
+			</div>
 		</div>
-		: <div className="nenhum-conteudo">Nenhuma movimentação para estes filtros...</div>
+		: <div className="nenhum-conteudo">
+			{searchText ? `Nenhuma movimentação com "${searchText}" na descrição...` : "Nenhuma movimentação para estes filtros..."}
+		</div>
 	);
 
 	function montaMovimentacoes(movimentacoes: Movimentacao[]) {
@@ -123,7 +131,12 @@ const ListaMovimentacoes: FC<ListaMovimentacaoProps> = (props: ListaMovimentacao
 							/{new Date(movimentacao.dataMovimentacao).getUTCFullYear()}
 						</p>
 						<p className="variavel">{movimentacao.nomeCategoriaMovimentacao}</p>
-						<p className="variavel">{movimentacao.valor.toFixed(2).replace('.', ',')}</p>
+						<p
+							className="variavel"
+							style={{ color: movimentacao.tipoMovimentacao === TipoMovimentacaoEnum.POSITIVO.toString() ? "#42B84A" : "#AD4331" }}
+						>
+							{movimentacao.valor.toFixed(2).replace('.', ',')}
+						</p>
 						<div className="icon">
 							<Tooltip
 								title="Ver descrição da movimentação"
@@ -142,6 +155,10 @@ const ListaMovimentacoes: FC<ListaMovimentacaoProps> = (props: ListaMovimentacao
 				))}
 			</div>
 		);
+	}
+
+	function formatAmount(amount: number) {
+		return amount.toFixed(2).replace('.', ',');
 	}
 
 	function obtemIconeOdem(campo: string) {

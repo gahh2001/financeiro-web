@@ -4,7 +4,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { useAtom } from "jotai";
 import { FC, useEffect, useState } from "react";
-import { accessToken } from "../../atoms/atom";
+import { accessToken, movementSearchText } from "../../atoms/atom";
 import { TipoMovimentacaoEnum } from "../../enums/TipoMovimentacaoEnum";
 import { FiltrosMovimentacoesProps } from "../../interfaces/FiltrosMovimentacoesProps";
 import { CategoriaMovimentacaoService } from "../../services/CategoriaMovimentacaoService";
@@ -15,6 +15,7 @@ const FiltrosMovimentacoes: FC<FiltrosMovimentacoesProps> = (props: FiltrosMovim
 	const [categorias, setCategorias] = useState<CategoriaMovimentacao[]>([]);
 	const categoriaMovimentacaoService = new CategoriaMovimentacaoService();
 	const [accessTokenAtom] = useAtom(accessToken);
+	const [searchText] = useAtom(movementSearchText);
 	const theme = useTheme();
 	const ITEM_HEIGHT = 48;
 	const ITEM_PADDING_TOP = 8;
@@ -89,6 +90,7 @@ const FiltrosMovimentacoes: FC<FiltrosMovimentacoesProps> = (props: FiltrosMovim
 						<DatePicker
 							sx={{ width: "25vh" }}
 							label="De"
+							disabled={Boolean(searchText)}
 							value={props.dataInicio}
 							defaultValue={props.dataInicio}
 							onChange={(newValue) => props.setDataInicio(newValue)}
@@ -102,6 +104,7 @@ const FiltrosMovimentacoes: FC<FiltrosMovimentacoesProps> = (props: FiltrosMovim
 						<DatePicker
 							sx={{ width: "25vh" }}
 							label="Até"
+							disabled={Boolean(searchText)}
 							value={props.dataFim}
 							defaultValue={props.dataFim}
 							onChange={(newValue) => props.setDataFim(newValue)}

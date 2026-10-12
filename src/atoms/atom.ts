@@ -21,3 +21,4 @@ export const movimentacaoApagar = atom<Movimentacao | null>(null);
 export const movimentacoesMes = atom<Movimentacao[]>([]);
 export const dataSelecionada = atom<Date>(new Date());
 export const valoresVisiveis = atom(false as boolean);
+export const movementSearchText = atom("" as string);

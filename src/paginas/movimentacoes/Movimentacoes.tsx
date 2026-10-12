@@ -8,6 +8,7 @@ import Dica from "../../componentes/dicas/Dica";
 import Footer from "../../componentes/footer/Footer";
 import FiltrosMovimentacoes from "../../componentes/movimentacoes/FiltrosMovimentacoes";
 import ListaMovimentacoes from "../../componentes/movimentacoes/ListaMovimentacoes";
+import MovementSearch from "../../componentes/movimentacoes/MovementSearch";
 import { TipoMovimentacaoEnum } from "../../enums/TipoMovimentacaoEnum";
 import './Movimentacoes.scss';
 
@@ -56,12 +57,13 @@ const Movimentacoes: FC = () => {
 			/>
 			<div className="movimentacoes">
 				<Dica
-					frase='Aqui você pode visualizar todas as suas movimentações, filtrando por períodos, tipo e categoria'
+					frase='Aqui você pode visualizar todas as suas movimentações, filtrando por períodos, tipo e categoria, ou buscar pela descrição'
 					codigo="dicaMovimentacao"
 					open={openDicaMovimentacao}
 					setOpen={setOpenDicaMovimentacao}
 				/>
 				<div className="card">
+					<MovementSearch/>
 					<FiltrosMovimentacoes
 						categorias={categorias}
 						setCategorias={setCategoriasProps}
