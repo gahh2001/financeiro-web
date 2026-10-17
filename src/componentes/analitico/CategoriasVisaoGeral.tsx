@@ -2,6 +2,7 @@ import { BarChart } from '@mui/x-charts/BarChart';
 import { FC } from 'react';
 import { TipoMovimentacaoEnum } from '../../enums/TipoMovimentacaoEnum';
 import { ICategoriasVisaoGeralProps } from '../../interfaces/ICategoriasVisaoGeralProps';
+import { amountBarLabel, chartLabelStyle } from '../../utils/ChartUtils';
 
 const CategoriasVisaoGeral: FC<ICategoriasVisaoGeralProps> = (props: ICategoriasVisaoGeralProps) => {
 	const color = props.tipoMovimentacao === TipoMovimentacaoEnum.NEGATIVO
@@ -21,6 +22,8 @@ const CategoriasVisaoGeral: FC<ICategoriasVisaoGeralProps> = (props: ICategorias
 			&& props.somaCategorias.length > 0
 		? <div className='grafic'>
 				<BarChart
+					barLabel={amountBarLabel}
+					sx={chartLabelStyle}
 					xAxis={[
 						{
 						id: 'barCategories',

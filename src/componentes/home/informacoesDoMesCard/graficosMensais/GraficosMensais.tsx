@@ -2,9 +2,10 @@ import { Divider } from '@mui/material';
 import { BarChart } from '@mui/x-charts/BarChart';
 import { useAtom } from 'jotai';
 import { FC } from 'react';
-import { movimentacoesMes } from '../../../../atoms/atom';
+import { movimentacoesMes, valoresVisiveis } from '../../../../atoms/atom';
 import { TipoMovimentacaoEnum } from '../../../../enums/TipoMovimentacaoEnum';
 import { Movimentacao } from '../../../../types/Movimentacao';
+import { amountBarLabel, chartLabelStyle } from '../../../../utils/ChartUtils';
 import './GraficosMensais.scss';
 
 type SomaPorCategoria = {
@@ -14,6 +15,7 @@ type SomaPorCategoria = {
 
 const GraficosMensais: FC = () => {
 	const [movimentacoesDoMes] = useAtom(movimentacoesMes);
+	const [visivel] = useAtom(valoresVisiveis);
 	const positivas = somaPorCategoria(movimentacoesDoMes, TipoMovimentacaoEnum.POSITIVO);
 	const negativas = somaPorCategoria(movimentacoesDoMes, TipoMovimentacaoEnum.NEGATIVO);
 
@@ -48,6 +50,8 @@ const GraficosMensais: FC = () => {
 				<div className="titulo">Rendimentos</div>
 				<div className='grafic'>
 					<BarChart
+						barLabel={visivel ? amountBarLabel : undefined}
+						sx={chartLabelStyle}
 						xAxis={[
 							{
 							id: 'barCategories',
@@ -87,6 +91,8 @@ const GraficosMensais: FC = () => {
 				<div className="titulo">Gastos</div>
 				<div className='grafic'>
 					<BarChart
+						barLabel={visivel ? amountBarLabel : undefined}
+						sx={chartLabelStyle}
 						xAxis={[
 							{
 							id: 'barCategories',

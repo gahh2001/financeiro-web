@@ -1,6 +1,7 @@
 import { BarChart } from '@mui/x-charts/BarChart';
 import { FC } from 'react';
 import { ICategoriasComparacaoProps } from '../../interfaces/ICategoriasComparacaoProps';
+import { amountBarLabel, chartLabelStyle } from '../../utils/ChartUtils';
 
 const CategoriasComparacao: FC<ICategoriasComparacaoProps> = (props: ICategoriasComparacaoProps) => {
 	const highlightScope = {
@@ -23,6 +24,8 @@ const CategoriasComparacao: FC<ICategoriasComparacaoProps> = (props: ICategorias
 		return series && props.comparacoes && props.comparacoes.length
 		? <div className="grafic">
 			<BarChart
+				barLabel={amountBarLabel}
+				sx={chartLabelStyle}
 				xAxis={[
 					{
 					id: 'barCategories',
