@@ -1,3 +1,4 @@
+import dayjs, { Dayjs } from "dayjs";
 import { atom } from "jotai";
 import { TipoMovimentacaoEnum } from "../enums/TipoMovimentacaoEnum";
 import { Movimentacao } from "../types/Movimentacao";
@@ -22,3 +23,5 @@ export const movimentacoesMes = atom<Movimentacao[]>([]);
 export const dataSelecionada = atom<Date>(new Date());
 export const valoresVisiveis = atom(false as boolean);
 export const movementSearchText = atom("" as string);
+export const analyticsYear = atom<Dayjs | null>(dayjs());
+export const analyticsFullYear = atom(false as boolean);

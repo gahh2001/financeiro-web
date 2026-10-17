@@ -55,6 +55,12 @@
 					text-align: center;
 					color: $color-in-linhas;
 				}
+
+				.comparacao-ano {
+					display: flex;
+					justify-content: center;
+					margin-top: 1.5vh;
+				}
 			
 				.grafic {
 					width: 100%;

@@ -1,8 +1,8 @@
-import dayjs, { Dayjs } from "dayjs";
+import { Dayjs } from "dayjs";
 import { useAtom } from "jotai";
 import { FC, Fragment, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { accessToken } from "../../atoms/atom";
+import { accessToken, analyticsFullYear, analyticsYear } from "../../atoms/atom";
 import CategoriasComparacao from "../../componentes/analitico/CategoriasComparacao";
 import CategoriasDesempenho from "../../componentes/analitico/CategoriasDesempenho";
 import CategoriasEvolucao from "../../componentes/analitico/CategoriasEvolucao";
@@ -24,14 +24,14 @@ import { SomaCategoriasPorMes } from "../../types/SomaCategoriasPorMes";
 import './Analitico.scss';
 
 const Analitico: FC = () => {
-	const [ano, setAno] = useState<Dayjs | null>(dayjs(new Date().getTime()));
+	const [ano, setAno] = useAtom(analyticsYear);
 	const [mes, setMes] = useState<Dayjs | null>(ano);
 	const [tipoMovimentacaoTop, setTipoMovimentacaoTop] = useState(TipoMovimentacaoEnum.POSITIVO.toString());
 	const [categoriasComparacao, setCategoriasComparacao] = useState(["POSITIVOS"]);
 	const [tipoComparacao, setTipoComparacao] = useState(TipoComparacaoEnum.TRESMESES.toString());
 	const [openDicaGeral, setOpenDicaGeral] = useState(localStorage.getItem('dicaGeral') !== "ok");
 	const [openDicaComparacao, setOpenDicaComparacao] = useState(localStorage.getItem('dicaComparacao') !== "ok");
-	const [fullYear, setFullYear] = useState(false);
+	const [fullYear, setFullYear] = useAtom(analyticsFullYear);
 	const [nomeCategorias, setNomeCategorias] = useState<string[]>([]);
 	const [somaCategorias, setSomaCategorias] = useState<number[]>([]);
 	const [porcentagens, setPorcentagens] = useState<ISeriesChart[]>([]);

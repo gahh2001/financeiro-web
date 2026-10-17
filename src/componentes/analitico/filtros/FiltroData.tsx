@@ -63,6 +63,7 @@ const FiltroData: FC<IFiltroDataProps> = (props: IFiltroDataProps) => {
 						control={
 							<Switch
 								color='primary'
+								checked={props.fullYear}
 								onChange={handleChangeFullYear}
 							/>
 						}
