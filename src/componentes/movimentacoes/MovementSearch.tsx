@@ -10,10 +10,10 @@ const MovementSearch: FC = () => {
 
 	useEffect(() => () => setSearchText(""), []);
 
-	useEffect(() => {
-		const debounce = setTimeout(() => setSearchText(typedText.trim()), 400);
-		return () => clearTimeout(debounce);
-	}, [typedText]);
+	const changeSearchText = (text: string) => {
+		setTypedText(text);
+		setSearchText(text.trim());
+	};
 
 	return (
 		<div className="busca">
@@ -22,7 +22,7 @@ const MovementSearch: FC = () => {
 				size="small"
 				placeholder="Buscar pela descrição da movimentação"
 				value={typedText}
-				onChange={(event) => setTypedText(event.target.value)}
+				onChange={(event) => changeSearchText(event.target.value)}
 				helperText={searchText ? "Buscando em todo o período. Tipo e categorias continuam aplicados." : " "}
 				InputProps={{
 					startAdornment: (
@@ -32,7 +32,7 @@ const MovementSearch: FC = () => {
 					),
 					endAdornment: typedText && (
 						<InputAdornment position="end">
-							<IconButton size="small" onClick={() => setTypedText("")}>
+							<IconButton size="small" onClick={() => changeSearchText("")}>
 								<Close/>
 							</IconButton>
 						</InputAdornment>

@@ -42,7 +42,8 @@
     "styled": "^1.0.0",
     "styled-components": "^6.1.0",
     "typescript": "^4.5.5",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "write-excel-file": "^4.1.1"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -10,7 +10,7 @@ const Transition = React.forwardRef(function Transition(
 });
 
 interface DialogContextProps {
-	showDialog: (message: string) => void;
+	showDialog: (message: string, title?: string) => void;
 }
 
 const DialogContext = createContext<DialogContextProps | undefined>(undefined);
@@ -18,9 +18,11 @@ const DialogContext = createContext<DialogContextProps | undefined>(undefined);
 export const DialogProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 	const [open, setOpen] = useState(false);
 	const [message, setMessage] = useState("");
+	const [title, setTitle] = useState("Descrição");
 
-	const showDialog = (msg: string) => {
+	const showDialog = (msg: string, dialogTitle = "Descrição") => {
 		setMessage(msg);
+		setTitle(dialogTitle);
 		setOpen(true);
 	};
 
@@ -39,7 +41,7 @@ export const DialogProvider: React.FC<{ children: ReactNode }> = ({ children }) 
 				fullWidth
 				sx={{ zIndex: 1500 }}
 			>
-				<DialogTitle>Descrição</DialogTitle>
+				<DialogTitle>{title}</DialogTitle>
 				<DialogContent>
 					<DialogContentText>{message}</DialogContentText>
 				</DialogContent>
