@@ -18,16 +18,12 @@ const CategoriasVisaoGeral: FC<ICategoriasVisaoGeralProps> = (props: ICategorias
 	const categoriaService = new CategoriaMovimentacaoService();
 	const [ano] = useAtom(analyticsYear);
 	const [fullYear] = useAtom(analyticsFullYear);
-	const [comparisonYear, setComparisonYear] = useState<Dayjs | null>(ano ? ano.subtract(1, 'year') : null);
+	const [comparisonYear, setComparisonYear] = useState<Dayjs | null>(null);
 	const [comparisonSums, setComparisonSums] = useState<SomaCategoriasPorMes[]>([]);
 	const isComparing = fullYear && Boolean(comparisonYear);
 	const categoryNames = isComparing
 		? Array.from(new Set([...props.nomeCategorias, ...comparisonSums.map((soma) => soma.nomeCategoria)]))
 		: props.nomeCategorias;
-
-	useEffect(() => {
-		setComparisonYear(ano ? ano.subtract(1, 'year') : null);
-	}, [ano]);
 
 	useEffect(() => {
 		const fetchComparisonSums = async () => {
