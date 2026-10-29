@@ -1,14 +1,23 @@
-import { ArrowDownward, ArrowUpward, FileDownloadOutlined, InfoOutlined } from "@mui/icons-material";
+import { ArrowDownward, ArrowUpward, DeleteForever, FileDownloadOutlined, InfoOutlined, ModeEdit } from "@mui/icons-material";
 import { Button, IconButton, Tooltip } from "@mui/material";
 import { useAtom } from "jotai";
 import { FC, useEffect, useMemo, useRef, useState } from "react";
-import { accessToken, movementSearchText } from "../../atoms/atom";
+import {
+	accessToken,
+	modalAddMovimentacao,
+	modalMovimentacao,
+	modalRemoveMovimentacao,
+	movementSearchText,
+	movimentacaoApagar,
+	movimentacaoAtom
+} from "../../atoms/atom";
 import { TipoMovimentacaoEnum } from "../../enums/TipoMovimentacaoEnum";
 import { ListaMovimentacaoProps } from "../../interfaces/FiltrosMovimentacoesProps";
 import { MovimentacaoService } from "../../services/MovimentacaoService";
 import { Movimentacao } from "../../types/Movimentacao";
 import ConverteIcone from "../../utils/ConverteIcones";
 import { downloadMovementsSpreadsheet } from "../../utils/MovementSpreadsheetUtils";
+import { getMovementType, toLocalCalendarDate } from "../../utils/MovimentacaoUtils";
 import { useDialog } from "../contextProviders/DialogContext";
 
 const searchDebounceMilliseconds = 400;
@@ -23,6 +32,12 @@ const ListaMovimentacoes: FC<ListaMovimentacaoProps> = (props: ListaMovimentacao
 	const [generatingReport, setGeneratingReport] = useState(false);
 	const [accessTokenAtom] = useAtom(accessToken);
 	const [searchText] = useAtom(movementSearchText);
+	const [openModalAdd, setOpenModalAdd] = useAtom(modalAddMovimentacao);
+	const [, setModalMovimentacao] = useAtom(modalMovimentacao);
+	const [, setMovimentacao] = useAtom(movimentacaoAtom);
+	const [openModalRemove, setOpenModalRemove] = useAtom(modalRemoveMovimentacao);
+	const [, setMovimentacaoApagar] = useAtom(movimentacaoApagar);
+	const isModalOpen = openModalAdd || openModalRemove;
 	const latestRequestId = useRef(0);
 	const lastRequestedSearchText = useRef(searchText);
 	const { showDialog } = useDialog();
@@ -34,8 +49,19 @@ const ListaMovimentacoes: FC<ListaMovimentacaoProps> = (props: ListaMovimentacao
 		setOrdemAsc(!ordemAsc);
 	}
 
+	const openEditModal = (movimentacao: Movimentacao) => {
+		setModalMovimentacao(getMovementType(movimentacao));
+		setMovimentacao({ ...movimentacao, dataMovimentacao: toLocalCalendarDate(movimentacao.dataMovimentacao) });
+		setOpenModalAdd(true);
+	};
+
+	const openDeleteModal = (movimentacao: Movimentacao) => {
+		setMovimentacaoApagar(movimentacao);
+		setOpenModalRemove(true);
+	};
+
 	useEffect(() => {
-		if (accessTokenAtom === "") {
+		if (accessTokenAtom === "" || isModalOpen) {
 			return;
 		}
 		latestRequestId.current += 1;
@@ -50,7 +76,7 @@ const ListaMovimentacoes: FC<ListaMovimentacaoProps> = (props: ListaMovimentacao
 		lastRequestedSearchText.current = searchText;
 		const timer = setTimeout(loadMovements, delay);
 		return () => clearTimeout(timer);
-	}, [props.dataInicio, props.dataFim, searchText]);
+	}, [props.dataInicio, props.dataFim, searchText, isModalOpen]);
 
 	const movimentacoes = useMemo(() => applyDisplayFilters(movimentacoesIniciais),
 		[movimentacoesIniciais, props.tipo, props.categorias, campoOrdem, ordemAsc]);
@@ -220,6 +246,28 @@ const ListaMovimentacoes: FC<ListaMovimentacaoProps> = (props: ListaMovimentacao
 									<InfoOutlined
 										sx={{ color: "#0085FF" }}
 									/>
+								</IconButton>
+							</Tooltip>
+							<Tooltip
+								title="Editar movimentação"
+								placement="top"
+							>
+								<IconButton
+									color="inherit"
+									onClick={() => openEditModal(movimentacao)}
+								>
+									<ModeEdit />
+								</IconButton>
+							</Tooltip>
+							<Tooltip
+								title="Apagar movimentação"
+								placement="left"
+							>
+								<IconButton
+									onClick={() => openDeleteModal(movimentacao)}
+								>
+									<DeleteForever sx={{ color: "#e15734db" }}
+								/>
 								</IconButton>
 							</Tooltip>
 						</div>

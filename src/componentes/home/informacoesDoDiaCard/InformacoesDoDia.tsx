@@ -31,7 +31,7 @@ import { TipoMovimentacaoEnum } from '../../../enums/TipoMovimentacaoEnum';
 import { ContaService } from '../../../services/ContaService';
 import { Movimentacao } from '../../../types/Movimentacao';
 import ConverteIcone from '../../../utils/ConverteIcones';
-import { criaMovimentacaoVazia } from '../../../utils/MovimentacaoUtils';
+import { criaMovimentacaoVazia, getMovementType } from '../../../utils/MovimentacaoUtils';
 import { useDialog } from '../../contextProviders/DialogContext';
 import './InformacoesDoDia.scss';
 
@@ -83,11 +83,6 @@ const InformacoesDoDia: FC = () => {
 		setMovimentacaoApagar(movimentacao);
 		setOpenModalRemove(true);
 	};
-
-	const obtemTipo = (movimentacao: Movimentacao) =>
-		movimentacao.tipoMovimentacao.toUpperCase() === TipoMovimentacaoEnum.POSITIVO.toString()
-			? TipoMovimentacaoEnum.POSITIVO
-			: TipoMovimentacaoEnum.NEGATIVO;
 
 	return (
 		<div className="informacoes-do-dia">
@@ -222,7 +217,7 @@ const InformacoesDoDia: FC = () => {
 									>
 										<IconButton
 											color="inherit"
-											onClick={() => abreModalMovimentacao(obtemTipo(movimentacao), movimentacao)}
+											onClick={() => abreModalMovimentacao(getMovementType(movimentacao), movimentacao)}
 										>
 											<ModeEdit />
 										</IconButton>

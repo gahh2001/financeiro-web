@@ -6,6 +6,8 @@ import { accessToken } from "../../atoms/atom";
 import AppBar from "../../componentes/AppBar/AppBar";
 import Dica from "../../componentes/dicas/Dica";
 import Footer from "../../componentes/footer/Footer";
+import ModalAddMovimentacao from "../../componentes/home/modalAddMovimentacao/ModalAddMovimentacao";
+import ModalApagaMovimentacao from "../../componentes/home/modalRemoveMovimentacao/ModalApagaMovimentacao";
 import FiltrosMovimentacoes from "../../componentes/movimentacoes/FiltrosMovimentacoes";
 import ListaMovimentacoes from "../../componentes/movimentacoes/ListaMovimentacoes";
 import MovementSearch from "../../componentes/movimentacoes/MovementSearch";
@@ -83,6 +85,8 @@ const Movimentacoes: FC = () => {
 				</div>
 			</div>
 			<Footer/>
+			<ModalAddMovimentacao/>
+			<ModalApagaMovimentacao/>
 		</Fragment>
 	);
 }

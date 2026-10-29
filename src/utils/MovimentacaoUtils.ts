@@ -17,3 +17,13 @@ export const criaMovimentacaoVazia = (
 
 export const formataValorInput = (valor: number) =>
 	valor ? valor.toFixed(2) : "";
+
+export const getMovementType = (movimentacao: Movimentacao) =>
+	movimentacao.tipoMovimentacao.toUpperCase() === TipoMovimentacaoEnum.POSITIVO.toString()
+		? TipoMovimentacaoEnum.POSITIVO
+		: TipoMovimentacaoEnum.NEGATIVO;
+
+export const toLocalCalendarDate = (date: Date) => {
+	const utcDate = new Date(date);
+	return new Date(utcDate.getUTCFullYear(), utcDate.getUTCMonth(), utcDate.getUTCDate());
+};
