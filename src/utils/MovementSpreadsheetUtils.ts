@@ -26,14 +26,17 @@ export const downloadMovementsSpreadsheet = (movements: Movimentacao[], fileName
 			},
 			{
 				header: { value: "Valor", fontWeight: "bold" },
-				cell: (movement) => Number.isFinite(movement.valor)
-					? {
-						value: movement.valor,
-						type: Number,
-						format: "#,##0.00",
-						textColor: movement.tipoMovimentacao === TipoMovimentacaoEnum.POSITIVO.toString() ? "#42B84A" : "#AD4331"
-					}
-					: null,
+				cell: (movement) => {
+					const isIncome = movement.tipoMovimentacao === TipoMovimentacaoEnum.POSITIVO.toString();
+					return Number.isFinite(movement.valor)
+						? {
+							value: isIncome ? movement.valor : -Math.abs(movement.valor),
+							type: Number,
+							format: "#,##0.00",
+							textColor: isIncome ? "#42B84A" : "#AD4331"
+						}
+						: null;
+				},
 				width: 15
 			},
 			{
